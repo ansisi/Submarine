@@ -131,7 +131,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 96992541}
-  - component: {fileID: 96992540}
   - component: {fileID: 96992539}
   - component: {fileID: 96992542}
   m_Layer: 0
@@ -164,33 +163,6 @@ CapsuleCollider:
   m_Height: 0.52
   m_Direction: 0
   m_Center: {x: -0.01, y: 0.26, z: 0}
---- !u!54 &96992540
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 96992538}
-  serializedVersion: 4
-  m_Mass: 100
-  m_Drag: 100
-  m_AngularDrag: 100
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 8
-  m_CollisionDetection: 0
 --- !u!4 &96992541
 Transform:
   m_ObjectHideFlags: 0
@@ -222,6 +194,11 @@ MonoBehaviour:
   maxFuel: 100
   currentFuel: 0
   fuelRemoveAmount: 10
+  engineParts: 0
+  hullParts: 0
+  propellerParts: 0
+  controlPanelParts: 0
+  navigationSystemParts: 0
 --- !u!1 &591318983
 GameObject:
   m_ObjectHideFlags: 0
@@ -414,6 +391,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1902980468}
+  - {fileID: 702399760}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &620160163
@@ -436,6 +414,75 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4886737509247798, guid: a47fdbe3572344a41b7d7976650682ba, type: 3}
   m_PrefabInstance: {fileID: 1553001148}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &702399759
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 702399760}
+  - component: {fileID: 702399762}
+  - component: {fileID: 702399761}
+  m_Layer: 0
+  m_Name: GrabRange
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &702399760
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 702399759}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.233, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 620160162}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &702399761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 702399759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 583617307679f0c458a1c3786375ee7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  headOffset: {x: 0, y: 0.5, z: 0}
+--- !u!136 &702399762
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 702399759}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 0.5
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1163829289
 GameObject:
   m_ObjectHideFlags: 0
@@ -450,6 +497,7 @@ GameObject:
   - component: {fileID: 1163829291}
   - component: {fileID: 1163829290}
   - component: {fileID: 1163829295}
+  - component: {fileID: 1163829296}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -585,6 +633,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectMass: 10
+--- !u!114 &1163829296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1163829289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0c1791c1ff8c7842adcfa0646469ec6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGrabbed: 0
+  fuelAmount: 10
 --- !u!1 &1246119283
 GameObject:
   m_ObjectHideFlags: 0
@@ -719,6 +781,7 @@ GameObject:
   - component: {fileID: 1494196433}
   - component: {fileID: 1494196432}
   - component: {fileID: 1494196437}
+  - component: {fileID: 1494196438}
   m_Layer: 0
   m_Name: Capsule (2)
   m_TagString: Untagged
@@ -854,6 +917,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectMass: 1
+--- !u!114 &1494196438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1494196430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54475267fba6a0f44bd36d61ff945dea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGrabbed: 0
+  partType: 0
 --- !u!1 &1552170260
 GameObject:
   m_ObjectHideFlags: 0
@@ -868,6 +945,7 @@ GameObject:
   - component: {fileID: 1552170263}
   - component: {fileID: 1552170262}
   - component: {fileID: 1552170267}
+  - component: {fileID: 1552170268}
   m_Layer: 0
   m_Name: Capsule (3)
   m_TagString: Untagged
@@ -1003,6 +1081,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectMass: 2
+--- !u!114 &1552170268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1552170260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54475267fba6a0f44bd36d61ff945dea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGrabbed: 0
+  partType: 0
 --- !u!1001 &1553001148
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1074,6 +1166,7 @@ GameObject:
   - component: {fileID: 1613871155}
   - component: {fileID: 1613871154}
   - component: {fileID: 1613871159}
+  - component: {fileID: 1613871160}
   m_Layer: 0
   m_Name: Capsule (1)
   m_TagString: Untagged
@@ -1209,6 +1302,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectMass: 0.5
+--- !u!114 &1613871160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1613871152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54475267fba6a0f44bd36d61ff945dea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGrabbed: 0
+  partType: 0
 --- !u!1001 &1856389286
 PrefabInstance:
   m_ObjectHideFlags: 0
