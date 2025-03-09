@@ -194,6 +194,11 @@ MonoBehaviour:
   maxFuel: 100
   currentFuel: 0
   fuelRemoveAmount: 10
+  engineParts: 0
+  hullParts: 0
+  propellerParts: 0
+  controlPanelParts: 0
+  navigationSystemParts: 0
 --- !u!1 &591318983
 GameObject:
   m_ObjectHideFlags: 0
@@ -478,54 +483,6 @@ CapsuleCollider:
   m_Height: 0.5
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &803353663
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 803353665}
-  - component: {fileID: 803353664}
-  m_Layer: 0
-  m_Name: GameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &803353664
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 803353663}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31321043813df5b42bec17ddc0bcd486, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxParts: 5
-  requiredSteelParts: 0
-  requiredScrewNailParts: 0
-  requiredSemiconductorParts: 0
---- !u!4 &803353665
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 803353663}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.017049948, y: 1.7297137, z: -3.7730567}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1163829289
 GameObject:
   m_ObjectHideFlags: 0
@@ -1494,4 +1451,3 @@ SceneRoots:
   - {fileID: 1613871158}
   - {fileID: 1494196436}
   - {fileID: 1552170266}
-  - {fileID: 803353665}
