@@ -9,16 +9,19 @@ public class Submarine : MonoBehaviour
     public float currentFuel;            // 현재 연료량
     public float fuelRemoveAmount = 10f;   // 60초마다 감소할 연료량
 
-    // 부품 관련 변수 (각 부품의 개수를 추적)
-    public int steelParts = 0;
-    public int screwNailParts = 0;
-    public int semiconductorParts = 0;
-    
+    // 부품 수집 관련 변수 (부품의 카운트)
+    private Dictionary<PartType, int> collectedParts = new Dictionary<PartType, int>();
 
     void Start()
     {
         currentFuel = maxFuel;
         StartCoroutine(FuelRemoveRoutine());
+
+        // 부품 초기화 (필요한 부품 수는 여기서 설정)
+        foreach (PartType part in System.Enum.GetValues(typeof(PartType)))
+        {
+            collectedParts[part] = 0;
+        }
     }
 
     // 연료 감소 코루틴: 60초마다 fuelRemoveAmount 만큼 연료 감소
@@ -33,6 +36,7 @@ public class Submarine : MonoBehaviour
 
             if (currentFuel <= 0)
             {
+                GameManager.Instance.GameOver();
                 Logger.Log("연료 부족! 게임 오버");
                 yield break;
             }
@@ -50,20 +54,17 @@ public class Submarine : MonoBehaviour
     // 부품 추가 함수: 부품 종류에 따라 해당 부품 카운트를 증가시킴
     public void AddPart(PartType partType)
     {
-        switch (partType)
+        if (collectedParts.ContainsKey(partType))
         {
-            case PartType.Steel:
-                steelParts++;
-                break;
-            case PartType.ScrewNail:
-                screwNailParts++;
-                break;
-            case PartType.Semiconductor:
-                semiconductorParts++;
-                break;
-            
+            collectedParts[partType]++;
         }
-        Logger.Log("부품 추가: " + partType);
+        else
+        {
+            collectedParts[partType] = 1;
+        }
+
+        Logger.Log($"부품 추가: {partType} - {collectedParts[partType]}개");
+        GameManager.Instance.UpdateCollectedParts(partType, collectedParts[partType]);
     }
 
     private void OnTriggerEnter(Collider other)

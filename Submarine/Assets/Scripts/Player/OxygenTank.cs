@@ -26,6 +26,7 @@ public class OxygenTank : MonoBehaviour
 
             if (currentOxygen <= 0)
             {
+                GameManager.Instance.GameOver();
                 Logger.Log("산소 부족! 게임 오버");
                 yield break; // 코루틴 종료
             }
