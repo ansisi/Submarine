@@ -13,8 +13,6 @@ public class FloatingObject : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;          // 중력 제거
         rb.mass = objectMass;           // 질량 설정
-        rb.drag = 1f;                 // 느린 감속 효과
-        rb.angularDrag = 0.05f;         // 회전 감속
     }
 
     private void OnCollisionEnter(Collision collision)
