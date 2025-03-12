@@ -52,4 +52,13 @@ public class ItemSpawner : MonoBehaviour
         float submarineRadius = 3f; // 잠수함과의 최소 거리
         return Vector3.Distance(position, submarine.transform.position) < submarineRadius;
     }
+
+    // Gizmo로 스폰 영역을 그리기
+    void OnDrawGizmos()
+    {
+        // 스폰 영역을 나타내는 Wireframe 박스를 그립니다.
+        Gizmos.color = Color.green;  // 색상 설정
+        Gizmos.DrawWireCube(new Vector3((spawnAreaMin.x + spawnAreaMax.x) / 2, (spawnAreaMin.y + spawnAreaMax.y) / 2, 0),
+                            new Vector3(spawnAreaMax.x - spawnAreaMin.x, spawnAreaMax.y - spawnAreaMin.y, 0));
+    }
 }
