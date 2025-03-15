@@ -15,10 +15,35 @@ public class ItemSpawner : MonoBehaviour
 
     public Submarine submarine; // 잠수함 참조
 
+    public float spawnInterval = 60f;           // 아이템 스폰 주기 (초)
+    public float survivalItemDecayRate = 0.9f;  // 생존 아이템 감소율 (12% 감소)
+    public int minSurvivalItemCount = 2;        // 최소 생존 아이템 개수
+    private int currentSurvivalItemCount;       //현재 생존 아이템 개수
+
     void Start()
     {
-        SpawnItems(survivalItems, survivalItemCount);
-        SpawnItems(resourceItems, resourceItemCount);
+
+        currentSurvivalItemCount = survivalItemCount;
+        StartCoroutine(SpawnRoutine());
+    }
+
+
+    IEnumerator SpawnRoutine()
+    {
+        while (true)
+        {
+            SpawnItems(survivalItems, currentSurvivalItemCount);
+            SpawnItems(resourceItems, resourceItemCount);
+
+            yield return new WaitForSeconds(spawnInterval);
+
+            // 생존 아이템 개수를 점진적으로 감소
+            if (currentSurvivalItemCount > minSurvivalItemCount)
+            {
+                //RoundToInt : 가장 가까운 정수로 반올림
+                currentSurvivalItemCount = Mathf.Max(minSurvivalItemCount, Mathf.RoundToInt(currentSurvivalItemCount * survivalItemDecayRate));
+            }
+        }
     }
 
     void SpawnItems(GameObject[] items, int itemCount)

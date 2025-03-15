@@ -31,12 +31,12 @@ public class PlayerPickup : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetMouseButtonDown(1))
         {
             TryGrabItem();
         }
 
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetMouseButtonUp(1))
         {
             ReleaseItem();
         }
