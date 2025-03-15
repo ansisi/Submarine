@@ -25,7 +25,7 @@ public class FloatingObject : MonoBehaviour
 
             // 질량에 따라 충돌 반작용 구현
             float forceMagnitude = objectMass / otherRb.mass;
-            rb.AddForce(-forceDirection * forceMagnitude, ForceMode.Impulse);
+            rb.AddForce(-forceDirection * forceMagnitude, ForceMode.Impulse); //null뜸
             otherRb.AddForce(forceDirection * (0.5f / forceMagnitude), ForceMode.Impulse);
         }
     }
