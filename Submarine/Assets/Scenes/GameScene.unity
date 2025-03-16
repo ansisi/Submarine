@@ -769,10 +769,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 041f8177e4e666945ad3dbfe105b1e11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hookPrefab: {fileID: 6282194973718252133, guid: 0cb74d087475ed441a56c435c50ed111, type: 3}
   hookSpawnPoint: {fileID: 1553931053}
+  hookSpeed: 5
+  maxHookDistance: 4
+  retractSpeed: 5
   grabRange: 0.5
-  lineRenderer: {fileID: 620160164}
+  springForce: 50
+  springDamper: 5
+  collisionLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  ropeMaxLength: 15
+  ropeBreakForce: 1000
+  ropeTensionMultiplier: 10
+  ropeBreakDistance: 20
 --- !u!1 &702399759
 GameObject:
   m_ObjectHideFlags: 0
