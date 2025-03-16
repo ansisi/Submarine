@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HookController : MonoBehaviour
 {
@@ -10,6 +11,11 @@ public class HookController : MonoBehaviour
     public LineRenderer lineRenderer;     // 플레이어와 후크 사이를 이어줄 라인
 
     private GameObject currentHook;
+
+    // UI 관련 변수들
+    public Image hookIcon;                // Inspector에서 연결할 UI 아이콘
+    public Color activeColor = Color.yellow;   // 후크 사용 중일 때 색상 (노란색)
+    public Color inactiveColor = Color.white;  // 기본 색상 (원하는 색상으로 설정)
 
     void Update()
     {
@@ -73,6 +79,13 @@ public class HookController : MonoBehaviour
                 }
             }
         }
+
+        if (hookIcon != null)
+        {
+            // 후크가 존재하면 activeColor (노란색), 없으면 inactiveColor (기본 색상)
+            hookIcon.color = (currentHook != null) ? activeColor : inactiveColor;
+        }
+
     }
 
 }

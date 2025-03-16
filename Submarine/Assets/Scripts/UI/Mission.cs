@@ -13,6 +13,7 @@ public class Mission : MonoBehaviour
 
     void Start()
     {
+        Time.timeScale = 0;
         missionImage.SetActive(true);
         deleteButton.onClick.AddListener(HideMission);
     }
@@ -24,12 +25,14 @@ public class Mission : MonoBehaviour
         if (deleteTime > 10f)
         {
             missionImage.SetActive(false);
+            Time.timeScale = 1;
         }
     }
 
     void HideMission()
     {
         missionImage.SetActive(false);
+        Time.timeScale = 1;
     }
 
 }
