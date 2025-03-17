@@ -29,6 +29,10 @@ public class HookController : MonoBehaviour
     private Rigidbody attachedRigidbody; // 연결된 물체의 Rigidbody
     private float initialRopeLength; // 초기 로프 길이
 
+    public Image hookIcon; // 인스펙터에서 UI 아이콘을 연결하기 위한 변수
+    private Color defaultColor = Color.white; // 기본 색상 (회색)
+    private Color activeColor = Color.yellow; // 후크 사용 중 색상 (노란색)
+
     void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
@@ -157,6 +161,8 @@ public class HookController : MonoBehaviour
         isHookActive = true;
         isRetracting = false;
         lineRenderer.positionCount = 2;
+
+        UpdateHookIcon(true);
     }
 
     void CheckHookCollision()
@@ -426,7 +432,18 @@ public class HookController : MonoBehaviour
         lineRenderer.enabled = true;
 
         Logger.Log("후크 정리 완료");
+
+        UpdateHookIcon(false);
     }
+
+    void UpdateHookIcon(bool isActive)
+    {
+        if (hookIcon != null)
+        {
+            hookIcon.color = isActive ? activeColor : defaultColor;
+        }
+    }
+
 }
 
 // 조인트가 끊어지는 이벤트를 감지하는 보조 클래스
