@@ -7,16 +7,16 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    public int maxParts = 3;            // �ִ� ��ǰ ���� ����
-    public int minParts = 2;   // �ּ� ��ǰ ����
+    public int maxParts = 3;    // 최대 부품 수량
+    public int minParts = 2;    // 최소 부품 수량
 
-    // �ʿ��� ��ǰ ���� ���� (�������� ����)
+    // 필요한 부품 수량 (스테이지마다 새롭게 설정됨)
     public int requiredSteelParts;
     public int requiredScrewNailParts;
     public int requiredSemiconductorParts;
 
 
-    // ������ ��ǰ ��
+    // 수집된 부품 개수 저장 (각 부품 유형별로 저장)
     public Dictionary<PartType, int> collectedParts = new Dictionary<PartType, int>();
 
     private bool isGameOver = false;
@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
         ResetCollectedParts();
     }
 
+    }
     private void Start()
     {
         // UI 초기화는 Start()에서 실행하여 UIManager가 null이 되는 문제 방지
@@ -54,34 +55,35 @@ public class GameManager : MonoBehaviour
         if (isGameOver)
             return;
 
-        // �������� Ŭ���� ���� Ȯ��
+        // 모든 부품이 요구량 이상이면 스테이지 클리어
         if (CheckStageClear())
         {
             StageClear();
         }
     }
 
-    // �ʿ� ���� ���� �ʱ�ȭ
+    // 새로운 스테이지에서 요구되는 부품 개수를 랜덤으로 설정
     private void InitializeParts()
     {
         requiredSteelParts = Random.Range(minParts, maxParts + 1);
         requiredScrewNailParts = Random.Range(minParts, maxParts + 1);
         requiredSemiconductorParts = Random.Range(minParts, maxParts + 1);
 
-        Logger.Log($"���ο� ��ǰ ���� - ö: {requiredSteelParts}, �����: {requiredScrewNailParts}, �ݵ�ü: {requiredSemiconductorParts}");
+        Logger.Log($"- 새로운 부품 수량 -\n철 : {requiredSteelParts}, 못 : {requiredScrewNailParts}, 반도체 : {requiredSemiconductorParts}");
     }
 
-    // ������ ���� �ڿ� ���� �ʱ�ȭ
+
+    // 수집된 부품 초기화 (다음 스테이지로 이동할 때 사용)
     private void ResetCollectedParts()
     {
         foreach (PartType part in System.Enum.GetValues(typeof(PartType)))
         {
-            collectedParts[part] = 0; // ��� ��ǰ ���� �ʱ�ȭ
+            collectedParts[part] = 0; 
         }
-        Logger.Log("������ ��ǰ �ʱ�ȭ �Ϸ�!");
+        Logger.Log("수집된 부품 초기화 완료!");
     }
 
-    // ��ǰ ���� ������Ʈ
+    // 현재 수집한 부품 개수 업데이트
     public void UpdateCollectedParts(PartType partType, int count)
     {
         if (collectedParts.ContainsKey(partType))
@@ -101,6 +103,7 @@ public class GameManager : MonoBehaviour
 
     }
 
+
     private int GetRequiredParts(PartType partType)
     {
         switch (partType)
@@ -112,7 +115,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // �������� Ŭ���� üũ
+    // 모든 부품이 요구량을 충족하는지 확인
     private bool CheckStageClear()
     {
         return collectedParts[PartType.Steel] >= requiredSteelParts &&
@@ -120,37 +123,38 @@ public class GameManager : MonoBehaviour
                collectedParts[PartType.Semiconductor] >= requiredSemiconductorParts;
     }
 
-    // �������� Ŭ���� ó��
+    // 스테이지 클리어 처리
     private void StageClear()
     {
         isGameOver = true;
-        // �������� Ŭ���� UI ǥ��
-        Logger.Log("�������� Ŭ����!");
-        // ���� ���������� �����ϰų� ���� ����
+        Logger.Log("스테이지 클리어!");
+        // 다음 스테이지로 이동
         Invoke("LoadNextStage", 2f);
     }
 
+    // 다음 스테이지 로드 및 부품 설정 갱신
     private void LoadNextStage()
     {
-        // ��� ���ÿ� ��ϵ� ���� �������� ���� ���� �ε�
+        // 현재 기준 다음 인덱스 씬으로 넘어감 
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         int nextSceneIndex = (currentSceneIndex + 1) % SceneManager.sceneCountInBuildSettings;
 
-        minParts = Mathf.RoundToInt(minParts * 1.5f); // ���� �������� �ּ� ���� ���� ����
-        maxParts = Mathf.RoundToInt(maxParts * 1.5f); // ���� �������� �ִ� ���� ���� ����
+        // 배율 증가 적용 (점진적인 난이도 상승)
+        minParts = Mathf.RoundToInt(minParts * 1.5f); 
+        maxParts = Mathf.RoundToInt(maxParts * 1.5f); 
 
-        SceneManager.LoadScene(nextSceneIndex);  // ���� �� �ε�
-        InitializeParts();      // �ʿ� �ڿ� ���� �ʱ�ȭ
-        ResetCollectedParts();  // ���� �ڿ� ���� �ʱ�ȭ
+        SceneManager.LoadScene(nextSceneIndex);  // 다음 씬 로드
+        InitializeParts();      // 새로운 부품 요구량 설정
+        ResetCollectedParts();  // 수집된 부품 초기화
         isGameOver = false;
     }
 
-    // ���� ���� ó��
+    // 게임 오버 처리
     public void GameOver()
     {
         isGameOver = true;
         // ���� ���� UI ǥ��
-        Logger.Log("���� ����!");
+        Logger.Log("게임 오버!");
         // ���� ����� �Ǵ� ����
     }
 }
