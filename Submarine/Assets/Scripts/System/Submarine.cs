@@ -4,54 +4,74 @@ using UnityEngine;
 
 public class Submarine : MonoBehaviour
 {
-    // 연료 관련 변수
-    public float maxFuel = 100f;         // 최대 연료량
-    public float currentFuel;            // 현재 연료량
-    public float fuelRemoveAmount = 10f;   // 60초마다 감소할 연료량
+    // 연료 게이지 관련 변수 (시간 기반)
+    public RectTransform fuelNeedle;     // UI 연료 게이지 바늘 (Inspector에서 할당)
+    public float maxFuelTime = 600f;       // 연료가 다 떨어질 때까지의 최대 시간(초)
+    private float elapsedFuelTime = 0f;    // 경과된 연료 소비 시간
 
-    // 부품 수집 관련 변수 (부품의 카운트)
+    // 게이지 바늘의 회전 각도 (UI에 맞게 조정)
+    public float fullFuelAngle = -193f;    // 연료가 가득 찼을 때(소비 시간이 0일 때)의 바늘 각도
+    public float emptyFuelAngle = 90f;     // 연료가 다 떨어졌을 때(소비 시간이 maxFuelTime일 때)의 바늘 각도
+
+    // 부품 수집 등 기존 기능 관련 변수
     private Dictionary<PartType, int> collectedParts = new Dictionary<PartType, int>();
 
     void Start()
     {
-        currentFuel = maxFuel;
-        StartCoroutine(FuelRemoveRoutine());
-
-        // 부품 초기화 (필요한 부품 수는 여기서 설정)
+        // 부품 초기화 (필요한 부품 수 설정)
         foreach (PartType part in System.Enum.GetValues(typeof(PartType)))
         {
             collectedParts[part] = 0;
         }
     }
 
-    // 연료 감소 코루틴: 60초마다 fuelRemoveAmount 만큼 연료 감소
-    IEnumerator FuelRemoveRoutine()
+    void Update()
     {
-        while (currentFuel > 0)
-        {
-            yield return new WaitForSeconds(60f);
-            currentFuel -= fuelRemoveAmount;
-            currentFuel = Mathf.Clamp(currentFuel, 0, maxFuel);
-            Logger.Log("연료 감소: " + currentFuel);
+        // 매 프레임마다 연료 소비 시간을 누적 (시간 기반 소비)
+        elapsedFuelTime += Time.deltaTime;
 
-            if (currentFuel <= 0)
-            {
-                GameManager.Instance.GameOver();
-                Logger.Log("연료 부족! 게임 오버");
-                yield break;
-            }
+        // 연료 잔량 비율 계산 (0 ~ 1)
+        float fuelRatio = Mathf.Clamp01(elapsedFuelTime / maxFuelTime);
+
+        // 연료 게이지 바늘 회전 각도 계산
+        float fuelAngle = Mathf.Lerp(fullFuelAngle, emptyFuelAngle, fuelRatio);
+        if (fuelNeedle != null)
+        {
+            fuelNeedle.localEulerAngles = new Vector3(0, 0, fuelAngle);
+        }
+
+        // 연료가 다 소비되었을 때 게임 오버 처리 (또는 원하는 임계값 사용)
+        if (fuelRatio >= 1.0f)
+        {
+            GameManager.Instance.GameOver();
+            Debug.Log("연료 부족! 게임 오버");
         }
     }
 
-    // 연료 보충 함수
+    // 연료 보충 함수 (연료 소비 시간 감소)
     public void AddFuel(float amount)
     {
-        currentFuel += amount;
-        currentFuel = Mathf.Clamp(currentFuel, 0, maxFuel);
-        Logger.Log("연료 보충: " + currentFuel);
+        // 코루틴을 이용하여 부드럽게 연료 소비 시간을 감소시킵니다.
+        StopCoroutine("RefillFuel");
+        StartCoroutine(RefillFuel(amount));
     }
 
-    // 부품 추가 함수: 부품 종류에 따라 해당 부품 카운트를 증가시킴
+    private IEnumerator RefillFuel(float amount)
+    {
+        float startTime = elapsedFuelTime;
+        float targetTime = Mathf.Max(elapsedFuelTime - amount, 0f); // 음수가 되지 않도록
+        float duration = 1.0f; // 보충 효과 지속 시간
+        float t = 0f;
+        while (t < duration)
+        {
+            t += Time.deltaTime;
+            elapsedFuelTime = Mathf.Lerp(startTime, targetTime, t / duration);
+            yield return null;
+        }
+        elapsedFuelTime = targetTime;
+    }
+
+    // 부품 추가 함수 등 기존 기능 유지
     public void AddPart(PartType partType)
     {
         if (collectedParts.ContainsKey(partType))
@@ -63,7 +83,7 @@ public class Submarine : MonoBehaviour
             collectedParts[partType] = 1;
         }
 
-        Logger.Log($"부품 추가: {partType} - {collectedParts[partType]}개");
+        Debug.Log($"부품 추가: {partType} - {collectedParts[partType]}개");
         GameManager.Instance.UpdateCollectedParts(partType, collectedParts[partType]);
     }
 

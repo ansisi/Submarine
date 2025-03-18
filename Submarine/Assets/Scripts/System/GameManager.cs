@@ -36,16 +36,17 @@ public class GameManager : MonoBehaviour
         InitializeParts();
 
         ResetCollectedParts();
+    }
 
-        // �ʱ� ��ǰ ���� ����
-        foreach (PartType part in System.Enum.GetValues(typeof(PartType)))
+    private void Start()
+    {
+        // UI 초기화는 Start()에서 실행하여 UIManager가 null이 되는 문제 방지
+        if (UIManager.Instance != null)
         {
-            collectedParts[part] = 0;
+            UIManager.Instance.UpdateResourceUI(PartType.Steel, 0, requiredSteelParts);
+            UIManager.Instance.UpdateResourceUI(PartType.ScrewNail, 0, requiredScrewNailParts);
+            UIManager.Instance.UpdateResourceUI(PartType.Semiconductor, 0, requiredSemiconductorParts);
         }
-
-        UIManager.Instance.UpdateResourceUI(PartType.Steel, 0, requiredSteelParts);
-        UIManager.Instance.UpdateResourceUI(PartType.ScrewNail, 0, requiredScrewNailParts);
-        UIManager.Instance.UpdateResourceUI(PartType.Semiconductor, 0, requiredSemiconductorParts);
     }
 
     private void Update()
@@ -92,9 +93,11 @@ public class GameManager : MonoBehaviour
             collectedParts[partType] = count;
         }
 
-        // UI ������Ʈ �߰�
         int requiredCount = GetRequiredParts(partType);
-        UIManager.Instance.UpdateResourceUI(partType, collectedParts[partType], requiredCount);
+        if (UIManager.Instance != null)
+        {
+            UIManager.Instance.UpdateResourceUI(partType, collectedParts[partType], requiredCount);
+        }
 
     }
 

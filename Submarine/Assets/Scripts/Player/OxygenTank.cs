@@ -4,40 +4,56 @@ using UnityEngine;
 
 public class OxygenTank : MonoBehaviour
 {
-    public float maxOxygen = 100f;       // 최대 산소량
-    public float currentOxygen;          // 현재 산소량
-    public float oxygenRemoveAmount = 10f; // 40초마다 감소할 산소량
+    public RectTransform oxygenNeedle;     // UI 연료 게이지 바늘 (Inspector에서 할당)
+    public float maxOxygenTime = 400f;       // 연료가 다 떨어질 때까지의 최대 시간(초)
+    private float elapsedOxygenTime = 0f;    // 경과된 연료 소비 시간
 
-    void Start()
-    {
-        currentOxygen = maxOxygen;
-        StartCoroutine(OxygenRemoveRoutine());
-    }
+    private float fullOxygenAngle = -240f;
+    private float emptyOxygenAngle = 0f;
 
-    // 산소 감소 코루틴
-    IEnumerator OxygenRemoveRoutine()
+    void Update()
     {
-        while (currentOxygen > 0)
+        // 매 프레임마다 연료 소비 시간을 누적 (시간 기반 소비)
+        elapsedOxygenTime += Time.deltaTime;
+
+        // 연료 잔량 비율 계산 (0 ~ 1)
+        float oxygenRatio = Mathf.Clamp01(elapsedOxygenTime / maxOxygenTime);
+
+        // 연료 게이지 바늘 회전 각도 계산
+        float fuelAngle = Mathf.Lerp(fullOxygenAngle, emptyOxygenAngle, oxygenRatio);
+        if (oxygenNeedle != null)
         {
-            yield return new WaitForSeconds(40f); // 40초 대기
-            currentOxygen -= oxygenRemoveAmount;
-            currentOxygen = Mathf.Clamp(currentOxygen, 0, maxOxygen);
-            Logger.Log("산소 감소: " + currentOxygen);
+            oxygenNeedle.localEulerAngles = new Vector3(0, 0, fuelAngle);
+        }
 
-            if (currentOxygen <= 0)
-            {
-                GameManager.Instance.GameOver();
-                Logger.Log("산소 부족! 게임 오버");
-                yield break; // 코루틴 종료
-            }
+        // 연료가 다 소비되었을 때 게임 오버 처리 (또는 원하는 임계값 사용)
+        if (oxygenRatio >= 1.0f)
+        {
+            GameManager.Instance.GameOver();
+            Debug.Log("연료 부족! 게임 오버");
         }
     }
 
-    // 산소 획득 함수
     public void AddOxygen(float amount)
     {
-        currentOxygen += amount;
-        currentOxygen = Mathf.Clamp(currentOxygen, 0, maxOxygen);
-        Logger.Log("산소 획득: " + currentOxygen);
+        // 코루틴을 이용하여 부드럽게 연료 소비 시간을 감소시킵니다.
+        StopCoroutine("RefillOxygen");
+        StartCoroutine(RefillOxygen(amount));
     }
+
+    private IEnumerator RefillOxygen(float amount)
+    {
+        float startTime = elapsedOxygenTime;
+        float targetTime = Mathf.Max(elapsedOxygenTime - amount, 0f); // 음수가 되지 않도록
+        float duration = 1.0f; // 보충 효과 지속 시간
+        float t = 0f;
+        while (t < duration)
+        {
+            t += Time.deltaTime;
+            elapsedOxygenTime = Mathf.Lerp(startTime, targetTime, t / duration);
+            yield return null;
+        }
+        elapsedOxygenTime = targetTime;
+    }
+
 }

@@ -14,11 +14,11 @@ public class GaugeController : MonoBehaviour
     private float elapsedOxygenTime = 0f;
     private float elapsedFuelTime = 0f;
 
-    private float fullOxygenAngle = -140f;
-    private float emptyOxygenAngle = 140f;
+    private float fullOxygenAngle = -240f;
+    private float emptyOxygenAngle = 0f;
 
-    private float fullFuelAngle = -140f;
-    private float emptyFuelAngle = 140f;
+    private float fullFuelAngle = -193f;
+    private float emptyFuelAngle = 90f;
 
     void Update()
     {
