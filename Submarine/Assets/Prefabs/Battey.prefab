@@ -110,7 +110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isGrabbed: 0
-  fuelAmount: 10
+  fuelAmount: 30
 --- !u!1001 &5370576387500064525
 PrefabInstance:
   m_ObjectHideFlags: 0

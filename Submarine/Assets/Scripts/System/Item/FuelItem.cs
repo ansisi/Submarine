@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FuelItem : DeliverableItem
 {
-    public float fuelAmount = 10f; // 연료로 채워질 양
+    public float fuelAmount = 20f; // 연료로 채워질 양
 
     public override void OnDelivered(Submarine submarine)
     {

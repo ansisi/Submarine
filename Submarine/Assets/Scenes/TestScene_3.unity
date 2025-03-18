@@ -1263,7 +1263,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &136982427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7433,13 +7433,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 667290991}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1796960751}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -4, y: 13}
@@ -8951,6 +8951,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 1208068902138815530, guid: 55db18a2b4ed08b41a28e2a8cd3636da, type: 3}
+      propertyPath: oxygenNeedle
+      value: 
+      objectReference: {fileID: 1770618096}
+    - target: {fileID: 1208068902138815530, guid: 55db18a2b4ed08b41a28e2a8cd3636da, type: 3}
+      propertyPath: maxOxygenTime
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 5377359602491059212, guid: 55db18a2b4ed08b41a28e2a8cd3636da, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -8991,6 +8999,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6397254079724690725, guid: 55db18a2b4ed08b41a28e2a8cd3636da, type: 3}
+      propertyPath: uiManager
+      value: 
+      objectReference: {fileID: 894787331}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10294,6 +10306,14 @@ PrefabInstance:
     - target: {fileID: 5242308153384587066, guid: fd2b614abbfebc24585cd47f403177dc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8627517280675331603, guid: fd2b614abbfebc24585cd47f403177dc, type: 3}
+      propertyPath: fuelNeedle
+      value: 
+      objectReference: {fileID: 384503133}
+    - target: {fileID: 8627517280675331603, guid: fd2b614abbfebc24585cd47f403177dc, type: 3}
+      propertyPath: maxFuelTime
+      value: 300
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

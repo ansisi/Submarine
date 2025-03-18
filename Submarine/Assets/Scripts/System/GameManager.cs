@@ -38,16 +38,11 @@ public class GameManager : MonoBehaviour
         ResetCollectedParts();
     }
 
-    }
+    
     private void Start()
     {
         // UI 초기화는 Start()에서 실행하여 UIManager가 null이 되는 문제 방지
-        if (UIManager.Instance != null)
-        {
-            UIManager.Instance.UpdateResourceUI(PartType.Steel, 0, requiredSteelParts);
-            UIManager.Instance.UpdateResourceUI(PartType.ScrewNail, 0, requiredScrewNailParts);
-            UIManager.Instance.UpdateResourceUI(PartType.Semiconductor, 0, requiredSemiconductorParts);
-        }
+        
     }
 
     private void Update()
@@ -60,6 +55,14 @@ public class GameManager : MonoBehaviour
         {
             StageClear();
         }
+
+        if (UIManager.Instance != null)
+        {
+            UIManager.Instance.UpdateResourceUI(PartType.Steel, collectedParts[PartType.Steel], requiredSteelParts);
+            UIManager.Instance.UpdateResourceUI(PartType.ScrewNail, collectedParts[PartType.ScrewNail], requiredScrewNailParts);
+            UIManager.Instance.UpdateResourceUI(PartType.Semiconductor, collectedParts[PartType.Semiconductor], requiredSemiconductorParts);
+        }
+
     }
 
     // 새로운 스테이지에서 요구되는 부품 개수를 랜덤으로 설정
