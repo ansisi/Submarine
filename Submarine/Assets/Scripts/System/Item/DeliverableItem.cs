@@ -7,7 +7,7 @@ public abstract class DeliverableItem : MonoBehaviour
 {
     public bool isGrabbed = false;
 
-    private GameObject pickupUI;
+    /*private GameObject pickupUI;
     private RectTransform uiRectTransform;
     private Canvas mainCanvas;
 
@@ -25,13 +25,13 @@ public abstract class DeliverableItem : MonoBehaviour
                 pickupUI.SetActive(false);
             }
         }
-    }
+    }*/
 
     // 플레이어가 이 오브젝트를 잡았을 때 호출
     public virtual void OnGrabbed()
     {
         isGrabbed = true;
-        pickupUI?.SetActive(false);
+        //pickupUI?.SetActive(false);
         Rigidbody rigidbody = GetComponent<Rigidbody>();
         if (rigidbody != null)
         {
@@ -60,7 +60,7 @@ public abstract class DeliverableItem : MonoBehaviour
         }
     }
 
-    public void ShowPickupUI()
+    /*public void ShowPickupUI()
     {
         if (!isGrabbed && pickupUI != null)
         {
@@ -92,7 +92,7 @@ public abstract class DeliverableItem : MonoBehaviour
             Vector2 screenPosition = Camera.main.WorldToScreenPoint(transform.position + Vector3.up * 0.5f);
             uiRectTransform.position = screenPosition; // UI 좌표 설정
         }
-    }
+    }*/
 
     // 잠수함에 전달되었을 때 실행할 로직 (자식 클래스에서 구현)
     public abstract void OnDelivered(Submarine submarine);

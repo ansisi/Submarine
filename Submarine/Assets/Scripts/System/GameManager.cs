@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
 
 
     // 수집된 부품 수
-    private Dictionary<PartType, int> collectedParts = new Dictionary<PartType, int>();
+    public Dictionary<PartType, int> collectedParts = new Dictionary<PartType, int>();
 
     private bool isGameOver = false;
 
@@ -46,6 +46,10 @@ public class GameManager : MonoBehaviour
         {
             collectedParts[part] = 0;
         }
+
+        UIManager.Instance.UpdateResourceUI(PartType.Steel, 0, requiredSteelParts);
+        UIManager.Instance.UpdateResourceUI(PartType.ScrewNail, 0, requiredScrewNailParts);
+        UIManager.Instance.UpdateResourceUI(PartType.Semiconductor, 0, requiredSemiconductorParts);
     }
 
     private void Update()
@@ -70,6 +74,22 @@ public class GameManager : MonoBehaviour
         else
         {
             collectedParts[partType] = count;
+        }
+
+        // UI 업데이트 추가
+        int requiredCount = GetRequiredParts(partType);
+        UIManager.Instance.UpdateResourceUI(partType, collectedParts[partType], requiredCount);
+
+    }
+
+    private int GetRequiredParts(PartType partType)
+    {
+        switch (partType)
+        {
+            case PartType.Steel: return requiredSteelParts;
+            case PartType.ScrewNail: return requiredScrewNailParts;
+            case PartType.Semiconductor: return requiredSemiconductorParts;
+            default: return 0;
         }
     }
 

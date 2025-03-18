@@ -17,6 +17,11 @@ public class PartItem : DeliverableItem
     {
         submarine.AddPart(partType);
         Logger.Log("Part delivered: " + partType);
+
+        // GameManager에 자원 업데이트 요청
+        int currentCount = GameManager.Instance.collectedParts[partType];
+        GameManager.Instance.UpdateCollectedParts(partType, currentCount);
+
         Destroy(gameObject); // 전달 후 오브젝트 제거
     }
 }

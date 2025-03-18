@@ -5,8 +5,10 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    public static UIManager Instance;
-    public TextMeshProUGUI[] resourceTexts;
+    public static UIManager Instance { get; private set; }
+    public TextMeshProUGUI steelText;
+    public TextMeshProUGUI screwNailText;
+    public TextMeshProUGUI semiconductorText;
 
     private void Awake()
     {
@@ -16,8 +18,21 @@ public class UIManager : MonoBehaviour
             Destroy(gameObject);
     }
 
-    public void UpdateResourceUI(int index, int currentAmount)
+    public void UpdateResourceUI(PartType partType, int currentAmount, int requiredAmount)
     {
-        resourceTexts[index].text = $"{currentAmount}/{ResourceManager.Instance.requiredResources[index]}";
+        string text = $"{currentAmount} / {requiredAmount}";
+
+        switch (partType)
+        {
+            case PartType.Steel:
+                steelText.text = $"{currentAmount} / {requiredAmount}";
+                break;
+            case PartType.ScrewNail:
+                screwNailText.text = $"{currentAmount} / {requiredAmount}";
+                break;
+            case PartType.Semiconductor:
+                semiconductorText.text = $"{currentAmount} / {requiredAmount}";
+                break;
+        }
     }
 }
