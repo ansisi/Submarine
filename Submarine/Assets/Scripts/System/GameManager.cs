@@ -7,17 +7,17 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    public int maxParts = 3;            // ÃÖ´ë ºÎÇ° ¼ö·® ¼³Á¤
-    public int minParts = 2;   // ÃÖ¼Ò ºÎÇ° ¼ö·®
+    public int maxParts = 3;            // ï¿½Ö´ï¿½ ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public int minParts = 2;   // ï¿½Ö¼ï¿½ ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½
 
-    // ÇÊ¿äÇÑ ºÎÇ° ¼ö·® ¼³Á¤ (·£´ýÀ¸·Î ¼³Á¤)
+    // ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
     public int requiredSteelParts;
     public int requiredScrewNailParts;
     public int requiredSemiconductorParts;
 
 
-    // ¼öÁýµÈ ºÎÇ° ¼ö
-    private Dictionary<PartType, int> collectedParts = new Dictionary<PartType, int>();
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç° ï¿½ï¿½
+    public Dictionary<PartType, int> collectedParts = new Dictionary<PartType, int>();
 
     private bool isGameOver = false;
 
@@ -37,6 +37,15 @@ public class GameManager : MonoBehaviour
 
         ResetCollectedParts();
 
+        // ï¿½Ê±ï¿½ ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        foreach (PartType part in System.Enum.GetValues(typeof(PartType)))
+        {
+            collectedParts[part] = 0;
+        }
+
+        UIManager.Instance.UpdateResourceUI(PartType.Steel, 0, requiredSteelParts);
+        UIManager.Instance.UpdateResourceUI(PartType.ScrewNail, 0, requiredScrewNailParts);
+        UIManager.Instance.UpdateResourceUI(PartType.Semiconductor, 0, requiredSemiconductorParts);
     }
 
     private void Update()
@@ -44,34 +53,34 @@ public class GameManager : MonoBehaviour
         if (isGameOver)
             return;
 
-        // ½ºÅ×ÀÌÁö Å¬¸®¾î Á¶°Ç È®ÀÎ
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
         if (CheckStageClear())
         {
             StageClear();
         }
     }
 
-    // ÇÊ¿ä ¼ö·® ·£´ý ÃÊ±âÈ­
+    // ï¿½Ê¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
     private void InitializeParts()
     {
         requiredSteelParts = Random.Range(minParts, maxParts + 1);
         requiredScrewNailParts = Random.Range(minParts, maxParts + 1);
         requiredSemiconductorParts = Random.Range(minParts, maxParts + 1);
 
-        Logger.Log($"»õ·Î¿î ºÎÇ° ¼ö·® - Ã¶: {requiredSteelParts}, ³ª»ç¸ø: {requiredScrewNailParts}, ¹ÝµµÃ¼: {requiredSemiconductorParts}");
+        Logger.Log($"ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½ - Ã¶: {requiredSteelParts}, ï¿½ï¿½ï¿½ï¿½ï¿½: {requiredScrewNailParts}, ï¿½Ýµï¿½Ã¼: {requiredSemiconductorParts}");
     }
 
-    // ¼öÁýÇÑ ´©Àû ÀÚ¿ø °³¼ö ÃÊ±âÈ­
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
     private void ResetCollectedParts()
     {
         foreach (PartType part in System.Enum.GetValues(typeof(PartType)))
         {
-            collectedParts[part] = 0; // ¸ðµç ºÎÇ° ¼ö·® ÃÊ±âÈ­
+            collectedParts[part] = 0; // ï¿½ï¿½ï¿½ ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
         }
-        Logger.Log("¼öÁýµÈ ºÎÇ° ÃÊ±âÈ­ ¿Ï·á!");
+        Logger.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç° ï¿½Ê±ï¿½È­ ï¿½Ï·ï¿½!");
     }
 
-    // ºÎÇ° »óÅÂ ¾÷µ¥ÀÌÆ®
+    // ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
     public void UpdateCollectedParts(PartType partType, int count)
     {
         if (collectedParts.ContainsKey(partType))
@@ -82,9 +91,25 @@ public class GameManager : MonoBehaviour
         {
             collectedParts[partType] = count;
         }
+
+        // UI ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ß°ï¿½
+        int requiredCount = GetRequiredParts(partType);
+        UIManager.Instance.UpdateResourceUI(partType, collectedParts[partType], requiredCount);
+
     }
 
-    // ½ºÅ×ÀÌÁö Å¬¸®¾î Ã¼Å©
+    private int GetRequiredParts(PartType partType)
+    {
+        switch (partType)
+        {
+            case PartType.Steel: return requiredSteelParts;
+            case PartType.ScrewNail: return requiredScrewNailParts;
+            case PartType.Semiconductor: return requiredSemiconductorParts;
+            default: return 0;
+        }
+    }
+
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
     private bool CheckStageClear()
     {
         return collectedParts[PartType.Steel] >= requiredSteelParts &&
@@ -92,38 +117,38 @@ public class GameManager : MonoBehaviour
                collectedParts[PartType.Semiconductor] >= requiredSemiconductorParts;
     }
 
-    // ½ºÅ×ÀÌÁö Å¬¸®¾î Ã³¸®
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
     private void StageClear()
     {
         isGameOver = true;
-        // ½ºÅ×ÀÌÁö Å¬¸®¾î UI Ç¥½Ã
-        Logger.Log("½ºÅ×ÀÌÁö Å¬¸®¾î!");
-        // ´ÙÀ½ ½ºÅ×ÀÌÁö·Î ÁøÇàÇÏ°Å³ª °ÔÀÓ Á¾·á
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ UI Ç¥ï¿½ï¿½
+        Logger.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½!");
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°Å³ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         Invoke("LoadNextStage", 2f);
     }
 
     private void LoadNextStage()
     {
-        // ºôµå ¼¼ÆÃ¿¡ µî·ÏµÈ ¾ÀÀ» ±âÁØÀ¸·Î ´ÙÀ½ ¾ÀÀ» ·Îµå
+        // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ã¿ï¿½ ï¿½ï¿½Ïµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         int nextSceneIndex = (currentSceneIndex + 1) % SceneManager.sceneCountInBuildSettings;
 
-        minParts = Mathf.RoundToInt(minParts * 1.5f); // ´ÙÀ½ ½ºÅ×ÀÌÁö ÃÖ¼Ò ¼ö·® ¹èÀ² Áõ°¡
-        maxParts = Mathf.RoundToInt(maxParts * 1.5f); // ´ÙÀ½ ½ºÅ×ÀÌÁö ÃÖ´ë ¼ö·® ¹èÀ² Áõ°¡
+        minParts = Mathf.RoundToInt(minParts * 1.5f); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        maxParts = Mathf.RoundToInt(maxParts * 1.5f); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-        SceneManager.LoadScene(nextSceneIndex);  // ´ÙÀ½ ¾À ·Îµå
-        InitializeParts();      // ÇÊ¿ä ÀÚ¿ø ¼ö·® ÃÊ±âÈ­
-        ResetCollectedParts();  // ¼öÁý ÀÚ¿ø ¼ö·® ÃÊ±âÈ­
+        SceneManager.LoadScene(nextSceneIndex);  // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Îµï¿½
+        InitializeParts();      // ï¿½Ê¿ï¿½ ï¿½Ú¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
+        ResetCollectedParts();  // ï¿½ï¿½ï¿½ï¿½ ï¿½Ú¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
         isGameOver = false;
     }
 
-    // °ÔÀÓ ¿À¹ö Ã³¸®
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
     public void GameOver()
     {
         isGameOver = true;
-        // °ÔÀÓ ¿À¹ö UI Ç¥½Ã
-        Logger.Log("°ÔÀÓ ¿À¹ö!");
-        // °ÔÀÓ Àç½ÃÀÛ ¶Ç´Â Á¾·á
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ UI Ç¥ï¿½ï¿½
+        Logger.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!");
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½
     }
 }
 

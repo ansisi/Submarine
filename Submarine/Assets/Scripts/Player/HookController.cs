@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class HookController : MonoBehaviour
 {
@@ -29,9 +28,7 @@ public class HookController : MonoBehaviour
     private Rigidbody attachedRigidbody; // 연결된 물체의 Rigidbody
     private float initialRopeLength; // 초기 로프 길이
 
-    public Image hookIcon; // 인스펙터에서 UI 아이콘을 연결하기 위한 변수
-    private Color defaultColor = Color.white; // 기본 색상 (회색)
-    private Color activeColor = Color.yellow; // 후크 사용 중 색상 (노란색)
+    public HookUIManager uiManager; // UI 매니저 참조
 
     void Awake()
     {
@@ -134,6 +131,7 @@ public class HookController : MonoBehaviour
             // 후크가 활성화되지 않았는데 라인 렌더러가 남아있으면 초기화
             lineRenderer.positionCount = 0;
         }
+
     }
 
     void FireHook()
@@ -162,7 +160,7 @@ public class HookController : MonoBehaviour
         isRetracting = false;
         lineRenderer.positionCount = 2;
 
-        UpdateHookIcon(true);
+        uiManager?.UpdateHookUI(isHookActive);
     }
 
     void CheckHookCollision()
@@ -433,16 +431,9 @@ public class HookController : MonoBehaviour
 
         Logger.Log("후크 정리 완료");
 
-        UpdateHookIcon(false);
+        uiManager?.UpdateHookUI(isHookActive);
     }
 
-    void UpdateHookIcon(bool isActive)
-    {
-        if (hookIcon != null)
-        {
-            hookIcon.color = isActive ? activeColor : defaultColor;
-        }
-    }
 
 }
 

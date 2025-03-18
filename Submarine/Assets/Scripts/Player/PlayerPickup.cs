@@ -17,7 +17,7 @@ public class PlayerPickup : MonoBehaviour
         if (item != null && !availableItems.Contains(item))
         {
             availableItems.Add(item);
-            item.ShowPickupUI();
+            //item.ShowPickupUI();
             Logger.Log("픽업 후보 추가: " + item.name);
         }
     }
@@ -28,7 +28,7 @@ public class PlayerPickup : MonoBehaviour
         if (item != null && availableItems.Contains(item))
         {
             availableItems.Remove(item);
-            item.HidePickupUI();
+            //item.HidePickupUI();
             Logger.Log("픽업 후보 제거: " + item.name);
         }
     }
