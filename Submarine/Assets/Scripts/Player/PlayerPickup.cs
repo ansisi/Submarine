@@ -51,7 +51,9 @@ public class PlayerPickup : MonoBehaviour
             
             Vector3 headPosition = transform.TransformPoint(headOffset); // 로컬 좌표 → 월드 좌표 변환
             currentHeldItem.transform.position = headPosition;
-            currentHeldItem.transform.rotation = transform.rotation; // 플레이어 회전과 동기화
+
+            Quaternion rotationOffset = Quaternion.Euler(0, 0, 90);     // 잡힌 아이템 z축 90도 회전
+            currentHeldItem.transform.rotation = transform.rotation * rotationOffset; // 플레이어 회전과 동기화
         }
     }
 
@@ -64,6 +66,9 @@ public class PlayerPickup : MonoBehaviour
             {
                 currentHeldItem = closestItem;
                 currentHeldItem.OnGrabbed();
+
+                Quaternion rotationOffset = Quaternion.Euler(0, 0, 90);
+                currentHeldItem.transform.rotation = transform.rotation * rotationOffset;
 
                 Logger.Log("가장 가까운 아이템 잡음: " + closestItem.name);
                 availableItems.Remove(closestItem);

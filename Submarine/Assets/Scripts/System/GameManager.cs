@@ -7,8 +7,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    // 최대 부품 수량 설정
-    public int maxParts = 5;
+    public int maxParts = 3;            // 최대 부품 수량 설정
+    public int minParts = 2;   // 최소 부품 수량
 
     // 필요한 부품 수량 설정 (랜덤으로 설정)
     public int requiredSteelParts;
@@ -33,19 +33,10 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        // 랜덤 부품 수량 설정
-        requiredSteelParts = Random.Range(1, maxParts + 1);
-        requiredScrewNailParts = Random.Range(1, maxParts + 1);
-        requiredSemiconductorParts = Random.Range(1, maxParts + 1);
+        InitializeParts();
 
-        // 부품 수량 출력 (디버그 로그)
-        Logger.Log("필요한 부품 수량 - 철: " + requiredSteelParts + ", 나사못: " + requiredScrewNailParts + ", 반도체: " + requiredSemiconductorParts);
+        ResetCollectedParts();
 
-        // 초기 부품 상태 설정
-        foreach (PartType part in System.Enum.GetValues(typeof(PartType)))
-        {
-            collectedParts[part] = 0;
-        }
     }
 
     private void Update()
@@ -58,6 +49,26 @@ public class GameManager : MonoBehaviour
         {
             StageClear();
         }
+    }
+
+    // 필요 수량 랜덤 초기화
+    private void InitializeParts()
+    {
+        requiredSteelParts = Random.Range(minParts, maxParts + 1);
+        requiredScrewNailParts = Random.Range(minParts, maxParts + 1);
+        requiredSemiconductorParts = Random.Range(minParts, maxParts + 1);
+
+        Logger.Log($"새로운 부품 수량 - 철: {requiredSteelParts}, 나사못: {requiredScrewNailParts}, 반도체: {requiredSemiconductorParts}");
+    }
+
+    // 수집한 누적 자원 개수 초기화
+    private void ResetCollectedParts()
+    {
+        foreach (PartType part in System.Enum.GetValues(typeof(PartType)))
+        {
+            collectedParts[part] = 0; // 모든 부품 수량 초기화
+        }
+        Logger.Log("수집된 부품 초기화 완료!");
     }
 
     // 부품 상태 업데이트
@@ -88,7 +99,7 @@ public class GameManager : MonoBehaviour
         // 스테이지 클리어 UI 표시
         Logger.Log("스테이지 클리어!");
         // 다음 스테이지로 진행하거나 게임 종료
-        //Invoke("LoadNextStage", 2f);
+        Invoke("LoadNextStage", 2f);
     }
 
     private void LoadNextStage()
@@ -96,7 +107,13 @@ public class GameManager : MonoBehaviour
         // 빌드 세팅에 등록된 씬을 기준으로 다음 씬을 로드
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         int nextSceneIndex = (currentSceneIndex + 1) % SceneManager.sceneCountInBuildSettings;
+
+        minParts = Mathf.RoundToInt(minParts * 1.5f); // 다음 스테이지 최소 수량 배율 증가
+        maxParts = Mathf.RoundToInt(maxParts * 1.5f); // 다음 스테이지 최대 수량 배율 증가
+
         SceneManager.LoadScene(nextSceneIndex);  // 다음 씬 로드
+        InitializeParts();      // 필요 자원 수량 초기화
+        ResetCollectedParts();  // 수집 자원 수량 초기화
         isGameOver = false;
     }
 

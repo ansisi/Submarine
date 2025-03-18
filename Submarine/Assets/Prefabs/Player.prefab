@@ -104,7 +104,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thrust: 0.4
   boostMultiplier: 1.5
-  rotationThrust: 0.6
+  rotationThrust: 0.7
   linearDrag: 0.5
   angularDrag: 0.8
 --- !u!114 &1208068902138815530
@@ -144,10 +144,10 @@ MonoBehaviour:
   collisionLayers:
     serializedVersion: 2
     m_Bits: 0
-  ropeMaxLength: 15
+  ropeMaxLength: 10
   ropeBreakForce: 1000
   ropeTensionMultiplier: 20
-  ropeBreakDistance: 20
+  ropeBreakDistance: 15
   hookIcon: {fileID: 0}
 --- !u!120 &8090416909929449990
 LineRenderer:
