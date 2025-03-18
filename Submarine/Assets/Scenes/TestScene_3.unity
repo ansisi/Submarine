@@ -741,38 +741,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1764023309201174998, guid: 8d42b5a2b9409884bbf85da504c0e0c3, type: 3}
   m_PrefabInstance: {fileID: 71416317}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &85517442
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 85517443}
-  m_Layer: 0
-  m_Name: Managers
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &85517443
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 85517442}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.375835, y: 0.2950077, z: 0.86454904}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1182881190}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &86764781
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13075,11 +13043,11 @@ Transform:
   m_GameObject: {fileID: 1182881189}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.375835, y: -0.2950077, z: -0.86454904}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 85517443}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1182881191
 MonoBehaviour:
@@ -14593,13 +14561,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 041f8177e4e666945ad3dbfe105b1e11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hookPrefab: {fileID: 6282194973718252133, guid: 0cb74d087475ed441a56c435c50ed111, type: 3}
   hookSpawnPoint: {fileID: 164803085}
+  hookSpeed: 25
+  maxHookDistance: 30
+  retractSpeed: 15
   grabRange: 0.5
-  lineRenderer: {fileID: 1279126810}
+  springForce: 50
+  springDamper: 5
+  collisionLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  ropeMaxLength: 15
+  ropeBreakForce: 1000
+  ropeTensionMultiplier: 5
+  ropeBreakDistance: 20
   hookIcon: {fileID: 1796069292}
-  activeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  inactiveColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &1279126812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14628,6 +14604,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thrust: 0.4
+  boostMultiplier: 2
   rotationThrust: 1
   linearDrag: 0.6
   angularDrag: 0.6
@@ -24652,7 +24629,7 @@ SceneRoots:
   - {fileID: 136982428}
   - {fileID: 166152028}
   - {fileID: 1050816860}
-  - {fileID: 85517443}
+  - {fileID: 1182881190}
   - {fileID: 1279126816}
   - {fileID: 597718952}
   - {fileID: 991764271}

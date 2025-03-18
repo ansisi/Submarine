@@ -9,6 +9,8 @@ public class PlayerPickup : MonoBehaviour
     private List<DeliverableItem> availableItems = new List<DeliverableItem>();
     private DeliverableItem currentHeldItem;
 
+    public bool IsGrabbing => currentHeldItem != null;
+
     private void OnTriggerEnter(Collider other)
     {
         DeliverableItem item = other.GetComponent<DeliverableItem>();

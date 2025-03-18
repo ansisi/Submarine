@@ -37,7 +37,7 @@ Transform:
   m_Children:
   - {fileID: 6475174329595060864}
   - {fileID: 7670774970824178220}
-  - {fileID: 8895074703125170205}
+  - {fileID: 2193132657642042185}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &4827653408790452501
@@ -134,7 +134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 041f8177e4e666945ad3dbfe105b1e11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hookSpawnPoint: {fileID: 8895074703125170205}
+  hookSpawnPoint: {fileID: 5881687550018347569}
   hookSpeed: 5
   maxHookDistance: 4
   retractSpeed: 5
@@ -148,6 +148,7 @@ MonoBehaviour:
   ropeBreakForce: 1000
   ropeTensionMultiplier: 20
   ropeBreakDistance: 20
+  hookIcon: {fileID: 0}
 --- !u!120 &8090416909929449990
 LineRenderer:
   serializedVersion: 2
@@ -252,7 +253,7 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
---- !u!1 &783767388994749430
+--- !u!1 &4761398087230951581
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -260,24 +261,24 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8895074703125170205}
+  - component: {fileID: 2193132657642042185}
   m_Layer: 0
-  m_Name: HookSpawnPoint
+  m_Name: GrabPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8895074703125170205
+--- !u!4 &2193132657642042185
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 783767388994749430}
+  m_GameObject: {fileID: 4761398087230951581}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.02, y: 0.02, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.539, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -484,7 +485,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8221024298806717495, guid: a59d93cd0a3a7604ebf588ef2af43026, type: 3}
       propertyPath: m_Name
-      value: Diver (1)
+      value: Diver
       objectReference: {fileID: 0}
     - target: {fileID: 8221024298806717495, guid: a59d93cd0a3a7604ebf588ef2af43026, type: 3}
       propertyPath: m_IsActive
@@ -515,6 +516,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc537cc98fd0ca34db39e10dd398db2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerPickup: {fileID: 4097303795880525557}
+  itemTransform: {fileID: 2193132657642042185}
+  handIKWeight: 1
+  handOffset: 0.15
+--- !u!4 &5881687550018347569 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2676579072870972533, guid: a59d93cd0a3a7604ebf588ef2af43026, type: 3}
+  m_PrefabInstance: {fileID: 8411296758941457988}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6475174329595060864 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3271475252406025412, guid: a59d93cd0a3a7604ebf588ef2af43026, type: 3}
