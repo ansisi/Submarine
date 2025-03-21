@@ -10,8 +10,13 @@ public class Submarine : MonoBehaviour
     private float elapsedFuelTime = 0f;    // 경과된 연료 소비 시간
 
     // 게이지 바늘의 회전 각도 (UI에 맞게 조정)
-    public float fullFuelAngle = -193f;    // 연료가 가득 찼을 때(소비 시간이 0일 때)의 바늘 각도
+    public float fullFuelAngle = -195f;    // 연료가 가득 찼을 때(소비 시간이 0일 때)의 바늘 각도
     public float emptyFuelAngle = 90f;     // 연료가 다 떨어졌을 때(소비 시간이 maxFuelTime일 때)의 바늘 각도
+
+    // 연료 경고 UI 관련 변수
+    public GameObject warningUI; // 경고 UI (느낌표 이미지)
+    public CanvasGroup fuelGaugeUI; // 연료 게이지 깜빡이게 할 CanvasGroup
+    private bool isBlinking = false; // 깜빡임 상태 체크
 
     // 부품 수집 등 기존 기능 관련 변수
     private Dictionary<PartType, int> collectedParts = new Dictionary<PartType, int>();
@@ -23,6 +28,9 @@ public class Submarine : MonoBehaviour
         {
             collectedParts[part] = 0;
         }
+
+        // 처음엔 경고 UI 숨기기
+        if (warningUI != null) warningUI.SetActive(false);
     }
 
     void Update()
@@ -40,12 +48,43 @@ public class Submarine : MonoBehaviour
             fuelNeedle.localEulerAngles = new Vector3(0, 0, fuelAngle);
         }
 
+        if (fuelAngle >= 30f)
+        {
+            if (warningUI != null) warningUI.SetActive(true);
+
+            // UI 깜빡이기 효과 실행 (한 번만 실행)
+            if (!isBlinking)
+            {
+                StartCoroutine(BlinkWarning());
+            }
+        }
+        else
+        {
+            if (warningUI != null) warningUI.SetActive(false);
+        }
+
         // 연료가 다 소비되었을 때 게임 오버 처리 (또는 원하는 임계값 사용)
         if (fuelRatio >= 1.0f)
         {
             GameManager.Instance.GameOver();
             Debug.Log("연료 부족! 게임 오버");
         }
+    }
+
+    private IEnumerator BlinkWarning()
+    {
+        isBlinking = true;
+        while (elapsedFuelTime / maxFuelTime >= 0.7f) // 연료 부족 상태일 동안 반복
+        {
+            if (fuelGaugeUI != null)
+            {
+                fuelGaugeUI.alpha = 0f; // 투명하게
+                yield return new WaitForSeconds(0.3f);
+                fuelGaugeUI.alpha = 1f; // 다시 보이게
+                yield return new WaitForSeconds(0.3f);
+            }
+        }
+        isBlinking = false;
     }
 
     // 연료 보충 함수 (연료 소비 시간 감소)
