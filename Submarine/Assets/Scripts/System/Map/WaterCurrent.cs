@@ -9,18 +9,15 @@ public class WaterCurrent : MonoBehaviour
     public float currentAngle = 0f;   // 물살의 방향 (0~360도, XY 평면 기준)
 
     private Vector3 currentDirection; // 실제 적용할 물살 방향
-    private BoxCollider boxCollider;
 
     void Start()
     {
-        boxCollider = GetComponent<BoxCollider>();
-        if (boxCollider == null)
-        {
-            boxCollider = gameObject.AddComponent<BoxCollider>();
-            boxCollider.isTrigger = true; // Trigger로 설정
-        }
         UpdateCurrentDirection();
-        UpdateColliderSize();
+    }
+
+    void Update()
+    {
+        ApplyCurrentForce();
     }
 
     void UpdateCurrentDirection()
@@ -30,23 +27,18 @@ public class WaterCurrent : MonoBehaviour
         currentDirection = new Vector3(Mathf.Cos(radian), Mathf.Sin(radian), 0f).normalized;
     }
 
-    // 물살 범위에 따라 Collider 크기 업데이트
-    void UpdateColliderSize()
+    void ApplyCurrentForce()
     {
-        if (boxCollider != null)
-        {
-            boxCollider.size = new Vector3(currentRange, currentRange, 1f); // Z축은 얇게 유지
-        }
-    }
+        Collider[] colliders = Physics.OverlapBox(transform.position, new Vector3(currentRange / 2, currentRange / 2, 0.5f), Quaternion.identity);
 
-    private void OnTriggerStay(Collider other)
-    {
-        Rigidbody rb = other.attachedRigidbody;
-        if (rb != null)
+        foreach (Collider col in colliders)
         {
-            // 질량에 반비례한 힘 적용 (질량이 클수록 덜 밀림)
-            float forceMultiplier = 1f / Mathf.Max(rb.mass, 0.1f);
-            rb.AddForce(currentDirection * (currentStrength * 0.1f) * forceMultiplier, ForceMode.Acceleration);
+            Rigidbody rb = col.attachedRigidbody;
+            if (rb != null)
+            {
+                float forceMultiplier = 1f / Mathf.Max(rb.mass, 0.1f);
+                rb.AddForce(currentDirection * (currentStrength * 0.1f) * forceMultiplier, ForceMode.Acceleration);
+            }
         }
     }
 
@@ -58,7 +50,7 @@ public class WaterCurrent : MonoBehaviour
     void OnDrawGizmos()
     {
         Gizmos.color = Color.cyan;
-        Gizmos.DrawWireCube(transform.position, new Vector3(currentRange, currentRange, 0f));
+        Gizmos.DrawWireCube(transform.position, new Vector3(currentRange, currentRange, 1f));
 
         // 물살 방향 화살표 표시
         Vector3 arrowStart = transform.position;

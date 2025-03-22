@@ -9,6 +9,8 @@ public class PlayerPickup : MonoBehaviour
     private List<DeliverableItem> availableItems = new List<DeliverableItem>();
     private DeliverableItem currentHeldItem;
 
+    public HookController hookController;
+
     public bool IsGrabbing => currentHeldItem != null;
 
     private void OnTriggerEnter(Collider other)
@@ -35,14 +37,17 @@ public class PlayerPickup : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (hookController.isHookActive == false)
         {
-            TryGrabItem();
-        }
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                TryGrabItem();
+            }
 
-        if (Input.GetMouseButtonUp(1))
-        {
-            ReleaseItem();
+            if (Input.GetKeyUp(KeyCode.Space))
+            {
+                ReleaseItem();
+            }
         }
 
         // 잡고 있는 동안 아이템을 플레이어 머리 위로 고정 (로컬 좌표 사용)

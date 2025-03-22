@@ -119,9 +119,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96cd1b3f0f976654c80878e8a6b09256, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxOxygen: 100
-  currentOxygen: 0
-  oxygenRemoveAmount: 10
+  oxygenNeedle: {fileID: 0}
+  maxOxygenTime: 200
+  warningOxygenUI: {fileID: 0}
+  oxygenGaugeUI: {fileID: 0}
 --- !u!114 &6397254079724690725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,7 +149,11 @@ MonoBehaviour:
   ropeBreakForce: 1000
   ropeTensionMultiplier: 20
   ropeBreakDistance: 15
-  hookIcon: {fileID: 0}
+  mesh: {fileID: -2073062303095333546, guid: 460e8eeeb73285c42839fdce0c248756, type: 3}
+  material: {fileID: -6478536213147159724, guid: 460e8eeeb73285c42839fdce0c248756, type: 3}
+  playerPickup: {fileID: 4097303795880525557}
+  isHookActive: 0
+  uiManager: {fileID: 0}
 --- !u!120 &8090416909929449990
 LineRenderer:
   serializedVersion: 2
@@ -351,6 +356,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   headOffset: {x: 0, y: 0.5, z: 0}
+  hookController: {fileID: 6397254079724690725}
 --- !u!1001 &8411296758941457988
 PrefabInstance:
   m_ObjectHideFlags: 0

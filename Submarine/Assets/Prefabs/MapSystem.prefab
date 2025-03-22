@@ -204,7 +204,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4219749855564721939}
   - component: {fileID: 8869652825728527091}
-  - component: {fileID: 2368374998394786812}
   m_Layer: 0
   m_Name: WaterCurrent
   m_TagString: Untagged
@@ -242,27 +241,6 @@ MonoBehaviour:
   currentStrength: 0.85
   currentRange: 30
   currentAngle: 25
---- !u!65 &2368374998394786812
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6257775012785266622}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0, y: 0, z: 0}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6420995544703902210
 GameObject:
   m_ObjectHideFlags: 0

@@ -69,9 +69,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e994be341b36a754395b5c160f22987d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxFuel: 100
-  currentFuel: 0
-  fuelRemoveAmount: 10
+  fuelNeedle: {fileID: 0}
+  maxFuelTime: 300
+  fullFuelAngle: -195
+  emptyFuelAngle: 90
+  warningUI: {fileID: 0}
+  fuelGaugeUI: {fileID: 0}
 --- !u!1001 &2205017164925339643
 PrefabInstance:
   m_ObjectHideFlags: 0

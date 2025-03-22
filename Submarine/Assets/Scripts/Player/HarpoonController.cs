@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HookController : MonoBehaviour
+public class HarpoonController : MonoBehaviour
 {
-    public Transform hookSpawnPoint;
-    public float hookSpeed = 25f;
-    public float maxHookDistance = 30f;
+   
+    public Transform harpoonSpawnPoint;
+    public float harpoonSpeed = 25f;
+    public float maxHarpoonDistance = 30f;
     public float retractSpeed = 15f;
     public float grabRange = 1f;
     public float springForce = 50f;
@@ -16,23 +17,21 @@ public class HookController : MonoBehaviour
     public float ropeBreakForce = 1000f; // 로프가 끊어지는 힘
     public float ropeTensionMultiplier = 5f; // 로프 장력 승수
     public float ropeBreakDistance = 20f; // 로프가 끊어지는 거리
-    public Mesh mesh; //후크 모델링
-    public Material material;   // 후크 모델링 머테리얼
-    public PlayerPickup playerPickup;
-    public bool isHookActive = false;
+    public Mesh mesh; //작살 모델링
+    public Material material;   // 작살 모델링 머테리얼
 
-    private float pullForce = 7.5f; //한 번 당겨져오는 거리
     private LineRenderer lineRenderer;
-    private GameObject hookObject;
-    private Vector3 hookPosition;
-    private Vector3 hookVelocity;
+    private GameObject harpoonObject;
+    private Vector3 harpoonPosition;
+    private Vector3 harpoonVelocity;
+    private bool isHarpoonActive = false;
     private bool isRetracting = false;
     private GameObject attachedObject;
     private ConfigurableJoint ropeJoint; // 로프 조인트
     private Rigidbody attachedRigidbody; // 연결된 물체의 Rigidbody
     private float initialRopeLength; // 초기 로프 길이
 
-    public HookUIManager uiManager; // UI 매니저 참조
+    
 
     void Awake()
     {
@@ -45,14 +44,14 @@ public class HookController : MonoBehaviour
         if (collisionLayers.value == 0)
             collisionLayers = Physics.AllLayers;
 
-        Logger.Log("후크 컨트롤러 초기화 완료");
+        Logger.Log("작살 컨트롤러 초기화 완료");
     }
 
     void OnEnable()
     {
         // 혹시 이전 실행에서 남은 후크가 있다면 정리
-        if (hookObject != null)
-            Destroy(hookObject);
+        if (harpoonObject != null)
+            Destroy(harpoonObject);
 
         // 라인 렌더러 초기화
         lineRenderer.positionCount = 0;
@@ -71,78 +70,60 @@ public class HookController : MonoBehaviour
 
     void Update()
     {
-        if (playerPickup.IsGrabbing == false)
+        if (Input.GetMouseButtonDown(0))
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-            if (!isHookActive)
-                FireHook();
+            if (!isHarpoonActive)
+                FireHarpoon();
             else if (attachedObject == null)
                 StartRetraction();
             else
                 ClearRopeConnection(); // 로프 연결 해제
-            }
-
-        
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                if (isHookActive && attachedRigidbody != null)
-                {
-                    PullHook();
-                }
-            }
         }
 
-        if (isHookActive)
+        if (isHarpoonActive)
         {
-            // 후크 위치 업데이트 (회수 중이거나 물체가 연결되지 않은 경우만)
+            // 작살 위치 업데이트 (회수 중이거나 물체가 연결되지 않은 경우만)
             if (!isRetracting && attachedObject == null)
             {
-                hookPosition += hookVelocity * Time.deltaTime;
+                harpoonPosition += harpoonVelocity * Time.deltaTime;
 
                 // 충돌 체크
-                CheckHookCollision();
+                CheckHarpoonCollision();
 
                 // 최대 거리 체크
-                float distance = Vector3.Distance(transform.position, hookPosition);
-                if (distance >= maxHookDistance)
+                float distance = Vector3.Distance(transform.position, harpoonPosition);
+                if (distance >= maxHarpoonDistance)
                     StartRetraction();
             }
             else if (isRetracting)
             {
-                // 후크 되감기
-                Vector3 retractDirection = (transform.position - hookPosition).normalized;
-                hookVelocity = retractDirection * retractSpeed;
-                hookPosition += hookVelocity * Time.deltaTime;
+                // 작살 되감기
+                Vector3 retractDirection = (transform.position - harpoonPosition).normalized;
+                harpoonVelocity = retractDirection * retractSpeed;
+                harpoonPosition += harpoonVelocity * Time.deltaTime;
 
                 // 후크가 플레이어에 충분히 가까운지 확인
-                float distance = Vector3.Distance(transform.position, hookPosition);
+                float distance = Vector3.Distance(transform.position, harpoonPosition);
                 if (distance <= grabRange)
-                    CleanupHook();
+                    CleanupHarpoon();
             }
 
             // 물체가 연결된 경우 로프 관리
             if (attachedObject != null && !isRetracting)
             {
                 ManageRopeConnection();
-
-                // 후크가 플레이어에 충분히 가까운지 확인
-                float distance = Vector3.Distance(transform.position, attachedObject.transform.position);
-                if (distance <= grabRange + 0.5f)
-                    CleanupHook();
             }
 
-            // 후크 시각적 표현 업데이트
-            if (hookObject != null)
-                hookObject.transform.position = hookPosition;
+            // 작살 시각적 표현 업데이트
+            if (harpoonObject != null)
+                harpoonObject.transform.position = harpoonPosition;
 
             // 라인 렌더러가 활성화되어 있고 위치 업데이트가 필요한 경우에만 업데이트
-            if (lineRenderer.enabled && (isHookActive || attachedObject != null))
+            if (lineRenderer.enabled && (isHarpoonActive || attachedObject != null))
             {
-                UpdateRope(); 
-                if(attachedObject != null)
-                hookObject.transform.position = attachedObject.transform.position;
-
+                UpdateRope();
+                if (attachedObject != null)
+                    harpoonObject.transform.position = attachedObject.transform.position;
             }
             else if (lineRenderer.positionCount > 0)
             {
@@ -152,84 +133,78 @@ public class HookController : MonoBehaviour
         }
         else if (lineRenderer.positionCount > 0)
         {
-            // 후크가 활성화되지 않았는데 라인 렌더러가 남아있으면 초기화
+            // 작살가 활성화되지 않았는데 라인 렌더러가 남아있으면 초기화
             lineRenderer.positionCount = 0;
         }
 
     }
 
-    void FireHook()
+    void FireHarpoon()
     {
-        // 후크 오브젝트 생성
-        hookObject = new GameObject("Hook");
-        hookObject.transform.position = hookSpawnPoint.position;
+        // 작살 오브젝트 생성
+        harpoonObject = new GameObject("Harpoon");
+        harpoonObject.transform.position = harpoonSpawnPoint.position;
 
         // 크기 축소
-        hookObject.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f); // 크기 절반으로 줄임
+        harpoonObject.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f); // 크기 절반으로 줄임
 
         // 시각화를 위해 스프라이트 렌더러나 메시 추가 (필요시)
         // MeshFilter 추가 및 할당
-        MeshFilter meshFilter = hookObject.AddComponent<MeshFilter>();
+        MeshFilter meshFilter = harpoonObject.AddComponent<MeshFilter>();
         meshFilter.mesh = mesh;
 
         // MeshRenderer 추가 및 머테리얼 적용
-        MeshRenderer meshRenderer = hookObject.AddComponent<MeshRenderer>();
+        MeshRenderer meshRenderer = harpoonObject.AddComponent<MeshRenderer>();
         meshRenderer.material = material;
 
-        SphereCollider hookVisual = hookObject.AddComponent<SphereCollider>();
-        hookVisual.radius = 0.2f;
-        hookVisual.isTrigger = true; // 물리적 충돌이 아닌 트리거로 설정
+        SphereCollider HarpoonVisual = harpoonObject.AddComponent<SphereCollider>();
+        HarpoonVisual.radius = 0.2f;
+        HarpoonVisual.isTrigger = true; // 물리적 충돌이 아닌 트리거로 설정
 
         // 초기 위치와 방향 설정
-        hookPosition = hookSpawnPoint.position;
+        harpoonPosition = harpoonSpawnPoint.position;
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Vector3 targetPoint = ray.origin + ray.direction * maxHookDistance;
+        Vector3 targetPoint = ray.origin + ray.direction * maxHarpoonDistance;
         targetPoint.z = 0f;
 
-        Vector3 direction = (targetPoint - hookSpawnPoint.position).normalized;
+        Vector3 direction = (targetPoint - harpoonSpawnPoint.position).normalized;
         direction.z = 0f;
-        hookVelocity = direction * hookSpeed;
+        harpoonVelocity = direction * harpoonSpeed;
 
 
         // 방향을 기준으로 회전 적용
         Quaternion baseRotation = Quaternion.Euler(180f, 0f, 90f);
         Quaternion directionRotation = Quaternion.LookRotation(direction);
-        hookObject.transform.rotation = directionRotation * baseRotation;
+        harpoonObject.transform.rotation = directionRotation * baseRotation;
 
-        isHookActive = true;
+        isHarpoonActive = true;
         isRetracting = false;
         lineRenderer.positionCount = 2;
 
-        uiManager?.UpdateHookUI(isHookActive);
+        
     }
 
-    void PullHook()
-    {
-        Vector3 direction = (transform.position - attachedRigidbody.position).normalized;
-        attachedRigidbody.AddForce(direction * pullForce, ForceMode.Acceleration);
-    }
-
-    void CheckHookCollision()
+    void CheckHarpoonCollision()
     {
         // 레이캐스트로 충돌 감지
-        float movementDistance = hookVelocity.magnitude * Time.deltaTime;
+        float movementDistance = harpoonVelocity.magnitude * Time.deltaTime;
         RaycastHit hit;
 
         // 디버그 레이 그리기 (문제 해결 도움)
-        Debug.DrawRay(hookPosition, hookVelocity.normalized * (movementDistance + 0.1f), Color.red, 0.1f);
+        Debug.DrawRay(harpoonPosition, harpoonVelocity.normalized * (movementDistance + 0.1f), Color.red, 0.1f);
 
         // 구체 캐스팅으로 변경 - 더 넓은 충돌 영역 제공
-        if (Physics.SphereCast(hookPosition, 0.3f, hookVelocity.normalized, out hit, movementDistance + 0.1f, collisionLayers))
+        if (Physics.SphereCast(harpoonPosition, 0.3f, harpoonVelocity.normalized, out hit, movementDistance + 0.1f, collisionLayers))
         {
             // 충돌 감지됨
-            hookPosition = hit.point;
+            harpoonPosition = hit.point;
 
             // 다양한 오브젝트와의 충돌 처리
-            if (hit.collider.CompareTag("Resource"))
+            if (hit.collider.CompareTag("Terrain"))
             {
-                Logger.Log("리소스와 충돌: " + hit.collider.name);
-                OnHookCollision(hit.collider.gameObject);
+                Logger.Log("지형과 충돌: " + hit.collider.name);
+                OnHarpoonCollision(hit.collider.gameObject);
             }
             else if (hit.collider.CompareTag("Player"))
             {
@@ -245,22 +220,22 @@ public class HookController : MonoBehaviour
             }
         }
     }
-
+    
     void StartRetraction()
     {
         isRetracting = true;
-        Vector3 retractDirection = (transform.position - hookPosition).normalized;
+        Vector3 retractDirection = (transform.position - harpoonPosition).normalized;
         retractDirection.z = 0f;
-        hookVelocity = retractDirection * retractSpeed;
+        harpoonVelocity = retractDirection * retractSpeed;
     }
 
-    void OnHookCollision(GameObject collidedObject)
+    void OnHarpoonCollision(GameObject collidedObject)
     {
-        if (collidedObject.CompareTag("Resource"))
+        if (collidedObject.CompareTag("Terrain"))
         {
-            Logger.Log("리소스와 로프 연결 중: " + collidedObject.name);
+            Logger.Log("지형과 로프 연결 중: " + collidedObject.name);
 
-            // 리소스에 부착
+            // 지형에 부착
             attachedObject = collidedObject;
 
             // 오브젝트에 Rigidbody가 없으면 추가
@@ -297,7 +272,7 @@ public class HookController : MonoBehaviour
             CreateRopeJoint();
 
             // 후크가 물체에 위치하도록 설정
-            hookPosition = collidedObject.transform.position;
+            harpoonPosition = collidedObject.transform.position;
 
             // 초기 로프 길이 저장
             initialRopeLength = Vector3.Distance(transform.position, attachedObject.transform.position);
@@ -358,8 +333,8 @@ public class HookController : MonoBehaviour
 
         // 조인트 이벤트 리스너 추가 (조인트가 끊어질 때 감지)
         Rigidbody rb = GetComponent<Rigidbody>();
-        HookJointBreakListener breakListener = rb.gameObject.AddComponent<HookJointBreakListener>();
-        breakListener.hookController = this;
+        HarpoonJointBreakListener breakListener = rb.gameObject.AddComponent<HarpoonJointBreakListener>();
+        breakListener.harpoonController = this;
     }
 
     void ManageRopeConnection()
@@ -398,15 +373,15 @@ public class HookController : MonoBehaviour
         if (lineRenderer.positionCount != 2)
             lineRenderer.positionCount = 2;
 
-        lineRenderer.SetPosition(0, hookSpawnPoint.position);
+        lineRenderer.SetPosition(0, harpoonSpawnPoint.position);
 
-        // 연결된 물체가 있으면 물체 위치로, 없으면 후크 위치로
+        // 연결된 물체가 있으면 물체 위치로, 없으면 작살 위치로
         if (attachedObject != null)
             lineRenderer.SetPosition(1, attachedObject.transform.position);
-        else if (hookObject != null)
-            lineRenderer.SetPosition(1, hookObject.transform.position);
+        else if (harpoonObject != null)
+            lineRenderer.SetPosition(1, harpoonObject.transform.position);
         else
-            lineRenderer.SetPosition(1, hookPosition);
+            lineRenderer.SetPosition(1, harpoonPosition);
     }
 
     public void OnJointBreak()
@@ -425,7 +400,7 @@ public class HookController : MonoBehaviour
         }
 
         // JointBreakListener 제거
-        HookJointBreakListener listener = GetComponent<HookJointBreakListener>();
+        HarpoonJointBreakListener listener = GetComponent<HarpoonJointBreakListener>();
         if (listener != null)
             Destroy(listener);
 
@@ -437,7 +412,7 @@ public class HookController : MonoBehaviour
         lineRenderer.positionCount = 0;
 
         // 후크가 활성화 상태면 회수 시작
-        if (isHookActive && !isRetracting)
+        if (isHarpoonActive && !isRetracting)
         {
             StartRetraction();
             // 회수 시작 시 라인 렌더러 다시 활성화
@@ -445,19 +420,19 @@ public class HookController : MonoBehaviour
         }
         else
         {
-            // 모든 후크 관련 상태 초기화
-            if (hookObject != null)
-                Destroy(hookObject);
+            // 모든 작살 관련 상태 초기화
+            if (harpoonObject != null)
+                Destroy(harpoonObject);
 
-            hookObject = null;
-            isHookActive = false;
+            harpoonObject = null;
+            isHarpoonActive = false;
             isRetracting = false;
         }
 
         Logger.Log("로프 연결 해제됨");
     }
 
-    void CleanupHook()
+    void CleanupHarpoon()
     {
         // 로프 연결 정리 전 라인 렌더러 비활성화 확인
         lineRenderer.enabled = false;
@@ -465,33 +440,35 @@ public class HookController : MonoBehaviour
 
         ClearRopeConnection();
 
-        // 후크 오브젝트 정리
-        if (hookObject != null)
-            Destroy(hookObject);
+        // 작살 오브젝트 정리
+        if (harpoonObject != null)
+            Destroy(harpoonObject);
 
-        hookObject = null;
-        isHookActive = false;
+        harpoonObject = null;
+        isHarpoonActive = false;
         isRetracting = false;
 
         // 라인 렌더러 다시 활성화 (다음 사용을 위해)
         lineRenderer.enabled = true;
 
-        Logger.Log("후크 정리 완료");
+        Logger.Log("작살 정리 완료");
 
-        uiManager?.UpdateHookUI(isHookActive);
+        
     }
 
 
 }
 
 // 조인트가 끊어지는 이벤트를 감지하는 보조 클래스
-public class HookJointBreakListener : MonoBehaviour
+public class HarpoonJointBreakListener : MonoBehaviour
 {
-    public HookController hookController;
+    public HarpoonController harpoonController;
 
     void OnJointBreak(float breakForce)
     {
-        if (hookController != null)
-            hookController.OnJointBreak();
+        if (harpoonController != null)
+            harpoonController.OnJointBreak();
     }
 }
+
+
