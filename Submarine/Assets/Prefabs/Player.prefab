@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5369233594522251089}
   - component: {fileID: 430580868472171167}
   - component: {fileID: 1208068902138815530}
+  - component: {fileID: 4961078067918971700}
   - component: {fileID: 6397254079724690725}
   - component: {fileID: 8090416909929449990}
   m_Layer: 0
@@ -123,6 +124,36 @@ MonoBehaviour:
   maxOxygenTime: 200
   warningOxygenUI: {fileID: 0}
   oxygenGaugeUI: {fileID: 0}
+--- !u!114 &4961078067918971700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 739736358294487096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37a0d9c1419d6754f95d9282ac7358cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  harpoonSpawnPoint: {fileID: 8892427231028253479}
+  harpoonSpeed: 10
+  maxHarpoonDistance: 10
+  retractSpeed: 10
+  grabRange: 0.5
+  springForce: 50
+  springDamper: 5
+  collisionLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  ropeMaxLength: 40
+  ropeBreakForce: 1000
+  ropeTensionMultiplier: 15
+  ropeBreakDistance: 20
+  mesh: {fileID: -2073062303095333546, guid: 460e8eeeb73285c42839fdce0c248756, type: 3}
+  material: {fileID: -6478536213147159724, guid: 460e8eeeb73285c42839fdce0c248756, type: 3}
+  playerPickup: {fileID: 4097303795880525557}
+  isHarpoonActive: 0
 --- !u!114 &6397254079724690725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,7 +193,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 739736358294487096}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -357,6 +388,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   headOffset: {x: 0, y: 0.5, z: 0}
   hookController: {fileID: 6397254079724690725}
+  harpoonController: {fileID: 4961078067918971700}
 --- !u!1001 &8411296758941457988
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -534,5 +566,10 @@ Transform:
 --- !u!4 &6475174329595060864 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3271475252406025412, guid: a59d93cd0a3a7604ebf588ef2af43026, type: 3}
+  m_PrefabInstance: {fileID: 8411296758941457988}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8892427231028253479 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1140205263960837475, guid: a59d93cd0a3a7604ebf588ef2af43026, type: 3}
   m_PrefabInstance: {fileID: 8411296758941457988}
   m_PrefabAsset: {fileID: 0}

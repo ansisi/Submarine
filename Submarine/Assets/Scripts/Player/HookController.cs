@@ -21,7 +21,7 @@ public class HookController : MonoBehaviour
     public PlayerPickup playerPickup;
     public bool isHookActive = false;
 
-    private float pullForce = 7.5f; //한 번 당겨져오는 거리
+    private float pullForce = 1.3f; //한 번 당겨져오는 거리
     private LineRenderer lineRenderer;
     private GameObject hookObject;
     private Vector3 hookPosition;
@@ -73,7 +73,7 @@ public class HookController : MonoBehaviour
     {
         if (playerPickup.IsGrabbing == false)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(1))
             {
             if (!isHookActive)
                 FireHook();
@@ -207,7 +207,8 @@ public class HookController : MonoBehaviour
     void PullHook()
     {
         Vector3 direction = (transform.position - attachedRigidbody.position).normalized;
-        attachedRigidbody.AddForce(direction * pullForce, ForceMode.Acceleration);
+        //attachedRigidbody.AddForce(direction * pullForce, ForceMode.Acceleration);
+        attachedRigidbody.AddForce(direction * pullForce, ForceMode.Impulse); // 한 번에 강한 힘 적용
     }
 
     void CheckHookCollision()

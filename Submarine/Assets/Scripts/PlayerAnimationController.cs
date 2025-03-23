@@ -22,7 +22,7 @@ public class PlayerAnimationController : MonoBehaviour
     void Update()
     {
         bool isMovingForward = Input.GetKey(KeyCode.W);
-        bool isBoosting = Input.GetKey(KeyCode.Space);
+        bool isBoosting = Input.GetKey(KeyCode.LeftShift);
         bool isGrabbing = playerPickup != null && playerPickup.IsGrabbing;
 
         // 앞으로 이동할 때 다리 애니메이션 재생
@@ -37,8 +37,11 @@ public class PlayerAnimationController : MonoBehaviour
         // 다리 애니메이션 속도만 조절 (LegSpeed 파라미터 사용)
         animator.SetFloat("LegSpeed", isMovingForward ? (isBoosting ? boostedSpeed : defaultSpeed) : defaultSpeed);
 
-        // 마우스 왼쪽 클릭 시 후크 발사 또는 취소
-        animator.SetBool("isHooking", Input.GetMouseButtonDown(0) && !isGrabbing);
+        // 마우스 오른쪽 클릭 시 후크 발사 또는 취소
+        animator.SetBool("isHooking", Input.GetMouseButtonDown(1) && !isGrabbing);
+
+        // 마우스 왼쪽 클릭 시 작살 발사 또는 취소
+        animator.SetBool("isHarpooning", Input.GetMouseButtonDown(0) && !isGrabbing);
 
     }
 

@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public float thrust = 5f;         // 이동 가속도
-    public float boostMultiplier = 2f; // 스페이스바를 눌렀을 때의 가속 배율
+    public float boostMultiplier = 2.5f; // 쉬프트를 눌렀을 때의 가속 배율
     public float rotationThrust = 2f; // 회전 가속도 (토크)
     public float linearDrag = 0.1f;   // 이동 저항
     public float angularDrag = 0.5f;  // 회전 저항 (회전에 대한 관성 감속)
@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         // 스페이스바를 누르면 부스트 적용
-        float currentThrust = Input.GetKey(KeyCode.Space) ? thrust * boostMultiplier : thrust;
+        float currentThrust = Input.GetKey(KeyCode.LeftShift) ? thrust * boostMultiplier : thrust;
 
         // 이동 입력 (WASD)
         if (Input.GetKey(KeyCode.W))

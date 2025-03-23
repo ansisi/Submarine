@@ -10,6 +10,7 @@ public class PlayerPickup : MonoBehaviour
     private DeliverableItem currentHeldItem;
 
     public HookController hookController;
+    public HarpoonController harpoonController;
 
     public bool IsGrabbing => currentHeldItem != null;
 
@@ -37,7 +38,7 @@ public class PlayerPickup : MonoBehaviour
 
     void Update()
     {
-        if (hookController.isHookActive == false)
+        if (hookController.isHookActive == false && harpoonController.isHarpoonActive == false)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {

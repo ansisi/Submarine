@@ -19,22 +19,26 @@ public class HarpoonController : MonoBehaviour
     public float ropeBreakDistance = 20f; // 로프가 끊어지는 거리
     public Mesh mesh; //작살 모델링
     public Material material;   // 작살 모델링 머테리얼
+    public PlayerPickup playerPickup;
+    public bool isHarpoonActive = false;
 
+    private float pullForce = 2f; //한 번 당겨져오는 힘
     private LineRenderer lineRenderer;
     private GameObject harpoonObject;
     private Vector3 harpoonPosition;
     private Vector3 harpoonVelocity;
-    private bool isHarpoonActive = false;
     private bool isRetracting = false;
     private GameObject attachedObject;
     private ConfigurableJoint ropeJoint; // 로프 조인트
     private Rigidbody attachedRigidbody; // 연결된 물체의 Rigidbody
     private float initialRopeLength; // 초기 로프 길이
+    private Rigidbody rb;
 
     
 
     void Awake()
     {
+        rb = GetComponent<Rigidbody>();
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = 0;
         lineRenderer.startWidth = 0.05f;
@@ -70,14 +74,26 @@ public class HarpoonController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+
+        if (playerPickup.IsGrabbing == false)
         {
-            if (!isHarpoonActive)
-                FireHarpoon();
-            else if (attachedObject == null)
-                StartRetraction();
-            else
-                ClearRopeConnection(); // 로프 연결 해제
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (!isHarpoonActive)
+                    FireHarpoon();
+                else if (attachedObject == null)
+                    StartRetraction();
+                else
+                    ClearRopeConnection(); // 로프 연결 해제
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                if (isHarpoonActive && attachedRigidbody != null)
+                {
+                    PullHarpoon();
+                }
+            }
         }
 
         if (isHarpoonActive)
@@ -185,6 +201,13 @@ public class HarpoonController : MonoBehaviour
         
     }
 
+    void PullHarpoon()
+    {
+        Vector3 direction = (attachedRigidbody.position - transform.position).normalized;
+        rb.AddForce(direction * pullForce, ForceMode.Impulse); // 한 번에 강한 힘 적용
+    }
+
+
     void CheckHarpoonCollision()
     {
         // 레이캐스트로 충돌 감지
@@ -239,14 +262,14 @@ public class HarpoonController : MonoBehaviour
             attachedObject = collidedObject;
 
             // 오브젝트에 Rigidbody가 없으면 추가
-            Rigidbody resourceRb = collidedObject.GetComponent<Rigidbody>();
-            if (resourceRb == null)
+            Rigidbody terrainRb = collidedObject.GetComponent<Rigidbody>();
+            if (terrainRb == null)
             {
-                resourceRb = collidedObject.AddComponent<Rigidbody>();
-                resourceRb.useGravity = true;
-                resourceRb.isKinematic = false;
-                resourceRb.mass = 1f;
-                resourceRb.drag = 0.5f;
+                terrainRb = collidedObject.AddComponent<Rigidbody>();
+                terrainRb.useGravity = false;
+                terrainRb.isKinematic = true;
+                terrainRb.constraints = RigidbodyConstraints.FreezeAll;    //모든 회전,이동 고정
+                terrainRb.mass = 100f;
 
                 // 콜라이더 확인
                 if (collidedObject.GetComponent<Collider>() == null)
@@ -262,17 +285,18 @@ public class HarpoonController : MonoBehaviour
             }
 
             // 물리 안정화를 위한 설정
-            resourceRb.interpolation = RigidbodyInterpolation.Interpolate;
-            resourceRb.collisionDetectionMode = CollisionDetectionMode.Continuous;
+            terrainRb.interpolation = RigidbodyInterpolation.Interpolate;
+            terrainRb.collisionDetectionMode = CollisionDetectionMode.Continuous;
 
             // Rigidbody 참조 저장
-            attachedRigidbody = resourceRb;
+            attachedRigidbody = terrainRb;
 
             // 플레이어와 물체 사이에 로프 조인트 생성
             CreateRopeJoint();
 
             // 후크가 물체에 위치하도록 설정
             harpoonPosition = collidedObject.transform.position;
+            
 
             // 초기 로프 길이 저장
             initialRopeLength = Vector3.Distance(transform.position, attachedObject.transform.position);
@@ -360,11 +384,11 @@ public class HarpoonController : MonoBehaviour
             tensionFactor = Mathf.Clamp01(tensionFactor);
 
             // 장력 방향 (플레이어 쪽으로)
-            Vector3 tensionDirection = (transform.position - attachedObject.transform.position).normalized;
+            Vector3 tensionDirection = (attachedObject.transform.position - transform.position).normalized;
 
             // 물체에 장력 적용
             float tensionForce = tensionFactor * ropeTensionMultiplier;
-            attachedRigidbody.AddForce(tensionDirection * tensionForce, ForceMode.Force);
+            rb.AddForce(tensionDirection * tensionForce, ForceMode.Force);
         }
     }
 
