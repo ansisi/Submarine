@@ -21,8 +21,8 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Wave 1
-  m_Shader: {fileID: -6465566751694194690, guid: 7c2d3ebcf0818b14b90172e3900d4658, type: 3}
-  m_Parent: {fileID: -876546973899608171, guid: 7c2d3ebcf0818b14b90172e3900d4658, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: aff0ad77220dc5548ac2970a59a49ea8, type: 3}
+  m_Parent: {fileID: -876546973899608171, guid: aff0ad77220dc5548ac2970a59a49ea8, type: 3}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -48,16 +48,24 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Texture:
+        m_Texture: {fileID: 2800000, guid: 3965497db1219f84d897762d3034f3ec, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Alpha_Clip: 0.554
+    - _Alpha_Clip: 0.464
     - _BUILTIN_QueueControl: 0
-    - _HUE: 0.08
+    - _HUE: 0.071
+    - _Normal_Strength: 0.64
+    - _Opacity: 0.009
     - _SmoothnessMax: 0.357
     - _SmoothnessMin: 0.036
     - _Wind_Density: 10.61
     - _Wind_Strength: 0.34
     m_Colors:
-    - _Color: {r: 0.9292453, g: 0.98029965, b: 1, a: 1}
+    - _Color: {r: 0.69855815, g: 0.83450514, b: 0.8867924, a: 1}
+    - _Speed: {r: -0.21, g: -0.17, b: 0, a: 0}
+    - _Tiling: {r: -14.33, g: -4.43, b: 0, a: 0}
     - _Wind_Direction: {r: 2.7, g: 2, b: 0, a: 0}
   m_BuildTextureStacks: []
