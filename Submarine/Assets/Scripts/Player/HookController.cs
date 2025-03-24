@@ -20,6 +20,7 @@ public class HookController : MonoBehaviour
     public Material material;   // 후크 모델링 머테리얼
     public PlayerPickup playerPickup;
     public bool isHookActive = false;
+    public GameObject hookPrefab;
 
     private float pullForce = 1.3f; //한 번 당겨져오는 거리
     private LineRenderer lineRenderer;
@@ -161,21 +162,9 @@ public class HookController : MonoBehaviour
     void FireHook()
     {
         // 후크 오브젝트 생성
-        hookObject = new GameObject("Hook");
-        hookObject.transform.position = hookSpawnPoint.position;
-
-        // 크기 축소
-        hookObject.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f); // 크기 절반으로 줄임
+        hookObject = Instantiate(hookPrefab, hookSpawnPoint.position, Quaternion.identity);
 
         // 시각화를 위해 스프라이트 렌더러나 메시 추가 (필요시)
-        // MeshFilter 추가 및 할당
-        MeshFilter meshFilter = hookObject.AddComponent<MeshFilter>();
-        meshFilter.mesh = mesh;
-
-        // MeshRenderer 추가 및 머테리얼 적용
-        MeshRenderer meshRenderer = hookObject.AddComponent<MeshRenderer>();
-        meshRenderer.material = material;
-
         SphereCollider hookVisual = hookObject.AddComponent<SphereCollider>();
         hookVisual.radius = 0.2f;
         hookVisual.isTrigger = true; // 물리적 충돌이 아닌 트리거로 설정
@@ -193,9 +182,7 @@ public class HookController : MonoBehaviour
 
 
         // 방향을 기준으로 회전 적용
-        Quaternion baseRotation = Quaternion.Euler(180f, 0f, 90f);
-        Quaternion directionRotation = Quaternion.LookRotation(direction);
-        hookObject.transform.rotation = directionRotation * baseRotation;
+        hookObject.transform.rotation = Quaternion.LookRotation(direction);
 
         isHookActive = true;
         isRetracting = false;

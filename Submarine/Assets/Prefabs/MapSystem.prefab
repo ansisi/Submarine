@@ -100,7 +100,7 @@ MonoBehaviour:
   spawnAreaMin_2: {x: -14.5, y: -15}
   spawnAreaMax_2: {x: -10, y: 15}
   submarine: {fileID: 0}
-  spawnInterval: 10
+  spawnInterval: 60
   survivalItemDecayRate: 0.88
   minSurvivalItemCount: 2
 --- !u!1 &3568786618723694900

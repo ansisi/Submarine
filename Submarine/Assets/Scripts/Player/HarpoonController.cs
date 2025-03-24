@@ -21,6 +21,7 @@ public class HarpoonController : MonoBehaviour
     public Material material;   // 작살 모델링 머테리얼
     public PlayerPickup playerPickup;
     public bool isHarpoonActive = false;
+    public GameObject harpoonPrefab;
 
     private float pullForce = 2f; //한 번 당겨져오는 힘
     private LineRenderer lineRenderer;
@@ -39,7 +40,14 @@ public class HarpoonController : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        lineRenderer = GetComponent<LineRenderer>();
+        foreach (Transform child in transform)
+        {
+            lineRenderer = child.GetComponent<LineRenderer>();
+            if (lineRenderer != null)
+            {
+                break; // 첫 번째 자식의 LineRenderer를 찾으면 종료
+            }
+        }
         lineRenderer.positionCount = 0;
         lineRenderer.startWidth = 0.05f;
         lineRenderer.endWidth = 0.05f;
@@ -158,21 +166,9 @@ public class HarpoonController : MonoBehaviour
     void FireHarpoon()
     {
         // 작살 오브젝트 생성
-        harpoonObject = new GameObject("Harpoon");
-        harpoonObject.transform.position = harpoonSpawnPoint.position;
-
-        // 크기 축소
-        harpoonObject.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f); // 크기 절반으로 줄임
+        harpoonObject = Instantiate(harpoonPrefab, harpoonSpawnPoint.position, Quaternion.identity);
 
         // 시각화를 위해 스프라이트 렌더러나 메시 추가 (필요시)
-        // MeshFilter 추가 및 할당
-        MeshFilter meshFilter = harpoonObject.AddComponent<MeshFilter>();
-        meshFilter.mesh = mesh;
-
-        // MeshRenderer 추가 및 머테리얼 적용
-        MeshRenderer meshRenderer = harpoonObject.AddComponent<MeshRenderer>();
-        meshRenderer.material = material;
-
         SphereCollider HarpoonVisual = harpoonObject.AddComponent<SphereCollider>();
         HarpoonVisual.radius = 0.2f;
         HarpoonVisual.isTrigger = true; // 물리적 충돌이 아닌 트리거로 설정
@@ -190,9 +186,8 @@ public class HarpoonController : MonoBehaviour
 
 
         // 방향을 기준으로 회전 적용
-        Quaternion baseRotation = Quaternion.Euler(180f, 0f, 90f);
-        Quaternion directionRotation = Quaternion.LookRotation(direction);
-        harpoonObject.transform.rotation = directionRotation * baseRotation;
+        harpoonObject.transform.rotation = Quaternion.LookRotation(direction);
+        
 
         isHarpoonActive = true;
         isRetracting = false;
@@ -359,6 +354,9 @@ public class HarpoonController : MonoBehaviour
         Rigidbody rb = GetComponent<Rigidbody>();
         HarpoonJointBreakListener breakListener = rb.gameObject.AddComponent<HarpoonJointBreakListener>();
         breakListener.harpoonController = this;
+
+        //지형 통과 금지
+        ropeJoint.enableCollision = true;
     }
 
     void ManageRopeConnection()

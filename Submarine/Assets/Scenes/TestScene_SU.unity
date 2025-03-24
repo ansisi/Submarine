@@ -1557,10 +1557,6 @@ PrefabInstance:
       propertyPath: warningOxygenUI
       value: 
       objectReference: {fileID: 177027824}
-    - target: {fileID: 4961078067918971700, guid: 55db18a2b4ed08b41a28e2a8cd3636da, type: 3}
-      propertyPath: ropeTensionMultiplier
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 5377359602491059212, guid: 55db18a2b4ed08b41a28e2a8cd3636da, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
