@@ -1201,66 +1201,6 @@ PrefabInstance:
       propertyPath: submarine
       value: 
       objectReference: {fileID: 947740853}
-    - target: {fileID: 1983282000566243504, guid: c86555ccab1d267419345584df9f6d49, type: 3}
-      propertyPath: spawnInterval
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1983282000566243504, guid: c86555ccab1d267419345584df9f6d49, type: 3}
-      propertyPath: spawnAreaMax_1.x
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 1983282000566243504, guid: c86555ccab1d267419345584df9f6d49, type: 3}
-      propertyPath: spawnAreaMax_1.y
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 1983282000566243504, guid: c86555ccab1d267419345584df9f6d49, type: 3}
-      propertyPath: spawnAreaMax_2.x
-      value: -10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1983282000566243504, guid: c86555ccab1d267419345584df9f6d49, type: 3}
-      propertyPath: spawnAreaMax_2.y
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 1983282000566243504, guid: c86555ccab1d267419345584df9f6d49, type: 3}
-      propertyPath: spawnAreaMin_1.x
-      value: -15
-      objectReference: {fileID: 0}
-    - target: {fileID: 1983282000566243504, guid: c86555ccab1d267419345584df9f6d49, type: 3}
-      propertyPath: spawnAreaMin_1.y
-      value: -15
-      objectReference: {fileID: 0}
-    - target: {fileID: 1983282000566243504, guid: c86555ccab1d267419345584df9f6d49, type: 3}
-      propertyPath: spawnAreaMin_2.x
-      value: -14.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1983282000566243504, guid: c86555ccab1d267419345584df9f6d49, type: 3}
-      propertyPath: spawnAreaMin_2.y
-      value: -15
-      objectReference: {fileID: 0}
-    - target: {fileID: 1983282000566243504, guid: c86555ccab1d267419345584df9f6d49, type: 3}
-      propertyPath: pipeModels.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1983282000566243504, guid: c86555ccab1d267419345584df9f6d49, type: 3}
-      propertyPath: pipeModels.Array.data[0]
-      value: 
-      objectReference: {fileID: 5945950567269861351, guid: 88c246140e4a51d4ba981913a7be50fc, type: 3}
-    - target: {fileID: 1983282000566243504, guid: c86555ccab1d267419345584df9f6d49, type: 3}
-      propertyPath: pipeModels.Array.data[1]
-      value: 
-      objectReference: {fileID: 901435235413103525, guid: 012769084047a5b4b8a05828cbc58118, type: 3}
-    - target: {fileID: 1983282000566243504, guid: c86555ccab1d267419345584df9f6d49, type: 3}
-      propertyPath: pipeModels.Array.data[2]
-      value: 
-      objectReference: {fileID: 2415270342790411654, guid: 618c842ca25d72c42b6d0d1d4b30b157, type: 3}
-    - target: {fileID: 1983282000566243504, guid: c86555ccab1d267419345584df9f6d49, type: 3}
-      propertyPath: resourceItems.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1983282000566243504, guid: c86555ccab1d267419345584df9f6d49, type: 3}
-      propertyPath: resourceItems.Array.data[3]
-      value: 
-      objectReference: {fileID: 2932116729485606766, guid: dda6465ccf292494bad8cdad6b43b9d2, type: 3}
     - target: {fileID: 2583576850913799560, guid: c86555ccab1d267419345584df9f6d49, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1304,22 +1244,6 @@ PrefabInstance:
     - target: {fileID: 5848737662622211599, guid: c86555ccab1d267419345584df9f6d49, type: 3}
       propertyPath: m_Name
       value: MapSystem
-      objectReference: {fileID: 0}
-    - target: {fileID: 6257775012785266622, guid: c86555ccab1d267419345584df9f6d49, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8869652825728527091, guid: c86555ccab1d267419345584df9f6d49, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8869652825728527091, guid: c86555ccab1d267419345584df9f6d49, type: 3}
-      propertyPath: currentAngle
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8869652825728527091, guid: c86555ccab1d267419345584df9f6d49, type: 3}
-      propertyPath: currentStrength
-      value: 0.55
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
