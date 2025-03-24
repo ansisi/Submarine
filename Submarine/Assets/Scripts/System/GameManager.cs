@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,10 +11,8 @@ public class GameManager : MonoBehaviour
     public int maxParts = 3;    // 최대 부품 수량
     public int minParts = 2;    // 최소 부품 수량
 
-    // 필요한 부품 수량 (스테이지마다 새롭게 설정됨)
-    public int requiredSteelParts;
-    public int requiredScrewNailParts;
-    public int requiredSemiconductorParts;
+    private List<PartType> missionParts = new List<PartType>(); // 미션 부품 리스트
+    private Dictionary<PartType, int> requiredParts = new Dictionary<PartType, int>(); // 미션 부품 개수
 
 
     // 수집된 부품 개수 저장 (각 부품 유형별로 저장)
@@ -33,8 +32,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        InitializeParts();
-
+        SelectMissionParts();
         ResetCollectedParts();
     }
 
@@ -58,28 +56,36 @@ public class GameManager : MonoBehaviour
 
         if (UIManager.Instance != null)
         {
-            UIManager.Instance.UpdateResourceUI(PartType.Steel, collectedParts[PartType.Steel], requiredSteelParts);
-            UIManager.Instance.UpdateResourceUI(PartType.ScrewNail, collectedParts[PartType.ScrewNail], requiredScrewNailParts);
-            UIManager.Instance.UpdateResourceUI(PartType.Semiconductor, collectedParts[PartType.Semiconductor], requiredSemiconductorParts);
+            foreach (var part in missionParts)
+            {
+                UIManager.Instance.UpdateResourceUI(part, collectedParts[part], requiredParts[part]);
+            }
         }
 
     }
 
-    // 새로운 스테이지에서 요구되는 부품 개수를 랜덤으로 설정
-    private void InitializeParts()
+    // 5개 부품 중 3개를 랜덤으로 선택하고 목표 개수 설정
+    private void SelectMissionParts()
     {
-        requiredSteelParts = Random.Range(minParts, maxParts + 1);
-        requiredScrewNailParts = Random.Range(minParts, maxParts + 1);
-        requiredSemiconductorParts = Random.Range(minParts, maxParts + 1);
+        List<PartType> allParts = new List<PartType>((PartType[])System.Enum.GetValues(typeof(PartType)));
+        System.Random random = new System.Random();
+        missionParts = allParts.OrderBy(x => random.Next()).Take(3).ToList(); // 3개 랜덤 선택
 
-        Logger.Log($"- 새로운 부품 수량 -\n철 : {requiredSteelParts}, 못 : {requiredScrewNailParts}, 반도체 : {requiredSemiconductorParts}");
+        requiredParts.Clear();
+        foreach (var part in missionParts)
+        {
+            requiredParts[part] = Random.Range(minParts, maxParts + 1); // 각 부품의 목표 개수 설정
+        }
+
+        Logger.Log("선택된 미션 부품: " + string.Join(", ", missionParts));
     }
 
 
     // 수집된 부품 초기화 (다음 스테이지로 이동할 때 사용)
     private void ResetCollectedParts()
     {
-        foreach (PartType part in System.Enum.GetValues(typeof(PartType)))
+        collectedParts.Clear();
+        foreach (var part in missionParts)
         {
             collectedParts[part] = 0; 
         }
@@ -89,16 +95,11 @@ public class GameManager : MonoBehaviour
     // 현재 수집한 부품 개수 업데이트
     public void UpdateCollectedParts(PartType partType, int count)
     {
-        if (collectedParts.ContainsKey(partType))
-        {
-            collectedParts[partType] = count;
-        }
-        else
-        {
-            collectedParts[partType] = count;
-        }
+        if (!collectedParts.ContainsKey(partType)) return;
 
+        collectedParts[partType] = count;
         int requiredCount = GetRequiredParts(partType);
+
         if (UIManager.Instance != null)
         {
             UIManager.Instance.UpdateResourceUI(partType, collectedParts[partType], requiredCount);
@@ -109,21 +110,13 @@ public class GameManager : MonoBehaviour
 
     private int GetRequiredParts(PartType partType)
     {
-        switch (partType)
-        {
-            case PartType.Steel: return requiredSteelParts;
-            case PartType.ScrewNail: return requiredScrewNailParts;
-            case PartType.Semiconductor: return requiredSemiconductorParts;
-            default: return 0;
-        }
+        return requiredParts.ContainsKey(partType) ? requiredParts[partType] : 0;
     }
 
     // 모든 부품이 요구량을 충족하는지 확인
     private bool CheckStageClear()
     {
-        return collectedParts[PartType.Steel] >= requiredSteelParts &&
-               collectedParts[PartType.ScrewNail] >= requiredScrewNailParts &&
-               collectedParts[PartType.Semiconductor] >= requiredSemiconductorParts;
+        return missionParts.All(part => collectedParts[part] >= requiredParts[part]);
     }
 
     // 스테이지 클리어 처리
@@ -147,11 +140,15 @@ public class GameManager : MonoBehaviour
         maxParts = Mathf.RoundToInt(maxParts * 1.5f); 
 
         SceneManager.LoadScene(nextSceneIndex);  // 다음 씬 로드
-        InitializeParts();      // 새로운 부품 요구량 설정
+        SelectMissionParts();       // 새로운 부품 요구량 설정
         ResetCollectedParts();  // 수집된 부품 초기화
         isGameOver = false;
     }
 
+    public List<PartType> GetMissionParts()
+    {
+        return missionParts;
+    }
     // 게임 오버 처리
     public void GameOver()
     {

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Submarine : MonoBehaviour
@@ -20,11 +21,13 @@ public class Submarine : MonoBehaviour
 
     // 부품 수집 등 기존 기능 관련 변수
     private Dictionary<PartType, int> collectedParts = new Dictionary<PartType, int>();
+    private List<PartType> missionParts;    // 
 
     void Start()
     {
-        // 부품 초기화 (필요한 부품 수 설정)
-        foreach (PartType part in System.Enum.GetValues(typeof(PartType)))
+        missionParts = GameManager.Instance.GetMissionParts();
+
+        foreach (PartType part in missionParts)
         {
             collectedParts[part] = 0;
         }
@@ -113,17 +116,17 @@ public class Submarine : MonoBehaviour
     // 부품 추가 함수 등 기존 기능 유지
     public void AddPart(PartType partType)
     {
-        if (collectedParts.ContainsKey(partType))
+        // 미션 부품에 포함된 경우만 처리
+        if (missionParts.Contains(partType))
         {
             collectedParts[partType]++;
+            Logger.Log($"부품 추가: {partType} - {collectedParts[partType]}개");
+            GameManager.Instance.UpdateCollectedParts(partType, collectedParts[partType]);
         }
         else
         {
-            collectedParts[partType] = 1;
+            Logger.Log($"부품 {partType}는 미션과 관련 없음 패널티");
         }
-
-        Debug.Log($"부품 추가: {partType} - {collectedParts[partType]}개");
-        GameManager.Instance.UpdateCollectedParts(partType, collectedParts[partType]);
     }
 
     private void OnTriggerEnter(Collider other)

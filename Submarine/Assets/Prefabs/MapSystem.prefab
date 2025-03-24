@@ -86,12 +86,21 @@ MonoBehaviour:
   - {fileID: 2932116729485606766, guid: 3e3d89a4eb09cfa418fb7e7f43b67279, type: 3}
   - {fileID: 4366269582047201755, guid: f904959b742be5a4296f0f4e6c2f19d6, type: 3}
   - {fileID: 5006235346469910093, guid: a6659d2b710eb8744904166e06806346, type: 3}
-  survivalItemCount: 5
-  resourceItemCount: 5
-  spawnAreaMin: {x: -15, y: -10}
-  spawnAreaMax: {x: 15, y: 10}
+  - {fileID: 2932116729485606766, guid: dda6465ccf292494bad8cdad6b43b9d2, type: 3}
+  pipeModels:
+  - {fileID: 5945950567269861351, guid: 88c246140e4a51d4ba981913a7be50fc, type: 3}
+  - {fileID: 901435235413103525, guid: 012769084047a5b4b8a05828cbc58118, type: 3}
+  - {fileID: 2415270342790411654, guid: 618c842ca25d72c42b6d0d1d4b30b157, type: 3}
+  initialSurvivalItemCount: 5
+  periodicSurvivalItemCount: 5
+  initialResourceItemCount: 4
+  periodicResourceItemCount: 4
+  spawnAreaMin_1: {x: -15, y: -15}
+  spawnAreaMax_1: {x: 15, y: 15}
+  spawnAreaMin_2: {x: -14.5, y: -15}
+  spawnAreaMax_2: {x: -10, y: 15}
   submarine: {fileID: 0}
-  spawnInterval: 60
+  spawnInterval: 10
   survivalItemDecayRate: 0.88
   minSurvivalItemCount: 2
 --- !u!1 &3568786618723694900
@@ -238,9 +247,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d15e7772e8d63ef4a83fe7cfc1fb5294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentStrength: 0.85
+  currentStrength: 0.55
   currentRange: 30
-  currentAngle: 25
+  currentAngle: 0
 --- !u!1 &6420995544703902210
 GameObject:
   m_ObjectHideFlags: 0

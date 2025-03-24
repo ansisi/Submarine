@@ -6,7 +6,9 @@ public enum PartType
 {
     Steel,
     ScrewNail,
-    Semiconductor
+    Semiconductor,
+    ElectricWire,
+    Pipe
 }
 
 public class PartItem : DeliverableItem

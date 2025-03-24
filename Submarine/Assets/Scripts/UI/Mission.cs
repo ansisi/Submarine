@@ -46,9 +46,9 @@ public class Mission : MonoBehaviour
     {
         if (GameManager.Instance != null)
         {
-            steelText.text = $"0 / {GameManager.Instance.requiredSteelParts}";
-            screwNailText.text = $"0 / {GameManager.Instance.requiredScrewNailParts}";
-            semiconductorText.text = $"0 / {GameManager.Instance.requiredSemiconductorParts}";
+            //steelText.text = $"0 / {GameManager.Instance.requiredSteelParts}";
+            //screwNailText.text = $"0 / {GameManager.Instance.requiredScrewNailParts}";
+            //semiconductorText.text = $"0 / {GameManager.Instance.requiredSemiconductorParts}";
         }
     }
 
