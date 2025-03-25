@@ -35,7 +35,7 @@ public class HarpoonController : MonoBehaviour
     private float initialRopeLength; // 초기 로프 길이
     private Rigidbody rb;
 
-    
+    public HookUIManager uiManager;
 
     void Awake()
     {
@@ -193,7 +193,8 @@ public class HarpoonController : MonoBehaviour
         isRetracting = false;
         lineRenderer.positionCount = 2;
 
-        
+        uiManager?.UpdateHarpoonUI(isHarpoonActive);
+
     }
 
     void PullHarpoon()
@@ -475,7 +476,7 @@ public class HarpoonController : MonoBehaviour
 
         Logger.Log("작살 정리 완료");
 
-        
+        uiManager?.UpdateHarpoonUI(isHarpoonActive);
     }
 
 

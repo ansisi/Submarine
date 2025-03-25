@@ -13,12 +13,25 @@ public class HookUIManager : MonoBehaviour
     public Sprite hookActiveBack;
     public Sprite hookInactiveBack;
 
+    public Image harpoonIcon;
+    public Image harpoonBack;
+    public Sprite harpoonActiveSprite;
+    public Sprite harpoonInactiveSprite;
+    public Sprite harpoonActiveBack;
+    public Sprite harpoonInactiveBack;
+
     private void Start()
     {
         if (hookIcon != null)
         {
             hookIcon.sprite = hookInactiveSprite;
             hookBack.sprite = hookInactiveBack;
+        }
+
+        if (harpoonBack != null)
+        {
+            harpoonBack.sprite = harpoonInactiveBack;
+            harpoonIcon.sprite = harpoonInactiveSprite;
         }
     }
 
@@ -37,6 +50,24 @@ public class HookUIManager : MonoBehaviour
                 hookBack.sprite = hookInactiveBack;
             }
                 
+        }
+    }
+
+    public void UpdateHarpoonUI(bool isHarpoonActive)
+    {
+        if(harpoonIcon != null)
+        {
+            if(isHarpoonActive)
+            {
+                harpoonIcon.sprite = harpoonActiveSprite;
+                harpoonBack.sprite = harpoonActiveBack;
+            }
+
+            else
+            {
+                harpoonIcon.sprite = harpoonInactiveSprite;
+                harpoonBack.sprite= harpoonInactiveBack;
+            }
         }
     }
 

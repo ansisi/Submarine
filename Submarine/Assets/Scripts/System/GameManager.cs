@@ -40,7 +40,11 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         // UI 초기화는 Start()에서 실행하여 UIManager가 null이 되는 문제 방지
-        
+        if (UIManager.Instance != null)
+        {
+            UIManager.Instance.SetupResourceUI(missionParts, requiredParts);
+        }
+
     }
 
     private void Update()
