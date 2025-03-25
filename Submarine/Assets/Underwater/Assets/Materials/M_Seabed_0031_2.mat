@@ -35,6 +35,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: M_Seabed_0031_2
   m_Shader: {fileID: -6465566751694194690, guid: aff0ad77220dc5548ac2970a59a49ea8, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords:
   - _BUILTIN_SURFACE_TYPE_TRANSPARENT
@@ -51,6 +53,7 @@ Material:
   - TransparentBackface
   - RayTracingPrepass
   - MOTIONVECTORS
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -141,7 +144,7 @@ Material:
     - _ZTestTransparent: 4
     - _ZWrite: 0
     m_Colors:
-    - _Color: {r: 0.3325472, g: 0.39895087, b: 0.5, a: 0}
+    - _Color: {r: 0.9335451, g: 1, b: 0.48584908, a: 0.09803922}
     - _DoubleSidedConstants: {r: 1, g: 1, b: 1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _Speed: {r: 0.1, g: 0, b: 0, a: 0}
