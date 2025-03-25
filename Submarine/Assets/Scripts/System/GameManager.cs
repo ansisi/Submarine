@@ -155,6 +155,7 @@ public class GameManager : MonoBehaviour
         isGameOver = true;
         // ���� ���� UI ǥ��
         Logger.Log("게임 오버!");
+        GameOverUIManager.Instance.ShowGameOverUI();
         // ���� ����� �Ǵ� ����
     }
 }

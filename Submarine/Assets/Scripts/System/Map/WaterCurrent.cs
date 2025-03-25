@@ -15,9 +15,13 @@ public class WaterCurrent : MonoBehaviour
         UpdateCurrentDirection();
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        ApplyCurrentForce();
+        //타임 스케일 0이면 물살 중지
+        if (Time.timeScale > 0)
+        {
+            ApplyCurrentForce();
+        }
     }
 
     void UpdateCurrentDirection()
