@@ -54,6 +54,7 @@ public class GameManager : MonoBehaviour
             UIManager.Instance.SetupResourceUI(missionParts, requiredParts);
         }
 
+        Mission.SetupMissionUI(missionParts, requiredParts);
     }
 
     private void Update()
