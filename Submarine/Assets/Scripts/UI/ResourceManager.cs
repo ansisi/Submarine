@@ -19,7 +19,6 @@ public class ResourceManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
-            return;
         }
 
         // Enum 값과 아이콘 매핑

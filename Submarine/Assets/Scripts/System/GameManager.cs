@@ -19,6 +19,15 @@ public class GameManager : MonoBehaviour
     public Dictionary<PartType, int> collectedParts = new Dictionary<PartType, int>();
 
     private bool isGameOver = false;
+    public bool IsGameOver
+    {
+        get { return isGameOver; }
+        set
+        {
+            isGameOver = value;
+            Time.timeScale = isGameOver ? 0f : 1f;
+        }
+    }
 
     private void Awake()
     {
@@ -126,14 +135,14 @@ public class GameManager : MonoBehaviour
     // 스테이지 클리어 처리
     private void StageClear()
     {
-        isGameOver = true;
+        IsGameOver = true;
         Logger.Log("스테이지 클리어!");
         // 다음 스테이지로 이동
-        Invoke("LoadNextStage", 2f);
+        NextStageUIManager.Instance.ShowNextStageUI();
     }
 
     // 다음 스테이지 로드 및 부품 설정 갱신
-    private void LoadNextStage()
+    public void LoadNextStage()
     {
         // 현재 기준 다음 인덱스 씬으로 넘어감 
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
@@ -146,7 +155,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(nextSceneIndex);  // 다음 씬 로드
         SelectMissionParts();       // 새로운 부품 요구량 설정
         ResetCollectedParts();  // 수집된 부품 초기화
-        isGameOver = false;
+        IsGameOver = false;
     }
 
     public List<PartType> GetMissionParts()
@@ -156,7 +165,7 @@ public class GameManager : MonoBehaviour
     // 게임 오버 처리
     public void GameOver()
     {
-        isGameOver = true;
+        IsGameOver = true;
         // ���� ���� UI ǥ��
         Logger.Log("게임 오버!");
         GameOverUIManager.Instance.ShowGameOverUI();

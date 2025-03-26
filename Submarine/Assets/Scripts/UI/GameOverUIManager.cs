@@ -35,14 +35,12 @@ public class GameOverUIManager : MonoBehaviour
     // 게임오버 UI 표시
     public void ShowGameOverUI()
     {
-        gameOverPanel.SetActive(true);  // UI 활성화
-        Time.timeScale = 0f;            // 게임 일시 정지
+        gameOverPanel.SetActive(true);  // UI 활성
     }
 
     // Retry 버튼 클릭 시 첫 번째 빌드로 돌아가기
     void RestartGame()
     {
-        // 씬 로드 후 Time.timeScale을 1로 설정하는 리스너 추가
         SceneManager.sceneLoaded += OnSceneLoaded;
         SceneManager.LoadScene(0);  // 첫 번째 장면 (빌드 순서 첫 번째)으로 로드
     }
@@ -50,8 +48,6 @@ public class GameOverUIManager : MonoBehaviour
     // 씬이 로드된 후 호출되는 메서드
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // 씬이 로드된 후 Time.timeScale을 1로 설정
-        Time.timeScale = 1f;
 
         // 이벤트 리스너 제거 (메모리 관리)
         SceneManager.sceneLoaded -= OnSceneLoaded;
