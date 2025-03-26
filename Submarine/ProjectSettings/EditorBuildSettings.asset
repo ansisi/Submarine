@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/JSU.unity
     guid: 24cc59f8f271bff4fabf4314f74e5357
   - enabled: 1
-    path: Assets/Scenes/TestScene_HJ.unity
-    guid: b09dccbe96037154d8fb5c92645e104f
+    path: Assets/Scenes/JSU 1.unity
+    guid: a5c44dfec6e6aae469b3ec88bc2b5cce
   m_configObjects: {}
