@@ -11,8 +11,8 @@ public class GameManager : MonoBehaviour
     public int maxParts = 3;    // 최대 부품 수량
     public int minParts = 2;    // 최소 부품 수량
 
-    private List<PartType> missionParts = new List<PartType>(); // 미션 부품 리스트
-    private Dictionary<PartType, int> requiredParts = new Dictionary<PartType, int>(); // 미션 부품 개수
+    public List<PartType> missionParts = new List<PartType>(); // 미션 부품 리스트
+    public Dictionary<PartType, int> requiredParts = new Dictionary<PartType, int>(); // 미션 부품 개수
 
 
     // 수집된 부품 개수 저장 (각 부품 유형별로 저장)
