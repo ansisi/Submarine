@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Mission : MonoBehaviour
@@ -29,6 +30,25 @@ public class Mission : MonoBehaviour
         {
             Destroy(gameObject);
             return;
+        }
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (GameManager.Instance != null)
+        {
+            // 씬 로드마다 SetupMissionUI를 호출합니다.
+            SetupMissionUI(GameManager.Instance.GetMissionParts(), GameManager.Instance.requiredParts);
         }
     }
 

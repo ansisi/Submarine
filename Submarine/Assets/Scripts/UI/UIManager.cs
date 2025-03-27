@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -56,6 +57,24 @@ public class UIManager : MonoBehaviour
         {
             TextMeshProUGUI textComponent = resourceUIElements[partType].transform.Find("resourceText").GetComponent<TextMeshProUGUI>();
             textComponent.text = $"{currentAmount} / {requiredAmount}";
+        }
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (GameManager.Instance != null)
+        {
+            SetupResourceUI(GameManager.Instance.GetMissionParts(), GameManager.Instance.requiredParts);
         }
     }
 }
