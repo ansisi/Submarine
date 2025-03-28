@@ -49,8 +49,8 @@ public class HarpoonController : MonoBehaviour
             }
         }
         lineRenderer.positionCount = 0;
-        lineRenderer.startWidth = 0.05f;
-        lineRenderer.endWidth = 0.05f;
+        lineRenderer.startWidth = 0.01f;
+        lineRenderer.endWidth = 0.01f;
 
         // 충돌 레이어 기본값 설정 (모든 레이어와 충돌)
         if (collisionLayers.value == 0)

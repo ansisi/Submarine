@@ -155,6 +155,7 @@ MonoBehaviour:
   playerPickup: {fileID: 4097303795880525557}
   isHarpoonActive: 0
   harpoonPrefab: {fileID: 7635041588512333859, guid: d7ad345236ab36a4c853129e87193aaa, type: 3}
+  uiManager: {fileID: 0}
 --- !u!114 &6397254079724690725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -485,7 +486,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5344728418695685888, guid: a59d93cd0a3a7604ebf588ef2af43026, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5344728418695685890, guid: a59d93cd0a3a7604ebf588ef2af43026, type: 3}
       propertyPath: moveWithTransform
@@ -741,7 +742,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7662286888578290861, guid: a59d93cd0a3a7604ebf588ef2af43026, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7662286888578290863, guid: a59d93cd0a3a7604ebf588ef2af43026, type: 3}
       propertyPath: moveWithTransform
