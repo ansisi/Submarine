@@ -105,7 +105,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thrust: 0.4
   boostMultiplier: 1.5
-  rotationThrust: 0.7
+  rotationThrust: 1.2
   linearDrag: 0.5
   angularDrag: 0.8
 --- !u!114 &1208068902138815530

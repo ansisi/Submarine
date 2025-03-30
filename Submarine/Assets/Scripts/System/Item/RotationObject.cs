@@ -11,5 +11,6 @@ public class RotationObject : MonoBehaviour
     {
         float zRotation = Mathf.Sin(Time.time * rotationSpeed) * rotationAngle;
         transform.rotation = Quaternion.Euler(0, 0, zRotation);
+
     }
 }

@@ -73,6 +73,13 @@ public class PlayerPickup : MonoBehaviour
                 currentHeldItem = closestItem;
                 currentHeldItem.OnGrabbed();
 
+                // RotationObject 스크립트 비활성화
+                RotationObject rotationObject = currentHeldItem.GetComponent<RotationObject>();
+                if (rotationObject != null)
+                {
+                    rotationObject.enabled = false; // 잡을 때 rotationObject 비활성화
+                }
+
                 Quaternion rotationOffset = Quaternion.Euler(0, 0, 90);
                 currentHeldItem.transform.rotation = transform.rotation * rotationOffset;
 
@@ -89,8 +96,22 @@ public class PlayerPickup : MonoBehaviour
             // 아이템 놓기
             currentHeldItem.Release();
 
+            // Coroutine으로 1초 후에 RotationObject 활성화
+            StartCoroutine(EnableRotationObjectAfterDelay(currentHeldItem, 1f)); // 1초 후에 활성화
             Logger.Log("아이템 놓음: " + currentHeldItem.name);
             currentHeldItem = null;
+        }
+    }
+
+    // 1초 후에 RotationObject를 활성화하는 코루틴
+    private IEnumerator EnableRotationObjectAfterDelay(DeliverableItem item, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        RotationObject rotationObject = item.GetComponent<RotationObject>();
+        if (rotationObject != null)
+        {
+            rotationObject.enabled = true; // 일정 시간 후에 rotationObject 활성화
         }
     }
 
