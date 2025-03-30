@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4212305632193160936}
   - component: {fileID: 1429042776936425357}
   - component: {fileID: 191552565513718224}
+  - component: {fileID: -7492284364891153220}
   m_Layer: 0
   m_Name: Pipe_Long
   m_TagString: Resource
@@ -133,6 +134,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isGrabbed: 0
   partType: 4
+--- !u!114 &-7492284364891153220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5945950567269861351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c49ec56b709e452479637eaab641dd9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 0.5
+  rotationAngle: 10
 --- !u!1001 &2417345479839077305
 PrefabInstance:
   m_ObjectHideFlags: 0

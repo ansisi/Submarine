@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6936262271435482207}
   - component: {fileID: 4048347376467245719}
   - component: {fileID: 1255975626322159747}
+  - component: {fileID: -2061096731519812353}
   m_Layer: 0
   m_Name: Battey
   m_TagString: Resource
@@ -111,6 +112,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isGrabbed: 0
   fuelAmount: 30
+--- !u!114 &-2061096731519812353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9216614335168731697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c49ec56b709e452479637eaab641dd9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 1
+  rotationAngle: 10
 --- !u!1001 &5370576387500064525
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2617016884465126040}
   - component: {fileID: 1241328863779795855}
   - component: {fileID: 9216218586896919063}
+  - component: {fileID: -5470686294558637371}
   m_Layer: 0
   m_Name: Steel
   m_TagString: Resource
@@ -164,3 +165,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isGrabbed: 0
   partType: 0
+--- !u!114 &-5470686294558637371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2932116729485606766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c49ec56b709e452479637eaab641dd9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 1
+  rotationAngle: 10
