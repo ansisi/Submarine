@@ -125,7 +125,8 @@ public class Submarine : MonoBehaviour
         }
         else
         {
-            Logger.Log($"부품 {partType}는 미션과 관련 없음 패널티");
+            Logger.Log($"부품 {partType}는 미션과 관련 없음 연료 패널티 적용");
+            AddFuel(-30f); // 패널티 적용
         }
     }
 
