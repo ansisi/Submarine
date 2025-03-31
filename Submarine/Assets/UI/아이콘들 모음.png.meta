@@ -6,7 +6,7 @@ TextureImporter:
   serializedVersion: 13
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -37,13 +37,13 @@ TextureImporter:
     filterMode: 1
     aniso: 1
     mipBias: 0
-    wrapU: 0
-    wrapV: 0
+    wrapU: 1
+    wrapV: 1
     wrapW: 0
-  nPOTScale: 1
+  nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 0
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -52,9 +52,9 @@ TextureImporter:
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
-  alphaIsTransparency: 0
+  alphaIsTransparency: 1
   spriteTessellationDetail: -1
-  textureType: 0
+  textureType: 8
   textureShape: 1
   singleChannelComponent: 0
   flipbookRows: 1
@@ -95,18 +95,128 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: "\uC544\uC774\uCF58\uB4E4 \uBAA8\uC74C_0"
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 290
+        width: 108
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c84003bf7d34b6943added1f6f14daf1
+      internalID: -1243254390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\uC544\uC774\uCF58\uB4E4 \uBAA8\uC74C_1"
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 273
+        width: 127
+        height: 124
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 328723b917c929f40adcf913908649f5
+      internalID: -29165937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\uC544\uC774\uCF58\uB4E4 \uBAA8\uC74C_2"
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 73
+        width: 122
+        height: 118
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2e8fbc42792734448a553cd269fe509
+      internalID: -1390567833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\uC544\uC774\uCF58\uB4E4 \uBAA8\uC74C_3"
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 73
+        width: 122
+        height: 118
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ddfa11bec711464887c283c9ec2817b
+      internalID: 1928864416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\uC544\uC774\uCF58\uB4E4 \uBAA8\uC74C_4"
+      rect:
+        serializedVersion: 2
+        x: 414
+        y: 86
+        width: 125
+        height: 196
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9d9deb6adc6e5d4f88ff432d4529fd0
+      internalID: -1438585029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: e8c6af4f200a8264888f42f54f712b29
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      "\uC544\uC774\uCF58\uB4E4 \uBAA8\uC74C_0": -1243254390
+      "\uC544\uC774\uCF58\uB4E4 \uBAA8\uC74C_1": -29165937
+      "\uC544\uC774\uCF58\uB4E4 \uBAA8\uC74C_2": -1390567833
+      "\uC544\uC774\uCF58\uB4E4 \uBAA8\uC74C_3": 1928864416
+      "\uC544\uC774\uCF58\uB4E4 \uBAA8\uC74C_4": -1438585029
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

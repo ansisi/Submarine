@@ -6,69 +6,31 @@ using UnityEngine.UI;
 
 public class HookUIManager : MonoBehaviour
 {
-    public Image hookIcon; // 인스펙터에서 UI 아이콘을 연결하기 위한 변수
-    public Image hookBack;
-    public Sprite hookActiveSprite; // 후크 사용 중
-    public Sprite hookInactiveSprite; // 후크 미사용
-    public Sprite hookActiveBack;
-    public Sprite hookInactiveBack;
-
+    public Image hookIcon;
     public Image harpoonIcon;
-    public Image harpoonBack;
-    public Sprite harpoonActiveSprite;
-    public Sprite harpoonInactiveSprite;
-    public Sprite harpoonActiveBack;
-    public Sprite harpoonInactiveBack;
+
+    private Color activeColor = new Color(0.5f, 0.5f, 0.5f, 1f); // 어둡게
+    private Color inactiveColor = Color.white; // 기본색
 
     private void Start()
     {
         if (hookIcon != null)
-        {
-            hookIcon.sprite = hookInactiveSprite;
-            hookBack.sprite = hookInactiveBack;
-        }
+            hookIcon.color = inactiveColor;
 
-        if (harpoonBack != null)
-        {
-            harpoonBack.sprite = harpoonInactiveBack;
-            harpoonIcon.sprite = harpoonInactiveSprite;
-        }
+        if (harpoonIcon != null)
+            harpoonIcon.color = inactiveColor;
     }
 
     public void UpdateHookUI(bool isHookActive)
     {
         if (hookIcon != null)
-        {
-            if (isHookActive)
-            {
-                hookIcon.sprite = hookActiveSprite;
-                hookBack.sprite = hookActiveBack;
-            }
-            else
-            {
-                hookIcon.sprite = hookInactiveSprite;
-                hookBack.sprite = hookInactiveBack;
-            }
-                
-        }
+            hookIcon.color = isHookActive ? activeColor : inactiveColor;
     }
 
     public void UpdateHarpoonUI(bool isHarpoonActive)
     {
-        if(harpoonIcon != null)
-        {
-            if(isHarpoonActive)
-            {
-                harpoonIcon.sprite = harpoonActiveSprite;
-                harpoonBack.sprite = harpoonActiveBack;
-            }
-
-            else
-            {
-                harpoonIcon.sprite = harpoonInactiveSprite;
-                harpoonBack.sprite= harpoonInactiveBack;
-            }
-        }
+        if (harpoonIcon != null)
+            harpoonIcon.color = isHarpoonActive ? activeColor : inactiveColor;
     }
 
 
