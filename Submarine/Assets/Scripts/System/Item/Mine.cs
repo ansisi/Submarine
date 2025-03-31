@@ -107,6 +107,11 @@ public class Mine : DeliverableItem
             if (oxygenTank != null)
             {
                 oxygenTank.AddOxygen(oxygenDamage);
+
+                if (VignetteController.Instance != null)
+                {
+                    VignetteController.Instance.TriggerVignetteEffect();
+                }
             }
         }
 
