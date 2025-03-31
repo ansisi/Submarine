@@ -90,7 +90,7 @@ Material:
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
-    - _Opacity: 0
+    - _Opacity: 0.158
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -98,8 +98,8 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.61957103, g: 0.8558228, b: 0.8584906, a: 1}
+    - _Color: {r: 0.34242612, g: 0.5345341, b: 0.5377358, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Speed: {r: 0.1, g: 0.1, b: 0, a: 0}
-    - _Tiling: {r: 8, g: 8, b: 0, a: 0}
+    - _Speed: {r: -0.95, g: -1.13, b: 0, a: 0}
+    - _Tiling: {r: 60, g: 40, b: 0, a: 0}
   m_BuildTextureStacks: []

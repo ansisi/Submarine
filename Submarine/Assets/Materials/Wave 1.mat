@@ -23,13 +23,13 @@ Material:
   m_Name: Wave 1
   m_Shader: {fileID: -6465566751694194690, guid: aff0ad77220dc5548ac2970a59a49ea8, type: 3}
   m_Parent: {fileID: -876546973899608171, guid: aff0ad77220dc5548ac2970a59a49ea8, type: 3}
-  m_ModifiedSerializedProperties: 0
+  m_ModifiedSerializedProperties: 16
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 3000
   stringTagMap: {}
   disabledShaderPasses: []
   m_LockedProperties: 
@@ -56,16 +56,17 @@ Material:
     m_Floats:
     - _Alpha_Clip: 0.464
     - _BUILTIN_QueueControl: 0
+    - _BUILTIN_QueueOffset: 0
     - _HUE: 0.071
     - _Normal_Strength: 0.64
-    - _Opacity: 0.009
+    - _Opacity: 0.22
     - _SmoothnessMax: 0.357
     - _SmoothnessMin: 0.036
     - _Wind_Density: 10.61
     - _Wind_Strength: 0.34
     m_Colors:
-    - _Color: {r: 0.69855815, g: 0.83450514, b: 0.8867924, a: 1}
-    - _Speed: {r: -0.21, g: -0.17, b: 0, a: 0}
-    - _Tiling: {r: -14.33, g: -4.43, b: 0, a: 0}
+    - _Color: {r: 0.61000353, g: 0.73192984, b: 0.8679245, a: 0.3372549}
+    - _Speed: {r: 0.2, g: 0.1, b: 0, a: 0}
+    - _Tiling: {r: 60, g: 40, b: 0, a: 0}
     - _Wind_Direction: {r: 2.7, g: 2, b: 0, a: 0}
   m_BuildTextureStacks: []
