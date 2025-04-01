@@ -9,9 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1153716466535513680}
-  - component: {fileID: 4646211620174864273}
-  - component: {fileID: 6790622225143365056}
-  - component: {fileID: 7540071222782492737}
   - component: {fileID: 8516698874126565907}
   m_Layer: 0
   m_Name: Submarine_Ray
@@ -36,68 +33,6 @@ Transform:
   - {fileID: 828939521769341133}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &4646211620174864273
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7746353798065978914}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 0.56477, z: 5.5105257}
-  m_Center: {x: 8.190954e-15, y: 0.7949306, z: 1.1688392}
---- !u!136 &6790622225143365056
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7746353798065978914}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.4905038
-  m_Height: 1.9697466
-  m_Direction: 2
-  m_Center: {x: -1.4420685e-14, y: 0.5637605, z: -0.4111663}
---- !u!114 &7540071222782492737
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7746353798065978914}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e994be341b36a754395b5c160f22987d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fuelNeedle: {fileID: 0}
-  maxFuelTime: 300
-  fullFuelAngle: -195
-  emptyFuelAngle: 90
-  warningUI: {fileID: 0}
-  fuelGaugeUI: {fileID: 0}
 --- !u!95 &8516698874126565907
 Animator:
   serializedVersion: 5
@@ -111,7 +46,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 5045d12f584969e49adbbe7995ea2f99, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -187,14 +122,94 @@ PrefabInstance:
       propertyPath: m_Name
       value: Submarine
       objectReference: {fileID: 0}
+    - target: {fileID: 7036213049465896255, guid: ccc44b777942a0248a1f4c34a058fed1, type: 3}
+      propertyPath: m_TagString
+      value: Terrain
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5866666021909216657, guid: ccc44b777942a0248a1f4c34a058fed1, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7036213049465896255, guid: ccc44b777942a0248a1f4c34a058fed1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5701780978829694137}
+    - targetCorrespondingSourceObject: {fileID: 7036213049465896255, guid: ccc44b777942a0248a1f4c34a058fed1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1517289511997281331}
+    - targetCorrespondingSourceObject: {fileID: 7036213049465896255, guid: ccc44b777942a0248a1f4c34a058fed1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8733339321469325972}
   m_SourcePrefab: {fileID: 100100000, guid: ccc44b777942a0248a1f4c34a058fed1, type: 3}
 --- !u!4 &828939521769341133 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ccc44b777942a0248a1f4c34a058fed1, type: 3}
   m_PrefabInstance: {fileID: 867582187340654374}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7903785572546943513 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7036213049465896255, guid: ccc44b777942a0248a1f4c34a058fed1, type: 3}
+  m_PrefabInstance: {fileID: 867582187340654374}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &5701780978829694137
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7903785572546943513}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.09505212, y: 0.13304996, z: 0.005190047}
+  m_Center: {x: 0.00088428543, y: -0.03347478, z: 0.02}
+--- !u!136 &1517289511997281331
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7903785572546943513}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.011
+  m_Height: 0.05
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.01, z: 0.013}
+--- !u!114 &8733339321469325972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7903785572546943513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e994be341b36a754395b5c160f22987d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fuelNeedle: {fileID: 0}
+  maxFuelTime: 300
+  fullFuelAngle: -195
+  emptyFuelAngle: 90
+  warningUI: {fileID: 0}
+  fuelGaugeUI: {fileID: 0}

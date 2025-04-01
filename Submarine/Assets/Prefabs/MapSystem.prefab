@@ -147,8 +147,8 @@ MonoBehaviour:
   periodicResourceItemCount: 4
   spawnAreaMin_1: {x: -15, y: -15}
   spawnAreaMax_1: {x: 15, y: 15}
-  spawnAreaMin_2: {x: -14.5, y: 5.87}
-  spawnAreaMax_2: {x: -3.96, y: 14.5}
+  spawnAreaMin_2: {x: 4.06, y: -14.8}
+  spawnAreaMax_2: {x: 14.8, y: -2.26}
   submarine: {fileID: 0}
   spawnInterval: 60
   survivalItemDecayRate: 0.88
@@ -300,7 +300,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentStrength: 0.55
   currentRange: 30
-  currentAngle: -40
+  currentAngle: -210
 --- !u!1 &6420995544703902210
 GameObject:
   m_ObjectHideFlags: 0

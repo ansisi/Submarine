@@ -742,7 +742,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7662286888578290861, guid: a59d93cd0a3a7604ebf588ef2af43026, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7662286888578290863, guid: a59d93cd0a3a7604ebf588ef2af43026, type: 3}
       propertyPath: moveWithTransform
