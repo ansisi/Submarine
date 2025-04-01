@@ -22,9 +22,11 @@ public class Submarine : MonoBehaviour
     // 부품 수집 등 기존 기능 관련 변수
     private Dictionary<PartType, int> collectedParts = new Dictionary<PartType, int>();
     private List<PartType> missionParts;    // 
+    private Animator animator;
 
     void Start()
     {
+        animator = GetComponent<Animator>();
         missionParts = GameManager.Instance.GetMissionParts();
 
         foreach (PartType part in missionParts)
@@ -127,6 +129,7 @@ public class Submarine : MonoBehaviour
         {
             Logger.Log($"부품 {partType}는 미션과 관련 없음 연료 패널티 적용");
             AddFuel(-30f); // 패널티 적용
+            animator.SetTrigger("WrongTrigger");
         }
     }
 
