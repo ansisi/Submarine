@@ -59,13 +59,13 @@ Material:
     - _BUILTIN_QueueOffset: 0
     - _HUE: 0.071
     - _Normal_Strength: 0.64
-    - _Opacity: 0.22
+    - _Opacity: 0.04
     - _SmoothnessMax: 0.357
     - _SmoothnessMin: 0.036
     - _Wind_Density: 10.61
     - _Wind_Strength: 0.34
     m_Colors:
-    - _Color: {r: 0.61000353, g: 0.73192984, b: 0.8679245, a: 0.3372549}
+    - _Color: {r: 0.60784316, g: 0.85882354, b: 1, a: 0.043137256}
     - _Speed: {r: 0.2, g: 0.1, b: 0, a: 0}
     - _Tiling: {r: 60, g: 40, b: 0, a: 0}
     - _Wind_Direction: {r: 2.7, g: 2, b: 0, a: 0}
