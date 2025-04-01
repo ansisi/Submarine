@@ -53,7 +53,7 @@ public class VignetteController : MonoBehaviour
     {
         float timer = 0f;
         float initialIntensity = vignette.intensity.value;
-        float targetIntensity = 0.6f; // 효과의 목표 intensity 값
+        float targetIntensity = 0.5f; // 효과의 목표 intensity 값
 
         // 페이드 인: 서서히 목표 intensity로 증가
         while (timer < fadeDuration)
