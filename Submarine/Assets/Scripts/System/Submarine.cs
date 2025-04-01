@@ -26,7 +26,7 @@ public class Submarine : MonoBehaviour
 
     void Start()
     {
-        animator = GetComponent<Animator>();
+        animator = GetComponentInParent<Animator>();
         missionParts = GameManager.Instance.GetMissionParts();
 
         foreach (PartType part in missionParts)
@@ -72,7 +72,7 @@ public class Submarine : MonoBehaviour
         if (fuelRatio >= 1.0f)
         {
             GameManager.Instance.GameOver();
-            Debug.Log("연료 부족! 게임 오버");
+            Logger.Log("연료 부족! 게임 오버");
         }
     }
 

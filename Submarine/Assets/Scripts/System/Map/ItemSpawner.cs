@@ -76,6 +76,8 @@ public class ItemSpawner : MonoBehaviour
                 Instantiate(itemPrefab, spawnPosition, Quaternion.identity);
             }
         }
+
+        ClearOverlapSpheres(overlapSpheres);
     }
 
     void SpawnPipes(int itemCount, Vector2 minArea, Vector2 maxArea)
@@ -142,6 +144,8 @@ public class ItemSpawner : MonoBehaviour
         SphereCollider sphereCollider = sphere.AddComponent<SphereCollider>();
         sphereCollider.radius = radius;
         sphereCollider.isTrigger = true;
+
+        overlapSpheres.Add(sphere);
     }
 
     void ClearOverlapSpheres(List<GameObject> overlapSpheres)
