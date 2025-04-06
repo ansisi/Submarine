@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class Boundery : MonoBehaviour
 {
-    void OnTriggerEnter (Collider other)
+    void OnTriggerExit (Collider other)
     {
         if (other.CompareTag("Resource")) // 아이템 태그가 있는 경우 삭제
         {
-            Destroy(other.gameObject);
+            DeliverableItem item = other.GetComponent<DeliverableItem>();
+            if (item != null && !item.IsProtectedFromDestroy())
+            {
+                Destroy(other.gameObject);
+            }
         }
     }
 }

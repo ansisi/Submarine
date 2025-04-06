@@ -6,6 +6,8 @@ using UnityEngine;
 public abstract class DeliverableItem : MonoBehaviour
 {
     public bool isGrabbed = false;
+    public float dropImmunityTime = 1.0f; // 1초간 파괴 면역
+    private float droppedTime = -999f;
 
     /*private GameObject pickupUI;
     private RectTransform uiRectTransform;
@@ -48,6 +50,7 @@ public abstract class DeliverableItem : MonoBehaviour
     public virtual void Release()
     {
         isGrabbed = false;
+        droppedTime = Time.time; // 놓은 시간 저장
         Rigidbody rigidbody = GetComponent<Rigidbody>();
         if (rigidbody != null)
         {
@@ -58,6 +61,11 @@ public abstract class DeliverableItem : MonoBehaviour
                 collider.isTrigger = false;  // 트리거 비활성화 (놓을 때)
             }
         }
+    }
+
+    public bool IsProtectedFromDestroy()
+    {
+        return isGrabbed || Time.time - droppedTime < dropImmunityTime;
     }
 
     /*public void ShowPickupUI()

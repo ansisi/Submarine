@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isGrabbed: 0
-  explosionDelay: 3
+  explosionDelay: 1
   explosionForce: 4
   explosionRadius: 1.5
   upwardModifier: 0

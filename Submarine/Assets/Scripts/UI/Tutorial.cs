@@ -17,7 +17,7 @@ public class Tutorial : MonoBehaviour
     IEnumerator HideImage()
     {
         float elapsedTime = 0f;
-        float duration = 7f;
+        float duration = 3f;
 
         while (elapsedTime < duration)
         {

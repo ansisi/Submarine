@@ -140,9 +140,17 @@ public class HookController : MonoBehaviour
             // 라인 렌더러가 활성화되어 있고 위치 업데이트가 필요한 경우에만 업데이트
             if (lineRenderer.enabled && (isHookActive || attachedObject != null))
             {
-                UpdateRope(); 
-                if(attachedObject != null)
-                hookObject.transform.position = attachedObject.transform.position;
+                UpdateRope();
+                if (attachedObject != null)
+                {
+                    Vector3 offset = hookObject.transform.forward * -0.45f + hookObject.transform.up * 0.3f;
+                    hookObject.transform.position = attachedObject.transform.position + offset;
+
+                    //Vector3 dirToPlayer = hookObject.transform.position - transform.position;
+                    //Quaternion targetRotation = Quaternion.LookRotation(dirToPlayer, Vector3.up);
+
+                    UpdateRope();
+                }
 
             }
             else if (lineRenderer.positionCount > 0)
@@ -390,7 +398,7 @@ public class HookController : MonoBehaviour
 
         // 연결된 물체가 있으면 물체 위치로, 없으면 후크 위치로
         if (attachedObject != null)
-            lineRenderer.SetPosition(1, attachedObject.transform.position);
+            lineRenderer.SetPosition(1, hookObject.transform.position);
         else if (hookObject != null)
             lineRenderer.SetPosition(1, hookObject.transform.position);
         else

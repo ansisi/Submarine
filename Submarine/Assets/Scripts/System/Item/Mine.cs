@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mine : DeliverableItem
+public class Mine : MonoBehaviour
 {
     [Header("Explosion Settings")]
     public float explosionDelay = 3f;     // 잡힌 후 3초 뒤에 폭발
@@ -11,33 +11,40 @@ public class Mine : DeliverableItem
     public float upwardModifier = 1f;     // 위로 밀어올리는 보정값
 
     [Header("Damage Settings")]
-    public float oxygenDamage = -20f;      // 플레이어에게 줄 산소 게이지 감소량
+    public float oxygenDamage = -20f;     // 플레이어에게 줄 산소 게이지 감소량
 
     [Header("Layer Settings")]
     public LayerMask affectedLayers;      // 폭발에 영향을 받을 레이어 (예: 플레이어, 적, 물리 오브젝트)
 
     private bool hasExploded = false;     // 중복 폭발 방지를 위한 변수
+    private bool isCountingDown = false;  // 카운트다운 중복 방지
 
     private Renderer[] mineRenderers;     // 자식들에 있는 모든 Renderer
     private Color[] originalColors;       // 각 Renderer의 원래 색상
 
-    public override void OnGrabbed()
+    public void OnCollisionEnter(Collision collision)
     {
-        base.OnGrabbed();
+        if (hasExploded || isCountingDown)
+            return;
 
-        // 모든 자식 Renderer 컴포넌트를 가져옴
-        mineRenderers = GetComponentsInChildren<Renderer>();
-        if (mineRenderers != null && mineRenderers.Length > 0)
+        // 충돌한 오브젝트의 레이어가 마스크에 포함되어 있는지 확인
+        if (((1 << collision.gameObject.layer) & affectedLayers) != 0)
         {
-            originalColors = new Color[mineRenderers.Length];
-            for (int i = 0; i < mineRenderers.Length; i++)
+            isCountingDown = true;
+            // 모든 자식 Renderer 컴포넌트를 가져옴
+            mineRenderers = GetComponentsInChildren<Renderer>();
+            if (mineRenderers != null && mineRenderers.Length > 0)
             {
-                originalColors[i] = mineRenderers[i].material.color;
+                originalColors = new Color[mineRenderers.Length];
+                for (int i = 0; i < mineRenderers.Length; i++)
+                {
+                    originalColors[i] = mineRenderers[i].material.color;
+                }
             }
-        }
 
-        // 잡히면 폭발 카운트다운 시작
-        StartCoroutine(ExplosionCountdown());
+            // 잡히면 폭발 카운트다운 시작
+            StartCoroutine(ExplosionCountdown());
+        }
     }
 
     private IEnumerator ExplosionCountdown()
@@ -115,8 +122,6 @@ public class Mine : DeliverableItem
             }
         }
 
-        // 아이템을 놓는 처리 (DeliverableItem의 Release 메서드 호출)
-        Release();
 
         // 폭발 후 자기 자신 제거
         Destroy(gameObject);
@@ -130,9 +135,5 @@ public class Mine : DeliverableItem
         Gizmos.DrawWireSphere(transform.position, explosionRadius);
     }
 
-    // DeliverableItem에서 추상 메서드 OnDelivered 구현 (필요 시 내용 추가)
-    public override void OnDelivered(Submarine submarine)
-    {
-        // Mine은 전달되면 별도의 동작이 없거나 파괴될 수 있음.
-    }
+    
 }

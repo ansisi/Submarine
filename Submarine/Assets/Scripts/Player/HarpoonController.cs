@@ -147,7 +147,11 @@ public class HarpoonController : MonoBehaviour
             {
                 UpdateRope();
                 if (attachedObject != null)
-                    harpoonObject.transform.position = attachedObject.transform.position;
+                {
+                    Vector3 offset = harpoonObject.transform.forward * -0.45f + harpoonObject.transform.right * 0.2f;
+                    harpoonObject.transform.position = attachedObject.transform.position + offset;
+                    UpdateRope();
+                }
             }
             else if (lineRenderer.positionCount > 0)
             {
@@ -400,7 +404,7 @@ public class HarpoonController : MonoBehaviour
 
         // 연결된 물체가 있으면 물체 위치로, 없으면 작살 위치로
         if (attachedObject != null)
-            lineRenderer.SetPosition(1, attachedObject.transform.position);
+            lineRenderer.SetPosition(1, harpoonObject.transform.position);
         else if (harpoonObject != null)
             lineRenderer.SetPosition(1, harpoonObject.transform.position);
         else
