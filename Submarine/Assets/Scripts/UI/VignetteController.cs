@@ -11,15 +11,17 @@ public class VignetteController : MonoBehaviour
     public float fadeDuration = 1.5f;
     public float holdDuration = 2f;
 
-    public Color targetColor = Color.red;    // 부족 시 원하는 붉은색
-    private Color defaultColor = Color.black; // 기본 색상
+    public Color targetColor = Color.red;
+    private Color defaultColor = Color.black;
 
     private Vignette vignette;
     private Coroutine currentCoroutine;
 
+    private enum VignetteMode { None, WarningEffect, StatusEffect }
+    private VignetteMode currentMode = VignetteMode.None;
+
     private void Awake()
     {
-        // 싱글턴 인스턴스 초기화
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -34,7 +36,7 @@ public class VignetteController : MonoBehaviour
     {
         if (postProcessVolume == null)
         {
-            Logger.Log("PostProcessVolume이 할당되지 않았습니다.");
+            Debug.LogWarning("PostProcessVolume이 할당되지 않았습니다.");
             return;
         }
 
@@ -45,22 +47,33 @@ public class VignetteController : MonoBehaviour
         }
         else
         {
-            Logger.Log("프로필에 Vignette 효과가 없습니다.");
+            Debug.LogWarning("프로필에 Vignette 효과가 없습니다.");
         }
     }
 
     public void TriggerVignetteEffect()
     {
-        StartCoroutine(VignetteRoutine());
+        if (vignette == null)
+            return;
+
+        // 상태 효과 중이면 폭탄 효과를 잠시 무시
+        if (currentMode == VignetteMode.StatusEffect)
+            return;
+
+        if (currentCoroutine != null)
+            StopCoroutine(currentCoroutine);
+
+        currentMode = VignetteMode.WarningEffect;
+        currentCoroutine = StartCoroutine(VignetteRoutine());
     }
 
     private IEnumerator VignetteRoutine()
     {
         float timer = 0f;
         float initialIntensity = vignette.intensity.value;
-        float targetIntensity = 0.5f; // 효과의 목표 intensity 값
+        float targetIntensity = 0.5f;
 
-        // 페이드 인: 서서히 목표 intensity로 증가
+        // 페이드 인
         while (timer < fadeDuration)
         {
             timer += Time.deltaTime;
@@ -68,24 +81,29 @@ public class VignetteController : MonoBehaviour
             yield return null;
         }
 
-        // 목표 상태 유지
+        // 유지
         yield return new WaitForSeconds(holdDuration);
 
-        // 페이드 아웃: 원래 상태로 복귀
+        // 페이드 아웃
         timer = 0f;
         while (timer < fadeDuration)
         {
             timer += Time.deltaTime;
-            vignette.intensity.value = Mathf.Lerp(targetIntensity, initialIntensity, timer / fadeDuration);
+            vignette.intensity.value = Mathf.Lerp(targetIntensity, 0f, timer / fadeDuration);
             yield return null;
         }
+
+        vignette.intensity.value = 0f;
+        vignette.color.value = defaultColor;
+        currentMode = VignetteMode.None;
+        currentCoroutine = null;
     }
 
     private IEnumerator ContinuousVignetteRoutine(bool enable)
     {
         float timer = 0f;
         float startIntensity = vignette.intensity.value;
-        float targetIntensity = enable ? 0.6f : 0f;
+        float targetIntensity = enable ? 0.4f : 0f;
         Color startColor = vignette.color.value;
         Color endColor = enable ? targetColor : defaultColor;
 
@@ -96,19 +114,38 @@ public class VignetteController : MonoBehaviour
             vignette.color.value = Color.Lerp(startColor, endColor, timer / fadeDuration);
             yield return null;
         }
+
         vignette.intensity.value = targetIntensity;
         vignette.color.value = endColor;
+
+        currentMode = enable ? VignetteMode.StatusEffect : VignetteMode.None;
+        currentCoroutine = null;
     }
 
     public void UpdateVignetteState(bool isOxygenLow, bool isFuelLow)
     {
-        // 부족 상태 중 하나라도 true이면 효과 활성화
+        if (vignette == null)
+            return;
+
         bool shouldEnable = isOxygenLow || isFuelLow;
-        if (currentCoroutine != null)
+
+        // 폭탄 효과 중이면 조금 기다렸다가 다시 시도
+        if (currentMode == VignetteMode.WarningEffect)
         {
-            StopCoroutine(currentCoroutine);
+            StartCoroutine(WaitAndRetryUpdate(shouldEnable));
+            return;
         }
+
+        if (currentCoroutine != null)
+            StopCoroutine(currentCoroutine);
+
         currentCoroutine = StartCoroutine(ContinuousVignetteRoutine(shouldEnable));
+    }
+
+    private IEnumerator WaitAndRetryUpdate(bool targetEnable)
+    {
+        yield return new WaitForSeconds(2f); // 폭탄 효과 끝날 때까지 대기
+        UpdateVignetteState(targetEnable, targetEnable);
     }
 
     private void OnDestroy()

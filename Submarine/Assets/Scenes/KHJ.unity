@@ -17423,6 +17423,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 384503133}
     - target: {fileID: 8733339321469325972, guid: 532cc6c0365fa5d4fad333dd8f5de33b, type: 3}
+      propertyPath: oxygenTank
+      value: 
+      objectReference: {fileID: 1663579991}
+    - target: {fileID: 8733339321469325972, guid: 532cc6c0365fa5d4fad333dd8f5de33b, type: 3}
       propertyPath: fuelGaugeUI
       value: 
       objectReference: {fileID: 939178592}
@@ -23241,6 +23245,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1649537066}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1663579991 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1208068902138815530, guid: 55db18a2b4ed08b41a28e2a8cd3636da, type: 3}
+  m_PrefabInstance: {fileID: 800961712}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96cd1b3f0f976654c80878e8a6b09256, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1672672023
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -12,13 +12,9 @@ public class OxygenTank : MonoBehaviour
     private float fullOxygenAngle = -237f;
     private float emptyOxygenAngle = 0f;
 
-    public GameObject warningOxygenUI; // 경고 UI (느낌표 이미지)
-    public CanvasGroup oxygenGaugeUI; // 연료 게이지 깜빡이게 할 CanvasGroup
-    private bool isBlinking = false; // 깜빡임 상태 체크
-
     private void Start()
     {
-        if (warningOxygenUI != null) warningOxygenUI.SetActive(false);
+
     }
 
     void Update()
@@ -36,43 +32,12 @@ public class OxygenTank : MonoBehaviour
             oxygenNeedle.localEulerAngles = new Vector3(0, 0, oxygenAngle);
         }
 
-        if (oxygenAngle >= -50f)
-        {
-            if (warningOxygenUI != null) warningOxygenUI.SetActive(true);
-
-            // UI 깜빡이기 효과 실행 (한 번만 실행)
-            if (!isBlinking)
-            {
-                StartCoroutine(BlinkWarning());
-            }
-        }
-        else
-        {
-            if (warningOxygenUI != null) warningOxygenUI.SetActive(false);
-        }
-
         // 연료가 다 소비되었을 때 게임 오버 처리 (또는 원하는 임계값 사용)
         if (oxygenRatio >= 1.0f)
         {
             GameManager.Instance.GameOver();
             Debug.Log("연료 부족! 게임 오버");
         }
-    }
-
-    private IEnumerator BlinkWarning()
-    {
-        isBlinking = true;
-        while (elapsedOxygenTime / maxOxygenTime >= 0.7f) // 연료 부족 상태일 동안 반복
-        {
-            if (oxygenGaugeUI != null)
-            {
-                oxygenGaugeUI.alpha = 0f; // 투명하게
-                yield return new WaitForSeconds(0.3f);
-                oxygenGaugeUI.alpha = 1f; // 다시 보이게
-                yield return new WaitForSeconds(0.3f);
-            }
-        }
-        isBlinking = false;
     }
 
     public void AddOxygen(float amount)
@@ -95,6 +60,12 @@ public class OxygenTank : MonoBehaviour
             yield return null;
         }
         elapsedOxygenTime = targetTime;
+    }
+    public bool IsLow()
+    {
+        float oxygenRatio = Mathf.Clamp01(elapsedOxygenTime / maxOxygenTime);
+        float oxygenAngle = Mathf.Lerp(fullOxygenAngle, emptyOxygenAngle, oxygenRatio);
+        return oxygenAngle >= -50f;
     }
 
 }
