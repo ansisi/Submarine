@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5665951885197070341
+--- !u!1 &276573508094372725
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,7 +8,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 598401195902100250}
+  - component: {fileID: 3814660349747913504}
   m_Layer: 0
   m_Name: Coral_6
   m_TagString: Untagged
@@ -16,33 +16,41 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &598401195902100250
+--- !u!4 &3814660349747913504
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5665951885197070341}
+  m_GameObject: {fileID: 276573508094372725}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8280280385013249485}
+  - {fileID: 1746227225067722435}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &8458831431809110566
+--- !u!1001 &2283713231995957544
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 598401195902100250}
+    m_TransformParent: {fileID: 3814660349747913504}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: e8157b20edad90842be98805ee64ddec, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e8157b20edad90842be98805ee64ddec, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e8157b20edad90842be98805ee64ddec, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e8157b20edad90842be98805ee64ddec, type: 3}
       propertyPath: m_LocalPosition.x
@@ -93,8 +101,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8157b20edad90842be98805ee64ddec, type: 3}
---- !u!4 &8280280385013249485 stripped
+--- !u!4 &1746227225067722435 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e8157b20edad90842be98805ee64ddec, type: 3}
-  m_PrefabInstance: {fileID: 8458831431809110566}
+  m_PrefabInstance: {fileID: 2283713231995957544}
   m_PrefabAsset: {fileID: 0}

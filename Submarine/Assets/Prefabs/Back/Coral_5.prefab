@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2389480422731903209
+--- !u!1 &2557256699623864900
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,7 +8,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8728839029837919882}
+  - component: {fileID: 1766566889607432053}
   m_Layer: 0
   m_Name: Coral_5
   m_TagString: Untagged
@@ -16,29 +16,29 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8728839029837919882
+--- !u!4 &1766566889607432053
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2389480422731903209}
+  m_GameObject: {fileID: 2557256699623864900}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8678530707378814550}
+  - {fileID: 1956731151893017468}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &9221943564808706493
+--- !u!1001 &2066323063837512855
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 8728839029837919882}
+    m_TransformParent: {fileID: 1766566889607432053}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: cf1d2e344079f014495b2963bbe03883, type: 3}
       propertyPath: m_LocalPosition.x
@@ -89,8 +89,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf1d2e344079f014495b2963bbe03883, type: 3}
---- !u!4 &8678530707378814550 stripped
+--- !u!4 &1956731151893017468 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: cf1d2e344079f014495b2963bbe03883, type: 3}
-  m_PrefabInstance: {fileID: 9221943564808706493}
+  m_PrefabInstance: {fileID: 2066323063837512855}
   m_PrefabAsset: {fileID: 0}
