@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float baseThrust = 5f;         // 이동 가속도
+    public float baseThrust = 0.6f;         // 이동 가속도
     public float boostMultiplier = 2.5f; // 쉬프트를 눌렀을 때의 가속 배율
     public float rotationThrust = 2f; // 회전 가속도 (토크)
     public float linearDrag = 0.1f;   // 이동 저항
@@ -17,6 +17,10 @@ public class PlayerMovement : MonoBehaviour
     private float lastColdStep = -1f; // coldRatio 단계 저장용 (예: 0, 1, 2, 3...)
 
     public TemperatureGimmick temperatureSystem;
+    public OxygenTank oxygenTank; // 산소탱크 연결
+
+    public float boostOxygenConsumptionRate = 2f; // 초당 부스트 산소 소모량
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -66,8 +70,20 @@ public class PlayerMovement : MonoBehaviour
             currentThrust = baseThrust;
         }
 
+        // 산소 부족 여부
+        bool isOxygenLow = (oxygenTank != null && oxygenTank.IsLow());
+
+        // 부스트 가능 여부: 쉬프트 누름 + 산소 충분
+        bool isBoosting = Input.GetKey(KeyCode.LeftShift) && !isOxygenLow;
+
         // 왼쪽 쉬프트를 누르면 부스트 적용
-        float thrustToApply = Input.GetKey(KeyCode.LeftShift) ? currentThrust * boostMultiplier : currentThrust;
+        float thrustToApply = isBoosting ? currentThrust * boostMultiplier : currentThrust;
+
+        // 부스트 중이면 산소 소모
+        if (isBoosting && oxygenTank != null)
+        {
+            oxygenTank.ConsumeOxygen(boostOxygenConsumptionRate * Time.deltaTime);
+        }
 
         // 이동 입력 (WASD)
         if (Input.GetKey(KeyCode.W))

@@ -68,4 +68,10 @@ public class OxygenTank : MonoBehaviour
         return oxygenAngle >= -50f;
     }
 
+    public void ConsumeOxygen(float amount)
+    {
+        elapsedOxygenTime += amount;
+        elapsedOxygenTime = Mathf.Clamp(elapsedOxygenTime, 0f, maxOxygenTime);
+    }
+
 }
