@@ -41,7 +41,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1202493403724463670}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9ec88f1e59dd50489d41418bfd9e9ec, type: 3}
+  m_Script: {fileID: 11500000, guid: 8bfa5688111470e4e9424b830335c56e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   temperatureUIPrefab: {fileID: 7759517632491840900, guid: 16681fa8746f6984da44e80786eeec16, type: 3}

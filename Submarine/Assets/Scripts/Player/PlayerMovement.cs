@@ -11,7 +11,10 @@ public class PlayerMovement : MonoBehaviour
     public float angularDrag = 0.5f;  // 회전 저항 (회전에 대한 관성 감속)
 
     private Rigidbody rb;
+    [SerializeField]
     private float currentThrust;
+
+    private float lastColdStep = -1f; // coldRatio 단계 저장용 (예: 0, 1, 2, 3...)
 
     public TemperatureGimmick temperatureSystem;
     void Start()
@@ -22,6 +25,18 @@ public class PlayerMovement : MonoBehaviour
         rb.angularDrag = angularDrag; // 회전 감속 (관성 감소)
 
         currentThrust = baseThrust; // 기본은 100%로 시작 (온도 시스템 꺼져있을 수 있으므로)
+        if (temperatureSystem == null)
+        {
+            temperatureSystem = FindObjectOfType<TemperatureGimmick>();
+            if (temperatureSystem != null)
+            {
+                Logger.Log($"[자동 참조] TemperatureGimmick 연결 완료: {temperatureSystem.gameObject.name}");
+            }
+            else
+            {
+                Logger.LogWarning("[자동 참조 실패] TemperatureGimmick을 찾을 수 없습니다!");
+            }
+        }
     }
 
     void FixedUpdate()
@@ -39,6 +54,11 @@ public class PlayerMovement : MonoBehaviour
             float extraReduction = 1f - (steps * 0.05f);
 
             currentThrust = baseThrust * baseReduction * extraReduction;
+            if (steps != lastColdStep)
+            {
+                lastColdStep = steps;
+                Logger.Log($"[체온 영향] 체온 감소 단계: {steps}, 현재 추진력: {currentThrust:F2}");
+            }
         }
         else
         {
@@ -51,9 +71,9 @@ public class PlayerMovement : MonoBehaviour
 
         // 이동 입력 (WASD)
         if (Input.GetKey(KeyCode.W))
-            rb.AddForce(transform.up * currentThrust, ForceMode.Acceleration);
+            rb.AddForce(transform.up * thrustToApply, ForceMode.Acceleration);
         if (Input.GetKey(KeyCode.S))
-            rb.AddForce(-transform.up * currentThrust, ForceMode.Acceleration);
+            rb.AddForce(-transform.up * thrustToApply, ForceMode.Acceleration);
         
 
         // 회전 입력 (Q, E) - 관성 적용

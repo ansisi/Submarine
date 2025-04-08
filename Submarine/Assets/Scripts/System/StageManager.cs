@@ -29,6 +29,7 @@ public class StageManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+            return;
         }
 
         SceneManager.sceneLoaded += OnSceneLoaded;

@@ -11,8 +11,8 @@ public class TemperatureGimmick : MonoBehaviour
     public float maxColdTime = 300f;
     private float elapsedColdTime = 0f;
 
-    private float warmAngle = -237f;
-    private float coldAngle = 0f;
+    private float warmAngle = -195f;
+    private float coldAngle = 90f;
 
 
 
