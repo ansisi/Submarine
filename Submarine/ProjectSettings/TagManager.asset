@@ -6,11 +6,12 @@ TagManager:
   tags:
   - Resource
   - Terrain
+  - CinemachineTarget
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Post
   - Water
   - UI
   - 
