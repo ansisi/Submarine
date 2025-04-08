@@ -59,7 +59,7 @@ CapsuleCollider:
   m_Radius: 0.71757936
   m_Height: 3.2062438
   m_Direction: 1
-  m_Center: {x: 0.8, y: -0.046878457, z: 0.049999952}
+  m_Center: {x: 0.51, y: -0.046878457, z: 0.049999952}
 --- !u!54 &5308143436974746032
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -113,6 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isGrabbed: 0
+  dropImmunityTime: 1
   partType: 4
 --- !u!114 &3871818323142443738
 MonoBehaviour:
@@ -138,7 +139,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 23d2588517cfddf4395c5636a92ac6e6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.83
+      value: 0.59
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 23d2588517cfddf4395c5636a92ac6e6, type: 3}
       propertyPath: m_LocalPosition.y

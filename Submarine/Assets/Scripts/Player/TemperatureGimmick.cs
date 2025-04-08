@@ -14,7 +14,7 @@ public class TemperatureGimmick : MonoBehaviour
     private float warmAngle = -195f;
     private float coldAngle = 90f;
 
-    private float resistance = 0f; // 방한복 효과
+    private float currentResistance = 0f; // 방한복 효과
 
 
     private void OnEnable()
@@ -53,7 +53,7 @@ public class TemperatureGimmick : MonoBehaviour
 
     void Update()
     {
-        float actualDecrease = Time.deltaTime * (1f - resistance);
+        float actualDecrease = Time.deltaTime * (1f - GetColdResistance());
         elapsedColdTime += actualDecrease;
         float coldRatio = Mathf.Clamp01(elapsedColdTime / maxColdTime);
         float temperatureAngle = Mathf.Lerp(warmAngle, coldAngle, coldRatio);
@@ -83,8 +83,13 @@ public class TemperatureGimmick : MonoBehaviour
         return Mathf.Clamp01(elapsedColdTime / maxColdTime);
     }
 
-    public void ApplyColdResistance(float amount)
+    public void ApplyColdResistance(float resistance)
     {
-        resistance = Mathf.Clamp01(amount);
+        currentResistance = resistance;
+    }
+
+    public float GetColdResistance()
+    {
+        return currentResistance;
     }
 }

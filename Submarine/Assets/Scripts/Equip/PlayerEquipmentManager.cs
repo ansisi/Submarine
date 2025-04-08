@@ -37,6 +37,17 @@ public class PlayerEquipmentManager : MonoBehaviour
         ApplyAllEquipmentEffects(); // 최초 시작 시에도 적용
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            foreach (var item in equippedItems)
+            {
+                item.Use(gameObject);
+            }
+        }
+    }
+
     public void Equip(EquipmentItem item)
     {
         if(!equippedItems.Contains(item))

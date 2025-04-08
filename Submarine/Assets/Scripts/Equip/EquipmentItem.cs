@@ -8,5 +8,6 @@ public abstract class EquipmentItem : ScriptableObject
     public Sprite icon;
 
     // 각 장비마다 다른 효과를 구현하도록 추상 메서드로 정의
-    public abstract void ApplyEffect(GameObject player);
+    public virtual void ApplyEffect(GameObject player) { }
+    public virtual void Use(GameObject player) { }
 }

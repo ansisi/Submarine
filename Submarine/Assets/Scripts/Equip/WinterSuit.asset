@@ -15,3 +15,6 @@ MonoBehaviour:
   itemName: WinterSuit
   icon: {fileID: 0}
   resistanceAmount: 0.2
+  effectDuration: 60
+  warmMaterial: {fileID: 2100000, guid: 1aba9749141b1244098b1f7b2425053a, type: 2}
+  originalMaterial: {fileID: 2100000, guid: 055b05c811c3535428f648658c62c5e7, type: 2}
