@@ -9,8 +9,8 @@ public class OxygenTank : MonoBehaviour
     public float maxOxygenTime = 400f;       // 연료가 다 떨어질 때까지의 최대 시간(초)
     private float elapsedOxygenTime = 0f;    // 경과된 연료 소비 시간
 
-    private float fullOxygenAngle = -237f;
-    private float emptyOxygenAngle = 0f;
+    private float fullOxygenAngle = -177f;
+    private float emptyOxygenAngle = 68f;
 
     private void Start()
     {
