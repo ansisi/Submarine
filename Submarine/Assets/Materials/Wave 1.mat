@@ -13,6 +13,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 0
+--- !u!114 &-555127865260282958
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 7
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -21,8 +34,8 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Wave 1
-  m_Shader: {fileID: -6465566751694194690, guid: aff0ad77220dc5548ac2970a59a49ea8, type: 3}
-  m_Parent: {fileID: -876546973899608171, guid: aff0ad77220dc5548ac2970a59a49ea8, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 98630997a01acf24fb54e42dcd4fa186, type: 3}
+  m_Parent: {fileID: -876546973899608171, guid: 98630997a01acf24fb54e42dcd4fa186, type: 3}
   m_ModifiedSerializedProperties: 16
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -38,6 +51,10 @@ Material:
     m_TexEnvs:
     - _Basemap:
         m_Texture: {fileID: 2800000, guid: 3965497db1219f84d897762d3034f3ec, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 63ff60541a75d5d48ac605cc0bf07df6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Mask:
@@ -60,12 +77,13 @@ Material:
     - _HUE: 0.071
     - _Normal_Strength: 0.64
     - _Opacity: 0.04
+    - _QueueControl: 0
     - _SmoothnessMax: 0.357
     - _SmoothnessMin: 0.036
     - _Wind_Density: 10.61
     - _Wind_Strength: 0.34
     m_Colors:
-    - _Color: {r: 0.60784316, g: 0.85882354, b: 1, a: 0.043137256}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Speed: {r: 0.2, g: 0.1, b: 0, a: 0}
     - _Tiling: {r: 60, g: 40, b: 0, a: 0}
     - _Wind_Direction: {r: 2.7, g: 2, b: 0, a: 0}
