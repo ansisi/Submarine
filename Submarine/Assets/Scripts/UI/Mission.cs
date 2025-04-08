@@ -11,7 +11,6 @@ public class Mission : MonoBehaviour
     public static Mission Instance { get; private set; }
 
     public GameObject missionImage;
-    public Button deleteButton;
 
     private float deleteTime = 0f;
 
@@ -85,17 +84,21 @@ public class Mission : MonoBehaviour
     {
         Time.timeScale = 0;
         missionImage.SetActive(true);
-        deleteButton.onClick.AddListener(HideMission);
     }
 
     void Update()
     {
-        deleteTime += Time.deltaTime;
+        deleteTime += Time.unscaledDeltaTime;
 
         if (deleteTime > 10f)
         {
-            missionImage.SetActive(false);
-            Time.timeScale = 1;
+            HideMission();
+        }
+
+        // ESC Å°¸¦ ´­·¶À» ¶§ Ã¢ ´Ý±â
+        if (Input.GetKeyDown(KeyCode.Escape) && missionImage.activeSelf)
+        {
+            HideMission();
         }
     }
 
