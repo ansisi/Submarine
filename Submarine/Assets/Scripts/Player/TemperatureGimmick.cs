@@ -14,7 +14,7 @@ public class TemperatureGimmick : MonoBehaviour
     private float warmAngle = -195f;
     private float coldAngle = 90f;
 
-
+    private float resistance = 0f; // 방한복 효과
 
 
     private void OnEnable()
@@ -42,6 +42,7 @@ public class TemperatureGimmick : MonoBehaviour
         }
 
         instantiatedUI.SetActive(true);
+        PlayerEquipmentManager.Instance?.ApplyAllEquipmentEffects(); // 장비 다시 적용
     }
 
     private void OnDisable()
@@ -52,7 +53,8 @@ public class TemperatureGimmick : MonoBehaviour
 
     void Update()
     {
-        elapsedColdTime += Time.deltaTime;
+        float actualDecrease = Time.deltaTime * (1f - resistance);
+        elapsedColdTime += actualDecrease;
         float coldRatio = Mathf.Clamp01(elapsedColdTime / maxColdTime);
         float temperatureAngle = Mathf.Lerp(warmAngle, coldAngle, coldRatio);
 
@@ -68,26 +70,6 @@ public class TemperatureGimmick : MonoBehaviour
         }
     }
 
-    public void WarmUp(float amount)
-    {
-        StopCoroutine("RefillHeat");
-        StartCoroutine(RefillHeat(amount));
-    }
-
-    private IEnumerator RefillHeat(float amount)
-    {
-        float startTime = elapsedColdTime;
-        float targetTime = Mathf.Max(elapsedColdTime - amount, 0f);
-        float duration = 1.0f;
-        float t = 0f;
-        while (t < duration)
-        {
-            t += Time.deltaTime;
-            elapsedColdTime = Mathf.Lerp(startTime, targetTime, t / duration);
-            yield return null;
-        }
-        elapsedColdTime = targetTime;
-    }
 
     public bool IsTooCold()
     {
@@ -99,5 +81,10 @@ public class TemperatureGimmick : MonoBehaviour
     public float GetColdRatio()
     {
         return Mathf.Clamp01(elapsedColdTime / maxColdTime);
+    }
+
+    public void ApplyColdResistance(float amount)
+    {
+        resistance = Mathf.Clamp01(amount);
     }
 }
