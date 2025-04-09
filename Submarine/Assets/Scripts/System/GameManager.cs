@@ -109,7 +109,7 @@ public class GameManager : MonoBehaviour
     // 현재 수집한 부품 개수 업데이트
     public void UpdateCollectedParts(PartType partType, int count)
     {
-        if (!collectedParts.ContainsKey(partType)) return;
+        // if (!collectedParts.ContainsKey(partType)) return;
 
         collectedParts[partType] = count;
         int requiredCount = GetRequiredParts(partType);

@@ -39,8 +39,8 @@ public class HookController : MonoBehaviour
     {
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = 0;
-        lineRenderer.startWidth = 0.01f;
-        lineRenderer.endWidth = 0.01f;
+        lineRenderer.startWidth = 0.03f;
+        lineRenderer.endWidth = 0.03f;
 
         // 충돌 레이어 기본값 설정 (모든 레이어와 충돌)
         if (collisionLayers.value == 0)
@@ -143,7 +143,7 @@ public class HookController : MonoBehaviour
                 UpdateRope();
                 if (attachedObject != null)
                 {
-                    Vector3 offset = hookObject.transform.forward * -0.45f + hookObject.transform.up * 0.3f;
+                    Vector3 offset = hookObject.transform.forward * -0.9f + hookObject.transform.up * 0.4f;
                     hookObject.transform.position = attachedObject.transform.position + offset;
 
                     //Vector3 dirToPlayer = hookObject.transform.position - transform.position;

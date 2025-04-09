@@ -49,8 +49,8 @@ public class HarpoonController : MonoBehaviour
             }
         }
         lineRenderer.positionCount = 0;
-        lineRenderer.startWidth = 0.01f;
-        lineRenderer.endWidth = 0.01f;
+        lineRenderer.startWidth = 0.03f;
+        lineRenderer.endWidth = 0.03f;
 
         // 충돌 레이어 기본값 설정 (모든 레이어와 충돌)
         if (collisionLayers.value == 0)
@@ -148,7 +148,7 @@ public class HarpoonController : MonoBehaviour
                 UpdateRope();
                 if (attachedObject != null)
                 {
-                    Vector3 offset = harpoonObject.transform.forward * -0.45f + harpoonObject.transform.right * 0.2f;
+                    Vector3 offset = harpoonObject.transform.forward * -0.9f + harpoonObject.transform.up * 0.4f;
                     harpoonObject.transform.position = attachedObject.transform.position + offset;
                     UpdateRope();
                 }
