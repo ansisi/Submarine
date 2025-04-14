@@ -61,4 +61,45 @@ public class InventoryManager : MonoBehaviour
         Logger.Log("인벤토리가 가득 찼습니다.");
         return false;
     }
+
+    public int CountItem(Item item)
+    {
+        int total = 0;
+        foreach (var slot in slots)
+        {
+            if (!slot.IsEmpty && slot.item == item)
+            {
+                total += slot.quantity;
+            }
+        }
+        return total;
+    }
+
+    public bool RemoveItem(Item item, int quantity)
+    {
+        int remaining = quantity;
+
+        foreach (var slot in slots)
+        {
+            if (!slot.IsEmpty && slot.item == item)
+            {
+                if (slot.quantity >= remaining)
+                {
+                    slot.quantity -= remaining;
+                    if (slot.quantity == 0) slot.ClearSlot();
+                    InventoryUIManger.instance?.UpdateUI();
+                    return true;
+                }
+                else
+                {
+                    remaining -= slot.quantity;
+                    slot.ClearSlot();
+                }
+            }
+        }
+
+        InventoryUIManger.instance?.UpdateUI();
+        return false; // 충분한 수량이 없어서 실패
+    }
+
 }
