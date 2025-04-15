@@ -11,6 +11,8 @@ public class InteractionManager : MonoBehaviour
 
     private Transform player;
 
+    private bool isInteractionLocked = false;
+
     private void Awake()
     {
         instance = this;
@@ -23,7 +25,7 @@ public class InteractionManager : MonoBehaviour
 
     private void Update()
     {
-        if (player == null) return;
+        if (player == null || isInteractionLocked) return;
 
         float closestDistance = float.MaxValue;
         InteractableBase closest = null;
@@ -73,4 +75,16 @@ public class InteractionManager : MonoBehaviour
         if (allInteractables.Contains(obj))
             allInteractables.Remove(obj);
     }
+
+    public void SetInteractionLocked(bool locked)
+    {
+        isInteractionLocked = locked;
+
+        if (locked)
+        {
+            PickupUIManager.instance.ShowHint(false);
+            currentTarget = null;
+        }
+    }
+
 }

@@ -6,10 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/BulidScene.unity
-    guid: 1d3ae95d6c27e2a4d89fe4a335f30e6b
-  - enabled: 1
-    path: Assets/Scenes/BulidScene 1.unity
-    guid: d4e53b159535d3644aab7df8d0af4062
+    path: Assets/Scenes/BuildScene_2.unity
+    guid: ef03fadc45182a44a923c97153be615d
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 9e7be553448fa2546aea5752021cbcf7, type: 2}
