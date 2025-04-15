@@ -16,8 +16,6 @@ public class HookController : MonoBehaviour
     public float ropeBreakForce = 1000f; // 로프가 끊어지는 힘
     public float ropeTensionMultiplier = 5f; // 로프 장력 승수
     public float ropeBreakDistance = 20f; // 로프가 끊어지는 거리
-    public Mesh mesh; //후크 모델링
-    public Material material;   // 후크 모델링 머테리얼
     public PlayerPickup playerPickup;
     public bool isHookActive = false;
     public GameObject hookPrefab;

@@ -18,12 +18,10 @@ public class PickupUIManager : MonoBehaviour
     }
 
     // ÈùÆ® Ç¥½Ã/¼û±â±â
-    public void ShowHint(bool show, string itemName = "")
+    public void ShowHint(bool show, string text = "")
     {
         hintPanel.SetActive(show);
         if (show)
-        {
-            hintText.text = $"[E] {itemName} ÁÝ±â";
-        }
+            hintText.text = text;
     }
 }

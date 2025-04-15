@@ -2,11 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemPickup : InteractableBase
+public class Ore : InteractableBase
 {
-    public Item item;
-    [Min(1)]
-    public int quantity = 1;
+    public Item oreItem;
+    public int yieldAmount = 1;
 
     private void Start()
     {
@@ -20,15 +19,15 @@ public class ItemPickup : InteractableBase
 
     public override string GetHintText()
     {
-        return $"[Space] {item.itemName} 줍기";
+        return $"[Space] {oreItem.itemName} 채굴";
     }
 
     public override void Interact()
     {
-        bool success = InventoryManager.instance.AddItem(item, quantity);
+        bool success = InventoryManager.instance.AddItem(oreItem, yieldAmount);
         if (success)
             Destroy(gameObject);
     }
 
-    public override int Priority => 0; // 우선순위 높음
+    public override int Priority => 1; // 아이템보다 우선순위 낮게 설정 가능
 }
