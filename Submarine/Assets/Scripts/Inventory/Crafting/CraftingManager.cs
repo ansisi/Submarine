@@ -1,64 +1,56 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CraftingManager : MonoBehaviour
 {
     public static CraftingManager instance;
-    public List<CraftingRecipe> recipes;
+
+    public List<CraftingRecipe> recipes; // 등록된 모든 조합법
 
     private void Awake()
     {
         instance = this;
     }
 
-    public bool TryCraft(CraftingRecipe recipe)
+    public bool CanCraft(CraftingRecipe recipe)
     {
-        InventoryManager inventory = InventoryManager.instance;
-
-        // 재료 있는지 확인
         foreach (var ingredient in recipe.ingredients)
         {
-            int total = 0;
-            foreach (var slot in inventory.slots)
-            {
-                if (!slot.IsEmpty && slot.item == ingredient.item)
-                    total += slot.quantity;
-            }
+            int count = InventoryManager.instance.slots
+                .Where(slot => !slot.IsEmpty && slot.item == ingredient.item)
+                .Sum(slot => slot.quantity);
 
-            if (total < ingredient.quantity)
-            {
-                Debug.Log("재료 부족: " + ingredient.item.itemName);
+            if (count < ingredient.quantity)
                 return false;
-            }
         }
+        return true;
+    }
 
-        // 재료 제거
+    public void Craft(CraftingRecipe recipe)
+    {
+        if (!CanCraft(recipe)) return;
+
+        // 재료 차감
         foreach (var ingredient in recipe.ingredients)
         {
             int remaining = ingredient.quantity;
-            foreach (var slot in inventory.slots)
+            foreach (var slot in InventoryManager.instance.slots)
             {
                 if (!slot.IsEmpty && slot.item == ingredient.item)
                 {
-                    int take = Mathf.Min(slot.quantity, remaining);
-                    slot.quantity -= take;
-                    remaining -= take;
+                    int used = Mathf.Min(slot.quantity, remaining);
+                    slot.quantity -= used;
+                    remaining -= used;
+                    if (slot.quantity <= 0) slot.ClearSlot();
 
-                    if (slot.quantity == 0)
-                        slot.ClearSlot();
-
-                    if (remaining <= 0)
-                        break;
+                    if (remaining <= 0) break;
                 }
             }
         }
 
-        // 결과 아이템 추가
         InventoryManager.instance.AddItem(recipe.resultItem, recipe.resultQuantity);
         InventoryUIManger.instance.UpdateUI();
-
-        Debug.Log("제작 성공: " + recipe.resultItem.itemName);
-        return true;
     }
 }

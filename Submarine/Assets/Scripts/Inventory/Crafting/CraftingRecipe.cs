@@ -5,8 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Recipe", menuName = "Crafting/Recipe")]
 public class CraftingRecipe : ScriptableObject
 {
-    public Item resultItem;              // 만들어질 아이템
-    public int resultQuantity = 1;       // 결과 수량
+    public Item resultItem;           // 완성 아이템
+    public int resultQuantity = 1;    // 완성 수량
 
     [System.Serializable]
     public class Ingredient
@@ -15,5 +15,5 @@ public class CraftingRecipe : ScriptableObject
         public int quantity;
     }
 
-    public List<Ingredient> ingredients; // 필요한 재료들
+    public List<Ingredient> ingredients = new List<Ingredient>(); // 재료 목록
 }
