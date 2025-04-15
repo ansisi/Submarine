@@ -1,81 +1,75 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+
+public enum EquipmentType
+{
+    Harpoon,
+    Hook,
+    Pickaxe
+}
+
+[System.Serializable]
+public class EquipmentSlot
+{
+    public EquipmentType type;
+    public GameObject prefab;
+}
 
 public class PlayerEquipmentManager : MonoBehaviour
 {
-    public static PlayerEquipmentManager Instance;
+    public static PlayerEquipmentManager Instance { get; private set; }
 
-    public List<EquipmentItem> equippedItems;
+    public List<EquipmentSlot> equipmentSlots; // 에디터에서 지정
+    public Transform handTransform; // 장비를 들 손 위치
+
+    private GameObject currentEquipped;
+    private int currentIndex = 0;
+
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-            SceneManager.sceneLoaded += OnSceneLoaded; // 씬 로드 콜백 등록
-        }
-        else
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
         }
+        Instance = this;
     }
 
-    private void OnDestroy()
+    private void Start()
     {
-        if (Instance == this)
-        {
-            SceneManager.sceneLoaded -= OnSceneLoaded; // 콜백 제거
-        }
-    }
-
-
-    void Start()
-    {
-        ApplyAllEquipmentEffects(); // 최초 시작 시에도 적용
+        Equip(currentIndex);
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            foreach (var item in equippedItems)
-            {
-                item.Use(gameObject);
-            }
-        }
+        // 숫자키로 전환
+        if (Input.GetKeyDown(KeyCode.Alpha1)) Equip(0);
+        if (Input.GetKeyDown(KeyCode.Alpha2)) Equip(1);
+        if (Input.GetKeyDown(KeyCode.Alpha3)) Equip(2);
+
+        // 마우스 휠
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        if (scroll > 0f) Equip((currentIndex + 1) % equipmentSlots.Count);
+        else if (scroll < 0f) Equip((currentIndex - 1 + equipmentSlots.Count) % equipmentSlots.Count);
     }
 
-    public void Equip(EquipmentItem item)
+    void Equip(int index)
     {
-        if(!equippedItems.Contains(item))
-        { 
-            equippedItems.Add(item);
-            item.ApplyEffect(gameObject);
-        }
+        if (index < 0 || index >= equipmentSlots.Count) return;
+        currentIndex = index;
+
+        // 기존 장비 제거
+        if (currentEquipped != null)
+            Destroy(currentEquipped);
+
+        // 새 장비 생성 및 장착
+        EquipmentSlot slot = equipmentSlots[currentIndex];
+        currentEquipped = Instantiate(slot.prefab, handTransform);
     }
 
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    public EquipmentType GetCurrentEquipmentType()
     {
-        ApplyAllEquipmentEffects(); // 새 씬 로드 시 자동 적용
+        return equipmentSlots[currentIndex].type;
     }
-
-    public void ApplyAllEquipmentEffects()
-    {
-        GameObject player = GetPlayerObject();
-        if (player == null) return;
-
-        foreach (var item in equippedItems)
-        {
-            if (item != null)
-                item.ApplyEffect(player);
-        }
-    }
-    private GameObject GetPlayerObject()
-    {
-        return GameObject.FindGameObjectWithTag("Player"); // 플레이어 태그 사용
-    }
-
 }

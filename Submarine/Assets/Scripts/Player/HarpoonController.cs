@@ -17,7 +17,6 @@ public class HarpoonController : MonoBehaviour
     public float ropeBreakForce = 1000f; // 로프가 끊어지는 힘
     public float ropeTensionMultiplier = 5f; // 로프 장력 승수
     public float ropeBreakDistance = 20f; // 로프가 끊어지는 거리
-    public PlayerPickup playerPickup;
     public bool isHarpoonActive = false;
     public GameObject harpoonPrefab;
 
@@ -81,26 +80,24 @@ public class HarpoonController : MonoBehaviour
     void Update()
     {
 
-        if (playerPickup.IsGrabbing == false)
+        if (Input.GetMouseButtonDown(0))
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                if (!isHarpoonActive)
-                    FireHarpoon();
-                else if (attachedObject == null)
-                    StartRetraction();
-                else
-                    ClearRopeConnection(); // 로프 연결 해제
-            }
+            if (!isHarpoonActive)
+                FireHarpoon();
+            else if (attachedObject == null)
+                StartRetraction();
+            else
+                ClearRopeConnection(); // 로프 연결 해제
+        }
 
-            if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (isHarpoonActive && attachedRigidbody != null)
             {
-                if (isHarpoonActive && attachedRigidbody != null)
-                {
-                    PullHarpoon();
-                }
+                PullHarpoon();
             }
         }
+        
 
         if (isHarpoonActive)
         {

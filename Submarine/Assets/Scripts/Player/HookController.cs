@@ -16,7 +16,6 @@ public class HookController : MonoBehaviour
     public float ropeBreakForce = 1000f; // 로프가 끊어지는 힘
     public float ropeTensionMultiplier = 5f; // 로프 장력 승수
     public float ropeBreakDistance = 20f; // 로프가 끊어지는 거리
-    public PlayerPickup playerPickup;
     public bool isHookActive = false;
     public GameObject hookPrefab;
 
@@ -70,27 +69,26 @@ public class HookController : MonoBehaviour
 
     void Update()
     {
-        if (playerPickup.IsGrabbing == false)
+        
+        if (Input.GetMouseButtonDown(0))
         {
-            if (Input.GetMouseButtonDown(1))
-            {
-            if (!isHookActive)
-                FireHook();
-            else if (attachedObject == null)
-                StartRetraction();
-            else
-                ClearRopeConnection(); // 로프 연결 해제
-            }
+        if (!isHookActive)
+            FireHook();
+        else if (attachedObject == null)
+            StartRetraction();
+        else
+            ClearRopeConnection(); // 로프 연결 해제
+        }
 
         
-            if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (isHookActive && attachedRigidbody != null)
             {
-                if (isHookActive && attachedRigidbody != null)
-                {
-                    PullHook();
-                }
+                PullHook();
             }
         }
+        
 
         if (isHookActive)
         {

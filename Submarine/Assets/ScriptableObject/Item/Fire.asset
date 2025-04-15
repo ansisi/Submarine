@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Fire
   m_EditorClassIdentifier: 
   itemName: Fire
-  icon: {fileID: 21300000, guid: bbabe534dde7890448cc6d43feb6064e, type: 3}
+  icon: {fileID: 925072219, guid: 624c362e69b6c064da065744cb79e578, type: 3}
   isStackable: 0

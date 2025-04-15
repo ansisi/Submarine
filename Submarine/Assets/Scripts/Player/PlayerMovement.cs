@@ -14,9 +14,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float currentThrust;
 
-    private float lastColdStep = -1f; // coldRatio 단계 저장용 (예: 0, 1, 2, 3...)
-
-    public TemperatureGimmick temperatureSystem;
     public OxygenTank oxygenTank; // 산소탱크 연결
 
     public float boostOxygenConsumptionRate = 2f; // 초당 부스트 산소 소모량
@@ -28,47 +25,14 @@ public class PlayerMovement : MonoBehaviour
         rb.drag = linearDrag;         // 이동 감속
         rb.angularDrag = angularDrag; // 회전 감속 (관성 감소)
 
-        currentThrust = baseThrust; // 기본은 100%로 시작 (온도 시스템 꺼져있을 수 있으므로)
-        if (temperatureSystem == null)
-        {
-            temperatureSystem = FindObjectOfType<TemperatureGimmick>();
-            if (temperatureSystem != null)
-            {
-                Logger.Log($"[자동 참조] TemperatureGimmick 연결 완료: {temperatureSystem.gameObject.name}");
-            }
-            else
-            {
-                Logger.LogWarning("[자동 참조 실패] TemperatureGimmick을 찾을 수 없습니다!");
-            }
-        }
+        currentThrust = baseThrust; // 기본은 100%로 시작 
+        
     }
 
     void FixedUpdate()
     {
-
-        // 온도 시스템이 활성화된 경우에만 감속 계산
-        if (temperatureSystem != null && temperatureSystem.enabled)
-        {
-            // 기본 10% 감소
-            float baseReduction = 0.9f;
-
-            // 체온 20% 감소마다 5% 추가 감소
-            float coldRatio = temperatureSystem.GetColdRatio();
-            int steps = Mathf.FloorToInt(coldRatio / 0.2f);
-            float extraReduction = 1f - (steps * 0.05f);
-
-            currentThrust = baseThrust * baseReduction * extraReduction;
-            if (steps != lastColdStep)
-            {
-                lastColdStep = steps;
-                Logger.Log($"[체온 영향] 체온 감소 단계: {steps}, 현재 추진력: {currentThrust:F2}");
-            }
-        }
-        else
-        {
-            // 온도 시스템이 비활성화면 원래 속도
-            currentThrust = baseThrust;
-        }
+        currentThrust = baseThrust;
+        
 
         // 산소 부족 여부
         bool isOxygenLow = (oxygenTank != null && oxygenTank.IsLow());
