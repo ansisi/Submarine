@@ -47,7 +47,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 7800d579b277bb448a4133e809c234ec, type: 2}
+  m_Motion: {fileID: 3536513432961602234, guid: dc4f65c59d40e894c98ac0e7f5127a35, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -74,7 +74,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -998496362607748373, guid: 04916b7f698a7794f93c2dbd34737e36, type: 3}
+  m_Motion: {fileID: 3536513432961602234, guid: dc4f65c59d40e894c98ac0e7f5127a35, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -160,7 +160,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Idle Leg
-  m_Speed: 1
+  m_Speed: 0.2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -610384733646834192}
@@ -173,7 +173,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 0}
+  m_Motion: {fileID: -887982601649841707, guid: dc4f65c59d40e894c98ac0e7f5127a35, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -371,7 +371,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 3060872287085348379, guid: 04916b7f698a7794f93c2dbd34737e36, type: 3}
+  m_Motion: {fileID: -8467477205274376854, guid: dc4f65c59d40e894c98ac0e7f5127a35, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -525,7 +525,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 4bab1e6b1b9c18f44872a9ade67091d4, type: 2}
+  m_Motion: {fileID: -8467477205274376854, guid: dc4f65c59d40e894c98ac0e7f5127a35, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -564,7 +564,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Leg
-  m_Speed: 1
+  m_Speed: 0.2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 3609111858536030450}
@@ -577,7 +577,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 35306661b08ec2d43b1c1013dd909256, type: 2}
+  m_Motion: {fileID: -8514521339571864881, guid: dc4f65c59d40e894c98ac0e7f5127a35, type: 3}
   m_Tag: 
   m_SpeedParameter: LegSpeed
   m_MirrorParameter: isSwimming
@@ -623,10 +623,10 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 2705299513973305672}
-    m_Position: {x: 341.69818, y: 117.60892, z: 0}
+    m_Position: {x: 340, y: 120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5787996433680976394}
-    m_Position: {x: 200, y: 230, z: 0}
+    m_Position: {x: 330, y: 230, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1071451781323367850}
     m_Position: {x: 300, y: 10, z: 0}

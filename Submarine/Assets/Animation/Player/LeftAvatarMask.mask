@@ -11,6 +11,8 @@ AvatarMask:
   m_Elements:
   - m_Path: 
     m_Weight: 1
+  - m_Path: Cube.001
+    m_Weight: 1
   - m_Path: metarig
     m_Weight: 1
   - m_Path: metarig/spine
@@ -51,13 +53,7 @@ AvatarMask:
     m_Weight: 1
   - m_Path: metarig/spine/spine.001/spine.002/spine.003/spine.004
     m_Weight: 1
-  - m_Path: metarig/spine/spine.001/spine.002/spine.003/spine.004/spine.005
-    m_Weight: 1
-  - m_Path: metarig/spine/spine.001/spine.002/spine.003/spine.004/spine.005/spine.006
-    m_Weight: 1
-  - m_Path: metarig/spine/spine.001/spine.002/spine.003/spine.004/spine.005/spine.006/face
-    m_Weight: 1
-  - m_Path: metarig/spine/spine.001/spine.002/spine.003/spine.004/spine.005/spine.006/face/face_end
+  - m_Path: metarig/spine/spine.001/spine.002/spine.003/spine.004/spine.004_end
     m_Weight: 1
   - m_Path: metarig/spine/thigh.L
     m_Weight: 1
@@ -65,9 +61,9 @@ AvatarMask:
     m_Weight: 1
   - m_Path: metarig/spine/thigh.L/shin.L/foot.L
     m_Weight: 1
-  - m_Path: metarig/spine/thigh.L/shin.L/foot.L/toe.L
+  - m_Path: metarig/spine/thigh.L/shin.L/foot.L/heel.02.L
     m_Weight: 1
-  - m_Path: metarig/spine/thigh.L/shin.L/foot.L/toe.L/toe.L_end
+  - m_Path: metarig/spine/thigh.L/shin.L/foot.L/heel.02.L/heel.02.L_end
     m_Weight: 1
   - m_Path: metarig/spine/thigh.R
     m_Weight: 1
@@ -75,31 +71,7 @@ AvatarMask:
     m_Weight: 1
   - m_Path: metarig/spine/thigh.R/shin.R/foot.R
     m_Weight: 1
-  - m_Path: metarig/spine/thigh.R/shin.R/foot.R/toe.R
+  - m_Path: metarig/spine/thigh.R/shin.R/foot.R/heel.02.R
     m_Weight: 1
-  - m_Path: metarig/spine/thigh.R/shin.R/foot.R/toe.R/toe.R_end
-    m_Weight: 1
-  - m_Path: metarig/spine.007
-    m_Weight: 1
-  - m_Path: metarig/spine.007/spine.008
-    m_Weight: 1
-  - m_Path: metarig/spine.007/spine.008/spine.009
-    m_Weight: 1
-  - m_Path: metarig/spine.007/spine.008/spine.009/spine.010
-    m_Weight: 1
-  - m_Path: metarig/spine.007/spine.008/spine.009/spine.010/spine.011
-    m_Weight: 1
-  - m_Path: metarig/spine.007/spine.008/spine.009/spine.010/spine.011/spine.012
-    m_Weight: 1
-  - m_Path: metarig/spine.007/spine.008/spine.009/spine.010/spine.011/spine.012/spine.013
-    m_Weight: 1
-  - m_Path: metarig/spine.007/spine.008/spine.009/spine.010/spine.011/spine.012/spine.013/spine.014
-    m_Weight: 1
-  - m_Path: metarig/spine.007/spine.008/spine.009/spine.010/spine.011/spine.012/spine.013/spine.014/spine.014_end
-    m_Weight: 1
-  - m_Path: Sphere.001
-    m_Weight: 1
-  - m_Path: Sphere.002
-    m_Weight: 1
-  - m_Path: Sphere.003
+  - m_Path: metarig/spine/thigh.R/shin.R/foot.R/heel.02.R/heel.02.R_end
     m_Weight: 1
