@@ -9,6 +9,11 @@ public class InventoryManager : MonoBehaviour
     public int slotCount = 20;        // ¿Œ∫•≈‰∏Æ ΩΩ∑‘ ∞≥ºˆ
     public List<InventorySlot> slots = new List<InventorySlot>(); // ΩΩ∑‘ ∏ÆΩ∫∆Æ
 
+    public List<InventorySlot> GetAllSlots()
+    {
+        return slots;
+    }
+
     private void Awake()
     {
         // ΩÃ±€≈Ê º≥¡§
