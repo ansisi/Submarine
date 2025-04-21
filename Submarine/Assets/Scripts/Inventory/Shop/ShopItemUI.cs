@@ -50,7 +50,7 @@ public class ShopItemUI : MonoBehaviour
         if (CurrencyManager.Instance.gold >= shopItemData.buyPrice)
         {
             CurrencyManager.Instance.SpendGold(shopItemData.buyPrice);
-            InventoryManager.instance.AddItem(shopItemData.item, 1);
+            InventoryManager.Instance.AddItem(shopItemData.item, 1);
             Logger.Log($"[상점] {shopItemData.item.itemName} 구매 완료");
         }
         else
@@ -61,9 +61,9 @@ public class ShopItemUI : MonoBehaviour
 
     private void SellItem()
     {
-        if (InventoryManager.instance.CountItem(shopItemData.item) > 0)
+        if (InventoryManager.Instance.CountItem(shopItemData.item) > 0)
         {
-            bool success = InventoryManager.instance.RemoveItem(shopItemData.item, 1);
+            bool success = InventoryManager.Instance.RemoveItem(shopItemData.item, 1);
             if (success)
             {
                 CurrencyManager.Instance.AddGold(shopItemData.sellPrice);

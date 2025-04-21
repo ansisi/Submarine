@@ -26,4 +26,12 @@ public abstract class InteractableBase : MonoBehaviour
     {
         return DistanceToPlayer(player) <= interactRange;
     }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, interactRange);
+    }
+#endif
 }

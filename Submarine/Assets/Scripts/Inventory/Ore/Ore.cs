@@ -50,7 +50,7 @@ public class Ore : InteractableBase
 
     public void Mine()
     {
-        bool success = InventoryManager.instance.AddItem(oreItem, yieldAmount);
+        bool success = InventoryManager.Instance.AddItem(oreItem, yieldAmount);
         if (success)
             Destroy(gameObject);
     }

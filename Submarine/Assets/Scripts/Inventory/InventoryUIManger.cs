@@ -20,7 +20,7 @@ public class InventoryUIManger : MonoBehaviour
 
     private void Start()
     {
-        InventoryManager inventory = InventoryManager.instance;
+        InventoryManager inventory = InventoryManager.Instance;
         slotUIs = new InventorySlotUI[inventory.slots.Count];
 
         // 슬롯 프리팹을 인벤토리 크기만큼 생성
@@ -36,7 +36,7 @@ public class InventoryUIManger : MonoBehaviour
     // 모든 슬롯 UI 갱신
     public void UpdateUI()
     {
-        InventoryManager inventory = InventoryManager.instance;
+        InventoryManager inventory = InventoryManager.Instance;
         for (int i = 0; i < inventory.slots.Count; i++)
         {
             var slot = inventory.slots[i];

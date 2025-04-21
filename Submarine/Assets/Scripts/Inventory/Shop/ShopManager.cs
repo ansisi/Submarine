@@ -30,7 +30,7 @@ public class ShopManager : MonoBehaviour
         }
         else
         {
-            foreach (InventorySlot slot in InventoryManager.instance.GetAllSlots())
+            foreach (InventorySlot slot in InventoryManager.Instance.GetAllSlots())
             {
                 if (slot.item == null) continue;
 
