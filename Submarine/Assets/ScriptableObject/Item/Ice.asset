@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Ice
   m_EditorClassIdentifier: 
   itemName: Ice
-  icon: {fileID: 21300000, guid: ccc88bdbad7de8f4cba2016f0e7cc77f, type: 3}
+  icon: {fileID: 143912599, guid: 624c362e69b6c064da065744cb79e578, type: 3}
   isStackable: 1

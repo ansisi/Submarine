@@ -10,6 +10,7 @@ public class ShopItemUI : MonoBehaviour
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI priceText;
     public TextMeshProUGUI quantityText;
+    public TextMeshProUGUI buttonText;
     public Button actionButton;
 
     private ShopItemData shopItemData;
@@ -24,6 +25,7 @@ public class ShopItemUI : MonoBehaviour
         nameText.text = data.item.itemName;
         priceText.text = $"{data.buyPrice}G";
         quantityText.gameObject.SetActive(false);
+        buttonText.text = "Buy";
         actionButton.onClick.RemoveAllListeners();
         actionButton.onClick.AddListener(BuyItem);
     }
@@ -38,6 +40,7 @@ public class ShopItemUI : MonoBehaviour
         priceText.text = $"{data.sellPrice}G";
         quantityText.text = $"x{quantity}";
         quantityText.gameObject.SetActive(true);
+        buttonText.text = "Sell";
         actionButton.onClick.RemoveAllListeners();
         actionButton.onClick.AddListener(SellItem);
     }
@@ -48,11 +51,11 @@ public class ShopItemUI : MonoBehaviour
         {
             CurrencyManager.Instance.SpendGold(shopItemData.buyPrice);
             InventoryManager.instance.AddItem(shopItemData.item, 1);
-            Debug.Log($"[상점] {shopItemData.item.itemName} 구매 완료");
+            Logger.Log($"[상점] {shopItemData.item.itemName} 구매 완료");
         }
         else
         {
-            Debug.Log("골드가 부족합니다.");
+            Logger.Log("골드가 부족합니다.");
         }
     }
 
@@ -64,12 +67,23 @@ public class ShopItemUI : MonoBehaviour
             if (success)
             {
                 CurrencyManager.Instance.AddGold(shopItemData.sellPrice);
-                Debug.Log($"[상점] {shopItemData.item.itemName} 1개 판매 완료 (+{shopItemData.sellPrice}G)");
+                Logger.Log($"[상점] {shopItemData.item.itemName} 1개 판매 완료 (+{shopItemData.sellPrice}G)");
+
+                // 수량 갱신
+                sellQuantity--;
+                quantityText.text = $"x{sellQuantity}";
+
+                // 수량이 0 이하가 되면 버튼 비활성화
+                if (sellQuantity <= 0)
+                {
+                    actionButton.interactable = false;
+                    buttonText.text = "Sold Out";
+                }
             }
         }
         else
         {
-            Debug.Log("판매할 아이템이 없습니다.");
+            Logger.Log("판매할 아이템이 없습니다.");
         }
     }
 }

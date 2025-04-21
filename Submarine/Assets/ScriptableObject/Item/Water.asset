@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Water
   icon: {fileID: 21300000, guid: ed8008b3b73a4874fb182819b0abc6e1, type: 3}
-  isStackable: 0
+  isStackable: 1

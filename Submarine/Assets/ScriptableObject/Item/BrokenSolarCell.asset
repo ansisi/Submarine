@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ee39bd684b4dc5149a0908ce073cdc59, type: 3}
-  m_Name: Fire
+  m_Name: BrokenSolarCell
   m_EditorClassIdentifier: 
-  itemName: Fire
-  icon: {fileID: 925072219, guid: 624c362e69b6c064da065744cb79e578, type: 3}
+  itemName: "\uB9DD\uAC00\uC9C4 \uD0DC\uC591\uC804\uC9C0"
+  icon: {fileID: 1421727968, guid: fc9ad59cdc50f46439ce072a47f661ed, type: 3}
   isStackable: 1
