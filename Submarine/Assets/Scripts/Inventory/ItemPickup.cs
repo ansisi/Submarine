@@ -25,7 +25,7 @@ public class ItemPickup : InteractableBase
 
     public override void Interact()
     {
-        bool success = InventoryManager.instance.AddItem(item, quantity);
+        bool success = InventoryManager.Instance.AddItem(item, quantity);
         if (success)
             Destroy(gameObject);
     }

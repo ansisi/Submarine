@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
-    public static InventoryManager instance; // 싱글톤 인스턴스 (다른 클래스에서 접근 가능하게)
+    public static InventoryManager Instance; // 싱글톤 인스턴스 (다른 클래스에서 접근 가능하게)
 
     public int slotCount = 20;        // 인벤토리 슬롯 개수
     public List<InventorySlot> slots = new List<InventorySlot>(); // 슬롯 리스트
@@ -17,8 +17,8 @@ public class InventoryManager : MonoBehaviour
     private void Awake()
     {
         // 싱글톤 설정
-        if (instance == null)
-            instance = this;
+        if (Instance == null)
+            Instance = this;
 
         // 슬롯 초기화
         for (int i = 0; i < slotCount; i++)

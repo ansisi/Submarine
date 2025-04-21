@@ -18,7 +18,7 @@ public class CraftingManager : MonoBehaviour
     {
         foreach (var ingredient in recipe.ingredients)
         {
-            int count = InventoryManager.instance.slots
+            int count = InventoryManager.Instance.slots
                 .Where(slot => !slot.IsEmpty && slot.item == ingredient.item)
                 .Sum(slot => slot.quantity);
 
@@ -36,7 +36,7 @@ public class CraftingManager : MonoBehaviour
         foreach (var ingredient in recipe.ingredients)
         {
             int remaining = ingredient.quantity;
-            foreach (var slot in InventoryManager.instance.slots)
+            foreach (var slot in InventoryManager.Instance.slots)
             {
                 if (!slot.IsEmpty && slot.item == ingredient.item)
                 {
@@ -50,7 +50,7 @@ public class CraftingManager : MonoBehaviour
             }
         }
 
-        InventoryManager.instance.AddItem(recipe.resultItem, recipe.resultQuantity);
+        InventoryManager.Instance.AddItem(recipe.resultItem, recipe.resultQuantity);
         InventoryUIManger.instance.UpdateUI();
     }
 }

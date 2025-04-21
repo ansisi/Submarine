@@ -49,7 +49,7 @@ public class CurrencyManager : MonoBehaviour
         return gold;
     }
 
-    private void UpdateUI()
+    public void UpdateUI()
     {
         if (goldText != null)
             goldText.text = gold.ToString();

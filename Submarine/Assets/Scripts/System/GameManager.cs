@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
     // 수집된 부품 개수 저장 (각 부품 유형별로 저장)
     public Dictionary<PartType, int> collectedParts = new Dictionary<PartType, int>();
 
+    public bool npcRescued = false;
+
     private bool isGameOver = false;
     public bool IsGameOver
     {
@@ -163,6 +165,13 @@ public class GameManager : MonoBehaviour
     {
         return missionParts;
     }
+
+    public void MarkNPCRescued()
+    {
+        npcRescued = true;
+        Logger.Log("NPC 구조 완료!");
+    }
+
     // 게임 오버 처리
     public void GameOver()
     {
