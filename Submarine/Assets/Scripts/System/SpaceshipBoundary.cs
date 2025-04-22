@@ -8,7 +8,8 @@ using TMPro;
 public class SpaceshipBoundary : MonoBehaviour
 {
     public Transform player;
-    public float currentRadius = 5f;
+    [SerializeField] private float baseRadius = 3f;
+    public float currentRadius = 3f;
     public int circleSegments = 100;
 
     private LineRenderer line;
@@ -61,6 +62,12 @@ public class SpaceshipBoundary : MonoBehaviour
         }
 
         DrawCircle(); // 실시간으로 반경 반영
+    }
+
+    public void SetAntennaUpgradeLevel(int level)
+    {
+        currentRadius = baseRadius * Mathf.Pow(1.3f, level);
+        DrawCircle();
     }
 
     public void UpgradeSpaceship(float addedRadius)

@@ -20,6 +20,7 @@ public class InventoryManager : MonoBehaviour
         if (Instance == null)
             Instance = this;
 
+        slots.Clear(); // 추가
         // 슬롯 초기화
         for (int i = 0; i < slotCount; i++)
         {
@@ -45,7 +46,7 @@ public class InventoryManager : MonoBehaviour
                 if (!slot.IsEmpty && slot.item == item)
                 {
                     slot.quantity += quantity;
-                    InventoryUIManger.instance?.UpdateUI(); // UI 갱신 추가
+                    InventoryUIManager.instance?.UpdateUI(); // UI 갱신 추가
                     return true;
                 }
             }
@@ -57,7 +58,7 @@ public class InventoryManager : MonoBehaviour
             if (slot.IsEmpty)
             {
                 slot.AddItem(item, quantity);
-                InventoryUIManger.instance?.UpdateUI(); // UI 갱신 추가
+                InventoryUIManager.instance?.UpdateUI(); // UI 갱신 추가
                 return true;
             }
         }
@@ -92,7 +93,7 @@ public class InventoryManager : MonoBehaviour
                 {
                     slot.quantity -= remaining;
                     if (slot.quantity == 0) slot.ClearSlot();
-                    InventoryUIManger.instance?.UpdateUI();
+                    InventoryUIManager.instance?.UpdateUI();
                     return true;
                 }
                 else
@@ -103,8 +104,37 @@ public class InventoryManager : MonoBehaviour
             }
         }
 
-        InventoryUIManger.instance?.UpdateUI();
+        InventoryUIManager.instance?.UpdateUI();
         return false; // 충분한 수량이 없어서 실패
     }
+
+    public bool HasEnoughItems(List<UpgradeMaterialRequirement> requirements)
+    {
+        foreach (var req in requirements)
+        {
+            if (CountItem(req.item) < req.amount)
+                return false;
+        }
+        return true;
+    }
+
+    public void ConsumeItems(List<UpgradeMaterialRequirement> requirements)
+    {
+        foreach (var req in requirements)
+        {
+            RemoveItem(req.item, req.amount);
+        }
+    }
+
+    public bool HasItem(Item item, int amount)
+    {
+        return CountItem(item) >= amount;
+    }
+
+    public int GetItemCount(Item item)
+    {
+        return CountItem(item);
+    }
+
 
 }

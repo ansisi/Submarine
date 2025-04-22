@@ -3,13 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+public enum UpgradeType
+{
+    Antenna,
+    Engine,
+    OxygenTank,
+    FuelTank,
+    // 등 추가 예정 업그레이드 항목
+}
+
 [CreateAssetMenu(fileName = "New Upgrade", menuName = "Upgrade/Upgrade Data")]
 public class UpgradeData : ScriptableObject
 {
-    public string upgradeID;
+    public UpgradeType upgradeType;
     public string upgradeName;
-    [TextArea]
-    public string description;
     public Sprite icon;
 
     public List<UpgradeLevelData> levels;

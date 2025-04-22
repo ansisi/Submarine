@@ -32,6 +32,11 @@ public class CurrencyManager : MonoBehaviour
         SaveCurrency();
     }
 
+    public bool HasGold(int amount)
+    {
+        return gold >= amount;
+    }
+
     public bool SpendGold(int amount)
     {
         if (gold >= amount)

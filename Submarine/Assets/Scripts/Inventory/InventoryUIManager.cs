@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryUIManger : MonoBehaviour
+public class InventoryUIManager : MonoBehaviour
 {
-    public static InventoryUIManger instance;
+    public static InventoryUIManager instance;
 
     public GameObject slotPrefab;   // 슬롯 UI 프리팹
     public Transform slotParent;    // 슬롯들을 자식으로 배치할 부모 오브젝트
