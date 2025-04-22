@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b47710fb21618354ea97aecf8d07c013, type: 3}
+  m_Name: AntennaUpgrade
+  m_EditorClassIdentifier: 
+  upgradeID: antenna
+  upgradeName: "\uC548\uD14C\uB098 \uC5C5\uADF8\uB808\uC774\uB4DC"
+  description: "\uD0D0\uC9C0 \uBC94\uC704\uB97C \uD655\uC7A5\uC2DC\uCF1C \uB354 \uBA40\uB9AC
+    \uC788\uB294 \uC790\uC6D0\uC744 \uD0D0\uC9C0\uD560 \uC218 \uC788\uAC8C \uD569\uB2C8\uB2E4."
+  icon: {fileID: -244191589, guid: 44465a6d86084e745819c784e20fc8a4, type: 3}
+  levels:
+  - level: 1
+    goldCost: 150
+    levelDescription: "\uD0D0\uC9C0 \uBC94\uC704\uAC00 1\uB2E8\uACC4\uB85C \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    materialRequirements:
+    - item: {fileID: 11400000, guid: 88a51c64d09368347892397c6b8550d0, type: 2}
+      amount: 5
+    - item: {fileID: 11400000, guid: 9fb014adc4e62b946966a80db46f3416, type: 2}
+      amount: 1
+    - item: {fileID: 11400000, guid: 284b17f5fd50d944f95668d586cfb057, type: 2}
+      amount: 2
+  - level: 2
+    goldCost: 300
+    levelDescription: "\uD0D0\uC9C0 \uBC94\uC704\uAC00 2\uB2E8\uACC4\uB85C \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    materialRequirements:
+    - item: {fileID: 11400000, guid: a31667490a5a72d4fb036051380b0c53, type: 2}
+      amount: 1
+    - item: {fileID: 11400000, guid: e370f60cbacc7a847ad9a73dc5c5d12d, type: 2}
+      amount: 1

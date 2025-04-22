@@ -2920,6 +2920,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1242946053}
     m_Modifications:
+    - target: {fileID: 332397142084390498, guid: f048fdad37096534595278c96c99fd0a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 979aef027a1c86c42a15ce35fce366fa, type: 2}
     - target: {fileID: 724412966554579937, guid: f048fdad37096534595278c96c99fd0a, type: 3}
       propertyPath: m_Name
       value: FrozenNPC
@@ -3248,11 +3252,11 @@ RectTransform:
   - {fileID: 341443418}
   - {fileID: 86653759}
   - {fileID: 542315258}
-  - {fileID: 434512155}
   - {fileID: 372138381}
   - {fileID: 1690930535}
   - {fileID: 1064065617}
   - {fileID: 1823450281}
+  - {fileID: 434512155}
   - {fileID: 1642467184}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6343,7 +6347,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1022527405}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1641516039}
+        m_TargetAssemblyTypeName: UpgradeUIController, Assembly-CSharp
+        m_MethodName: CloseUpgradePanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1022527405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6581,7 +6597,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1064065617
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7909,7 +7925,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 157ce77c39a4a67418b0aff345d54f59, type: 2}
+  - {fileID: 2100000, guid: fc1d7792a529c14469754e888377a8de, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8065,7 +8081,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6645487454861421864, guid: 9245a4bb262e7334a87afb9ffebff318, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 270
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6645487454861421864, guid: 9245a4bb262e7334a87afb9ffebff318, type: 3}
       propertyPath: m_SizeDelta.y
@@ -9573,7 +9589,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1258165544132170583, guid: 3a3fe03d16a133e4c995ebb827b8aac3, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 820
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1258165544132170583, guid: 3a3fe03d16a133e4c995ebb827b8aac3, type: 3}
       propertyPath: m_SizeDelta.y
@@ -11550,7 +11566,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6645487454861421864, guid: 9245a4bb262e7334a87afb9ffebff318, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 270
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6645487454861421864, guid: 9245a4bb262e7334a87afb9ffebff318, type: 3}
       propertyPath: m_SizeDelta.y
@@ -11729,7 +11745,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6645487454861421864, guid: 9245a4bb262e7334a87afb9ffebff318, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 270
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6645487454861421864, guid: 9245a4bb262e7334a87afb9ffebff318, type: 3}
       propertyPath: m_SizeDelta.y
@@ -12799,7 +12815,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2042633223}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1641516039}
+        m_TargetAssemblyTypeName: UpgradeUIController, Assembly-CSharp
+        m_MethodName: OpenUpgradePanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2042633223
 MonoBehaviour:
   m_ObjectHideFlags: 0
