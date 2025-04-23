@@ -28,9 +28,6 @@ public class InventoryUIController : MonoBehaviour
         isOpen = !isOpen;
         inventoryPanel.SetActive(isOpen);
 
-        // Ä¿¼­ ¶ç¿ì±â/¼û±â±â ¼³Á¤
-        Cursor.visible = isOpen;
-        Cursor.lockState = isOpen ? CursorLockMode.None : CursorLockMode.Locked;
     }
 
 }
