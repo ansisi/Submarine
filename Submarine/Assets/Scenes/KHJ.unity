@@ -310,7 +310,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   recipes:
-  - {fileID: 11400000, guid: 4f0510562f4a4ba4a968dc5521a394b0, type: 2}
   - {fileID: 11400000, guid: 287e8327a3460834b9cbaa4cef90b85a, type: 2}
 --- !u!4 &73832536
 Transform:
@@ -5152,7 +5151,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Craft
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c52e14eb7a4271e48b744d26bd185a02, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -5216,7 +5215,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1008896673
@@ -5979,7 +5978,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1191563748}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
@@ -6352,7 +6351,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orePrefab: {fileID: 3685522222485985880, guid: 68a2d819da7ce0c4a8e10158e5402ad3, type: 3}
   oreCount: 10
-  radius: 10
+  radiusX: 5
+  radiusY: 3
+  radiusCenter: {x: 0, y: 0, z: 0}
 --- !u!135 &1242946050
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -6890,6 +6891,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9d11302585a72bd4399fac9f60a49d5f, type: 2}
   - {fileID: 11400000, guid: 4d8871dc809730246ad46b204b4067c5, type: 2}
   - {fileID: 11400000, guid: 58d532c8b475d1a44a6a43c8690e3b7e, type: 2}
+  - {fileID: 11400000, guid: 543492ad338ffb042a90909d107955f0, type: 2}
+  - {fileID: 11400000, guid: 301687dcf7b428a4aa41e31add136e74, type: 2}
+  - {fileID: 11400000, guid: 7582c00d27a59b44bafbf785530d3390, type: 2}
   itemUIPrefab: {fileID: 3500979061412392161, guid: 5e56551c7c851a2488d1c65d3c008688, type: 3}
   itemListParent: {fileID: 184503541}
   isBuying: 1
@@ -8391,8 +8395,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ecc801c28966094fbefc9b5b10ef46d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotPrefab: {fileID: 2307008028533530105, guid: b31b2d676fa577f489ebd88941c1c73d, type: 3}
-  slotParent: {fileID: 1859182456}
 --- !u!114 &1957212984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9230,7 +9232,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c52e14eb7a4271e48b744d26bd185a02, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -9294,7 +9296,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &2007020084

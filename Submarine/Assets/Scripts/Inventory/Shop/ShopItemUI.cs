@@ -23,7 +23,7 @@ public class ShopItemUI : MonoBehaviour
         isBuyMode = true;
         icon.sprite = data.item.icon;
         nameText.text = data.item.itemName;
-        priceText.text = $"{data.buyPrice}G";
+        priceText.text = $"{data.buyPrice}$";
         quantityText.gameObject.SetActive(false);
         buttonText.text = "Buy";
         actionButton.onClick.RemoveAllListeners();
@@ -37,7 +37,7 @@ public class ShopItemUI : MonoBehaviour
         sellQuantity = quantity;
         icon.sprite = data.item.icon;
         nameText.text = data.item.itemName;
-        priceText.text = $"{data.sellPrice}G";
+        priceText.text = $"{data.sellPrice}$";
         quantityText.text = $"x{quantity}";
         quantityText.gameObject.SetActive(true);
         buttonText.text = "Sell";
