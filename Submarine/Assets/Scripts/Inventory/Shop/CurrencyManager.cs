@@ -21,7 +21,7 @@ public class CurrencyManager : MonoBehaviour
 
     private void Start()
     {
-        LoadCurrency();
+        //LoadCurrency();
         UpdateUI();
     }
 
@@ -29,7 +29,7 @@ public class CurrencyManager : MonoBehaviour
     {
         gold += amount;
         UpdateUI();
-        SaveCurrency();
+        //SaveCurrency();
     }
 
     public bool HasGold(int amount)
@@ -43,7 +43,7 @@ public class CurrencyManager : MonoBehaviour
         {
             gold -= amount;
             UpdateUI();
-            SaveCurrency();
+            //SaveCurrency();
             return true;
         }
         return false;
@@ -57,7 +57,7 @@ public class CurrencyManager : MonoBehaviour
     public void UpdateUI()
     {
         if (goldText != null)
-            goldText.text = gold.ToString();
+            goldText.text = $"{gold} $";
     }
 
     private void SaveCurrency()

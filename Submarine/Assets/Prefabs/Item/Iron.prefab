@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactRange: 2
-  oreItem: {fileID: 11400000, guid: 88a51c64d09368347892397c6b8550d0, type: 2}
+  oreItem: {fileID: 11400000, guid: a31667490a5a72d4fb036051380b0c53, type: 2}
   yieldAmount: 3
   oreTier: 1
 --- !u!135 &5762889296379059598
