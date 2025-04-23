@@ -28,6 +28,14 @@ public class PlayerData : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    private void Update()
+    {
+        // 개발용 초기화 키
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            ResetAllUpgradeLevels();
+        }
+    }
 
     /// <summary>
     /// 각 UpgradeType 별로 PlayerPrefs에서 레벨을 불러와서 초기화.
@@ -42,6 +50,20 @@ public class PlayerData : MonoBehaviour
             upgradeLevels[type] = lvl;
         }
     }
+
+    public void ResetAllUpgradeLevels()
+    {
+        foreach (UpgradeType type in Enum.GetValues(typeof(UpgradeType)))
+        {
+            string key = GetPrefsKey(type);
+            PlayerPrefs.DeleteKey(key);
+            upgradeLevels[type] = 0; // 딕셔너리 값도 초기화
+        }
+
+        PlayerPrefs.Save();
+        Logger.Log("모든 업그레이드 레벨이 초기화되었습니다.");
+    }
+
 
     /// <summary>
     /// 특정 UpgradeType의 현재 레벨 조회. (0 이상)

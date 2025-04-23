@@ -15,8 +15,12 @@ public class UpgradeMaterialSlot : MonoBehaviour
     {
         currentReq = req;
         icon.sprite = req.item.icon;
+
         int have = InventoryManager.Instance.GetItemCount(req.item);
-        amountText.text = $"{have}/{req.amount}";
+        bool hasEnough = have >= req.amount;
+
+        amountText.text = $"{req.item.itemName}\n{have}/{req.amount}";
+        amountText.color = hasEnough ? Color.white : Color.red;
     }
 
     public void Clear()

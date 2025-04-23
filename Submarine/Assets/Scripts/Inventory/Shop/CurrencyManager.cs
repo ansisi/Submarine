@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -13,6 +14,8 @@ public class CurrencyManager : MonoBehaviour
     [Header("UI")]
     public TextMeshProUGUI goldText;
 
+    public event Action OnGoldChanged; // 골드 변경 시 호출
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -25,9 +28,18 @@ public class CurrencyManager : MonoBehaviour
         UpdateUI();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            AddGold(1000);
+        }
+    }
+
     public void AddGold(int amount)
     {
         gold += amount;
+        OnGoldChanged?.Invoke();
         UpdateUI();
         SaveCurrency();
     }
@@ -42,6 +54,7 @@ public class CurrencyManager : MonoBehaviour
         if (gold >= amount)
         {
             gold -= amount;
+            OnGoldChanged?.Invoke(); // 변경 알림
             UpdateUI();
             SaveCurrency();
             return true;
