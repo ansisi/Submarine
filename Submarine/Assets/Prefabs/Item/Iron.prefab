@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaec11cf4bbbb7446bdd1da0413bf4e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactRange: 3
+  interactRange: 2
   oreItem: {fileID: 11400000, guid: a31667490a5a72d4fb036051380b0c53, type: 2}
   yieldAmount: 3
   oreTier: 1

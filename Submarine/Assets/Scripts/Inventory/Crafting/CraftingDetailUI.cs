@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class CraftingDetailUI : MonoBehaviour
 {
+    public Image result;
     public Image resultIcon;
     public TextMeshProUGUI resultName;
     public Button craftButton;
@@ -15,11 +16,22 @@ public class CraftingDetailUI : MonoBehaviour
 
     private CraftingRecipe currentRecipe;
 
+    private void Start()
+    {
+        result.gameObject.SetActive(false);
+        resultName.gameObject.SetActive(false);
+    }
+
     public void ShowRecipe(CraftingRecipe recipe)
     {
         currentRecipe = recipe;
+
+        resultName.gameObject.SetActive(true);
+        result.gameObject.SetActive(true);
+
         resultIcon.sprite = recipe.resultItem.icon;
         resultName.text = recipe.resultItem.itemName;
+
 
         foreach (Transform child in ingredientParent)
         {
