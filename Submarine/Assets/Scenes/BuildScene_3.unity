@@ -1101,7 +1101,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &136982427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7467,7 +7467,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9205031859619340687, guid: 8a12cde9e353c1042bfebceb48dc9e56, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.65
+      value: 6.4
       objectReference: {fileID: 0}
     - target: {fileID: 9205031859619340687, guid: 8a12cde9e353c1042bfebceb48dc9e56, type: 3}
       propertyPath: m_LocalPosition.z
@@ -7558,7 +7558,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a56090bab9e095646bd3f5c56d6affb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactRange: 3
+  interactRange: 5
   spaceshipUI: {fileID: 434512154}
   craftingUIPanel: {fileID: 1043174641}
   craftingDetailUIPanel: {fileID: 1464792333}
@@ -7932,7 +7932,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1182881189}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 31321043813df5b42bec17ddc0bcd486, type: 3}
   m_Name: 
@@ -8484,7 +8484,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1233390701
 Transform:
   m_ObjectHideFlags: 0
@@ -13057,13 +13057,14 @@ GameObject:
   - component: {fileID: 1963020066}
   - component: {fileID: 1963020068}
   - component: {fileID: 1963020067}
+  - component: {fileID: 1963020069}
   m_Layer: 5
   m_Name: UpgradePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1963020066
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13126,6 +13127,38 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1963020065}
   m_CullTransparentMesh: 1
+--- !u!114 &1963020069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1963020065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3998bfae9fab5fb47bd4dd0259c3a07f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradePanel: {fileID: 1963020065}
+  openButton: {fileID: 2042633222}
+  closeButton: {fileID: 1100288343}
+  tabButtonPrefab: {fileID: 296466652322706958, guid: a434abafaf154c446ac662e5ca528457, type: 3}
+  tabButtonParent: {fileID: 1745433783}
+  levelButtons:
+  - {fileID: 2111318019}
+  - {fileID: 2049324934}
+  - {fileID: 400368615}
+  iconImage: {fileID: 268502294}
+  currentGoldText: {fileID: 1824770647}
+  nameText: {fileID: 1260148769}
+  levelText: {fileID: 1000138224}
+  descriptionText: {fileID: 2106122003}
+  goldCostText: {fileID: 1365825860}
+  upgradeButton: {fileID: 266521128}
+  materialSlots:
+  - {fileID: 561452667}
+  - {fileID: 199172978}
+  - {fileID: 596658697}
 --- !u!1 &1979863904 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9150202680555822791, guid: 8a12cde9e353c1042bfebceb48dc9e56, type: 3}
@@ -13746,69 +13779,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2021742701}
   m_CullTransparentMesh: 1
---- !u!1 &2031750962
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2031750964}
-  - component: {fileID: 2031750963}
-  m_Layer: 0
-  m_Name: UpgradeManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2031750963
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2031750962}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3998bfae9fab5fb47bd4dd0259c3a07f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  upgradePanel: {fileID: 1963020065}
-  openButton: {fileID: 2042633222}
-  closeButton: {fileID: 1100288343}
-  tabButtonPrefab: {fileID: 296466652322706958, guid: a434abafaf154c446ac662e5ca528457, type: 3}
-  tabButtonParent: {fileID: 1745433783}
-  levelButtons:
-  - {fileID: 2111318019}
-  - {fileID: 2049324934}
-  - {fileID: 400368615}
-  iconImage: {fileID: 268502294}
-  nameText: {fileID: 1260148769}
-  levelText: {fileID: 1000138224}
-  descriptionText: {fileID: 2106122003}
-  goldCostText: {fileID: 1365825860}
-  upgradeButton: {fileID: 266521128}
-  materialSlots:
-  - {fileID: 561452667}
-  - {fileID: 199172978}
-  - {fileID: 596658697}
---- !u!4 &2031750964
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2031750962}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 960, y: 540, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2042633220
 GameObject:
   m_ObjectHideFlags: 0
@@ -13822,12 +13792,12 @@ GameObject:
   - component: {fileID: 2042633223}
   - component: {fileID: 2042633222}
   m_Layer: 5
-  m_Name: UpgradeButton
+  m_Name: UpgradePanelButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2042633221
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13891,19 +13861,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2042633223}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1963020065}
-        m_TargetAssemblyTypeName: UpgradeUIController, Assembly-CSharp
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &2042633223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14995,5 +14953,4 @@ SceneRoots:
   - {fileID: 73832536}
   - {fileID: 1957769185}
   - {fileID: 495005240}
-  - {fileID: 2031750964}
   - {fileID: 489167513}

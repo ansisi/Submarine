@@ -37,6 +37,10 @@
 
         private void Awake()
         {
+            Debug.Log("Awake 시작");
+
+            if (openButton == null)
+                Debug.LogWarning("openButton이 null입니다!");
             // 1) 패널 열기/닫기 자동 연결
             openButton.onClick.AddListener(ShowPanel);
             closeButton.onClick.AddListener(HidePanel);
@@ -96,7 +100,7 @@
                 levelText.text = "현재 레벨 : LV.0";
             else
                 levelText.text = $"현재 레벨 : LV.{currentPlayerLevel}";
-            currentGoldText.text = $"보유 골드 : ${CurrencyManager.Instance.gold}";
+            currentGoldText.text = $"보유 골드 : {CurrencyManager.Instance.gold}$";
             iconImage.sprite = currentUpgrade.icon;
             nameText.text = currentUpgrade.upgradeName;
             descriptionText.text = $"효과\n{currentLevelData.levelDescription}"; 
@@ -119,7 +123,7 @@
             // 업그레이드 버튼 활성화 조건
             bool hasItems = InventoryManager.Instance.HasEnoughItems(currentLevelData.materialRequirements);
             bool hasGold = CurrencyManager.Instance.HasGold(currentLevelData.goldCost);
-            goldCostText.text = $"필요 골드 : $ {currentLevelData.goldCost}";
+            goldCostText.text = $"필요 골드 : {currentLevelData.goldCost}$";
             goldCostText.color = hasGold ? Color.white : Color.red;
             upgradeButton.interactable = hasItems && hasGold;
         }
@@ -175,7 +179,7 @@
                     button.interactable = false;
                 }
             }
-    }
+        }
 
         private void OnEnable()
         {
