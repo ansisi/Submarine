@@ -8,6 +8,9 @@ TagManager:
   - Terrain
   - CinemachineTarget
   - WarmObject
+  - Spaceship
+  - BuffTurret
+  - Turret
   layers:
   - Default
   - TransparentFX
@@ -15,7 +18,7 @@ TagManager:
   - Post
   - Water
   - UI
-  - 
+  - Enemy
   - 
   - 
   - 
