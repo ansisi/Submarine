@@ -32,6 +32,8 @@ public class EquipmentController : MonoBehaviour
         float scroll = Input.GetAxis("Mouse ScrollWheel");
         if (scroll > 0f) SwitchEquipment((currentIndex + 1) % 3);
         else if (scroll < 0f) SwitchEquipment((currentIndex - 1 + 3) % 3);
+
+        EquipmentUIController.Instance.UpdateUI(currentIndex);
     }
 
     private void SwitchEquipment(int index)

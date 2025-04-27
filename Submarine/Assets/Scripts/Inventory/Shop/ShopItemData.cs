@@ -9,4 +9,6 @@ public class ShopItemData : ScriptableObject
     public int buyPrice;          // 구매 가격 (골드 차감)
     public int sellPrice;         // 판매 가격 (골드 획득)
     public int stock = -1;        // 재고 수량 (-1이면 무제한)
+
+    public string description;
 }
