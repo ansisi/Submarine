@@ -4,136 +4,50 @@ using UnityEngine;
 
 public class Mine : MonoBehaviour
 {
-    [Header("Explosion Settings")]
-    public float explosionDelay = 3f;     // 잡힌 후 3초 뒤에 폭발
-    public float explosionForce = 500f;   // 폭발 힘
-    public float explosionRadius = 5f;    // 폭발 범위
-    public float upwardModifier = 1f;     // 위로 밀어올리는 보정값
+    public float explosionDelay = 1f; // 터지기까지 대기 시간
+    public float explosionRadius = 5f; // 폭발 반경
+    public float explosionDamage = 30f; // 폭발 데미지
 
-    [Header("Damage Settings")]
-    public float oxygenDamage = -20f;     // 플레이어에게 줄 산소 게이지 감소량
+    private bool isTriggered = false; // 이미 트리거됐는지 여부
 
-    [Header("Layer Settings")]
-    public LayerMask affectedLayers;      // 폭발에 영향을 받을 레이어 (예: 플레이어, 적, 물리 오브젝트)
-
-    private bool hasExploded = false;     // 중복 폭발 방지를 위한 변수
-    private bool isCountingDown = false;  // 카운트다운 중복 방지
-
-    private Renderer[] mineRenderers;     // 자식들에 있는 모든 Renderer
-    private Color[] originalColors;       // 각 Renderer의 원래 색상
-
-    public void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (hasExploded || isCountingDown)
-            return;
+        if (isTriggered) return;
 
-        // 충돌한 오브젝트의 레이어가 마스크에 포함되어 있는지 확인
-        if (((1 << collision.gameObject.layer) & affectedLayers) != 0)
+        // 적인지 확인
+        Enemy enemy = other.GetComponent<Enemy>();
+        if (enemy != null)
         {
-            isCountingDown = true;
-            // 모든 자식 Renderer 컴포넌트를 가져옴
-            mineRenderers = GetComponentsInChildren<Renderer>();
-            if (mineRenderers != null && mineRenderers.Length > 0)
-            {
-                originalColors = new Color[mineRenderers.Length];
-                for (int i = 0; i < mineRenderers.Length; i++)
-                {
-                    originalColors[i] = mineRenderers[i].material.color;
-                }
-            }
-
-            // 잡히면 폭발 카운트다운 시작
-            StartCoroutine(ExplosionCountdown());
+            isTriggered = true;
+            StartCoroutine(ExplodeAfterDelay());
         }
     }
 
-    private IEnumerator ExplosionCountdown()
+    IEnumerator ExplodeAfterDelay()
     {
-        float elapsed = 0f;
-        bool flashState = false;
-        float flashInterval = 1f;
+        yield return new WaitForSeconds(explosionDelay);
 
-        // 지정된 시간 동안 1초마다 색상을 토글하여 경고 효과 적용
-        while (elapsed < explosionDelay)
+        // 폭발 처리
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, explosionRadius);
+        foreach (var hitCollider in hitColliders)
         {
-            flashState = !flashState;
-            if (mineRenderers != null)
+            IDamageable damageable = hitCollider.GetComponent<IDamageable>();
+            if (damageable != null)
             {
-                for (int i = 0; i < mineRenderers.Length; i++)
-                {
-                    if (mineRenderers[i] != null)
-                    {
-                        mineRenderers[i].material.color = flashState ? Color.red : originalColors[i];
-                    }
-                }
-            }
-            yield return new WaitForSeconds(flashInterval);
-            elapsed += flashInterval;
-        }
-
-        // 폭발 직전에 모든 Renderer의 색상을 원래대로 복원
-        if (mineRenderers != null)
-        {
-            for (int i = 0; i < mineRenderers.Length; i++)
-            {
-                if (mineRenderers[i] != null)
-                {
-                    mineRenderers[i].material.color = originalColors[i];
-                }
+                damageable.TakeDamage(explosionDamage);
             }
         }
 
-        Explode();
+        // 폭발 이펙트 추가 가능
+        // 예: Instantiate(explosionEffect, transform.position, Quaternion.identity);
+
+        Destroy(gameObject); // 폭탄 삭제
     }
 
-    private void Explode()
+    private void OnDrawGizmosSelected()
     {
-        if (hasExploded)
-            return;
-
-        hasExploded = true;
-
-        // (옵션) 폭발 이펙트나 사운드를 재생하는 코드를 여기에 추가할 수 있습니다.
-        // 예: Instantiate(explosionEffectPrefab, transform.position, Quaternion.identity);
-
-        // 폭발 범위 내의 콜라이더 검색 (affectedLayers에 포함된 오브젝트만 검색)
-        Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius, affectedLayers);
-
-        foreach (Collider hit in colliders)
-        {
-            // Rigidbody가 있는 경우 폭발 힘을 가함
-            Rigidbody rb = hit.GetComponent<Rigidbody>();
-            if (rb != null)
-            {
-                rb.AddExplosionForce(explosionForce, transform.position, explosionRadius, upwardModifier, ForceMode.Impulse);
-            }
-
-            // 플레이어인지 확인 후 산소 게이지 감소 처리
-            // 이 예제에서는 PlayerStatus라는 스크립트가 산소를 관리한다고 가정합니다.
-            OxygenTank oxygenTank = hit.GetComponent<OxygenTank>();
-            if (oxygenTank != null)
-            {
-                oxygenTank.AddOxygen(oxygenDamage);
-
-                if (VignetteController.Instance != null)
-                {
-                    VignetteController.Instance.TriggerVignetteEffect();
-                }
-            }
-        }
-
-
-        // 폭발 후 자기 자신 제거
-        Destroy(gameObject);
-    }
-
-    void OnDrawGizmosSelected()
-    {
-        // 폭발 범위를 나타내는 색 지정 (예: 빨간색)
         Gizmos.color = Color.red;
-        // 현재 위치를 중심으로 explosionRadius 크기의 와이어 구를 그림
         Gizmos.DrawWireSphere(transform.position, explosionRadius);
     }
-
-    
 }
+
