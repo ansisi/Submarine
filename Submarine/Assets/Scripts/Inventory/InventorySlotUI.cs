@@ -39,8 +39,21 @@ public class InventorySlotUI : MonoBehaviour
     {
         if (item != null && ShopManager.Instance.IsShopOpen)
         {
-            Debug.Log($"[DEBUG] 인벤토리 슬롯 클릭됨: {item.itemName}");
-            SellManager.Instance.AddItemToSell(item, 1);
+            Logger.Log($"[인벤토리] {item.itemName} 클릭됨 - 인벤토리 수량: {quantity}");
+
+            Item clickedItem = item;
+
+            bool removed = InventoryManager.Instance.RemoveItem(item, 1); // 인벤토리 수량 1개 차감
+            if (removed)
+            {
+                SellManager.Instance.AddItemToSell(clickedItem, 1);
+            }
+            else
+            {
+                Logger.Log("인벤토리에 아이템이 부족해서 판매창에 추가 못함");
+            }
+
+            InventoryUIManager.instance?.UpdateUI(); // 인벤토리 UI 갱신
         }
     }
 

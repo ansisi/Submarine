@@ -6,10 +6,8 @@ public class SellManager : MonoBehaviour
 {
     public static SellManager Instance;
 
-    public GameObject sellSlotPrefab; // 판매 창에 들어갈 슬롯 프리팹
-    public Transform sellSlotParent;  // 슬롯들이 들어갈 부모 오브젝트
-
-    private List<SellSlotUI> sellSlots = new List<SellSlotUI>();
+    public int slotCount = 10; // 고정 슬롯 수
+    public List<SellSlot> slots = new List<SellSlot>();
 
     private void Awake()
     {
@@ -17,57 +15,96 @@ public class SellManager : MonoBehaviour
             Instance = this;
         else
             Destroy(gameObject);
-    }
 
-    // 인벤토리에서 아이템을 판매창으로 추가
-    public void AddItemToSell(Item item, int quantity)
-    {
-        // 이미 판매창에 있는지 체크
-        SellSlotUI slot = sellSlots.Find(s => s.Item == item);
-
-        if (slot != null)
+        slots.Clear();
+        for (int i = 0; i < slotCount; i++)
         {
-            slot.AddQuantity(1); // 수량 +1
-        }
-        else
-        {
-            GameObject go = Instantiate(sellSlotPrefab, sellSlotParent);
-            SellSlotUI newSlot = go.GetComponent<SellSlotUI>();
-            newSlot.Setup(item, 1);
-            sellSlots.Add(newSlot);
+            slots.Add(new SellSlot());
         }
     }
 
-    // 판매창에서 아이템 제거 (수량 줄이거나 아예 없애기)
-    public void RemoveItemFromSell(SellSlotUI slot)
+    public List<SellSlot> GetAllSlots()
     {
-        slot.ReduceQuantity(1);
-
-        if (slot.Quantity <= 0)
-        {
-            sellSlots.Remove(slot);
-            Destroy(slot.gameObject);
-        }
+        return slots;
     }
 
-    // 판매 버튼 눌렀을 때
-    public void SellAllItems()
+    public bool AddItemToSell(Item item, int quantity = 1)
     {
-        foreach (var slot in sellSlots)
+        // 먼저 같은 아이템이 있는 슬롯 찾기
+        foreach (var slot in slots)
         {
-            if (InventoryManager.Instance.RemoveItem(slot.Item, slot.Quantity))
+            if (!slot.IsEmpty && slot.item == item)
             {
-                int totalPrice = slot.Quantity * slot.SellPrice;
-                CurrencyManager.Instance.AddGold(totalPrice);
-                Logger.Log($"[판매] {slot.Item.itemName} {slot.Quantity}개 판매 완료 (+{totalPrice}G)");
+                slot.quantity += quantity;
+                Logger.Log($"[판매창] {item.itemName} 수량 추가됨 - 현재 수량: {slot.quantity}");
+                SellUIManager.Instance?.UpdateUI();
+                return true;
             }
         }
 
-        // 판매 완료 후 창 비우기
-        foreach (var slot in sellSlots)
+        // 없다면 빈 슬롯에 추가
+        foreach (var slot in slots)
         {
-            Destroy(slot.gameObject);
+            if (slot.IsEmpty)
+            {
+                slot.SetItem(item, quantity);
+                Logger.Log($"[판매창] {item.itemName} 새 슬롯 추가 - 수량: {quantity}");
+                SellUIManager.Instance?.UpdateUI();
+                return true;
+            }
         }
-        sellSlots.Clear();
+
+        Logger.Log("판매창에 빈 슬롯이 없습니다.");
+        return false;
+    }
+
+    public void RemoveItemFromSell(SellSlot slot)
+    {
+        slot.ClearSlot();
+        SellUIManager.Instance?.UpdateUI();
+    }
+
+    public void SellAllItems()
+    {
+        int totalGold = 0;
+        foreach (var slot in slots)
+        {
+            if (!slot.IsEmpty)
+            {
+                int price = slot.item.sellPrice * slot.quantity;
+                totalGold += price;
+                Logger.Log($"[판매] {slot.item.itemName} {slot.quantity}개 판매 완료 (+{price}G)");
+
+                slot.ClearSlot(); // 판매 후 슬롯 비우기
+            }
+        }
+
+        if (totalGold > 0)
+        {
+            CurrencyManager.Instance.AddGold(totalGold);
+        }
+
+        SellUIManager.Instance?.UpdateUI();
+    }
+}
+
+[System.Serializable]
+public class SellSlot
+{
+    public Item item;
+    public int quantity;
+
+    public bool IsEmpty => item == null;
+
+    public void SetItem(Item newItem, int newQuantity)
+    {
+        item = newItem;
+        quantity = newQuantity;
+    }
+
+    public void ClearSlot()
+    {
+        item = null;
+        quantity = 0;
     }
 }
