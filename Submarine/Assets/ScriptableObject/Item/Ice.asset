@@ -14,4 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Ice
   icon: {fileID: -1627476468, guid: 64c9c658859b18f4e987d88c1ed2a9a8, type: 3}
+  buyPrice: 1
+  sellPrice: 1
   isStackable: 1
+  isPurchasable: 1
+  prefab: {fileID: 0}

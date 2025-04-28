@@ -13,24 +13,21 @@ public class ShopItemUI : MonoBehaviour
     public TextMeshProUGUI buttonText;
     public Button actionButton;
 
-    private ShopItemData shopItemData;
-    private bool isBuyMode;
-    private int sellQuantity;
+    private Item item;
 
-    public void SetItemForBuy(ShopItemData data)
+    public void SetItemForBuy(Item item)
     {
-        shopItemData = data;
-        isBuyMode = true;
-        icon.sprite = data.item.icon;
-        nameText.text = data.item.itemName;
-        priceText.text = $"{data.buyPrice}$";
+        this.item = item;
+        icon.sprite = item.icon;
+        nameText.text = item.itemName;
+        priceText.text = $"{item.buyPrice}$";
         quantityText.gameObject.SetActive(false);
         buttonText.text = "Buy";
         actionButton.onClick.RemoveAllListeners();
         actionButton.onClick.AddListener(BuyItem);
     }
 
-    public void SetItemForSell(ShopItemData data, int quantity)
+    /*public void SetItemForSell(ShopItemData data, int quantity)
     {
         shopItemData = data;
         isBuyMode = false;
@@ -43,15 +40,15 @@ public class ShopItemUI : MonoBehaviour
         buttonText.text = "Sell";
         actionButton.onClick.RemoveAllListeners();
         actionButton.onClick.AddListener(SellItem);
-    }
+    }*/
 
     private void BuyItem()
     {
-        if (CurrencyManager.Instance.gold >= shopItemData.buyPrice)
+        if (CurrencyManager.Instance.gold >= item.buyPrice)
         {
-            CurrencyManager.Instance.SpendGold(shopItemData.buyPrice);
-            InventoryManager.Instance.AddItem(shopItemData.item, 1);
-            Logger.Log($"[상점] {shopItemData.item.itemName} 구매 완료");
+            CurrencyManager.Instance.SpendGold(item.buyPrice);
+            InventoryManager.Instance.AddItem(item, 1);
+            Logger.Log($"[상점] {item.itemName} 구매 완료");
         }
         else
         {
@@ -59,7 +56,7 @@ public class ShopItemUI : MonoBehaviour
         }
     }
 
-    private void SellItem()
+    /*private void SellItem()
     {
         if (InventoryManager.Instance.CountItem(shopItemData.item) > 0)
         {
@@ -85,5 +82,5 @@ public class ShopItemUI : MonoBehaviour
         {
             Logger.Log("판매할 아이템이 없습니다.");
         }
-    }
+    }*/
 }

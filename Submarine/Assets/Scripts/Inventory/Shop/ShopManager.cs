@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class ShopManager : MonoBehaviour
 {
-    public ShopItemData[] itemsForSale;
+    public static ShopManager Instance { get; private set; }
+
+    public Item[] itemsForSale;
     public GameObject itemUIPrefab;
     public Transform itemListParent;
 
-    public bool isBuying = true;
+    public bool IsShopOpen { get; private set; } = false;
 
-    private void Start()
+    private void Awake()
     {
-        RefreshShopUI();
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
     }
 
     public void RefreshShopUI()
@@ -20,42 +25,26 @@ public class ShopManager : MonoBehaviour
         foreach (Transform child in itemListParent)
             Destroy(child.gameObject);
 
-        if (isBuying)
+        foreach (Item item in itemsForSale)
         {
-            foreach (ShopItemData item in itemsForSale)
-            {
-                GameObject go = Instantiate(itemUIPrefab, itemListParent);
-                go.GetComponent<ShopItemUI>().SetItemForBuy(item);
-            }
-        }
-        else
-        {
-            foreach (InventorySlot slot in InventoryManager.Instance.GetAllSlots())
-            {
-                if (slot.item == null) continue;
+            if (!item.isPurchasable) continue;
 
-                ShopItemData shopData = FindShopDataByItem(slot.item);
-                if (shopData == null) continue;
-
-                GameObject go = Instantiate(itemUIPrefab, itemListParent);
-                go.GetComponent<ShopItemUI>().SetItemForSell(shopData, slot.quantity);
-            }
+            GameObject go = Instantiate(itemUIPrefab, itemListParent);
+            go.GetComponent<ShopItemUI>().SetItemForBuy(item);
         }
     }
 
-    public void ToggleMode(bool buyMode)
+    public void OpenShop()
     {
-        isBuying = buyMode;
+        IsShopOpen = true;
+        // UI ÄÑ±â
         RefreshShopUI();
     }
 
-    private ShopItemData FindShopDataByItem(Item item)
+    public void CloseShop()
     {
-        foreach (ShopItemData data in itemsForSale)
-        {
-            if (data.item == item)
-                return data;
-        }
-        return null;
+        IsShopOpen = false;
+        // UI ²ô±â
     }
+
 }

@@ -176,9 +176,9 @@ GameObject:
   - component: {fileID: 8068330381321631592}
   - component: {fileID: 2025945505222525601}
   - component: {fileID: 5908572180624202743}
-  - component: {fileID: 8080600384309306323}
+  - component: {fileID: 379428228866575483}
   m_Layer: 5
-  m_Name: InventorySlotUI
+  m_Name: SellSlotUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -288,7 +288,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &8080600384309306323
+--- !u!114 &379428228866575483
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -297,10 +297,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2307008028533530105}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7607b6475b29f924f90dec7b0a6d4fe8, type: 3}
+  m_Script: {fileID: 11500000, guid: 388a081525f9cf8409df13e96a2cf1f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 57582231310872570}
+  nameText: {fileID: 0}
   quantityText: {fileID: 8537828127353901493}
   button: {fileID: 8796383252260113085}
 --- !u!1 &6928210720527241091

@@ -14,4 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: "\uAE08\uC18D\uC870\uAC01"
   icon: {fileID: -36258207, guid: 64c9c658859b18f4e987d88c1ed2a9a8, type: 3}
+  buyPrice: 5
+  sellPrice: 5
   isStackable: 1
+  isPurchasable: 1
+  prefab: {fileID: 0}
