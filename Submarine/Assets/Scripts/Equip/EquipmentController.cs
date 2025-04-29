@@ -33,7 +33,9 @@ public class EquipmentController : MonoBehaviour
         if (scroll > 0f) SwitchEquipment((currentIndex + 1) % 3);
         else if (scroll < 0f) SwitchEquipment((currentIndex - 1 + 3) % 3);
 
+        
         EquipmentUIController.Instance.UpdateUI(currentIndex);
+        
     }
 
     private void SwitchEquipment(int index)
