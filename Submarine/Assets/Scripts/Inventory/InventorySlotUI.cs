@@ -13,6 +13,18 @@ public class InventorySlotUI : MonoBehaviour
     private Item item;
     private int quantity;
 
+    private Transform playerTransform;
+
+    private void Start()
+    {
+        // 플레이어를 찾는다 (PlayerMovement를 쓰고 있다고 가정)
+        PlayerMovement player = FindObjectOfType<PlayerMovement>();
+        if (player != null)
+        {
+            playerTransform = player.transform;
+        }
+    }
+
     // 슬롯에 표시되는 내용을 갱신하는 함수
     public void UpdateSlotUI(Item newItem, int newQuantity)
     {
@@ -37,7 +49,9 @@ public class InventorySlotUI : MonoBehaviour
 
     private void OnClickSlot()
     {
-        if (item != null && ShopManager.Instance.IsShopOpen)
+        if (item == null) return;
+
+        if (ShopManager.Instance.IsShopOpen)
         {
             Logger.Log($"[인벤토리] {item.itemName} 클릭됨 - 인벤토리 수량: {quantity}");
 
@@ -54,6 +68,32 @@ public class InventorySlotUI : MonoBehaviour
             }
 
             InventoryUIManager.instance?.UpdateUI(); // 인벤토리 UI 갱신
+        }
+        else
+        {
+            TryPlaceItem();
+        }
+
+    }
+
+    private void TryPlaceItem()
+    {
+        if (item.isPlaceable && item.prefab != null && playerTransform != null)
+        {
+            Vector3 placePosition = playerTransform.position + Vector3.up * 1.5f;
+            Instantiate(item.prefab, placePosition, Quaternion.identity);
+
+            bool removed = InventoryManager.Instance.RemoveItem(item, 1);
+            if (!removed)
+            {
+                Logger.Log("인벤토리에 아이템이 부족해서 설치 실패");
+            }
+
+            InventoryUIManager.instance?.UpdateUI();
+        }
+        else
+        {
+            Logger.Log($"[{item.itemName}] 설치할 수 없는 아이템이거나 플레이어를 찾지 못했음");
         }
     }
 

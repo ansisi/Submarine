@@ -42,6 +42,8 @@ public class SpaceStationEntrance : InteractableBase
             InteractionManager.instance.SetInteractionLocked(false);
 
             if (ShopUIPanel != null) ShopUIPanel.SetActive(false);
+
+            ShopManager.Instance.CloseShop();
         }
     }
 
