@@ -30,7 +30,6 @@ public class HookController : MonoBehaviour
     private Rigidbody attachedRigidbody; // 연결된 물체의 Rigidbody
     private float initialRopeLength; // 초기 로프 길이
 
-    public HookUIManager uiManager; // UI 매니저 참조
 
     void Awake()
     {
@@ -192,7 +191,6 @@ public class HookController : MonoBehaviour
         isRetracting = false;
         lineRenderer.positionCount = 2;
 
-        uiManager?.UpdateHookUI(isHookActive);
     }
 
     void PullHook()
@@ -470,7 +468,6 @@ public class HookController : MonoBehaviour
 
         Logger.Log("후크 정리 완료");
 
-        uiManager?.UpdateHookUI(isHookActive);
     }
 
 
