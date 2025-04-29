@@ -9,9 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5498076690591518040}
+  - component: {fileID: 5818571594672557017}
+  - component: {fileID: 5199883328512945485}
+  - component: {fileID: 6931016857009592516}
   m_Layer: 0
   m_Name: Astroid_2
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32,6 +35,61 @@ Transform:
   - {fileID: 5091048798695582743}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &5818571594672557017
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1434285456408934613}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 7.31
+  m_Center: {x: 0.65, y: 0.36, z: 0}
+--- !u!114 &5199883328512945485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1434285456408934613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab45d2a815bfb5549bdaa7439ed5bcc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  orePrefab: {fileID: 283810071908280131, guid: 870cb50b80bf8d346bdbb7e1a081b9be, type: 3}
+  oreCount: 10
+  radiusX: 7.43
+  radiusY: 7.05
+  radiusCenter: {x: 28.3, y: -24.5, z: 0}
+--- !u!114 &6931016857009592516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1434285456408934613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33e829ca0eb169f46ac3801b18447642, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colliderCount: 40
+  radiusX: 6
+  radiusY: 6
+  radiusCenter: {x: 28.3, y: -24.5, z: 0}
+  colliderRadius: 0.5
 --- !u!1001 &4696604143950793724
 PrefabInstance:
   m_ObjectHideFlags: 0

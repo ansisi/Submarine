@@ -12,13 +12,14 @@ GameObject:
   - component: {fileID: 8389611319007729865}
   - component: {fileID: 23178529634112286}
   - component: {fileID: 7110905112824370442}
+  - component: {fileID: 8823025258791316971}
   - component: {fileID: 8314469790731995752}
   - component: {fileID: 2228581792812485127}
   - component: {fileID: 2705246345038509732}
   - component: {fileID: 3707714717296802687}
   - component: {fileID: 7942032632022240109}
   - component: {fileID: 3660492582641260281}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player2
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -103,7 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f531d6bc04e901649ae6bbe16e80d195, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseThrust: 1
+  baseThrust: 2
   boostMultiplier: 1.5
   rotationThrust: 1.5
   linearDrag: 0.5
@@ -111,6 +112,20 @@ MonoBehaviour:
   currentThrust: 0
   oxygenTank: {fileID: 0}
   boostOxygenConsumptionRate: 2
+--- !u!114 &8823025258791316971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 794010266638344215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a9aa7d1ab7c7c44192aa02fc9c6ccef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waterText: {fileID: 0}
+  maxWaterTime: 999
 --- !u!114 &8314469790731995752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,8 +138,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96cd1b3f0f976654c80878e8a6b09256, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  oxygenNeedle: {fileID: 0}
-  maxOxygenTime: 200
+  oxygenText: {fileID: 0}
+  maxOxygenTime: 999
 --- !u!114 &2228581792812485127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,7 +161,7 @@ MonoBehaviour:
   springDamper: 5
   collisionLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   ropeMaxLength: 40
   ropeBreakForce: 1000
   ropeTensionMultiplier: 10

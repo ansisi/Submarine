@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 1932627823631649445}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.512, y: 0, z: 0}
+  m_LocalPosition: {x: 0.55, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 3.3333333, z: 3.3333333}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -193,13 +193,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetType: 0
-  speed: 3
-  attackRange: 1
+  speed: 2
+  attackRange: 7
   damage: 5
   maxHealth: 50
   bulletPrefab: {fileID: 4014919754184610970, guid: d233a971e8277ca4dbd90f1e28d57201, type: 3}
   firePoint: {fileID: 7251762634905034072}
   attackCooldown: 1.5
+  rotationSpeed: 360
 --- !u!1 &6639339473203342084
 GameObject:
   m_ObjectHideFlags: 0
@@ -228,7 +229,7 @@ Transform:
   m_GameObject: {fileID: 6639339473203342084}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.94, y: 0, z: 0}
+  m_LocalPosition: {x: 0.75, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children:
