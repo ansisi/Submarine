@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee39bd684b4dc5149a0908ce073cdc59, type: 3}
   m_Name: Turret
   m_EditorClassIdentifier: 
-  itemName: Turret
+  itemName: "\uD3EC\uD0D1"
   icon: {fileID: -743929190, guid: 6a2075bf4cf959443bf766b7f26a8fbc, type: 3}
-  buyPrice: 10
-  sellPrice: 0
+  buyPrice: 0
+  sellPrice: 5000
   isStackable: 1
   isPurchasable: 1
   isPlaceable: 1

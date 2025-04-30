@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ee39bd684b4dc5149a0908ce073cdc59, type: 3}
-  m_Name: SiliconeIngot
+  m_Name: ChargeController
   m_EditorClassIdentifier: 
-  itemName: "\uC2E4\uB9AC\uCF58\uACB0\uC815"
-  icon: {fileID: 1669709268, guid: 64c9c658859b18f4e987d88c1ed2a9a8, type: 3}
-  buyPrice: 30
-  sellPrice: 20
+  itemName: "\uCDA9\uC804 \uCEE8\uD2B8\uB864\uB7EC"
+  icon: {fileID: 1711767606, guid: baa6cdbced2f758438bf4097728c5100, type: 3}
+  buyPrice: 1200
+  sellPrice: 600
   isStackable: 1
   isPurchasable: 1
   isPlaceable: 0

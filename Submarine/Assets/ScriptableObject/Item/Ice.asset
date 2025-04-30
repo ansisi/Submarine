@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee39bd684b4dc5149a0908ce073cdc59, type: 3}
   m_Name: Ice
   m_EditorClassIdentifier: 
-  itemName: Ice
+  itemName: "\uC5BC\uC74C"
   icon: {fileID: -1627476468, guid: 64c9c658859b18f4e987d88c1ed2a9a8, type: 3}
   buyPrice: 1
   sellPrice: 1
   isStackable: 1
   isPurchasable: 1
+  isPlaceable: 0
   prefab: {fileID: 0}

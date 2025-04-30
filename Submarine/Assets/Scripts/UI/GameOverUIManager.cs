@@ -48,9 +48,9 @@ public class GameOverUIManager : MonoBehaviour
     // 씬이 로드된 후 호출되는 메서드
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-
         // 이벤트 리스너 제거 (메모리 관리)
         SceneManager.sceneLoaded -= OnSceneLoaded;
+        GameManager.Instance.IsGameOver = false;
     }
 
     // Quit 버튼 클릭 시 게임 종료
