@@ -9,9 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7054094978205461291}
-  - component: {fileID: 8079176973826705540}
   - component: {fileID: 3524653153664667078}
-  - component: {fileID: 914146632048096464}
+  - component: {fileID: -6894105491924803950}
   m_Layer: 0
   m_Name: Silicon
   m_TagString: Resource
@@ -29,27 +28,12 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 991328162061600454}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8079176973826705540
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7626776859837181140}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d45fb2717cdb65b4f9580d1da26d8bf0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactRange: 2
-  item: {fileID: 11400000, guid: cc7ad17992b53ed459d7acb1909490ae, type: 2}
-  quantity: 3
 --- !u!135 &3524653153664667078
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -71,33 +55,22 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.31
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &914146632048096464
-Rigidbody:
+--- !u!114 &-6894105491924803950
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7626776859837181140}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 8
-  m_CollisionDetection: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaec11cf4bbbb7446bdd1da0413bf4e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactRange: 2
+  oreItem: {fileID: 11400000, guid: cc7ad17992b53ed459d7acb1909490ae, type: 2}
+  yieldAmount: 3
+  oreTier: 1
 --- !u!1001 &741790791570596141
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -132,23 +105,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 20212549a9a471c4a980776e82e7fbe0, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 20212549a9a471c4a980776e82e7fbe0, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 20212549a9a471c4a980776e82e7fbe0, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 20212549a9a471c4a980776e82e7fbe0, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 20212549a9a471c4a980776e82e7fbe0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 20212549a9a471c4a980776e82e7fbe0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
