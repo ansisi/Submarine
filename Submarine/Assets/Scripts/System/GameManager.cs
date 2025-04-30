@@ -51,10 +51,8 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         IsGameOver = true;
-        // ���� ���� UI ǥ��
         Logger.Log("게임 오버!");
         GameOverUIManager.Instance.ShowGameOverUI();
-        // ���� ����� �Ǵ� ����
     }
 }
 
