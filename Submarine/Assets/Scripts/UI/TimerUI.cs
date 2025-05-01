@@ -1,52 +1,94 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class TimerUI : MonoBehaviour
 {
-    public Image timerImage;  // UI 원 이미지
-    public WaveManager waveManager;  // 웨이브 매니저 참조
-    private float timeRemaining;  // 남은 시간
-    private float totalWaveTime;  // 한 웨이브의 전체 시간 (타이머에 맞게 설정)
+    public Image timerImage;               // UI 원형 이미지
+    public WaveManager waveManager;        // 웨이브 매니저 참조
+
+    [Header("웨이브 메시지 UI")]
+    public GameObject waveMessageGroup;           // 전체 그룹 (통째로 껐다 켬)
+    public TextMeshProUGUI waveMessageText;       // 텍스트만
+
+    private float timeRemaining = 0f;      // 현재 타이머 시간
+    private float totalTime = 0f;          // 타이머 전체 시간
+    private int lastWave = 0;              // 마지막에 감지한 웨이브
+    private bool isDowntime = false;       // 지금이 쉬는 시간인지 여부
+    private bool isTimerRunning = false;   // 타이머가 진행 중인지 여부
 
     void Start()
     {
-        // 웨이브 매니저에서 웨이브의 진행 시간 가져오기
-        totalWaveTime = waveManager.waveDuration;
-        timeRemaining = totalWaveTime;
+        lastWave = waveManager.GetCurrentWave(); // 타이머는 시작하지 않음
+        isTimerRunning = false;
+
+        waveMessageGroup.SetActive(false);
     }
 
     void Update()
     {
-        if (waveManager.GetCurrentWave() > 0 && timeRemaining > 0)
+        int currentWave = waveManager.GetCurrentWave();
+
+        // 웨이브가 새로 시작됐는지 감지
+        if (currentWave > lastWave)
         {
-            // 타이머 진행
-            timeRemaining -= Time.deltaTime;
+            lastWave = currentWave;
+            isDowntime = false;
+            StartWaveTimer();
+            ShowWaveMessage($"Wave {currentWave} 시작!");
+        }
 
-            // FillAmount를 통해 원의 크기 조정
-            float fillAmount = Mathf.Clamp01(timeRemaining / totalWaveTime);
-            timerImage.fillAmount = fillAmount;
+        if (!isTimerRunning) return;
 
-            if (timeRemaining <= 0)
+        // 타이머 감소
+        timeRemaining -= Time.deltaTime;
+        float fill = Mathf.Clamp01(timeRemaining / totalTime);
+        timerImage.fillAmount = fill;
+
+        if (timeRemaining <= 0f)
+        {
+            isTimerRunning = false;
+
+            if (!isDowntime)
             {
-                // 타이머가 끝났을 때 추가 작업 (예: 웨이브 완료 처리)
-                Debug.Log("Wave Time Ended!");
+                // 웨이브 시간 종료 → 쉬는 시간으로 전환
+                isDowntime = true;
+                StartDowntimeTimer();
+                ShowWaveMessage("정비 시간!");
             }
         }
     }
 
-    public void ResetTimer()
+    private void StartWaveTimer()
     {
-        // 타이머 리셋
-        timeRemaining = totalWaveTime;
-        timerImage.fillAmount = 1f;
+        totalTime = waveManager.waveDuration;
+        timeRemaining = totalTime;
+        isTimerRunning = true;
     }
 
-    public void SetWaveDuration(float newDuration)
+    private void StartDowntimeTimer()
     {
-        // 웨이브 지속 시간 변경
-        totalWaveTime = newDuration;
-        ResetTimer();
+        totalTime = waveManager.downtimeDuration;
+        timeRemaining = totalTime;
+        isTimerRunning = true;
     }
+
+    private void ShowWaveMessage(string message)
+    {
+        StopAllCoroutines(); // 메시지가 겹치지 않도록
+        StartCoroutine(ShowMessageRoutine(message));
+    }
+
+    private IEnumerator ShowMessageRoutine(string message)
+    {
+        waveMessageText.text = message;
+        waveMessageGroup.SetActive(true);
+
+        yield return new WaitForSeconds(5f); // 2초 동안 표시
+
+        waveMessageGroup.SetActive(false);
+    }
+
 }

@@ -18,5 +18,5 @@ MonoBehaviour:
   sellPrice: 150
   isStackable: 1
   isPurchasable: 1
-  isPlaceable: 0
-  prefab: {fileID: 0}
+  isPlaceable: 1
+  prefab: {fileID: 8925754305093660356, guid: 733dd57039f3e534fbe0271a9596c809, type: 3}
