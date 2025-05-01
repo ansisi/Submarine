@@ -102,7 +102,14 @@ public class HarpoonController : MonoBehaviour
                 // 최대 거리 체크
                 float distance = Vector3.Distance(transform.position, harpoonPosition);
                 if (distance >= maxHarpoonDistance)
+                {
+                    TrailRenderer trail = harpoonObject.GetComponent<TrailRenderer>();
+                    if (trail != null)
+                    {
+                        trail.enabled = false; // 트레일 켜기
+                    }
                     StartRetraction();
+                }
             }
             else if (isRetracting)
             {
@@ -172,6 +179,12 @@ public class HarpoonController : MonoBehaviour
     {
         // 작살 오브젝트 생성
         harpoonObject = Instantiate(harpoonPrefab, harpoonSpawnPoint.position, Quaternion.identity);
+        //트레일 켜기
+        TrailRenderer trail = harpoonObject.GetComponent<TrailRenderer>();
+        if (trail != null)
+        {
+            trail.enabled = true; // 트레일 켜기
+        }
 
         // 시각화를 위해 스프라이트 렌더러나 메시 추가 (필요시)
         SphereCollider HarpoonVisual = harpoonObject.AddComponent<SphereCollider>();
@@ -221,6 +234,11 @@ public class HarpoonController : MonoBehaviour
         {
             // 충돌 감지됨
             harpoonPosition = hit.point;
+            TrailRenderer trail = harpoonObject.GetComponent<TrailRenderer>();
+            if (trail != null)
+            {
+                trail.enabled = false; // 트레일 켜기
+            }
 
             // 다양한 오브젝트와의 충돌 처리
             if (hit.collider.CompareTag("Terrain"))
@@ -246,6 +264,11 @@ public class HarpoonController : MonoBehaviour
     void StartRetraction()
     {
         isRetracting = true;
+        TrailRenderer trail = harpoonObject.GetComponent<TrailRenderer>();
+        if (trail != null)
+        {
+            trail.enabled = false; // 트레일 켜기
+        }
         Vector3 retractDirection = (transform.position - harpoonPosition).normalized;
         retractDirection.z = 0f;
         harpoonVelocity = retractDirection * retractSpeed;

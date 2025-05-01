@@ -30,6 +30,7 @@ public class HookController : MonoBehaviour
     private ConfigurableJoint ropeJoint; // 로프 조인트
     private Rigidbody attachedRigidbody; // 연결된 물체의 Rigidbody
     private float initialRopeLength; // 초기 로프 길이
+    
 
 
     void Awake()
@@ -93,7 +94,14 @@ public class HookController : MonoBehaviour
                 // 최대 거리 체크
                 float distance = Vector3.Distance(transform.position, hookPosition);
                 if (distance >= maxHookDistance)
+                {
+                    TrailRenderer trail = hookObject.GetComponent<TrailRenderer>();
+                    if (trail != null)
+                    {
+                        trail.enabled = false; // 트레일 켜기
+                    }
                     StartRetraction();
+                }
             }
             else if (isRetracting)
             {
@@ -173,6 +181,12 @@ public class HookController : MonoBehaviour
     {
         // 후크 오브젝트 생성
         hookObject = Instantiate(hookPrefab, hookSpawnPoint.position, Quaternion.identity);
+        // 트레일 켜기
+        TrailRenderer trail = hookObject.GetComponent<TrailRenderer>();
+        if (trail != null)
+        {
+            trail.enabled = true; // 트레일 켜기
+        }
 
         // 시각화를 위해 스프라이트 렌더러나 메시 추가 (필요시)
         SphereCollider hookVisual = hookObject.AddComponent<SphereCollider>();
@@ -221,6 +235,11 @@ public class HookController : MonoBehaviour
         {
             // 충돌 감지됨
             hookPosition = hit.point;
+            TrailRenderer trail = hookObject.GetComponent<TrailRenderer>();
+            if (trail != null)
+            {
+                trail.enabled = false; // 트레일 켜기
+            }
 
             // 다양한 오브젝트와의 충돌 처리
             if (hit.collider.CompareTag("Resource"))
@@ -246,6 +265,11 @@ public class HookController : MonoBehaviour
     void StartRetraction()
     {
         isRetracting = true;
+        TrailRenderer trail = hookObject.GetComponent<TrailRenderer>();
+        if (trail != null)
+        {
+            trail.enabled = false; // 트레일 켜기
+        }
         Vector3 retractDirection = (transform.position - hookPosition).normalized;
         retractDirection.z = 0f;
         hookVelocity = retractDirection * retractSpeed;
