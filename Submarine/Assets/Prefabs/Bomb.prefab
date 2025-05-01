@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosionDelay: 1
   explosionRadius: 5
-  explosionDamage: 30
+  explosionDamage: 50
 --- !u!65 &439594127196391389
 BoxCollider:
   m_ObjectHideFlags: 0
