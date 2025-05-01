@@ -140,7 +140,7 @@ MonoBehaviour:
   firePoint: {fileID: 9895778739135408}
   fireRate: 2
   range: 15
-  maxDurability: 20
+  maxDurability: 50
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
