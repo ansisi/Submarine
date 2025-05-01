@@ -8,6 +8,7 @@ public class Spaceship : MonoBehaviour, IDamageable
 {
     [Header("Spaceship Health Settings")]
     public float maxHealth = 100f;     // 우주선 최대 체력
+    [SerializeField]
     private float currentHealth;       // 우주선 현재 체력
 
     private void Start()
