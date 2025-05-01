@@ -17,8 +17,9 @@ public class Turret : MonoBehaviour, IDamageable
     public float maxDurability = 100f;
     public LayerMask enemyLayer;
     public float rotationSpeed = 360f; // 터렛 회전 속도
+    public Transform modelTransform;
 
-
+    [SerializeField]
     private float currentDurability;
     private float nextFireTime = 0f;
     private Transform target;
@@ -109,15 +110,31 @@ public class Turret : MonoBehaviour, IDamageable
 
     private void LookAtTarget()
     {
-        // 목표 방향 계산
+        if (target == null) return;
+
         Vector3 dir = target.position - transform.position;
-        dir.z = 0f;  // Y축 회전을 제외하고, 평면에서만 회전하도록 설정
+        dir.z = 0f; // 상하 방향 제거 → 수평 방향만 유지
+
+        if (dir == Vector3.zero) return; // 타겟이 본체와 정확히 일치하는 경우를 방지
 
         // Atan2로 회전 각도 계산
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
-        // 포탑 회전 적용
+        if (dir.x < 0f)
+            angle += 180f;
+
+        // 본체 오브젝트만 Z축으로 회전하도록 설정
         transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0f, 0f, angle), rotationSpeed * Time.deltaTime);
+        
+
+        // 모델 기울기 처리 (자식)
+        if (modelTransform != null)
+        {
+            if (dir.x < 0f)
+                modelTransform.localRotation = Quaternion.Euler(0f, 180f, 0f); // 왼쪽
+            else
+                modelTransform.localRotation = Quaternion.Euler(0f, 0f, 0f);  // 오른쪽
+        }
     }
 
     void OnDrawGizmosSelected()

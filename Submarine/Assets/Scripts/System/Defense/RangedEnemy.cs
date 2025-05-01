@@ -7,7 +7,6 @@ public class RangedEnemy : Enemy
     public GameObject bulletPrefab;         // 총알 프리팹
     public Transform firePoint;             // 총알 발사 위치
     public float attackCooldown = 1.5f;     // 공격 쿨타임
-    public float rotationSpeed = 360f;      // 회전 속도
 
     private float lastAttackTime;           // 마지막 공격 시간 기록
 
@@ -40,34 +39,26 @@ public class RangedEnemy : Enemy
 
     void Update()
     {
-        if (target != null)
+
+        if (target == null)
         {
-            // 목표를 쳐다보는 코드
-            LookAtTarget();
-
-            // 사정거리 내외를 구분하여 공격
-            if (Vector3.Distance(transform.position, target.position) <= attackRange)
-            {
-                Attack();
-            }
-            else
-            {
-                // 목표를 향해 이동
-                MoveTowardsTarget();
-            }
+            FindTarget();
+            if (target == null) return;
         }
-    }
 
-    // 목표를 쳐다보는 함수
-    private void LookAtTarget()
-    {
-        Vector3 dir = target.position - transform.position;
-        dir.z = 0f;  // Y축 회전을 제외하고, 평면에서만 회전하도록 설정
+        // 목표를 쳐다보는 코드
+        LookAtTarget();
 
-        // Atan2로 회전 각도 계산
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-
-        // Z축 회전만 적용
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0f, 0f, angle), rotationSpeed * Time.deltaTime);
+        // 사정거리 내외를 구분하여 공격
+        if (Vector3.Distance(transform.position, target.position) <= attackRange)
+        {
+            Attack();
+        }
+        else
+        {
+            // 목표를 향해 이동
+            MoveTowardsTarget();
+        }
+        
     }
 }

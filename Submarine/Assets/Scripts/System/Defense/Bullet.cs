@@ -17,6 +17,8 @@ public class Bullet : MonoBehaviour
         {
             direction = transform.forward; // 기본적으로 Z 방향
         }
+        // 총알 방향대로 회전
+        transform.rotation = Quaternion.LookRotation(direction);
     }
 
     void Update()

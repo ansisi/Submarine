@@ -137,13 +137,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 7133164937181243955, guid: e95f426290bfd0a46932036479665111, type: 3}
   firePoint: {fileID: 9895778739135408}
-  fireRate: 1.5
-  range: 10
-  maxDurability: 100
+  fireRate: 2
+  range: 15
+  maxDurability: 20
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
   rotationSpeed: 360
+  modelTransform: {fileID: 8052334047472422774}
+  currentDurability: 0
 --- !u!54 &3191001858865327417
 Rigidbody:
   m_ObjectHideFlags: 0

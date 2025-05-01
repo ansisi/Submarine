@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class HookController : MonoBehaviour
 {
@@ -68,16 +69,6 @@ public class HookController : MonoBehaviour
 
     void Update()
     {
-        
-        if (Input.GetMouseButtonDown(0))
-        {
-        if (!isHookActive)
-            FireHook();
-        else if (attachedObject == null)
-            StartRetraction();
-        else
-            ClearRopeConnection(); // 로프 연결 해제
-        }
 
         
         if (Input.GetKeyDown(KeyCode.Space))
@@ -158,6 +149,22 @@ public class HookController : MonoBehaviour
         {
             // 후크가 활성화되지 않았는데 라인 렌더러가 남아있으면 초기화
             lineRenderer.positionCount = 0;
+        }
+
+        // UI 위에 있을 때는 입력 무시
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (!isHookActive)
+                FireHook();
+            else if (attachedObject == null)
+                StartRetraction();
+            else
+                ClearRopeConnection(); // 로프 연결 해제
         }
 
     }

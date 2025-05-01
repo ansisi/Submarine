@@ -8,6 +8,12 @@ public class EllipseColliderSpawner : MonoBehaviour
     public Vector3 radiusCenter;          // 중심 위치
     public float colliderRadius = 0.2f;   // 스피어 콜라이더 반지름
 
+
+    private void Reset()
+    {
+        radiusCenter = transform.position + new Vector3(-0.5f, -0.5f, 0f);
+    }
+
     private void Start()
     {
         SpawnColliders();

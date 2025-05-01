@@ -66,8 +66,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8878108648056063174}
   - {fileID: 4536522382725493167}
+  - {fileID: 8878108648056063174}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5350577492923759283
@@ -195,13 +195,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetType: 0
   speed: 2
-  attackRange: 7
+  attackRange: 13
   damage: 5
   maxHealth: 50
+  rotationSpeed: 360
+  modelTransform: {fileID: 4536522382725493167}
   bulletPrefab: {fileID: 4014919754184610970, guid: d233a971e8277ca4dbd90f1e28d57201, type: 3}
   firePoint: {fileID: 7251762634905034072}
   attackCooldown: 1.5
-  rotationSpeed: 360
 --- !u!1 &6639339473203342084
 GameObject:
   m_ObjectHideFlags: 0

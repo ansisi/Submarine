@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+[RequireComponent(typeof(FactionHandler))]
 public class Spaceship : MonoBehaviour, IDamageable
 {
     [Header("Spaceship Health Settings")]

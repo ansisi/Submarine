@@ -2161,7 +2161,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4810757847393395091, guid: 427a2e321be22394db1f66b6361ad430, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -17.8
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 4810757847393395091, guid: 427a2e321be22394db1f66b6361ad430, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2198,14 +2198,6 @@ PrefabInstance:
     - target: {fileID: 4810757847393395091, guid: 427a2e321be22394db1f66b6361ad430, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6350400073094110960, guid: 427a2e321be22394db1f66b6361ad430, type: 3}
-      propertyPath: maxHealth
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 6350400073094110960, guid: 427a2e321be22394db1f66b6361ad430, type: 3}
-      propertyPath: targetType
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5952,11 +5944,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 75413484585540232, guid: a576dcbb819a1414fae6660ca551e872, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.472996
+      value: -7.5
       objectReference: {fileID: 0}
     - target: {fileID: 75413484585540232, guid: a576dcbb819a1414fae6660ca551e872, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -11.2
+      value: -20.7
       objectReference: {fileID: 0}
     - target: {fileID: 75413484585540232, guid: a576dcbb819a1414fae6660ca551e872, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5993,10 +5985,6 @@ PrefabInstance:
     - target: {fileID: 3283916939738490417, guid: a576dcbb819a1414fae6660ca551e872, type: 3}
       propertyPath: m_Name
       value: Turret
-      objectReference: {fileID: 0}
-    - target: {fileID: 6270262596600990975, guid: a576dcbb819a1414fae6660ca551e872, type: 3}
-      propertyPath: range
-      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8485,15 +8473,19 @@ PrefabInstance:
       objectReference: {fileID: 7626776859837181140, guid: a931e0097880b4245ad0301da33cb568, type: 3}
     - target: {fileID: 5199883328512945485, guid: 7f2844224c9b4bb46b0607d0bdf87a6e, type: 3}
       propertyPath: radiusCenter.x
-      value: 28
+      value: 62.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199883328512945485, guid: 7f2844224c9b4bb46b0607d0bdf87a6e, type: 3}
+      propertyPath: radiusCenter.y
+      value: -36.3
       objectReference: {fileID: 0}
     - target: {fileID: 5498076690591518040, guid: 7f2844224c9b4bb46b0607d0bdf87a6e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 28.9
+      value: 63.4
       objectReference: {fileID: 0}
     - target: {fileID: 5498076690591518040, guid: 7f2844224c9b4bb46b0607d0bdf87a6e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -24.4
+      value: -36.3
       objectReference: {fileID: 0}
     - target: {fileID: 5498076690591518040, guid: 7f2844224c9b4bb46b0607d0bdf87a6e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8526,6 +8518,22 @@ PrefabInstance:
     - target: {fileID: 5498076690591518040, guid: 7f2844224c9b4bb46b0607d0bdf87a6e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -199.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 6931016857009592516, guid: 7f2844224c9b4bb46b0607d0bdf87a6e, type: 3}
+      propertyPath: radiusX
+      value: 6.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6931016857009592516, guid: 7f2844224c9b4bb46b0607d0bdf87a6e, type: 3}
+      propertyPath: radiusY
+      value: 6.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6931016857009592516, guid: 7f2844224c9b4bb46b0607d0bdf87a6e, type: 3}
+      propertyPath: radiusCenter.x
+      value: 62.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6931016857009592516, guid: 7f2844224c9b4bb46b0607d0bdf87a6e, type: 3}
+      propertyPath: radiusCenter.y
+      value: -36.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11887,14 +11895,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 549688538474933523, guid: 9b0d04cac268b3241a9c915a856f4650, type: 3}
-      propertyPath: targetType
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 549688538474933523, guid: 9b0d04cac268b3241a9c915a856f4650, type: 3}
-      propertyPath: attackRange
-      value: 13
-      objectReference: {fileID: 0}
     - target: {fileID: 5970316663771290304, guid: 9b0d04cac268b3241a9c915a856f4650, type: 3}
       propertyPath: m_Name
       value: RangedEnemy
@@ -14059,34 +14059,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player2
       objectReference: {fileID: 0}
-    - target: {fileID: 2228581792812485127, guid: da89b167f9e669942955d23fde545c06, type: 3}
-      propertyPath: uiManager
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2705246345038509732, guid: da89b167f9e669942955d23fde545c06, type: 3}
-      propertyPath: uiManager
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7110905112824370442, guid: da89b167f9e669942955d23fde545c06, type: 3}
-      propertyPath: baseThrust
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7110905112824370442, guid: da89b167f9e669942955d23fde545c06, type: 3}
-      propertyPath: oxygenTank
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 8314469790731995752, guid: da89b167f9e669942955d23fde545c06, type: 3}
       propertyPath: oxygenText
       value: 
       objectReference: {fileID: 1697991257}
-    - target: {fileID: 8314469790731995752, guid: da89b167f9e669942955d23fde545c06, type: 3}
-      propertyPath: oxygenNeedle
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8314469790731995752, guid: da89b167f9e669942955d23fde545c06, type: 3}
-      propertyPath: maxOxygenTime
-      value: 999
-      objectReference: {fileID: 0}
     - target: {fileID: 8823025258791316971, guid: da89b167f9e669942955d23fde545c06, type: 3}
       propertyPath: waterText
       value: 

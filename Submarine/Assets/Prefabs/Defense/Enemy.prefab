@@ -145,7 +145,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 8
   m_CollisionDetection: 0
@@ -163,9 +163,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetType: 0
   speed: 3
-  attackRange: 0.5
+  attackRange: 0.8
   damage: 5
-  maxHealth: 50
+  maxHealth: 100
+  rotationSpeed: 360
+  modelTransform: {fileID: 2377897473546613476}
 --- !u!1001 &8023640564156992469
 PrefabInstance:
   m_ObjectHideFlags: 0

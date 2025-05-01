@@ -16,6 +16,7 @@ public class PlayerAnimationController : MonoBehaviour
 
     void Update()
     {
+
         bool isMovingForward = Input.GetKey(KeyCode.W);
         bool isBoosting = Input.GetKey(KeyCode.LeftShift);
 
