@@ -40,13 +40,13 @@ public class LookAtTargetHandler : MonoBehaviour
             {
                 //哭率阑 杭 锭
                 modelTransform.localRotation = isEnemy
-                    ? Quaternion.Euler(0f, 180f, 0f) : Quaternion.Euler(40f, 180f, 0f); // 磐房 : 利
+                    ? Quaternion.Euler(40f, 180f, 0f) : Quaternion.Euler(0f, 180f, 0f); // 利 : 磐房
             }
             else
             {
                 //坷弗率阑 杭 锭
                 modelTransform.localRotation = isEnemy
-                    ? Quaternion.Euler(0f, 0f, 0f) : Quaternion.Euler(-40f, 0f, 0f);  // 磐房: 利
+                    ? Quaternion.Euler(-40f, 0f, 0f) : Quaternion.Euler(0f, 0f, 0f);  // 利 : 磐房
             }
         }
     }

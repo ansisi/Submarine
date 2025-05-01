@@ -5815,11 +5815,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5459921333978702981, guid: a576dcbb819a1414fae6660ca551e872, type: 3}
       propertyPath: rotationSpeed
-      value: 480
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 6270262596600990975, guid: a576dcbb819a1414fae6660ca551e872, type: 3}
       propertyPath: fireRate
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
