@@ -47,7 +47,7 @@ public class RangedEnemy : Enemy
         }
 
         // 목표를 쳐다보는 코드
-        LookAtTarget();
+        lookAtHandler.SetTarget(target);  // 타겟 설정
 
         // 사정거리 내외를 구분하여 공격
         if (Vector3.Distance(transform.position, target.position) <= attackRange)

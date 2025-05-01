@@ -42,10 +42,14 @@ public class WaveManager : MonoBehaviour
             if (currentWave - 1 < waveDatas.Count)
             {
                 WaveData waveData = waveDatas[currentWave - 1];
+                //웨이브 시작 시 BGM 전환
+                BgmManager.Instance.StartCombat(); // 전투 BGM으로 변경
                 yield return StartCoroutine(HandleWave(waveData));
             }
 
             Logger.Log($"Wave {currentWave} 종료. 정비 시간 시작!");
+            // 정비 시간 동안 BGM 전환
+            BgmManager.Instance.StartRepair(); // 정비 BGM으로 변경
             yield return new WaitForSeconds(downtimeDuration);
         }
 

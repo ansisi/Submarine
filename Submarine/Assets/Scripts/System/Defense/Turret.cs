@@ -16,16 +16,16 @@ public class Turret : MonoBehaviour, IDamageable
     public float range = 5f;
     public float maxDurability = 100f;
     public LayerMask enemyLayer;
-    public float rotationSpeed = 360f; // 터렛 회전 속도
-    public Transform modelTransform;
 
     [SerializeField]
     private float currentDurability;
     private float nextFireTime = 0f;
     private Transform target;
+    private LookAtTargetHandler lookAtHandler;
 
     void Start()
     {
+        lookAtHandler = GetComponent<LookAtTargetHandler>(); // LookAtTargetHandler 컴포넌트 가져오기
         currentDurability = maxDurability;
     }
 
@@ -38,7 +38,7 @@ public class Turret : MonoBehaviour, IDamageable
         // 목표가 존재하면 회전
         if(target != null)
         {
-            LookAtTarget();
+            lookAtHandler.SetTarget(target);  // 타겟 설정
 
             // 사정거리 내에서만 공격
             if (Vector3.Distance(transform.position, target.position) <= range)
@@ -61,11 +61,15 @@ public class Turret : MonoBehaviour, IDamageable
 
         foreach (var hit in hits)
         {
-            float dist = Vector3.Distance(transform.position, hit.transform.position);
-            if (dist < shortestDist)
+            // 적의 콜라이더가 자식 오브젝트에 있을 경우에도 찾아야 하므로, hit.transform을 확인
+            if (hit.transform != null)
             {
-                shortestDist = dist;
-                nearest = hit.transform;
+                float dist = Vector3.Distance(transform.position, hit.transform.position);
+                if (dist < shortestDist)
+                {
+                    shortestDist = dist;
+                    nearest = hit.transform;
+                }
             }
         }
 
@@ -106,35 +110,6 @@ public class Turret : MonoBehaviour, IDamageable
     void Die()
     {
         Destroy(gameObject);
-    }
-
-    private void LookAtTarget()
-    {
-        if (target == null) return;
-
-        Vector3 dir = target.position - transform.position;
-        dir.z = 0f; // 상하 방향 제거 → 수평 방향만 유지
-
-        if (dir == Vector3.zero) return; // 타겟이 본체와 정확히 일치하는 경우를 방지
-
-        // Atan2로 회전 각도 계산
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-
-        if (dir.x < 0f)
-            angle += 180f;
-
-        // 본체 오브젝트만 Z축으로 회전하도록 설정
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0f, 0f, angle), rotationSpeed * Time.deltaTime);
-        
-
-        // 모델 기울기 처리 (자식)
-        if (modelTransform != null)
-        {
-            if (dir.x < 0f)
-                modelTransform.localRotation = Quaternion.Euler(0f, 180f, 0f); // 왼쪽
-            else
-                modelTransform.localRotation = Quaternion.Euler(0f, 0f, 0f);  // 오른쪽
-        }
     }
 
     void OnDrawGizmosSelected()

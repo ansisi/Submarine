@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5002087799360190391}
   - component: {fileID: 6270262596600990975}
   - component: {fileID: 3191001858865327417}
+  - component: {fileID: 5459921333978702981}
   m_Layer: 0
   m_Name: Turret
   m_TagString: Turret
@@ -35,7 +36,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1579897146034679265}
   - {fileID: 8052334047472422774}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -143,8 +143,6 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
-  rotationSpeed: 360
-  modelTransform: {fileID: 8052334047472422774}
   currentDurability: 0
 --- !u!54 &3191001858865327417
 Rigidbody:
@@ -169,10 +167,24 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 8
+  m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &5459921333978702981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3283916939738490417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83b9d2be61b7b4347b4c48d22aa10a8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  modelTransform: {fileID: 8052334047472422774}
+  rotationSpeed: 360
 --- !u!1 &4959552948893515329
 GameObject:
   m_ObjectHideFlags: 0
@@ -201,12 +213,12 @@ Transform:
   m_GameObject: {fileID: 4959552948893515329}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.04, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 0.3, z: 0.3}
+  m_LocalPosition: {x: 2.733333, y: 0, z: 0}
+  m_LocalScale: {x: 3.3333333, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9895778739135408}
-  m_Father: {fileID: 75413484585540232}
+  m_Father: {fileID: 8052334047472422774}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3601786197545551614
 MeshFilter:
@@ -340,7 +352,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5255705973518908397, guid: ae68fc3c74d03d441b5b3871542859c4, type: 3}
       propertyPath: m_Name
-      value: Turret
+      value: TurretModel
       objectReference: {fileID: 0}
     - target: {fileID: 5691929139672415293, guid: ae68fc3c74d03d441b5b3871542859c4, type: 3}
       propertyPath: m_LocalScale.x
@@ -400,7 +412,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 5691929139672415293, guid: ae68fc3c74d03d441b5b3871542859c4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1579897146034679265}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae68fc3c74d03d441b5b3871542859c4, type: 3}
 --- !u!4 &8052334047472422774 stripped

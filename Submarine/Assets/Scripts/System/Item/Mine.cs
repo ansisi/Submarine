@@ -15,7 +15,7 @@ public class Mine : MonoBehaviour
         if (isTriggered) return;
 
         // 적인지 확인
-        Enemy enemy = other.GetComponent<Enemy>();
+        Enemy enemy = other.GetComponentInParent<Enemy>();
         if (enemy != null)
         {
             isTriggered = true;
