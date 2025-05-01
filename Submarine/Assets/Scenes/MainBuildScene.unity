@@ -2139,6 +2139,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 3814442650090711941, guid: 427a2e321be22394db1f66b6361ad430, type: 3}
+      propertyPath: targetType
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4810757847393395091, guid: 427a2e321be22394db1f66b6361ad430, type: 3}
       propertyPath: m_LocalPosition.x
       value: 16
@@ -11550,6 +11554,10 @@ PrefabInstance:
     - target: {fileID: 19609995209696069, guid: 9b0d04cac268b3241a9c915a856f4650, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3185585156459155381, guid: 9b0d04cac268b3241a9c915a856f4650, type: 3}
+      propertyPath: targetType
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5970316663771290304, guid: 9b0d04cac268b3241a9c915a856f4650, type: 3}
       propertyPath: m_Name
