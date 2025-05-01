@@ -107,6 +107,11 @@ public class Turret : MonoBehaviour, IDamageable
         }
     }
 
+    public float CurrentDurabilityRatio()
+    {
+        return Mathf.Clamp01(currentDurability / maxDurability);
+    }
+
     void Die()
     {
         Destroy(gameObject);
