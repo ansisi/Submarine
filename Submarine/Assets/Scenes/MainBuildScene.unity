@@ -2139,6 +2139,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 3777617835739875713, guid: 427a2e321be22394db1f66b6361ad430, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3814442650090711941, guid: 427a2e321be22394db1f66b6361ad430, type: 3}
       propertyPath: targetType
       value: 2
@@ -4046,6 +4050,18 @@ PrefabInstance:
       propertyPath: firstSpawnCenter
       value: 
       objectReference: {fileID: 1053711188}
+    - target: {fileID: 4580520116849554365, guid: c86555ccab1d267419345584df9f6d49, type: 3}
+      propertyPath: itemPrefabs.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580520116849554365, guid: c86555ccab1d267419345584df9f6d49, type: 3}
+      propertyPath: itemPrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 8413489734157985588, guid: c829ef5441407e44a8dac2db515a4389, type: 3}
+    - target: {fileID: 4580520116849554365, guid: c86555ccab1d267419345584df9f6d49, type: 3}
+      propertyPath: itemPrefabs.Array.data[3]
+      value: 
+      objectReference: {fileID: 2356159046844425195, guid: 25766adaa31362b4194e3762b0ca3201, type: 3}
     - target: {fileID: 5848737662622211599, guid: c86555ccab1d267419345584df9f6d49, type: 3}
       propertyPath: m_Name
       value: MapSystem
@@ -5816,6 +5832,10 @@ PrefabInstance:
     - target: {fileID: 3283916939738490417, guid: a576dcbb819a1414fae6660ca551e872, type: 3}
       propertyPath: m_Name
       value: Turret
+      objectReference: {fileID: 0}
+    - target: {fileID: 3283916939738490417, guid: a576dcbb819a1414fae6660ca551e872, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5459921333978702981, guid: a576dcbb819a1414fae6660ca551e872, type: 3}
       propertyPath: rotationSpeed
@@ -11571,6 +11591,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RangedEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 5970316663771290304, guid: 9b0d04cac268b3241a9c915a856f4650, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11971,6 +11995,10 @@ PrefabInstance:
     - target: {fileID: 8925754305093660356, guid: 733dd57039f3e534fbe0271a9596c809, type: 3}
       propertyPath: m_Name
       value: Bomb
+      objectReference: {fileID: 0}
+    - target: {fileID: 8925754305093660356, guid: 733dd57039f3e534fbe0271a9596c809, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -13772,12 +13800,12 @@ SceneRoots:
   - {fileID: 4883684237616947427}
   - {fileID: 567781665}
   - {fileID: 1053711182}
+  - {fileID: 1957769185}
   - {fileID: 899992163}
   - {fileID: 1905657162}
   - {fileID: 1340117469}
   - {fileID: 462941527}
   - {fileID: 121614224}
-  - {fileID: 1957769185}
   - {fileID: 1957192614}
   - {fileID: 984391689}
   - {fileID: 328580148}
