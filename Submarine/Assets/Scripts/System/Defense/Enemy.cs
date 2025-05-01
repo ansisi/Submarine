@@ -107,6 +107,11 @@ public class Enemy : MonoBehaviour, IDamageable
         if (currentHealth <= 0f) Die();
     }
 
+    public float GetCurrentHealth()
+    {
+        return currentHealth;
+    }
+
     // »ç¸Á Ã³¸®
     void Die()
     {
