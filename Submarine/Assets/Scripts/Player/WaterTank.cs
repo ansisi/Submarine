@@ -5,9 +5,16 @@ using TMPro;
 
 public class WaterTank : MonoBehaviour
 {
+    public static WaterTank Instance;
+
     public TextMeshProUGUI waterText;               // UI 퍼센트 텍스트 (Inspector에서 할당)
     public float maxWaterTime = 400f;    // 최대 산소 시간
     private float elapsedWaterTime = 0f; // 누적 산소 소비 시간
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     void Update()
     {

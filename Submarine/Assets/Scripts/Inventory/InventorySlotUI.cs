@@ -71,7 +71,14 @@ public class InventorySlotUI : MonoBehaviour
         }
         else
         {
-            TryPlaceItem();
+            if (item.isConsumable)
+            {
+                ConsumeItem();
+            }
+            else
+            {
+                TryPlaceItem();
+            }
         }
 
     }
@@ -94,6 +101,32 @@ public class InventorySlotUI : MonoBehaviour
         else
         {
             Logger.Log($"[{item.itemName}] 설치할 수 없는 아이템이거나 플레이어를 찾지 못했음");
+        }
+    }
+
+    private void ConsumeItem()
+    {
+        switch (item.itemName)
+        {
+            case "물":
+            case "Water":
+                WaterTank.Instance?.AddWater(30f);
+                break;
+
+            // 다른 소모품 추가 가능
+            // case "산소통":
+            //     OxygenTank.Instance?.AddOxygen(50f);
+            //     break;
+
+            default:
+                Logger.Log($"[{item.itemName}] 는 사용 가능한 소모품이 아님");
+                return;
+        }
+
+        bool removed = InventoryManager.Instance.RemoveItem(item, 1);
+        if (!removed)
+        {
+            Logger.Log("인벤토리에 아이템이 부족해서 사용 실패");
         }
     }
 

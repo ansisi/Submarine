@@ -18,5 +18,6 @@ MonoBehaviour:
   sellPrice: 10
   isStackable: 1
   isPurchasable: 1
+  isConsumable: 1
   isPlaceable: 0
   prefab: {fileID: 0}

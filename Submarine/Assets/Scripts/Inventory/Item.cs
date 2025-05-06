@@ -12,6 +12,7 @@ public class Item : ScriptableObject
 
     public bool isStackable;    // 중첩 가능한 아이템인지 여부
     public bool isPurchasable; // 상점에서 구매 가능한지 여부
+    public bool isConsumable;
     public bool isPlaceable;
 
     public GameObject prefab; // 실제 배치할 수 있는 오브젝트 (ex. 포탑)

@@ -26,11 +26,21 @@ public class SpaceshipEntrance : InteractableBase
 
     public override string GetHintText()
     {
+        if (!GameManager.Instance.npcRescued)
+            return "NPC를 구출하지 않아 우주선에 들어갈 수 없습니다.";
+
         return "[Space] 우주선에 들어가기";
     }
 
     public override void Interact()
     {
+        if (!GameManager.Instance.npcRescued)
+        {
+            Logger.Log("NPC가 얼어 있어 우주선에 진입할 수 없습니다.");
+            // 여기에 UI 메시지를 띄우거나 효과음 등을 추가해도 좋음
+            return;
+        }
+
         spaceshipUI.SetActive(true); // UI 창 켜기
         // 필요하면 플레이어 조작 막기, 시점 고정 등 추가 가능
         InteractionManager.instance.SetInteractionLocked(true);
