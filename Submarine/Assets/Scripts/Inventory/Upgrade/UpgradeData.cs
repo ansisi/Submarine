@@ -5,10 +5,11 @@ using System;
 
 public enum UpgradeType
 {
-    Antenna,
-    Engine,
+    Radar,
+    Spaceship,
     OxygenTank,
-    FuelTank,
+    Inventory,
+    AutoRepair
     // 등 추가 예정 업그레이드 항목
 }
 

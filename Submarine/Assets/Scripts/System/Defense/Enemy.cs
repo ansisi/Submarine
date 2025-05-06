@@ -20,6 +20,7 @@ public class Enemy : MonoBehaviour, IDamageable
     public float attackRange = 1f;           // 사정거리 (이 거리 이내에서 Attack 호출)
     public float damage = 10f;               // 충돌 시 주는 대미지
     public float maxHealth = 50f;            // 최대 체력
+    public float attackSpeed = 1f;           // 공격 속도
 
     protected float currentHealth;           // 현재 체력
     protected Transform target;              // 현재 타겟
@@ -149,7 +150,7 @@ public class Enemy : MonoBehaviour, IDamageable
         while (dmg != null && (dmg as MonoBehaviour) != null)
         {
             dmg.TakeDamage(damage);
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(attackSpeed);
         }
 
         // 파괴되었으면 코루틴 정지

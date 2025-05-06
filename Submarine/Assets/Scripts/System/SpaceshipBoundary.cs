@@ -7,6 +7,18 @@ using TMPro;
 [RequireComponent(typeof(LineRenderer))]
 public class SpaceshipBoundary : MonoBehaviour
 {
+    public static SpaceshipBoundary Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject); // 중복 방지
+            return;
+        }
+        Instance = this;
+    }
+
     public Transform player;
     [SerializeField] private float baseRadius = 3f;
     public float currentRadius = 3f;

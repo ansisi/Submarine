@@ -49,6 +49,7 @@ MonoBehaviour:
   explosionDelay: 1
   explosionRadius: 5
   explosionDamage: 50
+  explosionForce: 500
 --- !u!65 &439594127196391389
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b47710fb21618354ea97aecf8d07c013, type: 3}
-  m_Name: AntennaUpgrade
+  m_Name: RadarUpgrade
   m_EditorClassIdentifier: 
   upgradeType: 0
   upgradeName: "\uB808\uC774\uB354 \uC5C5\uADF8\uB808\uC774\uB4DC"

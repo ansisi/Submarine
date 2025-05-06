@@ -142,9 +142,10 @@
             InventoryManager.Instance.ConsumeItems(currentLevelData.materialRequirements);
             CurrencyManager.Instance.SpendGold(currentLevelData.goldCost);
             PlayerData.Instance.SetUpgradeLevel(currentUpgrade.upgradeType, currentLevelData.level);
+            UpgradeEffectManager.Instance.ApplyUpgrade(currentUpgrade.upgradeType, currentLevelData.level);
 
-            // 다음 레벨 이동
-            currentLevelIndex++;
+        // 다음 레벨 이동
+        currentLevelIndex++;
             RefreshContent();
             UpdateLevelButtonsState();
         }
