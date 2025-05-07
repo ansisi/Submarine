@@ -69,5 +69,7 @@ public class OffScreenIndicator : MonoBehaviour
 
         // 프리팹이 위를 바라보고 있으므로, 회전 오프셋을 적용
         indicatorUI.rotation = Quaternion.Euler(0, 0, angle + rotationOffset);
+
+        distanceText.rectTransform.up = Vector3.up;
     }
 }
