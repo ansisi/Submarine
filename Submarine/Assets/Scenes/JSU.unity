@@ -2139,14 +2139,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
-    - target: {fileID: 3777617835739875713, guid: 427a2e321be22394db1f66b6361ad430, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3814442650090711941, guid: 427a2e321be22394db1f66b6361ad430, type: 3}
-      propertyPath: targetType
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 4810757847393395091, guid: 427a2e321be22394db1f66b6361ad430, type: 3}
       propertyPath: m_LocalPosition.x
       value: 16
@@ -9011,7 +9003,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  playerTransform: {fileID: 0}
   indicatorUI: {fileID: 1260256611}
+  distanceText: {fileID: 0}
   edgeOffset: 50
   rotationOffset: -90
 --- !u!114 &1480598216
@@ -11627,10 +11621,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3185585156459155381, guid: 9b0d04cac268b3241a9c915a856f4650, type: 3}
-      propertyPath: targetType
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 5970316663771290304, guid: 9b0d04cac268b3241a9c915a856f4650, type: 3}
       propertyPath: m_Name
       value: RangedEnemy
@@ -13012,51 +13002,71 @@ MonoBehaviour:
         spawnCount: 2
       - enemyPrefab: {fileID: 5970316663771290304, guid: 9b0d04cac268b3241a9c915a856f4650, type: 3}
         spawnCount: 2
+      - enemyPrefab: {fileID: 7317922985657874811, guid: a29f6423e239c3f4d8e25385c255993a, type: 3}
+        spawnCount: 4
     - enemySpawnDatas:
       - enemyPrefab: {fileID: 3777617835739875713, guid: 427a2e321be22394db1f66b6361ad430, type: 3}
         spawnCount: 2
       - enemyPrefab: {fileID: 5970316663771290304, guid: 9b0d04cac268b3241a9c915a856f4650, type: 3}
         spawnCount: 2
+      - enemyPrefab: {fileID: 7317922985657874811, guid: a29f6423e239c3f4d8e25385c255993a, type: 3}
+        spawnCount: 4
     - enemySpawnDatas:
       - enemyPrefab: {fileID: 3777617835739875713, guid: 427a2e321be22394db1f66b6361ad430, type: 3}
         spawnCount: 2
       - enemyPrefab: {fileID: 5970316663771290304, guid: 9b0d04cac268b3241a9c915a856f4650, type: 3}
         spawnCount: 2
+      - enemyPrefab: {fileID: 7317922985657874811, guid: a29f6423e239c3f4d8e25385c255993a, type: 3}
+        spawnCount: 4
     - enemySpawnDatas:
       - enemyPrefab: {fileID: 3777617835739875713, guid: 427a2e321be22394db1f66b6361ad430, type: 3}
         spawnCount: 2
       - enemyPrefab: {fileID: 5970316663771290304, guid: 9b0d04cac268b3241a9c915a856f4650, type: 3}
         spawnCount: 2
+      - enemyPrefab: {fileID: 7317922985657874811, guid: a29f6423e239c3f4d8e25385c255993a, type: 3}
+        spawnCount: 4
     - enemySpawnDatas:
       - enemyPrefab: {fileID: 3777617835739875713, guid: 427a2e321be22394db1f66b6361ad430, type: 3}
         spawnCount: 2
       - enemyPrefab: {fileID: 5970316663771290304, guid: 9b0d04cac268b3241a9c915a856f4650, type: 3}
         spawnCount: 2
+      - enemyPrefab: {fileID: 7317922985657874811, guid: a29f6423e239c3f4d8e25385c255993a, type: 3}
+        spawnCount: 4
     - enemySpawnDatas:
       - enemyPrefab: {fileID: 3777617835739875713, guid: 427a2e321be22394db1f66b6361ad430, type: 3}
         spawnCount: 2
       - enemyPrefab: {fileID: 5970316663771290304, guid: 9b0d04cac268b3241a9c915a856f4650, type: 3}
         spawnCount: 2
+      - enemyPrefab: {fileID: 7317922985657874811, guid: a29f6423e239c3f4d8e25385c255993a, type: 3}
+        spawnCount: 4
     - enemySpawnDatas:
       - enemyPrefab: {fileID: 3777617835739875713, guid: 427a2e321be22394db1f66b6361ad430, type: 3}
         spawnCount: 2
       - enemyPrefab: {fileID: 5970316663771290304, guid: 9b0d04cac268b3241a9c915a856f4650, type: 3}
         spawnCount: 2
+      - enemyPrefab: {fileID: 7317922985657874811, guid: a29f6423e239c3f4d8e25385c255993a, type: 3}
+        spawnCount: 4
     - enemySpawnDatas:
       - enemyPrefab: {fileID: 3777617835739875713, guid: 427a2e321be22394db1f66b6361ad430, type: 3}
         spawnCount: 2
       - enemyPrefab: {fileID: 5970316663771290304, guid: 9b0d04cac268b3241a9c915a856f4650, type: 3}
         spawnCount: 2
+      - enemyPrefab: {fileID: 7317922985657874811, guid: a29f6423e239c3f4d8e25385c255993a, type: 3}
+        spawnCount: 4
     - enemySpawnDatas:
       - enemyPrefab: {fileID: 3777617835739875713, guid: 427a2e321be22394db1f66b6361ad430, type: 3}
         spawnCount: 2
       - enemyPrefab: {fileID: 5970316663771290304, guid: 9b0d04cac268b3241a9c915a856f4650, type: 3}
         spawnCount: 2
+      - enemyPrefab: {fileID: 7317922985657874811, guid: a29f6423e239c3f4d8e25385c255993a, type: 3}
+        spawnCount: 4
     - enemySpawnDatas:
       - enemyPrefab: {fileID: 3777617835739875713, guid: 427a2e321be22394db1f66b6361ad430, type: 3}
         spawnCount: 2
       - enemyPrefab: {fileID: 5970316663771290304, guid: 9b0d04cac268b3241a9c915a856f4650, type: 3}
         spawnCount: 2
+      - enemyPrefab: {fileID: 7317922985657874811, guid: a29f6423e239c3f4d8e25385c255993a, type: 3}
+        spawnCount: 4
 --- !u!4 &2065536476
 Transform:
   m_ObjectHideFlags: 0
@@ -13838,7 +13848,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7249576344907072178, guid: a29f6423e239c3f4d8e25385c255993a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 16
+      value: 8.16
       objectReference: {fileID: 0}
     - target: {fileID: 7249576344907072178, guid: a29f6423e239c3f4d8e25385c255993a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -13879,10 +13889,6 @@ PrefabInstance:
     - target: {fileID: 7317922985657874811, guid: a29f6423e239c3f4d8e25385c255993a, type: 3}
       propertyPath: m_Name
       value: LightEnemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 7317922985657874811, guid: a29f6423e239c3f4d8e25385c255993a, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

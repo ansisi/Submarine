@@ -78,17 +78,9 @@ public class SpaceshipBoundary : MonoBehaviour
 
     public void SetAntennaUpgradeLevel(int level)
     {
-        currentRadius = baseRadius * Mathf.Pow(1.3f, level);
+        currentRadius = baseRadius * Mathf.Pow(2f, level);
         DrawCircle();
     }
-
-    public void UpgradeSpaceship(float addedRadius)
-    {
-        currentRadius += addedRadius;
-        DrawCircle(); // 반경 시각 업데이트
-    }
-
-
     
     void DrawCircle()
     {

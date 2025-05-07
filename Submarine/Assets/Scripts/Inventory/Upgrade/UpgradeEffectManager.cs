@@ -16,6 +16,22 @@ public class UpgradeEffectManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
     }
+    private void Start()
+    {
+        ApplyAllUpgradesFromSave(); // 게임 시작 시 저장된 업그레이드 효과 자동 적용
+    }
+
+    private void ApplyAllUpgradesFromSave()
+    {
+        foreach (UpgradeType type in System.Enum.GetValues(typeof(UpgradeType)))
+        {
+            int level = PlayerData.Instance.GetUpgradeLevel(type); // 저장된 업그레이드 레벨 조회
+            if (level > 0)
+            {
+                ApplyUpgrade(type, level); // 업그레이드 효과 적용
+            }
+        }
+    }
 
     public void ApplyUpgrade(UpgradeType type, int level)
     {

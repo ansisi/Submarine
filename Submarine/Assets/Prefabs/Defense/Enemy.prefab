@@ -588,7 +588,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetType: 2
   speed: 3
-  attackRange: 1.1
+  attackRange: 1.6
   damage: 5
   maxHealth: 100
   attackSpeed: 3
