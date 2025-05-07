@@ -297,8 +297,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 16, y: -31.4, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2841677469915361738}
   m_Father: {fileID: 0}
@@ -588,7 +588,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetType: 2
   speed: 6
-  attackRange: 1.1
+  attackRange: 1
   damage: 4
   maxHealth: 50
   attackSpeed: 1

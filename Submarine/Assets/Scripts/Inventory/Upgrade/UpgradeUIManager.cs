@@ -37,8 +37,7 @@
 
         private void Awake()
         {
-            Debug.Log("Awake 시작");
-
+           
             if (openButton == null)
                 Debug.LogWarning("openButton이 null입니다!");
             // 1) 패널 열기/닫기 자동 연결

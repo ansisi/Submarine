@@ -39,11 +39,11 @@ public class Enemy : MonoBehaviour, IDamageable
         if (target == null) FindTarget();
         if (target == null) return;
 
-        float dist = Vector3.Distance(transform.position, target.position);
+        lookAtHandler.SetTarget(target);
 
-        lookAtHandler.SetTarget(target);  // 타겟 설정
+        float distanceToTargetEdge = GetDistanceToTargetEdge();
 
-        if (dist > attackRange)
+        if (distanceToTargetEdge > attackRange)
         {
             MoveTowardsTarget();
         }
@@ -98,7 +98,14 @@ public class Enemy : MonoBehaviour, IDamageable
     // 공격 로직 (서브클래스 구현)
     protected virtual void Attack()
     {
-        // 기본 구현은 없음
+        if (damageCoroutine == null && target != null)
+        {
+            var targetDmg = target.GetComponent<IDamageable>();
+            if (targetDmg != null)
+            {
+                damageCoroutine = StartCoroutine(DealDamageOverTime(targetDmg));
+            }
+        }
     }
 
     // IDamageable 구현: 피해 받기
@@ -121,29 +128,29 @@ public class Enemy : MonoBehaviour, IDamageable
 
 
     // 충돌 시 피해 주기 (붙어서 공격)
-    void OnCollisionEnter(Collision collision)
-    {
-        var otherFaction = collision.gameObject.GetComponent<FactionHandler>();
-        if (otherFaction != null && otherFaction.faction != GetComponent<FactionHandler>().faction)
-        {
-            var dmg = collision.gameObject.GetComponent<IDamageable>();
-            if (dmg != null && damageCoroutine == null)
-                damageCoroutine = StartCoroutine(DealDamageOverTime(dmg));
-        }
-    }
+    //void OnCollisionEnter(Collision collision)
+    //{
+    //    var otherFaction = collision.gameObject.GetComponent<FactionHandler>();
+    //    if (otherFaction != null && otherFaction.faction != GetComponent<FactionHandler>().faction)
+    //    {
+    //        var dmg = collision.gameObject.GetComponent<IDamageable>();
+    //        if (dmg != null && damageCoroutine == null)
+    //            damageCoroutine = StartCoroutine(DealDamageOverTime(dmg));
+    //    }
+    //}
 
-    void OnCollisionExit(Collision collision)
-    {
-        var otherFaction = collision.gameObject.GetComponent<FactionHandler>();
-        if (otherFaction != null && otherFaction.faction != GetComponent<FactionHandler>().faction)
-        {
-            if (damageCoroutine != null)
-            {
-                StopCoroutine(damageCoroutine);
-                damageCoroutine = null;
-            }
-        }
-    }
+    //void OnCollisionExit(Collision collision)
+    //{
+    //    var otherFaction = collision.gameObject.GetComponent<FactionHandler>();
+    //    if (otherFaction != null && otherFaction.faction != GetComponent<FactionHandler>().faction)
+    //    {
+    //        if (damageCoroutine != null)
+    //        {
+    //            StopCoroutine(damageCoroutine);
+    //            damageCoroutine = null;
+    //        }
+    //    }
+    //}
 
     IEnumerator DealDamageOverTime(IDamageable dmg)
     {
@@ -155,6 +162,20 @@ public class Enemy : MonoBehaviour, IDamageable
 
         // 파괴되었으면 코루틴 정지
         damageCoroutine = null;
+    }
+
+    float GetDistanceToTargetEdge()
+    {
+        if (target == null) return Mathf.Infinity;
+
+        Collider targetCol = target.GetComponent<Collider>();
+        if (targetCol == null) return Vector3.Distance(transform.position, target.position);
+
+        // 현재 위치에서 타겟 콜라이더 외곽에서 가장 가까운 지점 계산
+        Vector3 closestPoint = targetCol.ClosestPoint(transform.position);
+        float dist = Vector3.Distance(transform.position, closestPoint);
+
+        return dist;
     }
 
     void OnDrawGizmosSelected()

@@ -728,6 +728,8 @@ MonoBehaviour:
   attackRange: 13
   damage: 5
   maxHealth: 50
+  attackSpeed: 1
+  attackRangeCenterOffset: {x: 1, y: 0, z: 0}
   bulletPrefab: {fileID: 4014919754184610970, guid: d233a971e8277ca4dbd90f1e28d57201, type: 3}
   firePoint: {fileID: 7251762634905034072}
   attackCooldown: 1.5
