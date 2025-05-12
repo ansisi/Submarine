@@ -1,101 +1,110 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
-    public int maxWaveCount = 10;                 // 최대 웨이브 수
-    public float waveDuration = 180f;              // 한 웨이브당 진행 시간 (초)
-    public float downtimeDuration = 60f;           // 웨이브 종료 후 정비 시간 (초)
-    public float firstWaveDelayAfterTrigger = 15f; // 첫 웨이브 트리거 후 대기 시간 (초)
+    [Header("웨이브 설정")]
+    public float preparationTime = 30f; // 웨이브 전 준비 시간
+    public List<WaveDataSO> waveList;
 
-    public EnemySpawner enemySpawner;              // 적 스포너 참조
-
-    [Header("웨이브 데이터")]
-    public List<WaveData> waveDatas;                // 웨이브별 데이터
+    public EnemySpawner enemySpawner;
 
     private int currentWave = 0;
-    private bool firstWaveTriggered = false;
+    private bool isWaveRunning = false;
 
-    void Update()
+    public event Action<int> OnWaveStarted;   // 웨이브 시작 이벤트 (UI 연결용 등)
+    public event Action<int> OnWaveEnded;     // 웨이브 종료 이벤트 (UI, BGM 등)
+
+    private void Start()
     {
-        if (!firstWaveTriggered && Input.GetKeyDown(KeyCode.T)) // 키를 누르면 첫 웨이브 트리거
-        {
-            firstWaveTriggered = true;
-            StartCoroutine(FirstWaveRoutine());
-        }
+        // 웨이브 트리거는 외부에서 호출
     }
 
-    private IEnumerator FirstWaveRoutine()
+    // 외부에서 호출될 트리거 함수
+    public void TriggerWaveStart()
     {
-        yield return new WaitForSeconds(firstWaveDelayAfterTrigger);
-        StartCoroutine(WaveRoutine());
+        if (isWaveRunning || currentWave >= waveList.Count)
+            return;
+
+        StartCoroutine(WavePreparationRoutine());
     }
 
-    private IEnumerator WaveRoutine()
+    private IEnumerator WavePreparationRoutine()
     {
-        while (currentWave < maxWaveCount)
-        {
-            currentWave++;
-            Logger.Log($"Wave {currentWave} 시작!");
+        Logger.Log($"Wave {currentWave + 1} 준비 시작 (준비 시간 {preparationTime}초)");
+        yield return new WaitForSeconds(preparationTime);
+        StartCoroutine(WaveRoutine(waveList[currentWave]));
+    }
 
-            if (currentWave - 1 < waveDatas.Count)
+    private IEnumerator WaveRoutine(WaveDataSO waveData)
+    {
+        isWaveRunning = true;
+
+        OnWaveStarted?.Invoke(currentWave);
+        Logger.Log($"Wave {currentWave + 1} 시작!");
+
+        BgmManager.Instance.StartCombat();
+
+        float waveStartTime = Time.time;
+
+        var subWaves = new List<SubWaveData>(waveData.subWaves);
+        subWaves.Sort((a, b) => a.spawnTime.CompareTo(b.spawnTime));
+
+        foreach (var subWave in subWaves)
+        {
+            if (subWave.spawnTime > waveData.waveDuration - 5f)
             {
-                WaveData waveData = waveDatas[currentWave - 1];
-                //웨이브 시작 시 BGM 전환
-                BgmManager.Instance.StartCombat(); // 전투 BGM으로 변경
-                yield return StartCoroutine(HandleWave(waveData));
+                Logger.Log($"[서브웨이브 스킵됨] {subWave.spawnTime}초 (마지막 5초 안)");
+                continue;
             }
 
-            Logger.Log($"Wave {currentWave} 종료. 정비 시간 시작!");
-            // 정비 시간 동안 BGM 전환
-            BgmManager.Instance.StartRepair(); // 정비 BGM으로 변경
-            yield return new WaitForSeconds(downtimeDuration);
-        }
+            float wait = waveStartTime + subWave.spawnTime - Time.time;
+            if (wait > 0)
+                yield return new WaitForSeconds(wait);
 
-        OnAllWavesCompleted();
-    }
-
-    private IEnumerator HandleWave(WaveData waveData)
-    {
-        // 서브 웨이브 개수
-        int subWaveCount = waveData.subWaves.Count;
-
-        // 서브 웨이브의 간격 계산 (웨이브 시간 / 서브 웨이브 개수)
-        float subWaveInterval = waveDuration / subWaveCount;
-
-        foreach (var subWave in waveData.subWaves)
-        {
             enemySpawner.SpawnSubWave(subWave);
-
-            // 서브 웨이브가 끝난 후, 주기만큼 기다리기
-            yield return new WaitForSeconds(subWaveInterval);
         }
+
+        float remaining = waveStartTime + waveData.waveDuration - Time.time;
+        if (remaining > 0)
+            yield return new WaitForSeconds(remaining);
+
+        Logger.Log($"Wave {currentWave + 1} 종료! (이제 파밍 시간)");
+
+        OnWaveEnded?.Invoke(currentWave);
+        BgmManager.Instance.StartRepair();
+
+        isWaveRunning = false;
+        currentWave++;
+
+        // 다음 웨이브는 다음 트리거로 시작됨 (대기 상태)
     }
 
-    private void OnAllWavesCompleted()
-    {
-        Logger.Log("모든 웨이브 완료! 게임 승리!");
-    }
-
-    public int GetCurrentWave()
-    {
-        return currentWave;
-    }
+    public int GetCurrentWave() => currentWave;
+    public bool IsWaveRunning() => isWaveRunning;
 }
 
-[System.Serializable]
-public class WaveData
+[CreateAssetMenu(fileName = "WaveData", menuName = "Wave/Wave Data")]
+public class WaveDataSO : ScriptableObject
 {
-    [Header("서브 웨이브 데이터")]
-    public List<SubWaveData> subWaves; // 소웨이브 리스트
+    [Header("웨이브 지속 시간")]
+    public float waveDuration = 180f;
+
+    [Header("서브 웨이브 리스트")]
+    public List<SubWaveData> subWaves;
 }
 
 [System.Serializable]
 public class SubWaveData
 {
+    [Header("웨이브 시작 후 스폰될 시간 (초)")]
+    public float spawnTime; // 예: 30f이면 웨이브 시작 후 30초에 스폰
+
     [Header("적 스폰 데이터(적, 스폰 개수)")]
     public EnemySpawnData[] enemySpawnDatas; // 이 소웨이브에서 스폰할 적 종류와 수량
+    
 }
 
 [System.Serializable]

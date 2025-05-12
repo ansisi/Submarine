@@ -63,14 +63,14 @@ public class TimerUI : MonoBehaviour
 
     private void StartWaveTimer()
     {
-        totalTime = waveManager.waveDuration;
+        totalTime = waveManager.waveList[waveManager.GetCurrentWave()].waveDuration;
         timeRemaining = totalTime;
         isTimerRunning = true;
     }
 
     private void StartDowntimeTimer()
     {
-        totalTime = waveManager.downtimeDuration;
+        totalTime = waveManager.preparationTime;
         timeRemaining = totalTime;
         isTimerRunning = true;
     }
