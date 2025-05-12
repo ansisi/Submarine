@@ -84,6 +84,9 @@ public class SpaceshipBoundary : MonoBehaviour
     
     void DrawCircle()
     {
+        if (line == null)  // line이 초기화되지 않았을 경우
+            line = GetComponent<LineRenderer>();
+
         float angle = 0f;
         for (int i = 0; i <= circleSegments; i++)
         {

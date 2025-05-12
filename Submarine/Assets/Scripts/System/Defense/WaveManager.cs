@@ -17,9 +17,12 @@ public class WaveManager : MonoBehaviour
     public event Action<int> OnWaveStarted;   // 웨이브 시작 이벤트 (UI 연결용 등)
     public event Action<int> OnWaveEnded;     // 웨이브 종료 이벤트 (UI, BGM 등)
 
-    private void Start()
+    private void Update()
     {
-        // 웨이브 트리거는 외부에서 호출
+        if (Input.GetKeyDown(KeyCode.T)) // 수정된 코드입니다
+        {
+            TriggerWaveStart();
+        }
     }
 
     // 외부에서 호출될 트리거 함수

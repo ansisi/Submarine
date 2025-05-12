@@ -8092,6 +8092,50 @@ MonoBehaviour:
   m_Spacing: {x: 20, y: 20}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!1 &1309706687
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1309706689}
+  - component: {fileID: 1309706688}
+  m_Layer: 0
+  m_Name: UpgradeEffectManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1309706688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309706687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d431fb78a0a9ba94f8e1e38a768f4ef7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1309706689
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309706687}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1317578297
 GameObject:
   m_ObjectHideFlags: 0
@@ -12962,7 +13006,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b937becd2c905ee4cbd31055a5570c0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  preparationTime: 30
+  preparationTime: 15
   waveList:
   - {fileID: 11400000, guid: 464a2909ca751324f9685d9d9a85104c, type: 2}
   enemySpawner: {fileID: 411993716}
@@ -13773,3 +13817,4 @@ SceneRoots:
   - {fileID: 650062064}
   - {fileID: 2065536476}
   - {fileID: 355181270}
+  - {fileID: 1309706689}

@@ -14,51 +14,59 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WaveDataSO
   waveDuration: 60
   subWaves:
-  - spawnTime: 0
+  - spawnTime: 5
     enemySpawnDatas:
-    - enemyPrefab: {fileID: 0}
-      spawnCount: 0
-    - enemyPrefab: {fileID: 0}
-      spawnCount: 0
-  - spawnTime: 0
+    - enemyPrefab: {fileID: 3777617835739875713, guid: 427a2e321be22394db1f66b6361ad430, type: 3}
+      spawnCount: 2
+    - enemyPrefab: {fileID: 7317922985657874811, guid: a29f6423e239c3f4d8e25385c255993a, type: 3}
+      spawnCount: 2
+    - enemyPrefab: {fileID: 5970316663771290304, guid: 9b0d04cac268b3241a9c915a856f4650, type: 3}
+      spawnCount: 2
+  - spawnTime: 15
     enemySpawnDatas:
-    - enemyPrefab: {fileID: 0}
-      spawnCount: 0
-    - enemyPrefab: {fileID: 0}
-      spawnCount: 0
-  - spawnTime: 0
+    - enemyPrefab: {fileID: 3777617835739875713, guid: 427a2e321be22394db1f66b6361ad430, type: 3}
+      spawnCount: 2
+    - enemyPrefab: {fileID: 7317922985657874811, guid: a29f6423e239c3f4d8e25385c255993a, type: 3}
+      spawnCount: 2
+    - enemyPrefab: {fileID: 5970316663771290304, guid: 9b0d04cac268b3241a9c915a856f4650, type: 3}
+      spawnCount: 2
+  - spawnTime: 25
     enemySpawnDatas:
-    - enemyPrefab: {fileID: 0}
-      spawnCount: 0
-    - enemyPrefab: {fileID: 0}
-      spawnCount: 0
-  - spawnTime: 0
+    - enemyPrefab: {fileID: 3777617835739875713, guid: 427a2e321be22394db1f66b6361ad430, type: 3}
+      spawnCount: 2
+    - enemyPrefab: {fileID: 7317922985657874811, guid: a29f6423e239c3f4d8e25385c255993a, type: 3}
+      spawnCount: 2
+    - enemyPrefab: {fileID: 5970316663771290304, guid: 9b0d04cac268b3241a9c915a856f4650, type: 3}
+      spawnCount: 2
+  - spawnTime: 35
     enemySpawnDatas:
-    - enemyPrefab: {fileID: 0}
-      spawnCount: 0
-    - enemyPrefab: {fileID: 0}
-      spawnCount: 0
-  - spawnTime: 0
+    - enemyPrefab: {fileID: 3777617835739875713, guid: 427a2e321be22394db1f66b6361ad430, type: 3}
+      spawnCount: 2
+    - enemyPrefab: {fileID: 7317922985657874811, guid: a29f6423e239c3f4d8e25385c255993a, type: 3}
+      spawnCount: 2
+    - enemyPrefab: {fileID: 5970316663771290304, guid: 9b0d04cac268b3241a9c915a856f4650, type: 3}
+      spawnCount: 2
+  - spawnTime: 45
     enemySpawnDatas:
-    - enemyPrefab: {fileID: 0}
-      spawnCount: 0
-    - enemyPrefab: {fileID: 0}
-      spawnCount: 0
-  - spawnTime: 0
+    - enemyPrefab: {fileID: 3777617835739875713, guid: 427a2e321be22394db1f66b6361ad430, type: 3}
+      spawnCount: 2
+    - enemyPrefab: {fileID: 7317922985657874811, guid: a29f6423e239c3f4d8e25385c255993a, type: 3}
+      spawnCount: 2
+    - enemyPrefab: {fileID: 5970316663771290304, guid: 9b0d04cac268b3241a9c915a856f4650, type: 3}
+      spawnCount: 2
+  - spawnTime: 55
     enemySpawnDatas:
-    - enemyPrefab: {fileID: 0}
-      spawnCount: 0
-    - enemyPrefab: {fileID: 0}
-      spawnCount: 0
-  - spawnTime: 0
+    - enemyPrefab: {fileID: 3777617835739875713, guid: 427a2e321be22394db1f66b6361ad430, type: 3}
+      spawnCount: 2
+    - enemyPrefab: {fileID: 7317922985657874811, guid: a29f6423e239c3f4d8e25385c255993a, type: 3}
+      spawnCount: 2
+    - enemyPrefab: {fileID: 5970316663771290304, guid: 9b0d04cac268b3241a9c915a856f4650, type: 3}
+      spawnCount: 2
+  - spawnTime: 56
     enemySpawnDatas:
-    - enemyPrefab: {fileID: 0}
-      spawnCount: 0
-    - enemyPrefab: {fileID: 0}
-      spawnCount: 0
-  - spawnTime: 0
-    enemySpawnDatas:
-    - enemyPrefab: {fileID: 0}
-      spawnCount: 0
-    - enemyPrefab: {fileID: 0}
-      spawnCount: 0
+    - enemyPrefab: {fileID: 3777617835739875713, guid: 427a2e321be22394db1f66b6361ad430, type: 3}
+      spawnCount: 2
+    - enemyPrefab: {fileID: 7317922985657874811, guid: a29f6423e239c3f4d8e25385c255993a, type: 3}
+      spawnCount: 2
+    - enemyPrefab: {fileID: 5970316663771290304, guid: 9b0d04cac268b3241a9c915a856f4650, type: 3}
+      spawnCount: 2
