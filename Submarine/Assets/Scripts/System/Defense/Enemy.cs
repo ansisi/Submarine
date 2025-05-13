@@ -121,7 +121,7 @@ public class Enemy : MonoBehaviour, IDamageable
     }
 
     // »ç¸Á Ã³¸®
-    void Die()
+    protected void Die()
     {
         Destroy(transform.parent.gameObject);
     }
@@ -164,7 +164,7 @@ public class Enemy : MonoBehaviour, IDamageable
         damageCoroutine = null;
     }
 
-    float GetDistanceToTargetEdge()
+    protected float GetDistanceToTargetEdge()
     {
         if (target == null) return Mathf.Infinity;
 
