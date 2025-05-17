@@ -27,7 +27,11 @@ public class ItemPickup : InteractableBase
     {
         bool success = InventoryManager.Instance.AddItem(item, quantity);
         if (success)
+        {
+            // “줍기”한 경우에만 알림 호출
+            NotificationManager.Instance.ShowPickup(item, quantity);
             Destroy(gameObject);
+        }
     }
 
     public override int Priority => 0; // 우선순위 높음

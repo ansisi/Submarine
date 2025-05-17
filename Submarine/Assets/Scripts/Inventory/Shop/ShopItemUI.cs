@@ -52,6 +52,7 @@ public class ShopItemUI : MonoBehaviour
         }
         else
         {
+            PopupMessageUI.Instance.ShowNotification("골드가 부족합니다!");
             Logger.Log("골드가 부족합니다.");
         }
     }
