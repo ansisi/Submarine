@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class UpgradeEffectManager : MonoBehaviour
 {
+
+    // Script Execution Order: 이 스크립트는 UpgradeEffectManager보다 먼저 실행되어야 합니다.
     public static UpgradeEffectManager Instance { get; private set; }
+
+    [SerializeField] private Spaceship spaceship;
+    [SerializeField] private OxygenTank oxygenTank;
 
     private void Awake()
     {
@@ -73,7 +78,63 @@ public class UpgradeEffectManager : MonoBehaviour
 
     // 나머지 업그레이드 함수들은 추후 구현
     private void ApplySpaceshipUpgrade(int level) { /* TODO */ }
-    private void ApplyOxygenUpgrade(int level) { /* TODO */ }
+    private void ApplyOxygenUpgrade(int level) 
+    {
+        if (oxygenTank != null)
+        {
+            float efficiency;
+
+            switch (level)
+            {
+                case 1:
+                    efficiency = 0.97f; // 3% 감소
+                    break;
+                case 2:
+                    efficiency = 0.95f; // 5% 감소
+                    break;
+                case 3:
+                    efficiency = 0.90f; // 10% 감소
+                    break;
+                default:
+                    Logger.LogWarning("알 수 없는 산소 업그레이드 레벨: " + level);
+                    return;
+            }
+
+            oxygenTank.SetOxygenEfficiency(efficiency);
+        }
+        else
+        {
+            Logger.LogWarning("Oxygen 업그레이드 실패: oxygenTank가 null입니다.");
+        }
+    }
     private void ApplyInventoryUpgrade(int level) { /* TODO */ }
-    private void ApplyAutoRepairUpgrade(int level) { /* TODO */ }
+    private void ApplyAutoRepairUpgrade(int level) 
+    {
+        if (spaceship != null)
+        {
+            float interval; // 기본값
+
+            switch (level)
+            {
+                case 1:
+                    interval = 20f;
+                    break;
+                case 2:
+                    interval = 15f;
+                    break;
+                case 3:
+                    interval = 10f;
+                    break;
+                default:
+                    Logger.LogWarning("알 수 없는 자동회복 업그레이드 레벨: " + level);
+                    return;
+            }
+
+            spaceship.SetAutoRepairInterval(interval); // 인터벌만 설정
+        }
+        else
+        {
+            Logger.LogWarning("AutoRepair 업그레이드 실패: Spaceship 객체를 찾을 수 없습니다.");
+        }
+    }
 }

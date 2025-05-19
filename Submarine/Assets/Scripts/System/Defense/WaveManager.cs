@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
+    public static WaveManager Instance { get; private set; }
+
     [Header("웨이브 설정")]
     public float preparationTime = 30f; // 웨이브 전 준비 시간
     public List<WaveDataSO> waveList;
@@ -16,6 +18,16 @@ public class WaveManager : MonoBehaviour
 
     public event Action<int> OnWaveStarted;   // 웨이브 시작 이벤트 (UI 연결용 등)
     public event Action<int> OnWaveEnded;     // 웨이브 종료 이벤트 (UI, BGM 등)
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+    }
 
     private void Update()
     {

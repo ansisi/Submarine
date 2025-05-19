@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b47710fb21618354ea97aecf8d07c013, type: 3}
+  m_Name: AutoRepairUpgrade
+  m_EditorClassIdentifier: 
+  upgradeType: 4
+  upgradeName: "\uC790\uB3D9 \uC218\uB9AC \uC5C5\uADF8\uB808\uC774\uB4DC"
+  icon: {fileID: -898797358, guid: 9ccabbe36df49b745ad74f29f595b50a, type: 3}
+  levels:
+  - level: 1
+    goldCost: 150
+    levelDescription: "\uBE44\uC804\uD22C \uC0C1\uD669 \uC2DC 20\uCD08\uB9C8\uB2E4
+      \uC6B0\uC8FC\uC120\uC758 10\uCCB4\uB825\uC744 \uC790\uB3D9 \uC218\uB9AC\uD569\uB2C8\uB2E4"
+    materialRequirements:
+    - item: {fileID: 11400000, guid: cc7ad17992b53ed459d7acb1909490ae, type: 2}
+      amount: 2
+    - item: {fileID: 11400000, guid: a31667490a5a72d4fb036051380b0c53, type: 2}
+      amount: 1
+    - item: {fileID: 11400000, guid: 284b17f5fd50d944f95668d586cfb057, type: 2}
+      amount: 2
+  - level: 2
+    goldCost: 300
+    levelDescription: "\uBE44\uC804\uD22C \uC0C1\uD669 \uC2DC 15\uCD08\uB9C8\uB2E4
+      \uC6B0\uC8FC\uC120\uC758 10\uCCB4\uB825\uC744 \uC790\uB3D9 \uC218\uB9AC\uD569\uB2C8\uB2E4"
+    materialRequirements:
+    - item: {fileID: 11400000, guid: a31667490a5a72d4fb036051380b0c53, type: 2}
+      amount: 1
+    - item: {fileID: 11400000, guid: e370f60cbacc7a847ad9a73dc5c5d12d, type: 2}
+      amount: 1

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System;
 
 [RequireComponent(typeof(FactionHandler))]
 public class Spaceship : MonoBehaviour, IDamageable
@@ -11,9 +11,28 @@ public class Spaceship : MonoBehaviour, IDamageable
     [SerializeField]
     private float currentHealth;       // 우주선 현재 체력
 
+    private Coroutine autoRepairCoroutine;
+    private float autoRepairAmount = 10f;
+    private float autoRepairInterval = 0f;
+
     private void Start()
     {
         currentHealth = maxHealth;
+
+        if (WaveManager.Instance != null)
+        {
+            WaveManager.Instance.OnWaveStarted += HandleWaveStarted;
+            WaveManager.Instance.OnWaveEnded += HandleWaveEnded;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (WaveManager.Instance != null)
+        {
+            WaveManager.Instance.OnWaveStarted -= HandleWaveStarted;
+            WaveManager.Instance.OnWaveEnded -= HandleWaveEnded;
+        }
     }
 
     public void TakeDamage(float amount)
@@ -23,6 +42,7 @@ public class Spaceship : MonoBehaviour, IDamageable
 
         if (currentHealth <= 0f)
         {
+            StopAutoRepair(); // 죽을 때 회복 중단
             OnDeath();
         }
     }
@@ -41,5 +61,50 @@ public class Spaceship : MonoBehaviour, IDamageable
     public float GetCurrentHealth()
     {
         return currentHealth;
+    }
+
+    public void SetAutoRepairInterval(float interval)
+    {
+        autoRepairInterval = interval;
+    }
+
+    public void StartAutoRepair(float intervalSeconds)
+    {
+        autoRepairInterval = intervalSeconds;
+        autoRepairAmount = 10f;
+
+        if (autoRepairCoroutine != null)
+            StopCoroutine(autoRepairCoroutine);
+
+        autoRepairCoroutine = StartCoroutine(AutoRepairCoroutine());
+    }
+
+    public void StopAutoRepair()
+    {
+        if (autoRepairCoroutine != null)
+        {
+            StopCoroutine(autoRepairCoroutine);
+            autoRepairCoroutine = null;
+        }
+    }
+
+    private IEnumerator AutoRepairCoroutine()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(autoRepairInterval);
+            Heal(autoRepairAmount);
+        }
+    }
+
+    private void HandleWaveStarted(int waveIndex)
+    {
+        StopAutoRepair();
+    }
+
+    private void HandleWaveEnded(int waveIndex)
+    {
+        if (autoRepairInterval > 0f)
+            StartAutoRepair(autoRepairInterval);
     }
 }

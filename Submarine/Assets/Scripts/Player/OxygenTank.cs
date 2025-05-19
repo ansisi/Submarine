@@ -10,9 +10,11 @@ public class OxygenTank : MonoBehaviour
     public float maxOxygenTime = 400f;    // 최대 산소 시간
     private float elapsedOxygenTime = 0f; // 누적 산소 소비 시간
 
+    [SerializeField] private float oxygenEfficiency = 1f; // 1이면 정상, 0.95면 5% 감소
+
     void Update()
     {
-        elapsedOxygenTime += Time.deltaTime;
+        elapsedOxygenTime += Time.deltaTime * oxygenEfficiency;
 
         // 비율 계산 (0~1)
         float oxygenRatio = Mathf.Clamp01(elapsedOxygenTime / maxOxygenTime);
@@ -38,6 +40,11 @@ public class OxygenTank : MonoBehaviour
     {
         StopCoroutine("RefillOxygen");
         StartCoroutine(RefillOxygen(amount));
+    }
+
+    public void SetOxygenEfficiency(float efficiency)
+    {
+        oxygenEfficiency = Mathf.Clamp(efficiency, 0f, 1f); // 안전하게 제한
     }
 
     private IEnumerator RefillOxygen(float amount)

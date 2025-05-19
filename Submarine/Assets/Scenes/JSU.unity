@@ -5764,7 +5764,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5970316663771290304, guid: 9b0d04cac268b3241a9c915a856f4650, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5900,7 +5900,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3283916939738490417, guid: a576dcbb819a1414fae6660ca551e872, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5459921333978702981, guid: a576dcbb819a1414fae6660ca551e872, type: 3}
       propertyPath: rotationSpeed
@@ -6737,6 +6737,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a12cde9e353c1042bfebceb48dc9e56, type: 3}
+--- !u!114 &1053711183 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4799167130512335593, guid: 8a12cde9e353c1042bfebceb48dc9e56, type: 3}
+  m_PrefabInstance: {fileID: 1053711182}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63d5fc72dd127824f9430f480cec3fe2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1053711188 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9205031859619340687, guid: 8a12cde9e353c1042bfebceb48dc9e56, type: 3}
@@ -7799,7 +7810,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 100, y: -20}
-  m_SizeDelta: {x: 200, y: 40}
+  m_SizeDelta: {x: 300, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1260148768
 CanvasRenderer:
@@ -8186,6 +8197,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d431fb78a0a9ba94f8e1e38a768f4ef7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spaceship: {fileID: 1053711183}
+  oxygenTank: {fileID: 1458216876}
 --- !u!4 &1309706689
 Transform:
   m_ObjectHideFlags: 0
@@ -8833,6 +8846,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 282982874639249866, guid: da89b167f9e669942955d23fde545c06, type: 3}
   m_PrefabInstance: {fileID: 4883684237616947427}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1458216876 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8314469790731995752, guid: da89b167f9e669942955d23fde545c06, type: 3}
+  m_PrefabInstance: {fileID: 4883684237616947427}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96cd1b3f0f976654c80878e8a6b09256, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1464792333
 GameObject:
   m_ObjectHideFlags: 0
@@ -11704,7 +11728,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5970316663771290304, guid: 9b0d04cac268b3241a9c915a856f4650, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -13073,7 +13097,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   preparationTime: 15
   waveList:
-  - {fileID: 11400000, guid: 464a2909ca751324f9685d9d9a85104c, type: 2}
+  - {fileID: 11400000, guid: 1da503c43958ffc48a2c719384e7e794, type: 2}
+  - {fileID: 11400000, guid: 1da503c43958ffc48a2c719384e7e794, type: 2}
   enemySpawner: {fileID: 411993716}
 --- !u!4 &2065536476
 Transform:
@@ -13902,6 +13927,10 @@ PrefabInstance:
       propertyPath: oxygenText
       value: 
       objectReference: {fileID: 1697991257}
+    - target: {fileID: 8314469790731995752, guid: da89b167f9e669942955d23fde545c06, type: 3}
+      propertyPath: maxOxygenTime
+      value: 300
+      objectReference: {fileID: 0}
     - target: {fileID: 8823025258791316971, guid: da89b167f9e669942955d23fde545c06, type: 3}
       propertyPath: waterText
       value: 
