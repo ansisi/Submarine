@@ -21,18 +21,16 @@ MonoBehaviour:
     levelDescription: "\uBE44\uC804\uD22C \uC0C1\uD669 \uC2DC 20\uCD08\uB9C8\uB2E4
       \uC6B0\uC8FC\uC120\uC758 10\uCCB4\uB825\uC744 \uC790\uB3D9 \uC218\uB9AC\uD569\uB2C8\uB2E4"
     materialRequirements:
-    - item: {fileID: 11400000, guid: cc7ad17992b53ed459d7acb1909490ae, type: 2}
+    - item: {fileID: 11400000, guid: 20aa834c3705ac0459f893bab6406069, type: 2}
       amount: 2
-    - item: {fileID: 11400000, guid: a31667490a5a72d4fb036051380b0c53, type: 2}
-      amount: 1
-    - item: {fileID: 11400000, guid: 284b17f5fd50d944f95668d586cfb057, type: 2}
+    - item: {fileID: 11400000, guid: db91ed7ddf64a0f408efaac9c4e26ea9, type: 2}
       amount: 2
   - level: 2
     goldCost: 300
     levelDescription: "\uBE44\uC804\uD22C \uC0C1\uD669 \uC2DC 15\uCD08\uB9C8\uB2E4
       \uC6B0\uC8FC\uC120\uC758 10\uCCB4\uB825\uC744 \uC790\uB3D9 \uC218\uB9AC\uD569\uB2C8\uB2E4"
     materialRequirements:
-    - item: {fileID: 11400000, guid: a31667490a5a72d4fb036051380b0c53, type: 2}
-      amount: 1
-    - item: {fileID: 11400000, guid: e370f60cbacc7a847ad9a73dc5c5d12d, type: 2}
+    - item: {fileID: 11400000, guid: db91ed7ddf64a0f408efaac9c4e26ea9, type: 2}
+      amount: 2
+    - item: {fileID: 11400000, guid: ebf7ba5816dc59c4790adad6689fc821, type: 2}
       amount: 1
