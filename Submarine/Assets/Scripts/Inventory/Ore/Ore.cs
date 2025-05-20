@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
+using static UnityEngine.Rendering.PostProcessing.SubpixelMorphologicalAntialiasing;
 
 public class Ore : InteractableBase
 {
@@ -52,7 +54,10 @@ public class Ore : InteractableBase
     {
         bool success = InventoryManager.Instance.AddItem(oreItem, yieldAmount);
         if (success)
+        {
+            NotificationManager.Instance.ShowPickup(oreItem, yieldAmount);
             Destroy(gameObject);
+        }
     }
 
     public override int Priority => 1; // 아이템보다 우선순위 낮게 설정 가능

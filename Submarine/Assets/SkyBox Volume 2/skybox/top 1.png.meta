@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7f52c2d6fe7851843bb676f8396fea42
+guid: 6a42599ce7da99f47bf41aff26e4ece4
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -95,76 +95,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: "05.18 esc \uC124\uC815_0"
-      rect:
-        serializedVersion: 2
-        x: 206
-        y: 500
-        width: 380
-        height: 540
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8e4a44bf090eb1c4191d2c62b4c6ed39
-      internalID: 733809438
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: "05.18 esc \uC124\uC815_9"
-      rect:
-        serializedVersion: 2
-        x: 264
-        y: 319
-        width: 263
-        height: 70
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 47f79be045f9e244cb70dc491357141c
-      internalID: -1859106067
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 658f65fac2a7dbf44ac129ef44925726
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      "05.18 esc \uC124\uC815_0": 733809438
-      "05.18 esc \uC124\uC815_1": 287703128
-      "05.18 esc \uC124\uC815_10": 67417494
-      "05.18 esc \uC124\uC815_11": -729415963
-      "05.18 esc \uC124\uC815_12": 1722854365
-      "05.18 esc \uC124\uC815_13": -337710965
-      "05.18 esc \uC124\uC815_14": 2108038078
-      "05.18 esc \uC124\uC815_15": 881113329
-      "05.18 esc \uC124\uC815_2": 1188324092
-      "05.18 esc \uC124\uC815_3": 1723596582
-      "05.18 esc \uC124\uC815_4": -750737784
-      "05.18 esc \uC124\uC815_5": 1031125530
-      "05.18 esc \uC124\uC815_6": 1629233152
-      "05.18 esc \uC124\uC815_7": 755911106
-      "05.18 esc \uC124\uC815_8": -1865760291
-      "05.18 esc \uC124\uC815_9": -1859106067
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
