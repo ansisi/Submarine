@@ -6,89 +6,102 @@ using UnityEngine.UI;
 
 public class TimerUI : MonoBehaviour
 {
-    public Image timerImage;               // UI 원형 이미지
-    public WaveManager waveManager;        // 웨이브 매니저 참조
+    public Image circleImage;             // UI 원형 이미지 (fillAmount로 채움)
+    public GameObject messagePanel;       // 메시지 그룹
+    public TextMeshProUGUI messageText;   // 메시지 텍스트
 
-    [Header("웨이브 메시지 UI")]
-    public GameObject waveMessageGroup;           // 전체 그룹 (통째로 껐다 켬)
-    public TextMeshProUGUI waveMessageText;       // 텍스트만
+    private enum State { None, Wave, Downtime }
+    private State state = State.None;
 
-    private float timeRemaining = 0f;      // 현재 타이머 시간
-    private float totalTime = 0f;          // 타이머 전체 시간
-    private int lastWave = 0;              // 마지막에 감지한 웨이브
-    private bool isDowntime = false;       // 지금이 쉬는 시간인지 여부
-    private bool isTimerRunning = false;   // 타이머가 진행 중인지 여부
+    private float totalTime;
+    private float remainingTime;
 
-    void Start()
+    private void OnEnable()
     {
-        lastWave = waveManager.GetCurrentWave(); // 타이머는 시작하지 않음
-        isTimerRunning = false;
-
-        waveMessageGroup.SetActive(false);
+        WaveManager.Instance.OnWaveStarted += OnWaveStarted;
+        WaveManager.Instance.OnWaveEnded += OnWaveEnded;
     }
 
-    void Update()
+    private void OnDisable()
     {
-        int currentWave = waveManager.GetCurrentWave();
+        WaveManager.Instance.OnWaveStarted -= OnWaveStarted;
+        WaveManager.Instance.OnWaveEnded -= OnWaveEnded;
+    }
 
-        // 웨이브가 새로 시작됐는지 감지
-        if (currentWave > lastWave)
+    private void Start()
+    {
+        HideAll();
+    }
+
+    private void Update()
+    {
+        if (state == State.None) return;
+
+        remainingTime -= Time.deltaTime;
+        remainingTime = Mathf.Max(remainingTime, 0f);
+
+        // 남은 비율에 따라 원형 게이지 채우기
+        circleImage.fillAmount = remainingTime / totalTime;
+
+        if (remainingTime <= 0f)
         {
-            lastWave = currentWave;
-            isDowntime = false;
-            StartWaveTimer();
-            ShowWaveMessage($"Wave {currentWave} 시작!");
-        }
-
-        if (!isTimerRunning) return;
-
-        // 타이머 감소
-        timeRemaining -= Time.deltaTime;
-        float fill = Mathf.Clamp01(timeRemaining / totalTime);
-        timerImage.fillAmount = fill;
-
-        if (timeRemaining <= 0f)
-        {
-            isTimerRunning = false;
-
-            if (!isDowntime)
-            {
-                // 웨이브 시간 종료 → 쉬는 시간으로 전환
-                isDowntime = true;
-                StartDowntimeTimer();
-                ShowWaveMessage("정비 시간!");
-            }
+            // 타이머 자동 숨김
+            HideTimer();
+            state = State.None;
         }
     }
 
-    private void StartWaveTimer()
+    private void OnWaveStarted(int waveIndex)
     {
-        totalTime = waveManager.waveList[waveManager.GetCurrentWave()].waveDuration;
-        timeRemaining = totalTime;
-        isTimerRunning = true;
+        totalTime = WaveManager.Instance.waveList[waveIndex].waveDuration;
+        remainingTime = totalTime;
+        state = State.Wave;
+
+        ShowTimer();
+        ShowMessage($"Wave {waveIndex + 1} 시작!");
     }
 
-    private void StartDowntimeTimer()
+    private void OnWaveEnded(int waveIndex)
     {
-        totalTime = waveManager.preparationTime;
-        timeRemaining = totalTime;
-        isTimerRunning = true;
+        totalTime = WaveManager.Instance.preparationTime;
+        remainingTime = totalTime;
+        state = State.Downtime;
+
+        ShowTimer();
+        ShowMessage("정비 시간!");
     }
 
-    private void ShowWaveMessage(string message)
+    private void ShowTimer()
     {
-        StopAllCoroutines(); // 메시지가 겹치지 않도록
-        StartCoroutine(ShowMessageRoutine(message));
+        // circleImage가 속해있는 부모 패널(예: TimerPanel) 활성화
+        circleImage.transform.parent.gameObject.SetActive(true);
     }
 
-    private IEnumerator ShowMessageRoutine(string message)
+    private void HideTimer()
     {
-        waveMessageText.text = message;
-        waveMessageGroup.SetActive(true);
+        circleImage.transform.parent.gameObject.SetActive(false);
+    }
 
-        yield return new WaitForSeconds(5f); // 2초 동안 표시
+    private void ShowMessage(string msg)
+    {
+        StopAllCoroutines();
+        StartCoroutine(MessageRoutine(msg));
+    }
 
-        waveMessageGroup.SetActive(false);
+    private IEnumerator MessageRoutine(string msg)
+    {
+        messageText.text = msg;
+        messagePanel.SetActive(true);
+
+        yield return new WaitForSeconds(2f);
+
+        messagePanel.SetActive(false);
+    }
+
+    private void HideAll()
+    {
+        circleImage.transform.parent.gameObject.SetActive(false);
+        messagePanel.SetActive(false);
     }
 
 }
