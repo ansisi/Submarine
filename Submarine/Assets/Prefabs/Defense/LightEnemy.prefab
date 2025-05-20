@@ -367,6 +367,68 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   modelTransform: {fileID: 2841677469915361738}
   rotationSpeed: 360
+--- !u!1001 &7189552190506164476
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2841677469915361738}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 1968f7c89eef8c643835c2ee16ee1849, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.88
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1968f7c89eef8c643835c2ee16ee1849, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.62
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1968f7c89eef8c643835c2ee16ee1849, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1968f7c89eef8c643835c2ee16ee1849, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1968f7c89eef8c643835c2ee16ee1849, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1968f7c89eef8c643835c2ee16ee1849, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1968f7c89eef8c643835c2ee16ee1849, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1968f7c89eef8c643835c2ee16ee1849, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1968f7c89eef8c643835c2ee16ee1849, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1968f7c89eef8c643835c2ee16ee1849, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1968f7c89eef8c643835c2ee16ee1849, type: 3}
+      propertyPath: m_Name
+      value: Fast
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1968f7c89eef8c643835c2ee16ee1849, type: 3}
+--- !u!4 &7227383350397044503 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1968f7c89eef8c643835c2ee16ee1849, type: 3}
+  m_PrefabInstance: {fileID: 7189552190506164476}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7550818218017573115
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -433,7 +495,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5739362408316893489, guid: 1d223b9230b437644b551ce0327ee220, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.22
+      value: -0.68
       objectReference: {fileID: 0}
     - target: {fileID: 5739362408316893489, guid: 1d223b9230b437644b551ce0327ee220, type: 3}
       propertyPath: m_LocalPosition.y
@@ -484,8 +546,12 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 2753230550640007003, guid: 1d223b9230b437644b551ce0327ee220, type: 3}
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 5739362408316893489, guid: 1d223b9230b437644b551ce0327ee220, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7227383350397044503}
     - targetCorrespondingSourceObject: {fileID: 5739362408316893489, guid: 1d223b9230b437644b551ce0327ee220, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7223552402466889840}
@@ -532,8 +598,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 10.583854, y: 4.0918922, z: 5.0855045}
-  m_Center: {x: -0.69862145, y: 0.6111876, z: 0.2867927}
+  m_Size: {x: 6.9750595, y: 1.9133503, z: 3.531303}
+  m_Center: {x: -0.19861856, y: 0.75677234, z: 0.026563603}
 --- !u!54 &1046214762780164554
 Rigidbody:
   m_ObjectHideFlags: 0

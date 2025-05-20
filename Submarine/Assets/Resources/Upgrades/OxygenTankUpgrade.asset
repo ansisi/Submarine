@@ -17,20 +17,18 @@ MonoBehaviour:
   icon: {fileID: -732640778, guid: ac43bfd067231b044abd0e6c950c7cbf, type: 3}
   levels:
   - level: 1
-    goldCost: 150
+    goldCost: 100
     levelDescription: "\uC0B0\uC18C \uC18C\uBE44 \uD6A8\uC728\uC774 3% \uC99D\uAC00\uD569\uB2C8\uB2E4."
     materialRequirements:
-    - item: {fileID: 11400000, guid: cc7ad17992b53ed459d7acb1909490ae, type: 2}
+    - item: {fileID: 11400000, guid: e370f60cbacc7a847ad9a73dc5c5d12d, type: 2}
       amount: 2
-    - item: {fileID: 11400000, guid: a31667490a5a72d4fb036051380b0c53, type: 2}
+    - item: {fileID: 11400000, guid: 263323f40fdede047ae7121edeaee9fc, type: 2}
       amount: 1
-    - item: {fileID: 11400000, guid: 284b17f5fd50d944f95668d586cfb057, type: 2}
-      amount: 2
   - level: 2
-    goldCost: 300
+    goldCost: 100
     levelDescription: "\uC0B0\uC18C \uC18C\uBE44 \uD6A8\uC728\uC774 5% \uC99D\uAC00\uD569\uB2C8\uB2E4."
     materialRequirements:
-    - item: {fileID: 11400000, guid: a31667490a5a72d4fb036051380b0c53, type: 2}
-      amount: 1
     - item: {fileID: 11400000, guid: e370f60cbacc7a847ad9a73dc5c5d12d, type: 2}
+      amount: 1
+    - item: {fileID: 11400000, guid: 01612a8ce5ce7664e908857004bc4bc5, type: 2}
       amount: 1
