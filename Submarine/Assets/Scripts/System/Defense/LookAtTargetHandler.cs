@@ -7,6 +7,14 @@ public class LookAtTargetHandler : MonoBehaviour
     public Transform modelTransform; // 모델 회전 처리용 자식 트랜스폼
     public float rotationSpeed = 360f;
 
+    [Header("Enemy Rotation X Values")]
+    [SerializeField] private float enemyLeftLookX = 40f;   // 적이 왼쪽을 볼 때 X축 회전값
+    [SerializeField] private float enemyRightLookX = -40f; // 적이 오른쪽을 볼 때 X축 회전값
+
+    [Header("Enemy Rotation Y Values")]
+    [SerializeField] private float enemyLeftLookY = 180f;   // 적이 왼쪽을 볼 때 X축 회전값
+    [SerializeField] private float enemyRightLookY = 0f; // 적이 오른쪽을 볼 때 X축 회전값
+
     private Transform target;
 
     public void SetTarget(Transform newTarget)
@@ -40,13 +48,13 @@ public class LookAtTargetHandler : MonoBehaviour
             {
                 //왼쪽을 볼 때
                 modelTransform.localRotation = isEnemy
-                    ? Quaternion.Euler(40f, 180f, 0f) : Quaternion.Euler(0f, 180f, 0f); // 적 : 터렛
+                    ? Quaternion.Euler(enemyLeftLookX, enemyLeftLookY, 0f) : Quaternion.Euler(0f, 180f, 0f); // 적 : 터렛
             }
             else
             {
                 //오른쪽을 볼 때
                 modelTransform.localRotation = isEnemy
-                    ? Quaternion.Euler(-40f, 0f, 0f) : Quaternion.Euler(0f, 0f, 0f);  // 적 : 터렛
+                    ? Quaternion.Euler(enemyRightLookX, enemyRightLookY, 0f) : Quaternion.Euler(0f, 0f, 0f);  // 적 : 터렛
             }
         }
     }
