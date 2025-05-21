@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AlloyPlate
   m_EditorClassIdentifier: 
   itemName: "\uD569\uAE08\uD310"
-  icon: {fileID: 0}
+  icon: {fileID: 2077996306, guid: 75668d6195a457f4aa681fc003b9c47d, type: 3}
   buyPrice: 35
   sellPrice: 30
   isStackable: 1
