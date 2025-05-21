@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f0a601aa87a3d143b972739e9b32e07, type: 3}
+  m_Name: Test_3
+  m_EditorClassIdentifier: 
+  waveDuration: 60
+  subWaves:
+  - spawnTime: 5
+    enemySpawnDatas:
+    - enemyPrefab: {fileID: 3777617835739875713, guid: 427a2e321be22394db1f66b6361ad430, type: 3}
+      spawnCount: 1
+    - enemyPrefab: {fileID: 7317922985657874811, guid: a29f6423e239c3f4d8e25385c255993a, type: 3}
+      spawnCount: 1
+    - enemyPrefab: {fileID: 3249911611737780658, guid: c4537fa203570e448a8b8339e678aa9e, type: 3}
+      spawnCount: 1
+    - enemyPrefab: {fileID: 5970316663771290304, guid: 9b0d04cac268b3241a9c915a856f4650, type: 3}
+      spawnCount: 1
+  - spawnTime: 10
+    enemySpawnDatas:
+    - enemyPrefab: {fileID: 3777617835739875713, guid: 427a2e321be22394db1f66b6361ad430, type: 3}
+      spawnCount: 1
+    - enemyPrefab: {fileID: 7317922985657874811, guid: a29f6423e239c3f4d8e25385c255993a, type: 3}
+      spawnCount: 1
+    - enemyPrefab: {fileID: 3249911611737780658, guid: c4537fa203570e448a8b8339e678aa9e, type: 3}
+      spawnCount: 1
+    - enemyPrefab: {fileID: 5970316663771290304, guid: 9b0d04cac268b3241a9c915a856f4650, type: 3}
+      spawnCount: 1
+  - spawnTime: 20
+    enemySpawnDatas:
+    - enemyPrefab: {fileID: 3777617835739875713, guid: 427a2e321be22394db1f66b6361ad430, type: 3}
+      spawnCount: 1
+    - enemyPrefab: {fileID: 7317922985657874811, guid: a29f6423e239c3f4d8e25385c255993a, type: 3}
+      spawnCount: 1
+    - enemyPrefab: {fileID: 3249911611737780658, guid: c4537fa203570e448a8b8339e678aa9e, type: 3}
+      spawnCount: 1
+    - enemyPrefab: {fileID: 5970316663771290304, guid: 9b0d04cac268b3241a9c915a856f4650, type: 3}
+      spawnCount: 1
+  - spawnTime: 30
+    enemySpawnDatas:
+    - enemyPrefab: {fileID: 3777617835739875713, guid: 427a2e321be22394db1f66b6361ad430, type: 3}
+      spawnCount: 1
+    - enemyPrefab: {fileID: 7317922985657874811, guid: a29f6423e239c3f4d8e25385c255993a, type: 3}
+      spawnCount: 1
+    - enemyPrefab: {fileID: 3249911611737780658, guid: c4537fa203570e448a8b8339e678aa9e, type: 3}
+      spawnCount: 1
+    - enemyPrefab: {fileID: 5970316663771290304, guid: 9b0d04cac268b3241a9c915a856f4650, type: 3}
+      spawnCount: 1
+  - spawnTime: 40
+    enemySpawnDatas:
+    - enemyPrefab: {fileID: 3777617835739875713, guid: 427a2e321be22394db1f66b6361ad430, type: 3}
+      spawnCount: 1
+    - enemyPrefab: {fileID: 7317922985657874811, guid: a29f6423e239c3f4d8e25385c255993a, type: 3}
+      spawnCount: 1
+    - enemyPrefab: {fileID: 3249911611737780658, guid: c4537fa203570e448a8b8339e678aa9e, type: 3}
+      spawnCount: 1
+    - enemyPrefab: {fileID: 5970316663771290304, guid: 9b0d04cac268b3241a9c915a856f4650, type: 3}
+      spawnCount: 1
+  - spawnTime: 50
+    enemySpawnDatas:
+    - enemyPrefab: {fileID: 3777617835739875713, guid: 427a2e321be22394db1f66b6361ad430, type: 3}
+      spawnCount: 1
+    - enemyPrefab: {fileID: 7317922985657874811, guid: a29f6423e239c3f4d8e25385c255993a, type: 3}
+      spawnCount: 1
+    - enemyPrefab: {fileID: 3249911611737780658, guid: c4537fa203570e448a8b8339e678aa9e, type: 3}
+      spawnCount: 1
+    - enemyPrefab: {fileID: 5970316663771290304, guid: 9b0d04cac268b3241a9c915a856f4650, type: 3}
+      spawnCount: 1

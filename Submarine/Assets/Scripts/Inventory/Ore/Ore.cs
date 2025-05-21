@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
-using static UnityEngine.Rendering.PostProcessing.SubpixelMorphologicalAntialiasing;
+
 
 public class Ore : InteractableBase
 {
