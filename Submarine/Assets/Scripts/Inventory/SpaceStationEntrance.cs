@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpaceStationEntrance : InteractableBase
 {
@@ -8,12 +9,17 @@ public class SpaceStationEntrance : InteractableBase
 
     public GameObject ShopUIPanel;
 
+    public Button closeButton;
+
     private void Start()
     {
         InteractionManager.instance.Register(this);
         spaceStationUI.SetActive(false); // 처음에는 비활성화
 
         if (ShopUIPanel != null) ShopUIPanel.SetActive(false);
+
+        if (closeButton != null)
+            closeButton.onClick.AddListener(CloseSpaceStationUI);
     }
 
     private void OnDestroy()
@@ -34,17 +40,14 @@ public class SpaceStationEntrance : InteractableBase
         if (ShopUIPanel != null) ShopUIPanel.SetActive(false);
     }
 
-    private void Update()
+    private void CloseSpaceStationUI()
     {
-        if (spaceStationUI.activeSelf && Input.GetKeyDown(KeyCode.Escape))
-        {
-            spaceStationUI.SetActive(false); // UI 닫기
-            InteractionManager.instance.SetInteractionLocked(false);
+        spaceStationUI.SetActive(false);
+        InteractionManager.instance.SetInteractionLocked(false);
 
-            if (ShopUIPanel != null) ShopUIPanel.SetActive(false);
-
-            ShopManager.Instance.CloseShop();
-        }
+        if (ShopUIPanel != null) ShopUIPanel.SetActive(false);
+        
+        ShopManager.Instance.CloseShop();
     }
 
     public override int Priority => 10;

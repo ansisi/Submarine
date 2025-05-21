@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpaceshipEntrance : InteractableBase
 {
@@ -8,6 +9,8 @@ public class SpaceshipEntrance : InteractableBase
 
     public GameObject craftingUIPanel;
     public GameObject craftingDetailUIPanel;
+
+    public Button closeButton;
 
 
     private void Start()
@@ -17,6 +20,9 @@ public class SpaceshipEntrance : InteractableBase
 
         if (craftingUIPanel != null) craftingUIPanel.SetActive(false);
         if (craftingDetailUIPanel != null) craftingDetailUIPanel.SetActive(false);
+
+        if (closeButton != null)
+            closeButton.onClick.AddListener(CloseSpaceshipUI);
     }
 
     private void OnDestroy()
@@ -49,18 +55,13 @@ public class SpaceshipEntrance : InteractableBase
         if (craftingDetailUIPanel != null) craftingDetailUIPanel.SetActive(false);
     }
 
-    private void Update()
+    private void CloseSpaceshipUI()
     {
-        if (spaceshipUI.activeSelf && Input.GetKeyDown(KeyCode.Escape))
-        {
-            spaceshipUI.SetActive(false);
-            // 플레이어 조작 다시 활성화 등
+        spaceshipUI.SetActive(false);
 
-            if (craftingUIPanel != null) craftingUIPanel.SetActive(false);
-            if (craftingDetailUIPanel != null) craftingDetailUIPanel.SetActive(false);
-
-            InteractionManager.instance.SetInteractionLocked(false);
-        }
+        if (craftingUIPanel != null) craftingUIPanel.SetActive(false);
+        if (craftingDetailUIPanel != null) craftingDetailUIPanel.SetActive(false);
+        InteractionManager.instance.SetInteractionLocked(false);
     }
 
     public override int Priority => 10; // 우선순위 낮게 하면 아이템보다 뒤로 밀릴 수 있음
