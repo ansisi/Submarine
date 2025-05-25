@@ -74,3 +74,5 @@ MonoBehaviour:
       spawnCount: 0
     - enemyPrefab: {fileID: 5970316663771290304, guid: 9b0d04cac268b3241a9c915a856f4650, type: 3}
       spawnCount: 0
+  clearRewardItem: {fileID: 11400000, guid: 7c1a15375917e6a47b707ba528291117, type: 2}
+  clearRewardQuantity: 2

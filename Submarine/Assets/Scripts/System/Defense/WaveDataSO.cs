@@ -10,6 +10,10 @@ public class WaveDataSO : ScriptableObject
 
     [Header("서브 웨이브 리스트")]
     public List<SubWaveData> subWaves;
+
+    [Header("웨이브 클리어 보상")]
+    public Item clearRewardItem;    // 웨이브 클리어 시 지급할 아이템
+    public int clearRewardQuantity; // 지급할 아이템 수량
 }
 
 [System.Serializable]

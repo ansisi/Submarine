@@ -7,6 +7,8 @@ public class WaveManager : MonoBehaviour
 {
     public static WaveManager Instance { get; private set; }
 
+    private int aliveEnemyCount = 0; // 현재 웨이브의 살아있는 적 수
+
     [Header("웨이브 설정")]
     public float preparationTime = 30f; // 웨이브 전 준비 시간
     public List<WaveDataSO> waveList;
@@ -18,6 +20,9 @@ public class WaveManager : MonoBehaviour
 
     public event Action<int> OnWaveStarted;   // 웨이브 시작 이벤트 (UI 연결용 등)
     public event Action<int> OnWaveEnded;     // 웨이브 종료 이벤트 (UI, BGM 등)
+
+    private Coroutine waveRoutineCoroutine;  // WaveRoutine 코루틴 핸들 저장
+
 
     private void Awake()
     {
@@ -31,7 +36,7 @@ public class WaveManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T)) // 수정된 코드입니다
+        if (Input.GetKeyDown(KeyCode.T)) 
         {
             TriggerWaveStart();
         }
@@ -50,13 +55,14 @@ public class WaveManager : MonoBehaviour
     {
         Logger.Log($"Wave {currentWave + 1} 준비 시작 (준비 시간 {preparationTime}초)");
         yield return new WaitForSeconds(preparationTime);
-        StartCoroutine(WaveRoutine(waveList[currentWave]));
+        waveRoutineCoroutine = StartCoroutine(WaveRoutine(waveList[currentWave]));
     }
 
     private IEnumerator WaveRoutine(WaveDataSO waveData)
     {
         isWaveRunning = true;
 
+        aliveEnemyCount = 0;  // 웨이브 시작 시 적 수 초기화
         OnWaveStarted?.Invoke(currentWave);
         Logger.Log($"Wave {currentWave + 1} 시작!");
 
@@ -85,16 +91,53 @@ public class WaveManager : MonoBehaviour
         float remaining = waveStartTime + waveData.waveDuration - Time.time;
         if (remaining > 0)
             yield return new WaitForSeconds(remaining);
+        // 다음 웨이브는 다음 트리거로 시작됨 (대기 상태)
+        // 시간이 다 되어도 적이 남아있으면 파밍 상태 유지 (보상은 적 처치 기준으로 처리)
+    }
 
-        Logger.Log($"Wave {currentWave + 1} 종료! (이제 파밍 시간)");
+    public void RegisterSpawnedEnemies(int count)
+    {
+        aliveEnemyCount += count; // 스폰될 때 호출
+    }
+
+    public void OnEnemyKilled()
+    {
+        aliveEnemyCount--; // 적이 죽을 때마다 호출
+
+        if (aliveEnemyCount <= 0 && isWaveRunning)
+        {
+            Logger.Log($"Wave {currentWave + 1} 모든 적 처치 완료!");
+
+            if (waveRoutineCoroutine != null)
+            {
+                StopCoroutine(waveRoutineCoroutine); // 웨이브 진행 코루틴만 중지
+                waveRoutineCoroutine = null;
+            }
+
+            EndCurrentWave();
+        }
+    }
+
+    private void EndCurrentWave()
+    {
+        Logger.Log($"Wave {currentWave + 1} 종료! (보상 지급)");
 
         OnWaveEnded?.Invoke(currentWave);
         BgmManager.Instance.StartRepair();
 
+        GiveClearReward(waveList[currentWave]);
+
         isWaveRunning = false;
         currentWave++;
+    }
 
-        // 다음 웨이브는 다음 트리거로 시작됨 (대기 상태)
+    private void GiveClearReward(WaveDataSO waveData)
+    {
+        if (waveData.clearRewardItem != null && waveData.clearRewardQuantity > 0)
+        {
+            InventoryManager.Instance.AddItem(waveData.clearRewardItem, waveData.clearRewardQuantity);
+            Logger.Log($"보상 지급: {waveData.clearRewardItem.name} x{waveData.clearRewardQuantity}");
+        }
     }
 
     public int GetCurrentWave() => currentWave;

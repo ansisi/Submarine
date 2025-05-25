@@ -15,6 +15,8 @@ public class EnemySpawner : MonoBehaviour
             Logger.LogError("Spaceship transform is not assigned!");
             return;
         }
+       
+        int totalSpawnCount = 0;
 
         foreach (var spawnData in subWave.enemySpawnDatas)
         {
@@ -36,8 +38,12 @@ public class EnemySpawner : MonoBehaviour
                 {
                     enemy.transform.SetParent(enemyParent);
                 }
+
+                enemy.GetComponentInChildren<Enemy>().Initialize(this); // Enemy가 죽으면 이 Spawner로 알림
+                totalSpawnCount++;
             }
         }
+        WaveManager.Instance.RegisterSpawnedEnemies(totalSpawnCount);
     }
 
     // OnDrawGizmosSelected: 씬 뷰에서 해당 객체가 선택되었을 때만 반경을 시각적으로 표시

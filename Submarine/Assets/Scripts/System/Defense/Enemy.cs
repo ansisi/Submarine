@@ -27,6 +27,8 @@ public class Enemy : MonoBehaviour, IDamageable
     protected Coroutine damageCoroutine;
     protected LookAtTargetHandler lookAtHandler;
 
+    private EnemySpawner spawner;
+
     void Start()
     {
         lookAtHandler = GetComponentInParent<LookAtTargetHandler>(); // LookAtTargetHandler 컴포넌트 가져오기
@@ -123,6 +125,7 @@ public class Enemy : MonoBehaviour, IDamageable
     // 사망 처리
     protected void Die()
     {
+        WaveManager.Instance.OnEnemyKilled();
         Destroy(transform.parent.gameObject);
     }
 
@@ -176,6 +179,11 @@ public class Enemy : MonoBehaviour, IDamageable
         float dist = Vector3.Distance(transform.position, closestPoint);
 
         return dist;
+    }
+
+    public void Initialize(EnemySpawner spawner)
+    {
+        this.spawner = spawner;
     }
 
     void OnDrawGizmosSelected()

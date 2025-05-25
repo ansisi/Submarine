@@ -8,11 +8,15 @@ public class WaveDataSOEditor : Editor
 {
     private SerializedProperty waveDurationProp;
     private SerializedProperty subWavesProp;
+    private SerializedProperty clearRewardItemProp;
+    private SerializedProperty clearRewardQuantityProp;
 
     private void OnEnable()
     {
         waveDurationProp = serializedObject.FindProperty("waveDuration");
         subWavesProp = serializedObject.FindProperty("subWaves");
+        clearRewardItemProp = serializedObject.FindProperty("clearRewardItem");
+        clearRewardQuantityProp = serializedObject.FindProperty("clearRewardQuantity");
     }
 
     public override void OnInspectorGUI()
@@ -21,6 +25,11 @@ public class WaveDataSOEditor : Editor
 
         EditorGUILayout.LabelField("웨이브 설정", EditorStyles.boldLabel);
         EditorGUILayout.PropertyField(waveDurationProp);
+
+        EditorGUILayout.Space();
+        EditorGUILayout.LabelField("웨이브 클리어 보상", EditorStyles.boldLabel); 
+        EditorGUILayout.PropertyField(clearRewardItemProp, new GUIContent("보상 아이템")); 
+        EditorGUILayout.PropertyField(clearRewardQuantityProp, new GUIContent("보상 수량")); 
 
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("서브 웨이브 리스트", EditorStyles.boldLabel);
