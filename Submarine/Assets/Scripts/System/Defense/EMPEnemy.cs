@@ -27,6 +27,9 @@ public class EMPEnemy : Enemy
 
     private void CheckEMPRange()
     {
+        // 파괴된 Turret들 turretsInRange에서 제거
+        turretsInRange.RemoveWhere(turret => turret == null);
+
         Collider[] hits = Physics.OverlapSphere(transform.position, empRange);
         HashSet<Turret> currentTurrets = new HashSet<Turret>();
 

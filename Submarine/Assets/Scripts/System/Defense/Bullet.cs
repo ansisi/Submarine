@@ -8,6 +8,7 @@ public class Bullet : MonoBehaviour
     public float damage = 10f;
     public string faction; // "Player" 또는 "Enemy"
     public Vector3 direction; // 총알의 이동 방향
+    private Collider ownerCollider; // 발사한 포탑의 콜라이더
 
 
     void Start()
@@ -30,6 +31,11 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // 발사자 자신은 무시
+        if (other == ownerCollider)
+        {
+            return;
+        }
         // 대상이 지형 오브젝트라면 총알 제거
         if (other.CompareTag("Terrain"))
         {
@@ -54,6 +60,34 @@ public class Bullet : MonoBehaviour
             }
 
             Destroy(gameObject);
+        }
+    }
+
+    // 발사할 때 Turret 쪽에서 호출해줍니다
+    public void Initialize(Vector3 direction, Collider owner)
+    {
+        this.direction = direction;
+        this.ownerCollider = owner;
+
+        if (ownerCollider != null)
+        {
+            Collider bulletCollider = GetComponent<Collider>();
+            if (bulletCollider != null)
+            {
+                Physics.IgnoreCollision(bulletCollider, ownerCollider, true);
+
+                // 0.1초 후 다시 충돌 허용
+                StartCoroutine(ReenableCollision(bulletCollider, ownerCollider, 0.1f));
+            }
+        }
+    }
+
+    private IEnumerator ReenableCollision(Collider bulletCollider, Collider ownerCollider, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (bulletCollider != null && ownerCollider != null)
+        {
+            Physics.IgnoreCollision(bulletCollider, ownerCollider, false);
         }
     }
 }

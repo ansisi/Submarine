@@ -7,7 +7,6 @@ public class HackingEnemy : Enemy
     public float hackRange = 5f;                 // 해킹 범위
     public float checkInterval = 0.2f;           // 해킹 검사 주기(초)
     public float hackDuration = 5f;               // 해킹 지속 시간
-    public float hackCooldown = 10f;              // 해킹 쿨타임 (포탑별 개별 관리 X, 여기서는 쿨다운을 포탑에 맡김)
 
     private HashSet<Turret> turretsInRange = new HashSet<Turret>();   // 해킹 중인 포탑들
     private Coroutine checkCoroutine;
@@ -39,7 +38,7 @@ public class HackingEnemy : Enemy
             {
                 currentTurrets.Add(turret);
 
-                if (!turretsInRange.Contains(turret) && turret.IsHackable)
+                if (!turretsInRange.Contains(turret))
                 {
                     turretsInRange.Add(turret);
                     turret.SetHacked(true, hackDuration);  // 해킹 시작
@@ -51,7 +50,7 @@ public class HackingEnemy : Enemy
         var removedTurrets = new List<Turret>();
         foreach (var turret in turretsInRange)
         {
-            if (!currentTurrets.Contains(turret))
+            if (!currentTurrets.Contains(turret) || !turret.IsHacked)
             {
                 turret.SetHacked(false);
                 removedTurrets.Add(turret);

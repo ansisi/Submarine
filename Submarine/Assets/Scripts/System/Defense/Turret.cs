@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public interface IDamageable
 {
     void TakeDamage(float amount);
@@ -18,7 +20,7 @@ public class Turret : MonoBehaviour, IDamageable
     public float maxDurability = 100f;
     public LayerMask enemyLayer;
     public bool isDisabled { get; private set; } = false; // EMP 상태
-    public bool isHacked { get; private set; } = false; // 해킹 상태
+    
 
     [SerializeField]
     private float currentDurability;
@@ -30,15 +32,21 @@ public class Turret : MonoBehaviour, IDamageable
     private HashSet<EMPEnemy> empSources = new HashSet<EMPEnemy>(); // 여러 EMPEnemy 출처를 관리하기 위한 집합
     private Renderer[] turretRenderers;
     private Color[] originalColors;
+    private bool isEMP = false; // EMP 상태 별도 관리
 
     //해킹 드론 관련
-    private GameObject hackedTarget;
-    private float hackCooldownTimer = 0f; // 해킹 쿨타임 관리용
+    private bool isHacked = false;
+    private float hackDurationTimer = 0f; // 해킹 지속시간
+    [SerializeField] 
+    private float hackCooldown = 10f; // 개인 해킹 쿨타임
+    private float hackCooldownTimer = 0f; // 현재 쿨타임 카운터
+    
 
     // 해킹 상태일 때 공격할 대상 태그 목록 우선순위
     private readonly string[] hackedTargetPriorityTags = new string[] { "Turret", "BuffTurret", "Spaceship" };
+    public bool IsHacked => isHacked;
 
-    public bool IsHackable => !isHacked && hackCooldownTimer <= 0f;
+
 
 
 
@@ -62,31 +70,51 @@ public class Turret : MonoBehaviour, IDamageable
     void Update()
     {
         if (hackCooldownTimer > 0f)
-        {
             hackCooldownTimer -= Time.deltaTime;
-            if (hackCooldownTimer <= 0f && isHacked)
-            {
-                SetHacked(false);  // 쿨타임 끝나면 해킹 해제
-            }
-        }
-
-        if (currentDurability <= 0 || isDisabled) return;
 
         if (isHacked)
         {
-            FindHackedTarget();  // 해킹 상태일 때는 아군 공격 목표 찾기
-        }
-        else
-        {
-            FindTarget();        // 정상 상태일 때는 적 공격 목표 찾기
+            if (hackDurationTimer > 0f)
+                hackDurationTimer -= Time.deltaTime;
+
+            if (hackDurationTimer <= 0f)
+            {
+                SetHacked(false);
+            }
         }
 
-        // 목표가 존재하면 회전
+        if (currentDurability <= 0) return;
+
+        if (isHacked)
+        {
+            FindHackedTarget();
+            if (target != null)
+            {
+                lookAtHandler.SetTarget(target);
+                if (Vector3.Distance(transform.position, target.position) <= range)
+                {
+                    if (Time.time >= nextFireTime)
+                    {
+                        Fire();
+                        nextFireTime = Time.time + 1f / fireRate;
+                    }
+                }
+            }
+            // 해킹 상태라 회전은 활성화되어 있음
+
+            return;
+        }
+
+        if (isDisabled) // EMP 상태에서는 공격 및 회전 중단
+        {
+            return;
+        }
+
+        // 정상 상태 공격 로직
+        FindTarget();
         if (target != null)
         {
-            lookAtHandler.SetTarget(target);  // 타겟 설정
-
-            // 사정거리 내에서만 공격
+            lookAtHandler.SetTarget(target);
             if (Vector3.Distance(transform.position, target.position) <= range)
             {
                 if (Time.time >= nextFireTime)
@@ -138,7 +166,7 @@ public class Turret : MonoBehaviour, IDamageable
             Bullet bulletScript = bullet.GetComponent<Bullet>();
             if (bulletScript != null)
             {
-                bulletScript.direction = direction; // Bullet의 방향 설정
+                bulletScript.Initialize(direction, GetComponent<Collider>()); // Bullet의 방향 설정
             }
 
             // 총알 발사 방향을 선으로 시각화
@@ -149,15 +177,16 @@ public class Turret : MonoBehaviour, IDamageable
     // EMP 출처 추가 (EMPEnemy가 비활성화 신호 보낼 때 호출)
     public void AddEMPSource(EMPEnemy source)
     {
-        if (empSources.Add(source)) // 새로 추가되면 상태 업데이트
-        {
-            UpdateEMPStatus();
-        }
+        if (source == null) return; // 방어코드
+        empSources.Add(source);
+        UpdateEMPStatus();
     }
 
     // EMP 출처 제거 (EMPEnemy가 범위 벗어나거나 죽을 때 호출)
     public void RemoveEMPSource(EMPEnemy source)
     {
+        if (this == null) return; // Turret이 파괴됐으면 무시
+
         if (empSources.Remove(source))
         {
             UpdateEMPStatus();
@@ -167,19 +196,18 @@ public class Turret : MonoBehaviour, IDamageable
     // EMP 출처 개수에 따라 비활성화 상태 변경
     private void UpdateEMPStatus()
     {
-        bool shouldDisable = empSources.Count > 0;
+        // 파괴된 EMPEnemy 객체 제거 (null 검사)
+        empSources.RemoveWhere(source => source == null);
+        isEMP = empSources.Count > 0 && !isHacked; // EMP 활성화 조건: EMP 신호 있고 해킹 중 아님
 
-        if (shouldDisable != isDisabled)
-        {
-            isDisabled = shouldDisable;
-            if (isDisabled) DisableTurret();
-            else EnableTurret();
-        }
+        UpdateTurretState(); // EMP 상태 변경 후 최종 상태 갱신
     }
 
     // 실제 비활성화 처리
     private void DisableTurret()
     {
+        if (this == null) return; // 오브젝트가 파괴되었으면 함수 종료
+
         Logger.Log($"{name} - EMP에 의해 비활성화됨");
         //이펙트, 사운드 재생 등 추가 처리 가능
 
@@ -187,16 +215,14 @@ public class Turret : MonoBehaviour, IDamageable
         if (lookAtHandler != null)
             lookAtHandler.enabled = false;
 
-        // 색상 변경 
-        for (int i = 0; i < turretRenderers.Length; i++)
-        {
-            turretRenderers[i].material.color = new Color(0f, 0.4f, 0.5f, 1f);
-        }
+        ResetTurretColor(); // 색상 복원 
     }
 
     // 실제 활성화 처리
     private void EnableTurret()
     {
+        if (this == null) return; // 오브젝트가 파괴되었으면 함수 종료
+
         Logger.Log($"{name} - EMP 해제되어 활성화됨");
         // 이펙트 정지, 상태 복구 등 추가 처리 가능
 
@@ -204,46 +230,66 @@ public class Turret : MonoBehaviour, IDamageable
         if (lookAtHandler != null)
             lookAtHandler.enabled = true;
 
-        // 색상 원래대로 복원
-        for (int i = 0; i < turretRenderers.Length; i++)
-        {
-            turretRenderers[i].material.color = originalColors[i];
-        }
+        ResetTurretColor(); // 색상 복원
     }
 
-    public void SetHacked(bool hacked, float hackCooldown = 5f)
+    public void SetHacked(bool hacked, float hackDuration = 5f)
     {
+        if (this == null || this.gameObject == null)
+        {
+            // 이미 파괴된 상태면 함수 조기 종료
+            return;
+        }
         if (hacked)
         {
-            isHacked = true;
-            hackCooldownTimer = hackCooldown;
-            OnHackedStart();
+
+            if (isHacked)  // 이미 해킹 상태면 중복 무시
+                return;
+
+            if (hackCooldownTimer <= 0f && !isHacked)  // 쿨타임 끝났고 해킹 중이 아니면 허용
+            {
+                isHacked = true;
+                hackDurationTimer = hackDuration;
+                OnHackedStart();
+
+                // EMP 상태가 있으면 해킹 우선. EMP는 무효화 상태로 변경(해킹이 우선)
+                if (isEMP)
+                {
+                    isEMP = false;
+                    Logger.Log($"{name} - EMP 해제, 해킹 우선 적용");
+                }
+            }
         }
         else
         {
-            isHacked = false;
-            OnHackedEnd();
+            if (isHacked) // 해킹 종료 시에만 처리
+            {
+                isHacked = false;
+                hackDurationTimer = 0;
+                hackCooldownTimer = hackCooldown; // 해킹 쿨타임 시작
+                OnHackedEnd();
+
+                // 해킹 끝났는데 EMP 신호가 여전히 있다면 EMP 상태 활성화
+                if (empSources.Count > 0)
+                {
+                    isEMP = true;
+                    Logger.Log($"{name} - 해킹 해제 후 EMP 상태 전환");
+                }
+            }
         }
+        UpdateTurretState();
     }
 
     private void OnHackedStart()
     {
-        // 해킹 시작 시 처리 (예: 색상 변경)
-        for (int i = 0; i < turretRenderers.Length; i++)
-        {
-            turretRenderers[i].material.color = Color.red;  // 해킹 중 색상 예시
-        }
+        ResetTurretColor(); // 색상 복원 대신 상태 기반 갱신
 
         // 추가로 해킹 시 동작 변경 로직 가능
     }
 
     private void OnHackedEnd()
     {
-        // 해킹 종료 시 처리 (색상 복구)
-        for (int i = 0; i < turretRenderers.Length; i++)
-        {
-            turretRenderers[i].material.color = originalColors[i];
-        }
+        ResetTurretColor(); // 색상 복원 대신 상태 기반 갱신
 
         // 추가로 해킹 해제 시 동작 복구 로직 가능
     }
@@ -259,10 +305,10 @@ public class Turret : MonoBehaviour, IDamageable
             foreach (var candidate in candidates)
             {
                 // 자신(해킹당한 포탑) 제외
-                if (candidate == this.gameObject) continue;
+                if (candidate == this.gameObject || !candidate.activeInHierarchy) continue;
 
                 float dist = Vector3.Distance(transform.position, candidate.transform.position);
-                if (dist < shortestDist)
+                if (dist < range && dist < shortestDist)  // 사거리 내인지 검사 추가
                 {
                     shortestDist = dist;
                     nearest = candidate.transform;
@@ -275,6 +321,64 @@ public class Turret : MonoBehaviour, IDamageable
             }
         }
         target = nearest;
+    }
+
+    private void UpdateTurretState()
+    {
+        if (this == null) return; // 오브젝트가 파괴되었으면 함수 종료
+
+        // 상태 우선순위: 해킹 > EMP > 정상
+        if (isHacked)
+        {
+            if (isDisabled)  // 만약 비활성 상태라면 활성화 처리
+            {
+                isDisabled = false;
+                EnableTurret();  // 터렛 기능 활성화
+            }
+            lookAtHandler.enabled = true;  // 해킹 시 조준기능 켜기
+            UpdateTurretColor(Color.red);  // 해킹 상태 컬러
+        }
+        else if (isEMP)
+        {
+            if (!isDisabled)  // EMP인데 아직 활성 상태면 비활성화 처리
+            {
+                isDisabled = true;
+                DisableTurret();  // 터렛 기능 비활성화
+            }
+            UpdateTurretColor(new Color(0f, 0.4f, 0.5f, 1f));  // EMP 색상
+        }
+        else
+        {
+            if (isDisabled)  // 일반 상태인데 비활성화면 활성화 처리
+            {
+                isDisabled = false;
+                EnableTurret();
+            }
+            lookAtHandler.enabled = true;  // 정상 상태, 조준 활성화
+            ResetTurretColor();  // 기본 색상
+        }
+    }
+
+    private void UpdateTurretColor(Color color)
+    {
+        for (int i = 0; i < turretRenderers.Length; i++)
+        {
+            if (turretRenderers[i] != null)
+            {
+                turretRenderers[i].material.color = color;
+            }
+        }
+    }
+
+    private void ResetTurretColor()
+    {
+        for (int i = 0; i < turretRenderers.Length; i++)
+        {
+            if (turretRenderers[i] != null)
+            {
+                turretRenderers[i].material.color = originalColors[i];
+            }
+        }
     }
 
     public void TakeDamage(float amount)

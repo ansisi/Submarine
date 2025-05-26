@@ -85,6 +85,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 7133164937181243955, guid: e95f426290bfd0a46932036479665111, type: 3}
+  hackedBulletPrefab: {fileID: 4014919754184610970, guid: d233a971e8277ca4dbd90f1e28d57201, type: 3}
   firePoint: {fileID: 9895778739135408}
   fireRate: 2
   range: 15
