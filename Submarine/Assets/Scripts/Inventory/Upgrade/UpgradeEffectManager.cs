@@ -77,7 +77,37 @@ public class UpgradeEffectManager : MonoBehaviour
     }
 
     // 나머지 업그레이드 함수들은 추후 구현
-    private void ApplySpaceshipUpgrade(int level) { /* TODO */ }
+    private void ApplySpaceshipUpgrade(int level) 
+    {
+        if (spaceship != null)
+        {
+            float multiplier;
+
+            switch (level)
+            {
+                case 1:
+                    multiplier = 1.05f; // 5% 증가
+                    break;
+                case 2:
+                    multiplier = 1.07f; // 7% 증가
+                    break;
+                case 3:
+                    multiplier = 1.10f; // 10% 증가
+                    break;
+                default:
+                    Logger.LogWarning("알 수 없는 Spaceship 업그레이드 레벨: " + level);
+                    return;
+            }
+
+            float baseMaxHealth = spaceship.baseMaxHealth; // 기준 체력 값 사용
+            spaceship.maxHealth = baseMaxHealth * multiplier;
+
+        }
+        else
+        {
+            Logger.LogWarning("Spaceship 업그레이드 실패: spaceship 객체가 null입니다.");
+        }
+    }
     private void ApplyOxygenUpgrade(int level) 
     {
         if (oxygenTank != null)

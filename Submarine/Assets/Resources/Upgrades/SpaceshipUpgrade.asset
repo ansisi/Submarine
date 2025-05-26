@@ -13,24 +13,26 @@ MonoBehaviour:
   m_Name: SpaceshipUpgrade
   m_EditorClassIdentifier: 
   upgradeType: 1
-  upgradeName: "\uC6B0\uC8FC\uC120 \uC5C5\uADF8\uB808\uC774\uB4DC(\uBBF8)"
+  upgradeName: "\uC6B0\uC8FC\uC120 \uC5C5\uADF8\uB808\uC774\uB4DC"
   icon: {fileID: -616712198, guid: 64c9c658859b18f4e987d88c1ed2a9a8, type: 3}
   levels:
   - level: 1
-    goldCost: 150
-    levelDescription: "\uD0D0\uC9C0 \uBC94\uC704\uAC00 1\uB2E8\uACC4\uB85C \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    goldCost: 200
+    levelDescription: "\uC6B0\uC8FC\uC120\uC758 \uB0B4\uAD6C\uB3C4\uB97C 5% \uC99D\uAC00
+      \uC2DC\uD0B5\uB2C8\uB2E4."
     materialRequirements:
-    - item: {fileID: 11400000, guid: cc7ad17992b53ed459d7acb1909490ae, type: 2}
-      amount: 2
-    - item: {fileID: 11400000, guid: a31667490a5a72d4fb036051380b0c53, type: 2}
+    - item: {fileID: 11400000, guid: db91ed7ddf64a0f408efaac9c4e26ea9, type: 2}
+      amount: 3
+    - item: {fileID: 11400000, guid: 20aa834c3705ac0459f893bab6406069, type: 2}
       amount: 1
-    - item: {fileID: 11400000, guid: 284b17f5fd50d944f95668d586cfb057, type: 2}
-      amount: 2
   - level: 2
     goldCost: 300
-    levelDescription: "\uD0D0\uC9C0 \uBC94\uC704\uAC00 2\uB2E8\uACC4\uB85C \uC99D\uAC00\uD569\uB2C8\uB2E4."
+    levelDescription: "\uC6B0\uC8FC\uC120\uC758 \uB0B4\uAD6C\uB3C4\uB97C 7% \uC99D\uAC00
+      \uC2DC\uD0B5\uB2C8\uB2E4."
     materialRequirements:
-    - item: {fileID: 11400000, guid: a31667490a5a72d4fb036051380b0c53, type: 2}
+    - item: {fileID: 11400000, guid: ebf7ba5816dc59c4790adad6689fc821, type: 2}
       amount: 1
-    - item: {fileID: 11400000, guid: e370f60cbacc7a847ad9a73dc5c5d12d, type: 2}
+    - item: {fileID: 11400000, guid: 20aa834c3705ac0459f893bab6406069, type: 2}
+      amount: 2
+    - item: {fileID: 11400000, guid: db91ed7ddf64a0f408efaac9c4e26ea9, type: 2}
       amount: 1

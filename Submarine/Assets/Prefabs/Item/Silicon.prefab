@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7054094978205461291}
   - component: {fileID: 3524653153664667078}
   - component: {fileID: -6894105491924803950}
+  - component: {fileID: 322998594645269186}
   m_Layer: 0
   m_Name: Silicon
   m_TagString: Untagged
@@ -71,6 +72,18 @@ MonoBehaviour:
   oreItem: {fileID: 11400000, guid: cc7ad17992b53ed459d7acb1909490ae, type: 2}
   yieldAmount: 3
   oreTier: 1
+--- !u!114 &322998594645269186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7626776859837181140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b713679381dbdb4b98739c6da1e8090, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &741790791570596141
 PrefabInstance:
   m_ObjectHideFlags: 0

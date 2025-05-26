@@ -6,6 +6,8 @@ public class OreSpawner : MonoBehaviour
 {
     public GameObject orePrefab;       // 다양한 광석 프리팹 배열
     public int oreCount = 20;          // 생성할 광석 수
+    public float respawnDelay = 5f; // 재생성 대기 시간
+    private List<OreSpawnPoint> spawnPoints = new List<OreSpawnPoint>();
     public float radiusX = 5f;         // X축 반지름 (가로)
     public float radiusY = 3f;         // Y축 반지름 (세로)
     public Vector3 radiusCenter;       // 범위의 중심
@@ -34,6 +36,42 @@ public class OreSpawner : MonoBehaviour
             GameObject ore = Instantiate(orePrefab, spawnPos, rotation);
             // 부모로 설정하되, 월드 좌표 기준으로 유지 → 스케일 영향 없음
             ore.transform.SetParent(transform, true);
+
+            // OreSpawnPoint 리스트에 저장
+            spawnPoints.Add(new OreSpawnPoint { position = spawnPos, rotation = rotation, isOccupied = true });
+
+            // OreObject 스크립트에서 이 spawner에 접근할 수 있도록 연결
+            OreObject oreObject = ore.GetComponent<OreObject>();
+            if (oreObject != null)
+            {
+                oreObject.Initialize(this, i); // i는 spawnPoints 인덱스
+            }
+        }
+    }
+
+    public void HandleOreMined(int index)
+    {
+        if (index < 0 || index >= spawnPoints.Count)
+            return;
+
+        spawnPoints[index].isOccupied = false;
+        StartCoroutine(RespawnOreAfterDelay(index));
+    }
+
+    private IEnumerator RespawnOreAfterDelay(int index)
+    {
+        yield return new WaitForSeconds(respawnDelay);
+
+        var point = spawnPoints[index];
+        GameObject ore = Instantiate(orePrefab, point.position, point.rotation);
+        ore.transform.SetParent(transform, true);
+
+        spawnPoints[index].isOccupied = true;
+
+        OreObject oreObject = ore.GetComponent<OreObject>();
+        if (oreObject != null)
+        {
+            oreObject.Initialize(this, index);
         }
     }
 
@@ -54,4 +92,12 @@ public class OreSpawner : MonoBehaviour
             prevPoint = nextPoint;
         }
     }
+}
+
+[System.Serializable]
+public class OreSpawnPoint
+{
+    public Vector3 position;
+    public Quaternion rotation;
+    public bool isOccupied; // 현재 광석이 살아있는지
 }

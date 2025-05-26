@@ -9,9 +9,12 @@ public class Ore : InteractableBase
     public int yieldAmount = 1;
     public int oreTier = 1; // 필요한 곡괭이 등급
 
+    private OreObject oreObject; // OreSpawner 관리용
+
     private void Start()
     {
         InteractionManager.instance.Register(this);
+        oreObject = GetComponent<OreObject>();
     }
 
     private void OnDestroy()
@@ -55,6 +58,12 @@ public class Ore : InteractableBase
         if (success)
         {
             NotificationManager.Instance.ShowPickup(oreItem, yieldAmount);
+
+            if (oreObject != null)
+            {
+                oreObject.OnMined(); // OreSpawner에 재생성 요청
+            }
+
             Destroy(gameObject);
         }
     }

@@ -8,12 +8,17 @@ public class Spaceship : MonoBehaviour, IDamageable
 {
     [Header("Spaceship Health Settings")]
     public float maxHealth = 100f;     // 우주선 최대 체력
-    [SerializeField]
-    private float currentHealth;       // 우주선 현재 체력
+    public float baseMaxHealth = 100f; // 업그레이드 전 기본 maxHealth
+    [SerializeField] private float currentHealth;       // 우주선 현재 체력
 
     private Coroutine autoRepairCoroutine;
     private float autoRepairAmount = 10f;
     private float autoRepairInterval = 0f;
+
+    private void Awake()
+    {
+        baseMaxHealth = maxHealth; // 초기값을 Awake에서 기록
+    }
 
     private void Start()
     {
