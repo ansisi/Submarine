@@ -29,7 +29,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     private EnemySpawner spawner;
 
-    void Start()
+    protected virtual void Start()
     {
         lookAtHandler = GetComponentInParent<LookAtTargetHandler>(); // LookAtTargetHandler 컴포넌트 가져오기
         currentHealth = maxHealth;  // 체력 초기화
@@ -38,6 +38,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     void Update()
     {
+
         if (target == null) FindTarget();
         if (target == null) return;
 
@@ -129,32 +130,6 @@ public class Enemy : MonoBehaviour, IDamageable
         Destroy(transform.parent.gameObject);
     }
 
-
-    // 충돌 시 피해 주기 (붙어서 공격)
-    //void OnCollisionEnter(Collision collision)
-    //{
-    //    var otherFaction = collision.gameObject.GetComponent<FactionHandler>();
-    //    if (otherFaction != null && otherFaction.faction != GetComponent<FactionHandler>().faction)
-    //    {
-    //        var dmg = collision.gameObject.GetComponent<IDamageable>();
-    //        if (dmg != null && damageCoroutine == null)
-    //            damageCoroutine = StartCoroutine(DealDamageOverTime(dmg));
-    //    }
-    //}
-
-    //void OnCollisionExit(Collision collision)
-    //{
-    //    var otherFaction = collision.gameObject.GetComponent<FactionHandler>();
-    //    if (otherFaction != null && otherFaction.faction != GetComponent<FactionHandler>().faction)
-    //    {
-    //        if (damageCoroutine != null)
-    //        {
-    //            StopCoroutine(damageCoroutine);
-    //            damageCoroutine = null;
-    //        }
-    //    }
-    //}
-
     IEnumerator DealDamageOverTime(IDamageable dmg)
     {
         while (dmg != null && (dmg as MonoBehaviour) != null)
@@ -186,7 +161,7 @@ public class Enemy : MonoBehaviour, IDamageable
         this.spawner = spawner;
     }
 
-    void OnDrawGizmosSelected()
+    protected virtual void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, attackRange);
