@@ -28,6 +28,12 @@ public class InventoryUIController : MonoBehaviour
         isOpen = !isOpen;
         inventoryPanel.SetActive(isOpen);
 
+        if (isOpen)
+        {
+            // 퀘스트용 이벤트 발송
+            QuestEventSystem.Raise(QuestActionType.OpenInventory);
+        }
+
     }
 
 }

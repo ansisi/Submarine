@@ -18,6 +18,8 @@ public class PlayerMovement : MonoBehaviour
 
     public float boostOxygenConsumptionRate = 2f; // 초당 부스트 산소 소모량
 
+    private bool hasMoved = false;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -47,6 +49,17 @@ public class PlayerMovement : MonoBehaviour
         if (isBoosting && oxygenTank != null)
         {
             oxygenTank.ConsumeOxygen(boostOxygenConsumptionRate * Time.deltaTime);
+        }
+
+        bool inputDetected =
+            Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) ||
+            Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D);
+
+        if (!hasMoved && inputDetected)
+        {
+            hasMoved = true;
+            QuestEventSystem.Raise(QuestActionType.Move);
+            Logger.Log("[PlayerMovement] Move 이벤트 발송");
         }
 
         // 이동 입력 (WASD)

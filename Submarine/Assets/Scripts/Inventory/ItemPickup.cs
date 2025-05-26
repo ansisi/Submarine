@@ -28,6 +28,8 @@ public class ItemPickup : InteractableBase
         bool success = InventoryManager.Instance.AddItem(item, quantity);
         if (success)
         {
+            QuestEventSystem.Raise(QuestActionType.CollectResource, item.itemName);
+
             // “줍기”한 경우에만 알림 호출
             NotificationManager.Instance.ShowPickup(item, quantity);
             Destroy(gameObject);

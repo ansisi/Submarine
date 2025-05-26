@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class SpaceshipEntrance : InteractableBase
 {
@@ -11,6 +12,9 @@ public class SpaceshipEntrance : InteractableBase
     public GameObject craftingDetailUIPanel;
 
     public Button closeButton;
+
+    public Item item;
+    private bool IsEntrance = false;
 
 
     private void Start()
@@ -53,6 +57,15 @@ public class SpaceshipEntrance : InteractableBase
 
         if (craftingUIPanel != null) craftingUIPanel.SetActive(false);
         if (craftingDetailUIPanel != null) craftingDetailUIPanel.SetActive(false);
+
+        QuestEventSystem.Raise(QuestActionType.EnterShip);
+
+        if(!IsEntrance)
+        {
+            QuestEventSystem.Raise(QuestActionType.EnterShip);
+            InventoryManager.Instance.AddItem(item, 1);
+            IsEntrance = true;
+        }
     }
 
     private void CloseSpaceshipUI()

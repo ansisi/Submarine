@@ -111,6 +111,7 @@ public class InventorySlotUI : MonoBehaviour
             case "물":
             case "Water":
                 WaterTank.Instance?.AddWater(30f);
+                QuestEventSystem.Raise(QuestActionType.UseConsumable, item.itemName);
                 break;
 
             // 다른 소모품 추가 가능
