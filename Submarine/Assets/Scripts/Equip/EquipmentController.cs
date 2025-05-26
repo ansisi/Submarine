@@ -58,6 +58,8 @@ public class EquipmentController : MonoBehaviour
         harpoonGunModel.SetActive(index == 0);
         hookGunModel.SetActive(index == 1);
         pickaxeModel.SetActive(index == 2); // °î±ªÀÌ ¸ðµ¨Àº PickaxeÀÏ ¶§¸¸ º¸ÀÌ±â
+
+        QuestEventSystem.Raise(QuestActionType.EquipSlot, index.ToString());
     }
 
     public bool IsPickaxeEquipped()

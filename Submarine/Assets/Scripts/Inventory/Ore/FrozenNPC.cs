@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class FrozenNPC : InteractableBase
 {
@@ -41,6 +42,8 @@ public class FrozenNPC : InteractableBase
             GameManager.Instance.MarkNPCRescued();
             GameUIController.Instance.UnlockNPCUpgradeUI();
             Destroy(gameObject);
+
+            QuestEventSystem.Raise(QuestActionType.NPCResuce);
         }
         else
         {

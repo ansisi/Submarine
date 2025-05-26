@@ -50,7 +50,13 @@ public class CraftingManager : MonoBehaviour
             }
         }
 
+        
+
         InventoryManager.Instance.AddItem(recipe.resultItem, recipe.resultQuantity);
         InventoryUIManager.instance.UpdateUI();
+
+        var craftedName = recipe.resultItem.itemName;
+
+        QuestEventSystem.Raise(QuestActionType.CraftItem, craftedName);
     }
 }

@@ -43,6 +43,8 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;               // 게임 일시정지
         GameIsPaused = true;
+
+        QuestEventSystem.Raise(QuestActionType.OpenPauseMenu);
     }
 
     private void ResumeGame()
