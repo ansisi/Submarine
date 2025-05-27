@@ -10,6 +10,8 @@ public class PauseMenu : MonoBehaviour
 
     [Header("UI References")]
     [SerializeField] private GameObject pauseMenuUI;
+    [SerializeField] private GameObject optionsMenuUI;
+
     [SerializeField] private Button resumeButton;
     [SerializeField] private Button optionsButton;
     [SerializeField] private Button quitButton;
@@ -18,6 +20,7 @@ public class PauseMenu : MonoBehaviour
     {
         // 1) 메뉴 숨기기
         pauseMenuUI.SetActive(false);
+        optionsMenuUI.SetActive(false);
 
         // 2) 버튼 클릭 리스너 연결
         resumeButton.onClick.AddListener(ResumeGame);
@@ -31,6 +34,13 @@ public class PauseMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            if (optionsMenuUI.activeSelf)
+            {
+                optionsMenuUI.SetActive(false);
+                pauseMenuUI.SetActive(true);
+                return;
+            }
+
             if (GameIsPaused)
                 ResumeGame();
             else
@@ -41,6 +51,7 @@ public class PauseMenu : MonoBehaviour
     private void PauseGame()
     {
         pauseMenuUI.SetActive(true);
+        optionsMenuUI.SetActive(false);
         Time.timeScale = 0f;               // 게임 일시정지
         GameIsPaused = true;
 
@@ -50,14 +61,15 @@ public class PauseMenu : MonoBehaviour
     private void ResumeGame()
     {
         pauseMenuUI.SetActive(false);
+        optionsMenuUI.SetActive(false);
         Time.timeScale = 1f;               // 게임 재개
         GameIsPaused = false;
     }
 
     private void OpenOptions()
     {
-        // TODO: 옵션 서브메뉴 활성화 로직
-        Debug.Log("Options 메뉴 열기 (추후 구현)");
+        pauseMenuUI.SetActive(false);
+        optionsMenuUI.SetActive(true);
     }
 
     private void QuitGame()

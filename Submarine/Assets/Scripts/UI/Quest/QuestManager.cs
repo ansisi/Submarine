@@ -38,14 +38,18 @@ public class QuestManager : MonoBehaviour
     private void HandleQuestAction(QuestActionType type, string param)
     {
         var step = activeQuest.CurrentStep;
-        if (step != null
-            && step.actionType == type
-            && step.parameter == param)
+        if (step == null) return;
+
+        bool typeMatches = step.actionType == type;
+        bool paramMatches = string.IsNullOrEmpty(step.parameter)
+                            // 파라미터를 비워 두면 어떤 값이나 허용
+                            || step.parameter == param;
+
+        if (typeMatches && paramMatches)
         {
             activeQuest.CompleteCurrentStep();
             QuestUI.Instance.UpdateOnStepComplete(activeQuest.currentIndex);
 
-            // 완료 후 다음 단계가 없으면 이 퀘스트 끝
             if (activeQuest.IsFinished)
                 FinishCurrentQuest();
         }

@@ -99,4 +99,11 @@ public class BgmManager : MonoBehaviour
     {
         PlayBGM(bgm1); // 정비 BGM 재생
     }
+
+    public void SetVolume(float volume)
+    {
+        // volume은 0~1 범위
+        audioSource.volume = Mathf.Clamp01(volume);
+    }
+
 }
