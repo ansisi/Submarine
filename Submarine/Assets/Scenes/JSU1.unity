@@ -7924,6 +7924,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenuUI: {fileID: 1467028215}
+  optionsMenuUI: {fileID: 0}
   resumeButton: {fileID: 1494075992}
   optionsButton: {fileID: 361684308}
   quitButton: {fileID: 1207008890}
@@ -16611,10 +16612,6 @@ PrefabInstance:
     - target: {fileID: 3249911611737780658, guid: 3c1910e0fb1a9b64bab6a338a926094f, type: 3}
       propertyPath: m_Name
       value: EMPDrone
-      objectReference: {fileID: 0}
-    - target: {fileID: 3249911611737780658, guid: 3c1910e0fb1a9b64bab6a338a926094f, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5624660915955172871, guid: 3c1910e0fb1a9b64bab6a338a926094f, type: 3}
       propertyPath: m_LocalPosition.x

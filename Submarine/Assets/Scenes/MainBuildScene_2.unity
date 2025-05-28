@@ -7814,6 +7814,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenuUI: {fileID: 1467028215}
+  optionsMenuUI: {fileID: 0}
   resumeButton: {fileID: 1494075992}
   optionsButton: {fileID: 361684308}
   quitButton: {fileID: 1207008890}
@@ -18317,9 +18318,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   preparationTime: 30
   waveList:
-  - {fileID: 11400000, guid: 85a017254d24b51438c2a0c2df4f7ee7, type: 2}
-  - {fileID: 11400000, guid: adb8ea51ca620564bba3c97a32bfbaf6, type: 2}
   - {fileID: 11400000, guid: cf17390be682d1b4cbabaaf655b9e5df, type: 2}
+  - {fileID: 11400000, guid: d90d25ad518473949a5a36187365172e, type: 2}
   enemySpawner: {fileID: 411993716}
 --- !u!4 &2065536476
 Transform:
