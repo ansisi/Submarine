@@ -10,8 +10,12 @@ public class GraphicsSettings : MonoBehaviour
     [Header("UI References")]
     public TMP_Dropdown resolutionDropdown;
     public Toggle fullscreenToggle;
+    public Toggle windowedToggle;
 
     private Resolution[] resolutions;
+
+    private const string KEY_RES_INDEX = "resolutionIndex";
+    private const string KEY_IS_FULLSCREEN = "isFullscreen";
 
     void Start()
     {
@@ -28,36 +32,53 @@ public class GraphicsSettings : MonoBehaviour
         resolutionDropdown.AddOptions(options);
 
         // 3) 이전에 저장된 값 불러오기
-        int savedResIndex = PlayerPrefs.GetInt("resolutionIndex", options.Count - 1);
-        bool isFullscreen = PlayerPrefs.GetInt("isFullscreen", Screen.fullScreen ? 1 : 0) == 1;
+        int savedResIndex = PlayerPrefs.GetInt(KEY_RES_INDEX, options.Count - 1);
+        bool isFullscreen = PlayerPrefs.GetInt(KEY_IS_FULLSCREEN, Screen.fullScreen ? 1 : 0) == 1;
 
         resolutionDropdown.value = Mathf.Clamp(savedResIndex, 0, options.Count - 1);
+
         fullscreenToggle.isOn = isFullscreen;
+        windowedToggle.isOn = !isFullscreen;
 
         ApplyResolution(savedResIndex);
         ApplyFullscreen(isFullscreen);
 
         // 4) UI 이벤트 연결
         resolutionDropdown.onValueChanged.AddListener(ApplyResolution);
-        fullscreenToggle.onValueChanged.AddListener(ApplyFullscreen);
+        fullscreenToggle.onValueChanged.AddListener(OnFullscreenToggled);
+        windowedToggle.onValueChanged.AddListener(OnWindowedToggled);
     }
 
     public void ApplyResolution(int index)
     {
-        // 중복 제거했으니 실제 Resolution 배열과 인덱스가 다를 수 있음
-        var optionText = resolutionDropdown.options[index].text;
-        var parts = optionText.Split('x');
+        var parts = resolutionDropdown.options[index].text.Split('x');
         int w = int.Parse(parts[0].Trim()), h = int.Parse(parts[1].Trim());
 
         Screen.SetResolution(w, h, Screen.fullScreen);
-        PlayerPrefs.SetInt("resolutionIndex", index);
+        PlayerPrefs.SetInt("KEY_RES_INDEX", index);
         PlayerPrefs.Save();
     }
 
-    public void ApplyFullscreen(bool isFullscreen)
+    public void ApplyFullscreen(bool isFull)
     {
-        Screen.fullScreen = isFullscreen;
-        PlayerPrefs.SetInt("isFullscreen", isFullscreen ? 1 : 0);
+        Screen.fullScreen = isFull;
+        PlayerPrefs.SetInt("isFullscreen", isFull ? 1 : 0);
         PlayerPrefs.Save();
+    }
+
+    void OnFullscreenToggled(bool isOn)
+    {
+        if (isOn)
+        {
+            ApplyFullscreen(true);
+        }
+    }
+
+    void OnWindowedToggled(bool isOn)
+    {
+        if (isOn)
+        {
+            ApplyFullscreen(false);
+        }
     }
 }
