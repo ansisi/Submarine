@@ -88,7 +88,13 @@ public class InventorySlotUI : MonoBehaviour
         if (item.isPlaceable && item.prefab != null && playerTransform != null)
         {
             Vector3 placePosition = playerTransform.position + Vector3.up * 1.5f;
-            Instantiate(item.prefab, placePosition, Quaternion.identity);
+            GameObject placedObject = Instantiate(item.prefab, placePosition, Quaternion.identity);
+
+            ITurretDeployable turretComponent = placedObject.GetComponent<ITurretDeployable>();
+            if (turretComponent != null)
+            {
+                turretComponent.OnDeployed();
+            }
 
             bool removed = InventoryManager.Instance.RemoveItem(item, 1);
             if (!removed)

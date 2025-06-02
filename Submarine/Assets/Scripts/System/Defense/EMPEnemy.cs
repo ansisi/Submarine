@@ -5,83 +5,38 @@ using UnityEngine;
 public class EMPEnemy : Enemy
 {
     public float empRange = 5f;  // EMP 범위
-    public float checkInterval = 0.2f;  // 검사 주기 (초)
-
-    private HashSet<Turret> turretsInRange = new HashSet<Turret>();  // 현재 EMP 범위 내 포탑들
-    private Coroutine checkCoroutine;
+    public float empDuration = 5f;  // EMP 효과 지속 시간
+    public GameObject empExplosionEffect; // EMP 폭발 이펙트 (옵션)
 
     protected override void Start()
     {
         base.Start(); 
-        checkCoroutine = StartCoroutine(CheckEMPRangeLoop());
     }
 
-    private IEnumerator CheckEMPRangeLoop()
+    protected override void Attack()
     {
-        while (true)
+        if (target != null)
         {
-            CheckEMPRange();
-            yield return new WaitForSeconds(checkInterval);
+            float dist = GetDistanceToTargetEdge();
+            if (dist <= attackRange)
+            {
+                ApplyEMPToNearbyTurrets();
+                Die();
+            }
         }
     }
 
-    private void CheckEMPRange()
+    private void ApplyEMPToNearbyTurrets()
     {
-        // 파괴된 Turret들 turretsInRange에서 제거
-        turretsInRange.RemoveWhere(turret => turret == null);
-
         Collider[] hits = Physics.OverlapSphere(transform.position, empRange);
-        HashSet<Turret> currentTurrets = new HashSet<Turret>();
-
         foreach (var hit in hits)
         {
             Turret turret = hit.GetComponent<Turret>();
             if (turret != null)
             {
-                currentTurrets.Add(turret);
-
-                if (!turretsInRange.Contains(turret))
-                {
-                    turretsInRange.Add(turret);
-                    turret.AddEMPSource(this);
-                }
+                turret.ApplyEMPEffect(empDuration);
             }
         }
-
-        var removedTurrets = new List<Turret>();
-        foreach (var turret in turretsInRange)
-        {
-            if (!currentTurrets.Contains(turret))
-            {
-                turret.RemoveEMPSource(this);
-                removedTurrets.Add(turret);
-            }
-        }
-
-        foreach (var turret in removedTurrets)
-        {
-            turretsInRange.Remove(turret);
-        }
-    }
-
-    protected override void Attack()
-    {
-        // EMPEnemy는 공격 안 함
-    }
-
-    private void OnDestroy()
-    {
-        if (checkCoroutine != null)
-        {
-            StopCoroutine(checkCoroutine);
-        }
-
-        foreach (var turret in turretsInRange)
-        {
-            if (turret != null)
-                turret.RemoveEMPSource(this);
-        }
-        turretsInRange.Clear();
     }
 
     protected override void OnDrawGizmosSelected()
@@ -89,6 +44,6 @@ public class EMPEnemy : Enemy
         base.OnDrawGizmosSelected();
 
         Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(transform.position, empRange);  // empRange 그대로 사용
+        Gizmos.DrawWireSphere(transform.position, empRange);
     }
 }

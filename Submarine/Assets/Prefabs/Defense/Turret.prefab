@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6270262596600990975}
   - component: {fileID: 3191001858865327417}
   - component: {fileID: 5459921333978702981}
+  - component: {fileID: 6494455775007091642}
   m_Layer: 0
   m_Name: Turret
   m_TagString: Turret
@@ -87,7 +88,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 7133164937181243955, guid: e95f426290bfd0a46932036479665111, type: 3}
   hackedBulletPrefab: {fileID: 4014919754184610970, guid: d233a971e8277ca4dbd90f1e28d57201, type: 3}
   firePoint: {fileID: 9895778739135408}
-  fireRate: 2
+  fireRate: 1
   range: 15
   maxDurability: 50
   enemyLayer:
@@ -139,6 +140,23 @@ MonoBehaviour:
   enemyRightLookX: -40
   enemyLeftLookY: 180
   enemyRightLookY: 0
+--- !u!114 &6494455775007091642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3283916939738490417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b0a5f9731931144ba724feff0cf7395, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colliderCount: 10
+  radiusX: 1
+  radiusY: 0.5
+  centerOffset: {x: 0, y: 0, z: 0}
+  colliderRadius: 0.5
 --- !u!1 &3520977921563940354
 GameObject:
   m_ObjectHideFlags: 0

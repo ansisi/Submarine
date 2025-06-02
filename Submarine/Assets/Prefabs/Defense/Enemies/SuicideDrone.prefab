@@ -192,7 +192,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthFillImage: {fileID: 943868220271325425}
-  enemy: {fileID: 0}
+  enemy: {fileID: 4667826548061035346}
 --- !u!1 &3249911611737780658
 GameObject:
   m_ObjectHideFlags: 0

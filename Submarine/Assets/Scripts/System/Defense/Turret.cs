@@ -20,6 +20,7 @@ public class Turret : MonoBehaviour, IDamageable
     public float maxDurability = 100f;
     public LayerMask enemyLayer;
     public bool isDisabled { get; private set; } = false; // EMP 상태
+
     
 
     [SerializeField]
@@ -27,24 +28,19 @@ public class Turret : MonoBehaviour, IDamageable
     private float nextFireTime = 0f;
     private Transform target;
     private LookAtTargetHandler lookAtHandler;
-    
+
     //EMP 드론 관련
-    private HashSet<EMPEnemy> empSources = new HashSet<EMPEnemy>(); // 여러 EMPEnemy 출처를 관리하기 위한 집합
+    private bool isEMPDisabled = false;      // 현재 EMP로 인해 비활성화되었는지
     private Renderer[] turretRenderers;
     private Color[] originalColors;
-    private bool isEMP = false; // EMP 상태 별도 관리
 
     //해킹 드론 관련
     private bool isHacked = false;
     private float hackDurationTimer = 0f; // 해킹 지속시간
-    [SerializeField] 
-    private float hackCooldown = 10f; // 개인 해킹 쿨타임
-    private float hackCooldownTimer = 0f; // 현재 쿨타임 카운터
-    
 
     // 해킹 상태일 때 공격할 대상 태그 목록 우선순위
     private readonly string[] hackedTargetPriorityTags = new string[] { "Turret", "BuffTurret", "Spaceship" };
-    public bool IsHacked => isHacked;
+    
 
 
 
@@ -69,8 +65,11 @@ public class Turret : MonoBehaviour, IDamageable
 
     void Update()
     {
-        if (hackCooldownTimer > 0f)
-            hackCooldownTimer -= Time.deltaTime;
+        if (isEMPDisabled)
+        {
+            // EMP 상태에서는 아무것도 못 함
+            return;
+        }
 
         if (isHacked)
         {
@@ -105,10 +104,7 @@ public class Turret : MonoBehaviour, IDamageable
             return;
         }
 
-        if (isDisabled) // EMP 상태에서는 공격 및 회전 중단
-        {
-            return;
-        }
+        
 
         // 정상 상태 공격 로직
         FindTarget();
@@ -174,35 +170,6 @@ public class Turret : MonoBehaviour, IDamageable
         }
     }
 
-    // EMP 출처 추가 (EMPEnemy가 비활성화 신호 보낼 때 호출)
-    public void AddEMPSource(EMPEnemy source)
-    {
-        if (source == null) return; // 방어코드
-        empSources.Add(source);
-        UpdateEMPStatus();
-    }
-
-    // EMP 출처 제거 (EMPEnemy가 범위 벗어나거나 죽을 때 호출)
-    public void RemoveEMPSource(EMPEnemy source)
-    {
-        if (this == null) return; // Turret이 파괴됐으면 무시
-
-        if (empSources.Remove(source))
-        {
-            UpdateEMPStatus();
-        }
-    }
-
-    // EMP 출처 개수에 따라 비활성화 상태 변경
-    private void UpdateEMPStatus()
-    {
-        // 파괴된 EMPEnemy 객체 제거 (null 검사)
-        empSources.RemoveWhere(source => source == null);
-        isEMP = empSources.Count > 0 && !isHacked; // EMP 활성화 조건: EMP 신호 있고 해킹 중 아님
-
-        UpdateTurretState(); // EMP 상태 변경 후 최종 상태 갱신
-    }
-
     // 실제 비활성화 처리
     private void DisableTurret()
     {
@@ -215,7 +182,8 @@ public class Turret : MonoBehaviour, IDamageable
         if (lookAtHandler != null)
             lookAtHandler.enabled = false;
 
-        ResetTurretColor(); // 색상 복원 
+        // EMP 전용 색상 (기존: Cyan 계열)
+        UpdateTurretColor(new Color(0f, 0.4f, 0.5f, 1f));
     }
 
     // 실제 활성화 처리
@@ -233,6 +201,35 @@ public class Turret : MonoBehaviour, IDamageable
         ResetTurretColor(); // 색상 복원
     }
 
+    public void ApplyEMPEffect(float duration)
+    {
+        // 이미 해킹 중이면 EMP 무시
+        if (isHacked)
+            return;
+
+        // 중복 호출 방지
+        if (isEMPDisabled)
+            return;
+
+        StartCoroutine(EMPDisableCoroutine(duration));
+    }
+
+    private IEnumerator EMPDisableCoroutine(float duration)
+    {
+        // EMP 시작: 컬러 변경 + 컴포넌트 비활성화
+        isEMPDisabled = true;
+        isDisabled = true;  // public bool isDisabled 플래그 유지용
+        DisableTurret();    // 기존 DisableTurret() 호출해서 회전/사격 중단 + 컬러 변경
+
+        // duration 초 동안 대기
+        yield return new WaitForSeconds(duration);
+
+        // EMP 종료: 원래 상태 복귀
+        isEMPDisabled = false;
+        isDisabled = false;
+        EnableTurret();   // 기존 EnableTurret() 호출해서 정상 상태로 돌아오기
+    }
+
     public void SetHacked(bool hacked, float hackDuration = 5f)
     {
         if (this == null || this.gameObject == null)
@@ -246,19 +243,18 @@ public class Turret : MonoBehaviour, IDamageable
             if (isHacked)  // 이미 해킹 상태면 중복 무시
                 return;
 
-            if (hackCooldownTimer <= 0f && !isHacked)  // 쿨타임 끝났고 해킹 중이 아니면 허용
+            if (isDisabled || isEMPDisabled)
             {
-                isHacked = true;
-                hackDurationTimer = hackDuration;
-                OnHackedStart();
-
-                // EMP 상태가 있으면 해킹 우선. EMP는 무효화 상태로 변경(해킹이 우선)
-                if (isEMP)
-                {
-                    isEMP = false;
-                    Logger.Log($"{name} - EMP 해제, 해킹 우선 적용");
-                }
+                // EMP DisableCoroutine이 돌고 있는 중이면 곧바로 중단
+                isEMPDisabled = false;
+                isDisabled = false;
+                EnableTurret();
             }
+
+            isHacked = true;
+            hackDurationTimer = hackDuration;
+            OnHackedStart();
+
         }
         else
         {
@@ -266,15 +262,11 @@ public class Turret : MonoBehaviour, IDamageable
             {
                 isHacked = false;
                 hackDurationTimer = 0;
-                hackCooldownTimer = hackCooldown; // 해킹 쿨타임 시작
+                
                 OnHackedEnd();
 
                 // 해킹 끝났는데 EMP 신호가 여전히 있다면 EMP 상태 활성화
-                if (empSources.Count > 0)
-                {
-                    isEMP = true;
-                    Logger.Log($"{name} - 해킹 해제 후 EMP 상태 전환");
-                }
+                
             }
         }
         UpdateTurretState();
@@ -282,9 +274,8 @@ public class Turret : MonoBehaviour, IDamageable
 
     private void OnHackedStart()
     {
-        ResetTurretColor(); // 색상 복원 대신 상태 기반 갱신
+        UpdateTurretColor(Color.red);
 
-        // 추가로 해킹 시 동작 변경 로직 가능
     }
 
     private void OnHackedEnd()
@@ -336,16 +327,7 @@ public class Turret : MonoBehaviour, IDamageable
                 EnableTurret();  // 터렛 기능 활성화
             }
             lookAtHandler.enabled = true;  // 해킹 시 조준기능 켜기
-            UpdateTurretColor(Color.red);  // 해킹 상태 컬러
-        }
-        else if (isEMP)
-        {
-            if (!isDisabled)  // EMP인데 아직 활성 상태면 비활성화 처리
-            {
-                isDisabled = true;
-                DisableTurret();  // 터렛 기능 비활성화
-            }
-            UpdateTurretColor(new Color(0f, 0.4f, 0.5f, 1f));  // EMP 색상
+            
         }
         else
         {
