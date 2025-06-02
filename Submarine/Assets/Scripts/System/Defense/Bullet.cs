@@ -8,6 +8,9 @@ public class Bullet : MonoBehaviour
     public float damage = 10f;
     public string faction; // "Player" 또는 "Enemy"
     public Vector3 direction; // 총알의 이동 방향
+    public float lifeTime = 10f; // 총알이 존재할 최대 시간 (초)
+
+    private float lifeTimer = 0f; // 생성 후 경과 시간
     private Collider ownerCollider; // 발사한 포탑의 콜라이더
 
 
@@ -27,6 +30,12 @@ public class Bullet : MonoBehaviour
         Quaternion targetRotation = Quaternion.LookRotation(direction);
         targetRotation *= Quaternion.Euler(90f, 0f, 0f);
         transform.rotation = targetRotation;
+
+        lifeTimer += Time.deltaTime;
+        if (lifeTimer >= lifeTime)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
