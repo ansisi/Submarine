@@ -28,7 +28,7 @@ public class FrozenNPC : InteractableBase
         else if (pickaxe.pickaxeTier < requiredPickaxeTier)
             return "곡괭이 등급이 부족합니다.";
 
-        if (rescueAttempts >= 2)
+        if (rescueAttempts >= 1)
             return "[Space] NPC 구조하기";
 
         return $"구출 시도 하기";

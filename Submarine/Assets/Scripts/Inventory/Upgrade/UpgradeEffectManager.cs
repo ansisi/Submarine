@@ -137,7 +137,36 @@ public class UpgradeEffectManager : MonoBehaviour
             Logger.LogWarning("Oxygen 업그레이드 실패: oxygenTank가 null입니다.");
         }
     }
-    private void ApplyInventoryUpgrade(int level) { /* TODO */ }
+
+    private void ApplyInventoryUpgrade(int level)
+    {
+        int newSlotCount;
+
+        switch (level)
+        {
+            case 1:
+                newSlotCount = 12; 
+                break;
+            case 2:
+                newSlotCount = 15; 
+                break;
+            case 3:
+                newSlotCount = 20; 
+                break;
+            default:
+                Logger.LogWarning("알 수 없는 인벤토리 업그레이드 레벨: " + level);
+                return;
+        }
+
+        InventoryManager inventory = InventoryManager.Instance;
+        if (inventory == null)
+        {
+            Logger.LogWarning("Inventory 업그레이드 실패: InventoryManager 인스턴스가 존재하지 않습니다.");
+            return;
+        }
+
+        inventory.UpgradeSlotCount(newSlotCount);
+    }
     private void ApplyAutoRepairUpgrade(int level) 
     {
         if (spaceship != null)

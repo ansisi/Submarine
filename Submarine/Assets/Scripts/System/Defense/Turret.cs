@@ -19,10 +19,10 @@ public class Turret : MonoBehaviour, IDamageable
     public float range = 5f;
     public float maxDurability = 100f;
     public LayerMask enemyLayer;
-    public bool isDisabled { get; private set; } = false; // EMP 상태
-
-    
-
+    public bool isDisabled { get; private set; } = false;   // EMP 상태
+                                                            // 
+    [Header("버프 이펙트용 머티리얼")]
+    [SerializeField] private Material buffSphereMaterial; // 위에서 만든 투명 파란색 머티리얼
     [SerializeField]
     private float currentDurability;
     private float nextFireTime = 0f;
@@ -35,16 +35,20 @@ public class Turret : MonoBehaviour, IDamageable
     private Color[] originalColors;
 
     //해킹 드론 관련
-    private bool isHacked = false;
+    private bool isHacked = false;  //해킹 상태
     private float hackDurationTimer = 0f; // 해킹 지속시간
 
     // 해킹 상태일 때 공격할 대상 태그 목록 우선순위
     private readonly string[] hackedTargetPriorityTags = new string[] { "Turret", "BuffTurret", "Spaceship" };
-    
 
+    // EMP 면역/해킹 면역 상태
+    private bool isShieldImmune = false;
 
+    // 쉴드 버프로 면역이 끝날 때 참조할 코루틴
+    private Coroutine shieldImmunityCoroutine;
 
-
+    // 버프 이펙트 오브젝트 참조
+    private GameObject buffSphereInstance;
 
     void Awake()
     {
@@ -203,6 +207,10 @@ public class Turret : MonoBehaviour, IDamageable
 
     public void ApplyEMPEffect(float duration)
     {
+        // 이미 실드 면역 상태라면 EMP 무시
+        if (isShieldImmune) 
+            return;
+
         // 이미 해킹 중이면 EMP 무시
         if (isHacked)
             return;
@@ -232,6 +240,10 @@ public class Turret : MonoBehaviour, IDamageable
 
     public void SetHacked(bool hacked, float hackDuration = 5f)
     {
+        // 실드 면역 상태라면 해킹 무시
+        if (isShieldImmune && hacked)
+            return;
+
         if (this == null || this.gameObject == null)
         {
             // 이미 파괴된 상태면 함수 조기 종료
@@ -270,6 +282,72 @@ public class Turret : MonoBehaviour, IDamageable
             }
         }
         UpdateTurretState();
+    }
+
+    // 터렛 방어막(쉴드)에 의해 정화될 때 호출
+    public void CleanseStatus()
+    {
+        // EMP 상태라면 즉시 해제
+        if (isEMPDisabled)
+        {
+            StopAllCoroutines(); // EMPDisableCoroutine 중지
+            isEMPDisabled = false;
+            isDisabled = false;
+            EnableTurret();
+        }
+
+        // 해킹 상태라면 즉시 해제
+        if (isHacked)
+        {
+            SetHacked(false);
+        }
+    }
+
+    // 일정 시간 동안 EMP/해킹 면역 부여
+    public void ApplyShieldImmunity(float duration)
+    {
+        // 이미 면역이 걸려 있으면 갱신(기존 코루틴 중지 후 재시작)
+        if (shieldImmunityCoroutine != null)
+            StopCoroutine(shieldImmunityCoroutine);
+
+        // 구체 이펙트 생성
+        ShowBuffEffect();
+
+        shieldImmunityCoroutine = StartCoroutine(ShieldImmunityCoroutine(duration));
+    }
+
+    /// <summary>
+    /// 면역 보호막을 주는 코루틴
+    /// </summary>
+    private IEnumerator ShieldImmunityCoroutine(float duration)
+    {
+        isShieldImmune = true;
+        // 면역 중일 때 시각 효과를 주고 싶다면 여기서 추가
+        yield return new WaitForSeconds(duration);
+        isShieldImmune = false;
+        shieldImmunityCoroutine = null;
+
+        // 버프 해제 시 구체 제거
+        HideBuffEffect();
+    }
+
+    /// <summary>
+    /// 즉시 면역 해제: 면역 코루틴을 중지하고 플래그 false 처리
+    /// </summary>
+    public void RemoveShieldImmunity()
+    {
+        if (shieldImmunityCoroutine != null)
+        {
+            StopCoroutine(shieldImmunityCoroutine);
+            shieldImmunityCoroutine = null;
+        }
+        isShieldImmune = false;
+        HideBuffEffect();
+    }
+
+    public bool IsCurrentlyHacked()
+    {
+        return isHacked; // 기존 private bool isHacked 필드를 반환
     }
 
     private void OnHackedStart()
@@ -327,7 +405,7 @@ public class Turret : MonoBehaviour, IDamageable
                 EnableTurret();  // 터렛 기능 활성화
             }
             lookAtHandler.enabled = true;  // 해킹 시 조준기능 켜기
-            
+
         }
         else
         {
@@ -338,6 +416,43 @@ public class Turret : MonoBehaviour, IDamageable
             }
             lookAtHandler.enabled = true;  // 정상 상태, 조준 활성화
             ResetTurretColor();  // 기본 색상
+        }
+    }
+
+    private void ShowBuffEffect()
+    {
+        if (buffSphereMaterial == null) return;
+
+        // 이미 존재하면 제거 후 새로 생성
+        if (buffSphereInstance != null)
+            Destroy(buffSphereInstance);
+
+        // 구체 프리미티브 생성
+        buffSphereInstance = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        buffSphereInstance.name = "BuffSphereEffect";
+        buffSphereInstance.transform.SetParent(transform, false);
+
+        // 터렛 크기에 맞춰 스케일 조정 (예: 터렛 크기의 2배)
+        float baseSize = 2f; // 터렛 모양에 맞게 조정하세요
+        buffSphereInstance.transform.localScale = new Vector3(baseSize, baseSize, baseSize) * 2f;
+
+        // 위치를 터렛 중심으로 맞춤
+        buffSphereInstance.transform.localPosition = Vector3.zero;
+
+        // 콜라이더 제거
+        Destroy(buffSphereInstance.GetComponent<SphereCollider>());
+
+        // 투명 머티리얼 적용
+        var renderer = buffSphereInstance.GetComponent<Renderer>();
+        renderer.material = buffSphereMaterial;
+    }
+
+    private void HideBuffEffect()
+    {
+        if (buffSphereInstance != null)
+        {
+            Destroy(buffSphereInstance);
+            buffSphereInstance = null;
         }
     }
 
@@ -379,6 +494,9 @@ public class Turret : MonoBehaviour, IDamageable
 
     void Die()
     {
+        // 버프 이펙트가 남아 있으면 제거
+        HideBuffEffect();
+
         Destroy(gameObject);
     }
 

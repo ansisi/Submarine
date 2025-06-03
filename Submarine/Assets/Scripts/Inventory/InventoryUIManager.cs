@@ -43,4 +43,20 @@ public class InventoryUIManager : MonoBehaviour
             slotUIs[i].UpdateSlotUI(slot.item, slot.quantity);
         }
     }
+
+    // 슬롯 UI를 동적으로 확장하는 함수
+    public void ExpandSlotUI(int addedCount)
+    {
+        // 기존 배열을 List로 바꿔서 동적으로 슬롯 UI를 추가
+        List<InventorySlotUI> uiList = new List<InventorySlotUI>(slotUIs);
+
+        for (int i = 0; i < addedCount; i++)
+        {
+            GameObject obj = Instantiate(slotPrefab, slotParent);
+            var slotUI = obj.GetComponent<InventorySlotUI>();
+            uiList.Add(slotUI);
+        }
+
+        slotUIs = uiList.ToArray();
+    }
 }
