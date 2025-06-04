@@ -20,6 +20,12 @@ public class PickupUIManager : MonoBehaviour
     // 힌트 표시/숨기기
     public void ShowHint(bool show, string text = "")
     {
+        // text가 비어있으면 show를 강제로 false 처리
+        if (string.IsNullOrWhiteSpace(text))
+        {
+            show = false;
+        }
+
         hintPanel.SetActive(show);
         if (show)
             hintText.text = text;

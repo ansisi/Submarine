@@ -861,6 +861,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f68871f89354a5d47a6c2333b8e9b5dd, type: 2}
   - {fileID: 11400000, guid: 802f79450e7a0f2448e375d91da6bcaf, type: 2}
   - {fileID: 11400000, guid: 7cf0fbf671333644fba1ed91d78a15dc, type: 2}
+  - {fileID: 11400000, guid: 9ae8a889bd7bf5e40a418d751d083f51, type: 2}
+  - {fileID: 11400000, guid: 02a56e80d9a6d0f4db7d00de4145d9bc, type: 2}
+  - {fileID: 11400000, guid: 0cb1af621c5771a45824466c5ef14236, type: 2}
 --- !u!4 &73832536
 Transform:
   m_ObjectHideFlags: 0
@@ -3810,7 +3813,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1857081495}
   m_Direction: 2
   m_Value: 1.0000001
-  m_Size: 0.36842105
+  m_Size: 0.33333334
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -5807,6 +5810,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4cc83ea256fccfa4186ef4c334ea5b56, type: 2}
   - {fileID: 11400000, guid: 910ac82c7397c614c939183175999b95, type: 2}
   - {fileID: 11400000, guid: 7c1a15375917e6a47b707ba528291117, type: 2}
+  - {fileID: 11400000, guid: 3a84ffb5610254d4d88977efe714dd9d, type: 2}
   itemUIPrefab: {fileID: 3500979061412392161, guid: 5e56551c7c851a2488d1c65d3c008688, type: 3}
   itemListParent: {fileID: 1397719789}
 --- !u!4 &489167513
@@ -15029,7 +15033,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 1200}
+  m_SizeDelta: {x: 0, y: 1400}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1397719790
 MonoBehaviour:
@@ -19711,7 +19715,7 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1052679438}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.6315789}
+  m_AnchorMin: {x: 0, y: 0.6666666}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
@@ -21633,8 +21637,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   preparationTime: 30
   waveList:
-  - {fileID: 11400000, guid: cf17390be682d1b4cbabaaf655b9e5df, type: 2}
   - {fileID: 11400000, guid: d90d25ad518473949a5a36187365172e, type: 2}
+  - {fileID: 11400000, guid: 0e83332df7dc15340b0b3d294b501fd7, type: 2}
   enemySpawner: {fileID: 411993716}
 --- !u!4 &2065536476
 Transform:

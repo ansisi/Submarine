@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ShieldTurret
   m_EditorClassIdentifier: 
   itemName: "\uC274\uB4DC\uD3EC\uD0D1"
-  icon: {fileID: -2027123863, guid: 102d058ca68a4fb44b6fe3f26ad75d58, type: 3}
+  icon: {fileID: -1787807199, guid: cf779456fe46b954c8874360d337c16c, type: 3}
   buyPrice: 0
   sellPrice: 0
   isStackable: 1
