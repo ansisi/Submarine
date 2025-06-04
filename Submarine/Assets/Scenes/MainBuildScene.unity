@@ -6595,15 +6595,34 @@ PrefabInstance:
       propertyPath: firstSpawnCenter
       value: 
       objectReference: {fileID: 1053711188}
+    - target: {fileID: 4580520116849554365, guid: c86555ccab1d267419345584df9f6d49, type: 3}
+      propertyPath: secondSpawnRadiusY
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 5848737662622211599, guid: c86555ccab1d267419345584df9f6d49, type: 3}
       propertyPath: m_Name
       value: MapSystem
+      objectReference: {fileID: 0}
+    - target: {fileID: 8869652825728527091, guid: c86555ccab1d267419345584df9f6d49, type: 3}
+      propertyPath: currentRange
+      value: 1000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c86555ccab1d267419345584df9f6d49, type: 3}
+--- !u!114 &567781666 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4580520116849554365, guid: c86555ccab1d267419345584df9f6d49, type: 3}
+  m_PrefabInstance: {fileID: 567781665}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfe851e13d5f9e74ea081eeb35ba942e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &569174020
 GameObject:
   m_ObjectHideFlags: 0
@@ -9289,6 +9308,11 @@ MonoBehaviour:
   questSOList:
   - {fileID: 11400000, guid: 2a99bc4892aa00849aad7e4fa5436310, type: 2}
   - {fileID: 11400000, guid: 4d5bfb52b63ca0445a728ba69f20ec9a, type: 2}
+  dialoguePanel: {fileID: 0}
+  dialogueText: {fileID: 0}
+  navigationIndicator: {fileID: 0}
+  spaceshipTransform: {fileID: 0}
+  npcTransform: {fileID: 0}
 --- !u!4 &930154871
 Transform:
   m_ObjectHideFlags: 0
@@ -10268,6 +10292,10 @@ PrefabInstance:
       propertyPath: canvasGroup
       value: 
       objectReference: {fileID: 464639739}
+    - target: {fileID: 6348239385693628524, guid: 8a12cde9e353c1042bfebceb48dc9e56, type: 3}
+      propertyPath: itemSpawner
+      value: 
+      objectReference: {fileID: 567781666}
     - target: {fileID: 6348239385693628524, guid: 8a12cde9e353c1042bfebceb48dc9e56, type: 3}
       propertyPath: countdownText
       value: 
@@ -16236,6 +16264,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   content: {fileID: 1607363732}
   itemPrefab: {fileID: 5140715785681349555, guid: 33ae9289bc901e04da6ed21e160b9c67, type: 3}
+  items: []
 --- !u!1 &1613861640
 GameObject:
   m_ObjectHideFlags: 0
