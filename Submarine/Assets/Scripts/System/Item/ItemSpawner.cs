@@ -15,8 +15,8 @@ public class ItemSpawner : MonoBehaviour
 
     [Header("2차 범위 (타원형 가능)")]
     public Transform secondSpawnCenter;
-    public float secondSpawnRadiusX = 3f;
-    public float secondSpawnRadiusY = 2f;
+    public float secondSpawnRadiusX = 30f;
+    public float secondSpawnRadiusY = 100f;
     public float spawnInterval = 3f;
 
     [Header("충돌 검사 설정")]
@@ -84,6 +84,21 @@ public class ItemSpawner : MonoBehaviour
             yield return new WaitForSeconds(spawnInterval);
         }
     }
+
+    public void ExpandSecondSpawnAreaByTwo()
+    {
+        // 2차 범위 (타원형) 스케일 2배
+        secondSpawnRadiusX *= 1.5f;
+        secondSpawnRadiusY *= 2f;
+
+        // 중심 위치 X를 2배로 이동
+        if (secondSpawnCenter != null)
+        {
+            Vector3 pos = secondSpawnCenter.position;
+            secondSpawnCenter.position = new Vector3(pos.x * 2.1f, pos.y, pos.z);
+        }
+    }
+
 
     void OnDrawGizmosSelected()
     {

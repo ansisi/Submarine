@@ -20,6 +20,7 @@ public class SpaceshipBoundary : MonoBehaviour
     }
 
     public Transform player;
+    public ItemSpawner itemSpawner;
     [SerializeField] private float baseRadius = 3f;
     public float currentRadius = 3f;
     public int circleSegments = 100;
@@ -79,6 +80,7 @@ public class SpaceshipBoundary : MonoBehaviour
     public void SetAntennaUpgradeLevel(int level)
     {
         currentRadius = baseRadius * Mathf.Pow(2f, level);
+        itemSpawner.ExpandSecondSpawnAreaByTwo();
         DrawCircle();
     }
     

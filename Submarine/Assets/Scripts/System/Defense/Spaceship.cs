@@ -15,6 +15,8 @@ public class Spaceship : MonoBehaviour, IDamageable
     private float autoRepairAmount = 10f;
     private float autoRepairInterval = 0f;
 
+    [SerializeField] private Material spaceshipMaterial;
+
     private void Awake()
     {
         baseMaxHealth = maxHealth; // 초기값을 Awake에서 기록
@@ -31,6 +33,14 @@ public class Spaceship : MonoBehaviour, IDamageable
         }
     }
 
+    private void Update()
+    {
+        if (spaceshipMaterial != null)
+        {
+            float hpRatio = currentHealth / maxHealth;
+            spaceshipMaterial.SetFloat("_HPAmount", hpRatio);
+        }
+    }
     private void OnDestroy()
     {
         if (WaveManager.Instance != null)
