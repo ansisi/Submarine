@@ -11,7 +11,7 @@ public class QuestUI : MonoBehaviour
     public RectTransform content;  // QuestPanel
     public GameObject itemPrefab;  // QuestItemPrefab
 
-    private List<GameObject> items = new List<GameObject>();
+    public List<GameObject> items = new List<GameObject>();
 
     private void Awake()
     {

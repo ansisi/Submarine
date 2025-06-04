@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ee39bd684b4dc5149a0908ce073cdc59, type: 3}
-  m_Name: PressureValve
+  m_Name: ShieldTurret
   m_EditorClassIdentifier: 
-  itemName: "\uC555\uB825\uBC38\uBE0C"
-  icon: {fileID: 1368311317, guid: 75668d6195a457f4aa681fc003b9c47d, type: 3}
-  buyPrice: 110
-  sellPrice: 100
+  itemName: "\uC274\uB4DC\uD3EC\uD0D1"
+  icon: {fileID: -2027123863, guid: 102d058ca68a4fb44b6fe3f26ad75d58, type: 3}
+  buyPrice: 0
+  sellPrice: 0
   isStackable: 1
   isPurchasable: 1
   isConsumable: 0
-  isPlaceable: 0
-  prefab: {fileID: 0}
+  isPlaceable: 1
+  prefab: {fileID: 6184004526601379196, guid: 1d92ad50e21bfb74f81c94323273171d, type: 3}

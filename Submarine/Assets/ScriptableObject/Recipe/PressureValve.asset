@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 61a180ddafb92d246a0da071bce33e71, type: 3}
-  m_Name: BatteryBank
+  m_Name: PressureValve
   m_EditorClassIdentifier: 
-  resultItem: {fileID: 11400000, guid: 2cb86c2949143f94b9b181a39d017191, type: 2}
+  resultItem: {fileID: 11400000, guid: 01612a8ce5ce7664e908857004bc4bc5, type: 2}
   resultQuantity: 1
   ingredients:
-  - item: {fileID: 11400000, guid: 604690b7eb5a9894bb08caeec0d8e157, type: 2}
+  - item: {fileID: 11400000, guid: ec30afc35db84304fbe00f426484c61e, type: 2}
     quantity: 1
-  - item: {fileID: 11400000, guid: db91ed7ddf64a0f408efaac9c4e26ea9, type: 2}
+  - item: {fileID: 11400000, guid: 20aa834c3705ac0459f893bab6406069, type: 2}
     quantity: 1

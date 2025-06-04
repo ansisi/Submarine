@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 61a180ddafb92d246a0da071bce33e71, type: 3}
-  m_Name: BatteryBank
+  m_Name: AlloyPlate
   m_EditorClassIdentifier: 
-  resultItem: {fileID: 11400000, guid: 2cb86c2949143f94b9b181a39d017191, type: 2}
+  resultItem: {fileID: 11400000, guid: ebf7ba5816dc59c4790adad6689fc821, type: 2}
   resultQuantity: 1
   ingredients:
-  - item: {fileID: 11400000, guid: 604690b7eb5a9894bb08caeec0d8e157, type: 2}
-    quantity: 1
   - item: {fileID: 11400000, guid: db91ed7ddf64a0f408efaac9c4e26ea9, type: 2}
+    quantity: 1
+  - item: {fileID: 11400000, guid: 32b79a2cb093a8649bc8c6c87662a6d8, type: 2}
     quantity: 1
