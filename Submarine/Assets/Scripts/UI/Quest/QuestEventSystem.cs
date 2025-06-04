@@ -10,7 +10,7 @@ public enum QuestActionType
     CollectResource, // parameter: resource name
     OpenInventory,
     OpenPauseMenu,
-    NPCResuce,
+    NPCRescue,
     PurchaseItem,   // 상점 이용
     CraftItem,      // 제작
     MineOre,        // 채굴

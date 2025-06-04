@@ -42,7 +42,7 @@ public class FrozenNPC : InteractableBase
             GameUIController.Instance.UnlockNPCUpgradeUI();
             Destroy(gameObject);
 
-            QuestEventSystem.Raise(QuestActionType.NPCResuce);
+            QuestEventSystem.Raise(QuestActionType.NPCRescue);
         }
         else
         {
