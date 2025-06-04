@@ -7,28 +7,29 @@ public class CraftingUIButton : MonoBehaviour
 {
     public GameObject craftingUIPanel;
     public GameObject craftingDetailUIPanel;
-    public Button openButton; // 버튼 연결
+    public Button openButton;
 
     public CraftingRecipeUIManager craftingRecipeUIManager;
 
     private void Start()
     {
         if (openButton != null)
-            openButton.onClick.AddListener(OpenCraftingUI);
+            openButton.onClick.AddListener(ToggleCraftingUI);
     }
 
-    private void OpenCraftingUI()
+    private void ToggleCraftingUI()
     {
-        if (craftingUIPanel != null)
-        {
-            craftingUIPanel.SetActive(true);
-            craftingRecipeUIManager.Initialize();
-        }
+        if (craftingUIPanel == null) return;
 
-        if(craftingDetailUIPanel != null)
+        bool isActive = craftingUIPanel.activeSelf;
+
+        craftingUIPanel.SetActive(!isActive);
+        craftingDetailUIPanel?.SetActive(!isActive);
+
+        if (!isActive)
         {
-            craftingDetailUIPanel.SetActive(true);
+            // UI를 켤 때만 초기화 실행
+            craftingRecipeUIManager?.Initialize();
         }
-            
     }
 }
