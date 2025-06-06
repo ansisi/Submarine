@@ -41,6 +41,12 @@ public class CurrencyManager : MonoBehaviour
         gold += amount;
         OnGoldChanged?.Invoke();
         UpdateUI();
+
+        if (gold >= 5000 && WaveManager.Instance.GetCurrentWave() == 2 && !WaveManager.Instance.IsWaveRunning())
+        {
+            WaveManager.Instance.TriggerWaveStart(); // 세 번째 웨이브 시작
+        }
+
         //SaveCurrency();
     }
 

@@ -74,6 +74,14 @@ public class SpaceshipEntrance : InteractableBase
         if (craftingUIPanel != null) craftingUIPanel.SetActive(false);
         if (craftingDetailUIPanel != null) craftingDetailUIPanel.SetActive(false);
         InteractionManager.instance.SetInteractionLocked(false);
+
+        
+        if (PlayerData.Instance.GetUpgradeLevel(UpgradeType.Spaceship) >= 2 
+            && WaveManager.Instance.GetCurrentWave() == 1
+            && !WaveManager.Instance.IsWaveRunning()) // 웨이브 진행 여부 체크 추가
+        {
+            WaveManager.Instance.TriggerWaveStart(); // 두 번째 웨이브 시작
+        }
     }
 
     public override int Priority => 10; // 우선순위 낮게 하면 아이템보다 뒤로 밀릴 수 있음

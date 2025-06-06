@@ -220,6 +220,11 @@ public class QuestManager : MonoBehaviour
         else
         {
             QuestUI.Instance.Hide();
+
+            if (WaveManager.Instance.GetCurrentWave() == 0)
+            {
+                WaveManager.Instance.TriggerWaveStart();
+            }
         }
     }
 
