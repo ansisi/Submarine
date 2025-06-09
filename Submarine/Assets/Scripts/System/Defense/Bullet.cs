@@ -6,7 +6,7 @@ public class Bullet : MonoBehaviour
 {
     public float speed = 10f;
     public float damage = 10f;
-    public string faction; // "Player" 또는 "Enemy"
+    public Faction faction; // "Player" 또는 "Enemy"
     public Vector3 direction; // 총알의 이동 방향
     public float lifeTime = 10f; // 총알이 존재할 최대 시간 (초)
 

@@ -149,8 +149,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   damage: 5
-  faction: Enemy
+  faction: 1
   direction: {x: 0, y: 0, z: 0}
+  lifeTime: 10
 --- !u!96 &7476710471384338770
 TrailRenderer:
   serializedVersion: 3

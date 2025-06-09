@@ -26,19 +26,19 @@ public class Turret : MonoBehaviour, IDamageable
     [Header("버프 이펙트용 머티리얼")]
     [SerializeField] private Material buffSphereMaterial; // 위에서 만든 투명 파란색 머티리얼
     [SerializeField]
-    private float currentDurability;
+    protected float currentDurability;
     private float nextFireTime = 0f;
-    private Transform target;
-    private LookAtTargetHandler lookAtHandler;
+    protected Transform target;
+    protected LookAtTargetHandler lookAtHandler;
 
     //EMP 드론 관련
-    private bool isEMPDisabled = false;      // 현재 EMP로 인해 비활성화되었는지
+    protected bool isEMPDisabled = false;      // 현재 EMP로 인해 비활성화되었는지
     private Renderer[] turretRenderers;
     private Color[] originalColors;
 
     //해킹 드론 관련
-    private bool isHacked = false;  //해킹 상태
-    private float hackDurationTimer = 0f; // 해킹 지속시간
+    protected bool isHacked = false;  //해킹 상태
+    protected float hackDurationTimer = 0f; // 해킹 지속시간
 
     // 해킹 상태일 때 공격할 대상 태그 목록 우선순위
     private readonly string[] hackedTargetPriorityTags = new string[] { "Turret", "BuffTurret", "Spaceship" };
@@ -59,11 +59,16 @@ public class Turret : MonoBehaviour, IDamageable
 
         for (int i = 0; i < turretRenderers.Length; i++)
         {
-            originalColors[i] = turretRenderers[i].material.color;
+            var mat = turretRenderers[i].material;
+            
+            if (mat.HasProperty("_Color"))
+                originalColors[i] = mat.color;
+            else
+                originalColors[i] = Color.white;  // 컬러 프로퍼티 없으면 기본 흰색
         }
     }
 
-    void Start()
+    protected virtual void Start()
     {
         lookAtHandler = GetComponent<LookAtTargetHandler>(); // LookAtTargetHandler 컴포넌트 가져오기
         currentDurability = maxDurability;
@@ -128,7 +133,7 @@ public class Turret : MonoBehaviour, IDamageable
         }
     }
 
-    void FindTarget()
+    protected void FindTarget()
     {
         Collider[] hits = Physics.OverlapSphere(transform.position, range, enemyLayer);
 
@@ -207,7 +212,7 @@ public class Turret : MonoBehaviour, IDamageable
         ResetTurretColor(); // 색상 복원
     }
 
-    public void ApplyEMPEffect(float duration)
+    public virtual void ApplyEMPEffect(float duration)
     {
         // 이미 실드 면역 상태라면 EMP 무시
         if (isShieldImmune) 
@@ -352,20 +357,20 @@ public class Turret : MonoBehaviour, IDamageable
         return isHacked; // 기존 private bool isHacked 필드를 반환
     }
 
-    private void OnHackedStart()
+    protected virtual void OnHackedStart()
     {
         UpdateTurretColor(Color.red);
 
     }
 
-    private void OnHackedEnd()
+    protected virtual void OnHackedEnd()
     {
         ResetTurretColor(); // 색상 복원 대신 상태 기반 갱신
 
         // 추가로 해킹 해제 시 동작 복구 로직 가능
     }
 
-    private void FindHackedTarget()
+    protected virtual void FindHackedTarget()
     {
         float shortestDist = Mathf.Infinity;
         Transform nearest = null;

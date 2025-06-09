@@ -752,7 +752,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f72a129a5b2f93b4e9bf90729651399a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  faction: Enemy
+  faction: 1
 --- !u!114 &5204790328522744501
 MonoBehaviour:
   m_ObjectHideFlags: 0

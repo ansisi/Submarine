@@ -29,7 +29,12 @@ public class RangedEnemy : Enemy
             Bullet bulletScript = bullet.GetComponent<Bullet>();
             if (bulletScript != null)
             {
-                bulletScript.faction = GetComponent<FactionHandler>().faction; // 진영 설정
+                FactionHandler factionHandler = GetComponent<FactionHandler>();
+                if (factionHandler != null)
+                {
+                    bulletScript.faction = factionHandler.faction;
+                }
+
                 bulletScript.direction = direction; // 총알 방향 설정
             }
 
