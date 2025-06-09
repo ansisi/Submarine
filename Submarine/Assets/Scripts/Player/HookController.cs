@@ -242,7 +242,7 @@ public class HookController : MonoBehaviour
             }
 
             // 다양한 오브젝트와의 충돌 처리
-            if (hit.collider.CompareTag("Resource"))
+            if (hit.collider.CompareTag("Resource") || hit.collider.CompareTag("Turret"))
             {
                 Logger.Log("리소스와 충돌: " + hit.collider.name);
                 OnHookCollision(hit.collider.gameObject);
@@ -277,7 +277,7 @@ public class HookController : MonoBehaviour
 
     void OnHookCollision(GameObject collidedObject)
     {
-        if (collidedObject.CompareTag("Resource"))
+        if (collidedObject.CompareTag("Resource") || collidedObject.CompareTag("Turret"))
         {
             Logger.Log("리소스와 로프 연결 중: " + collidedObject.name);
 
@@ -305,6 +305,12 @@ public class HookController : MonoBehaviour
                         boxCollider.size = renderer.bounds.size;
                     }
                 }
+            }
+
+            if (collidedObject.CompareTag("Turret"))
+            {
+                resourceRb.constraints &= ~RigidbodyConstraints.FreezePositionX;
+                resourceRb.constraints &= ~RigidbodyConstraints.FreezePositionY;
             }
 
             // 물리 안정화를 위한 설정
@@ -449,6 +455,16 @@ public class HookController : MonoBehaviour
         HookJointBreakListener listener = GetComponent<HookJointBreakListener>();
         if (listener != null)
             Destroy(listener);
+
+        if (attachedObject != null && attachedObject.CompareTag("Turret"))
+        {
+            Rigidbody rb = attachedObject.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.constraints |= RigidbodyConstraints.FreezePositionX;
+                rb.constraints |= RigidbodyConstraints.FreezePositionY;
+            }
+        }
 
         // 연결된 물체 참조 제거
         attachedObject = null;
