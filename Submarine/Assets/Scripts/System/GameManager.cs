@@ -54,5 +54,11 @@ public class GameManager : MonoBehaviour
         Logger.Log("게임 오버!");
         GameOverUIManager.Instance.ShowGameOverUI();
     }
+
+    public void ResetGame()
+    {
+        npcRescued = false;
+        IsGameOver = false;
+    }
 }
 

@@ -21,6 +21,8 @@ public class Turret : MonoBehaviour, IDamageable
     public LayerMask enemyLayer;
     public bool isDisabled { get; private set; } = false;   // EMP 상태
                                                             // 
+    [SerializeField] private Sprite turretIcon;
+
     [Header("버프 이펙트용 머티리얼")]
     [SerializeField] private Material buffSphereMaterial; // 위에서 만든 투명 파란색 머티리얼
     [SerializeField]
@@ -494,6 +496,8 @@ public class Turret : MonoBehaviour, IDamageable
 
     void Die()
     {
+        NotificationManager.Instance?.ShowSimple("포탑 1개 파괴!", turretIcon);
+
         // 버프 이펙트가 남아 있으면 제거
         HideBuffEffect();
 

@@ -94,6 +94,7 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
+  turretIcon: {fileID: -2027123863, guid: 102d058ca68a4fb44b6fe3f26ad75d58, type: 3}
   buffSphereMaterial: {fileID: 2100000, guid: 76b8d8172cbfd2b4bbca5e7213a8b865, type: 2}
   currentDurability: 0
 --- !u!54 &3191001858865327417

@@ -467,6 +467,7 @@ MonoBehaviour:
   buffingColor: {r: 0, g: 0, b: 1, a: 1}
   unchargedColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   rechargeHint: "[Space] \uBCF4\uD638\uB9C9 \uC7AC\uCDA9\uC804"
+  shieldTurretIcon: {fileID: -1787807199, guid: cf779456fe46b954c8874360d337c16c, type: 3}
 --- !u!54 &3956166458452356382
 Rigidbody:
   m_ObjectHideFlags: 0

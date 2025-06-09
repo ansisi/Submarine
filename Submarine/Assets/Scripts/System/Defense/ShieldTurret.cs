@@ -27,6 +27,8 @@ public class ShieldTurret : InteractableBase, IDamageable
     [Header("상호작용 힌트 텍스트")]
     [SerializeField] private string rechargeHint = "스페이스: 보호막 재충전";
 
+    [SerializeField] private Sprite shieldTurretIcon;
+
 
     // 상태 머신: 충전됨 → 버프 중 → 언차지
     private enum ShieldState { Charged, Buffing, Uncharged }
@@ -215,6 +217,8 @@ public class ShieldTurret : InteractableBase, IDamageable
     /// </summary>
     private void Die()
     {
+        NotificationManager.Instance?.ShowSimple("쉴드포탑 1개 파괴!", shieldTurretIcon);
+
         // 현재 보호막 포탑이 버프 중이었다면, 즉시 버프를 종료
         if (buffCoroutine != null)
             StopCoroutine(buffCoroutine);

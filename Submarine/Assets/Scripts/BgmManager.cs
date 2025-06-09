@@ -106,4 +106,10 @@ public class BgmManager : MonoBehaviour
         audioSource.volume = Mathf.Clamp01(volume);
     }
 
+    public void ResetBGM()
+    {
+        PlayBGM(bgm1);
+        SetVolume(0.35f);
+    }
+
 }
