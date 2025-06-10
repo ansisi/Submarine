@@ -100,12 +100,12 @@ TextureImporter:
       name: "05.27 esc \uC124\uC815_0"
       rect:
         serializedVersion: 2
-        x: 206
+        x: 191
         y: 500
-        width: 380
-        height: 540
+        width: 408
+        height: 561
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -126,7 +126,7 @@ TextureImporter:
         width: 263
         height: 70
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
