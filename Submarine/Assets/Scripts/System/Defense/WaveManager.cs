@@ -22,6 +22,8 @@ public class WaveManager : MonoBehaviour
     public event Action<int> OnWaveEnded;     // 웨이브 종료 이벤트 (UI, BGM 등)
 
     private Coroutine waveRoutineCoroutine;  // WaveRoutine 코루틴 핸들 저장
+    
+    [SerializeField] private CameraController cameraController; // 카메라 컨트롤러 참조
 
 
     private void Awake()
@@ -145,7 +147,8 @@ public class WaveManager : MonoBehaviour
         Logger.Log($"보스 소환까지 {bossWaveData.bossDelayTime}초 대기");
         yield return new WaitForSeconds(bossWaveData.bossDelayTime);
 
-        GameObject boss = Instantiate(bossWaveData.bossPrefab, bossWaveData.spawnPoint.position, Quaternion.identity);
+        GameObject boss = Instantiate(bossWaveData.bossPrefab, bossWaveData.spawnPoint, Quaternion.identity);
+        cameraController.EnterBossCameraMode(); // 보스 카메라 모드로 전환
         Logger.Log("보스 2페이즈 시작!");
 
         // 여기에 보스 패턴 초기화, UI 변경 등 추가

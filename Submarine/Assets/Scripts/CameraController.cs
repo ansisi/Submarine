@@ -36,29 +36,26 @@ public class CameraController : MonoBehaviour
             transform.rotation = Quaternion.identity;
             return;
         }
-        else
-        {
-            // 일반 플레이어 추적 모드
-            Vector3 targetPosition = player.position + offset;
-            Vector3 cameraPosition = transform.position;
+        // 일반 플레이어 추적 모드
+        Vector3 targetPosition = player.position + offset;
+        Vector3 cameraPosition = transform.position;
 
-            bool isOutsideX = Mathf.Abs(player.position.x - cameraPosition.x) > deadZoneX;
-            bool isOutsideY = Mathf.Abs(player.position.y - cameraPosition.y) > deadZoneY;
+        bool isOutsideX = Mathf.Abs(player.position.x - cameraPosition.x) > deadZoneX;
+        bool isOutsideY = Mathf.Abs(player.position.y - cameraPosition.y) > deadZoneY;
 
-            float targetSpeed = isOutsideX || isOutsideY ? maxFollowSpeed : minFollowSpeed;
+        float targetSpeed = isOutsideX || isOutsideY ? maxFollowSpeed : minFollowSpeed;
 
-            currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, speedLerpFactor * Time.deltaTime);
+        currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, speedLerpFactor * Time.deltaTime);
 
-            transform.position = Vector3.SmoothDamp(cameraPosition, targetPosition, ref velocity, 1f / currentSpeed);
+        transform.position = Vector3.SmoothDamp(cameraPosition, targetPosition, ref velocity, 1f / currentSpeed);
 
-            transform.rotation = Quaternion.identity; // 카메라 회전 고정
-        }
+        transform.rotation = Quaternion.identity; // 카메라 회전 고정
+        
     }
 
-    public void EnterBossCameraMode(Vector3 bossPos, Quaternion bossRot)
+    public void EnterBossCameraMode()
     {
         isInBossMode = true;
-        bossCameraPosition = bossPos;
     }
 
     public void ExitBossCameraMode()

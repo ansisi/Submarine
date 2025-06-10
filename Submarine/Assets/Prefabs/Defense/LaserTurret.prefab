@@ -366,7 +366,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   modelTransform: {fileID: 6207880642870385763}
-  rotationSpeed: 1000
+  rotationSpeed: 1500
   enemyLeftLookX: 40
   enemyRightLookX: -40
   enemyLeftLookY: 180
@@ -579,7 +579,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthFillImage: {fileID: 1578037141113832455}
-  turret: {fileID: 0}
+  turret: {fileID: 4264802248911764833}
 --- !u!1001 &1791053765169537118
 PrefabInstance:
   m_ObjectHideFlags: 0
