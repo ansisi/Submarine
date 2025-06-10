@@ -16,6 +16,12 @@ public class CameraController : MonoBehaviour
     private float currentSpeed; // 현재 카메라 속도
     private Vector3 velocity = Vector3.zero; // SmoothDamp 속도 저장 변수
 
+
+    // 보스 카메라용 설정
+    private bool isInBossMode = false;
+    public Vector3 bossCameraPosition; // 보스전용 위치
+    public float transitionSpeed = 2f; // 보스전 카메라 고정으로 부드럽게 이동
+
     void Start()
     {
         currentSpeed = minFollowSpeed; // 처음엔 천천히 따라가도록 설정
@@ -23,18 +29,40 @@ public class CameraController : MonoBehaviour
 
     void FixedUpdate()
     {
-        Vector3 targetPosition = player.position + offset;
-        Vector3 cameraPosition = transform.position;
+        if (isInBossMode)
+        {
+            // 보스 카메라 위치/회전으로 부드럽게 이동
+            transform.position = Vector3.Lerp(transform.position, bossCameraPosition, transitionSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.identity;
+            return;
+        }
+        else
+        {
+            // 일반 플레이어 추적 모드
+            Vector3 targetPosition = player.position + offset;
+            Vector3 cameraPosition = transform.position;
 
-        bool isOutsideX = Mathf.Abs(player.position.x - cameraPosition.x) > deadZoneX;
-        bool isOutsideY = Mathf.Abs(player.position.y - cameraPosition.y) > deadZoneY;
+            bool isOutsideX = Mathf.Abs(player.position.x - cameraPosition.x) > deadZoneX;
+            bool isOutsideY = Mathf.Abs(player.position.y - cameraPosition.y) > deadZoneY;
 
-        float targetSpeed = isOutsideX || isOutsideY ? maxFollowSpeed : minFollowSpeed;
+            float targetSpeed = isOutsideX || isOutsideY ? maxFollowSpeed : minFollowSpeed;
 
-        currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, speedLerpFactor * Time.deltaTime);
+            currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, speedLerpFactor * Time.deltaTime);
 
-        transform.position = Vector3.SmoothDamp(cameraPosition, targetPosition, ref velocity, 1f / currentSpeed);
+            transform.position = Vector3.SmoothDamp(cameraPosition, targetPosition, ref velocity, 1f / currentSpeed);
 
-        transform.rotation = Quaternion.identity; // 카메라 회전 고정
+            transform.rotation = Quaternion.identity; // 카메라 회전 고정
+        }
+    }
+
+    public void EnterBossCameraMode(Vector3 bossPos, Quaternion bossRot)
+    {
+        isInBossMode = true;
+        bossCameraPosition = bossPos;
+    }
+
+    public void ExitBossCameraMode()
+    {
+        isInBossMode = false;
     }
 }

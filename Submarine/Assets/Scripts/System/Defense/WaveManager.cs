@@ -125,10 +125,30 @@ public class WaveManager : MonoBehaviour
         OnWaveEnded?.Invoke(currentWave);
         BgmManager.Instance.StartRepair();
 
+        var waveData = waveList[currentWave];
+
         GiveClearReward(waveList[currentWave]);
 
         isWaveRunning = false;
         currentWave++;
+
+
+        if (waveData is BossWaveDataSO bossWaveData)
+        {
+            StartCoroutine(StartBossPhaseRoutine(bossWaveData));
+            return;
+        }
+    }
+
+    private IEnumerator StartBossPhaseRoutine(BossWaveDataSO bossWaveData)
+    {
+        Logger.Log($"보스 소환까지 {bossWaveData.bossDelayTime}초 대기");
+        yield return new WaitForSeconds(bossWaveData.bossDelayTime);
+
+        GameObject boss = Instantiate(bossWaveData.bossPrefab, bossWaveData.spawnPoint.position, Quaternion.identity);
+        Logger.Log("보스 2페이즈 시작!");
+
+        // 여기에 보스 패턴 초기화, UI 변경 등 추가
     }
 
     private void GiveClearReward(WaveDataSO waveData)

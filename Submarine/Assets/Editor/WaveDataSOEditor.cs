@@ -11,7 +11,7 @@ public class WaveDataSOEditor : Editor
     private SerializedProperty clearRewardItemProp;
     private SerializedProperty clearRewardQuantityProp;
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         waveDurationProp = serializedObject.FindProperty("waveDuration");
         subWavesProp = serializedObject.FindProperty("subWaves");
