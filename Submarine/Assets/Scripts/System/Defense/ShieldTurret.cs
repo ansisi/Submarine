@@ -217,7 +217,7 @@ public class ShieldTurret : InteractableBase, IDamageable
     /// </summary>
     private void Die()
     {
-        NotificationManager.Instance?.ShowSimple("쉴드포탑 1개 파괴!", shieldTurretIcon);
+        NotificationManager.Instance?.ShowSimple("쉴드포탑 파괴!", shieldTurretIcon);
 
         // 현재 보호막 포탑이 버프 중이었다면, 즉시 버프를 종료
         if (buffCoroutine != null)

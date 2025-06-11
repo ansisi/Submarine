@@ -501,7 +501,7 @@ public class Turret : MonoBehaviour, IDamageable
 
     void Die()
     {
-        NotificationManager.Instance?.ShowSimple("포탑 1개 파괴!", turretIcon);
+        NotificationManager.Instance?.ShowSimple("포탑 파괴!", turretIcon);
 
         // 버프 이펙트가 남아 있으면 제거
         HideBuffEffect();

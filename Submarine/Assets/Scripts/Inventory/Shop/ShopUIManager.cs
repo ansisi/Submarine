@@ -12,18 +12,22 @@ public class ShopUIManager : MonoBehaviour
     private void Start()
     {
         if (openButton != null)
-            openButton.onClick.AddListener(OpenShoppingUI);
+            openButton.onClick.AddListener(ToggleShoppingUI);
     }
 
-    private void OpenShoppingUI()
+    private void ToggleShoppingUI()
     {
-        if (ShopUIPanel != null)
-            ShopUIPanel.SetActive(true);
+        if (ShopUIPanel == null) return;
 
-        if (SellPanel != null)
-            SellPanel.SetActive(true);
+        bool isActive = ShopUIPanel.activeSelf;
 
-        ShopManager.Instance.OpenShop(); // ShopManager 率档 凯覆 贸府
+        ShopUIPanel.SetActive(!isActive);
+        SellPanel?.SetActive(!isActive);
+
+        if (!isActive)
+        {
+            ShopManager.Instance?.OpenShop(); // 凯副 锭父 贸府
+        }
     }
 
 }

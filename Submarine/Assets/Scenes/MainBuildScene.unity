@@ -5196,9 +5196,9 @@ RectTransform:
   - {fileID: 1642467184}
   - {fileID: 272049008}
   - {fileID: 1191208801}
+  - {fileID: 1209794805}
   - {fileID: 1247444847}
   - {fileID: 859778913}
-  - {fileID: 1209794805}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -5254,7 +5254,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -821, y: -418}
+  m_AnchoredPosition: {x: -821, y: -461.3}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &470514335
@@ -7832,7 +7832,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &762407105
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7851,7 +7851,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -524, y: -244}
+  m_AnchoredPosition: {x: -524, y: -273}
   m_SizeDelta: {x: 550, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &762407106
@@ -14382,7 +14382,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1317578298
 RectTransform:
   m_ObjectHideFlags: 0
@@ -21899,6 +21899,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d90d25ad518473949a5a36187365172e, type: 2}
   - {fileID: 11400000, guid: 0e83332df7dc15340b0b3d294b501fd7, type: 2}
   enemySpawner: {fileID: 411993716}
+  cameraController: {fileID: 0}
 --- !u!4 &2065536476
 Transform:
   m_ObjectHideFlags: 0
