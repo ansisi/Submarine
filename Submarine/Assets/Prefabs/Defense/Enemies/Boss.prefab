@@ -142,4 +142,10 @@ MonoBehaviour:
   - {fileID: 5970316663771290304, guid: a60860d11b4c5d542b582a110e40abaa, type: 3}
   - {fileID: 3249911611737780658, guid: c4537fa203570e448a8b8339e678aa9e, type: 3}
   spawnCount: 6
-  spawnRadius: 15
+  spawnAreaSize: {x: 80, y: 10}
+  hackZoneCenters:
+  - {x: -25, y: -11, z: 0}
+  - {x: 0, y: -11, z: 0}
+  - {x: 25, y: -11, z: 0}
+  hackZoneSize: {x: 25, y: 50}
+  hackIndicatorPrefab: {fileID: 4477383381961173830, guid: a2128eb3dd15df841a74dc15b0de62a8, type: 3}

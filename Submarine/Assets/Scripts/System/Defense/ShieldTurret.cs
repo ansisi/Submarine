@@ -41,8 +41,7 @@ public class ShieldTurret : InteractableBase, IDamageable
     private Coroutine buffCoroutine;
 
     // 시각용 Renderer 배열 (머테리얼 색상 변경용)
-    private Renderer[] shieldRenderers;
-    private Color[] originalColors;
+    private Renderer shieldRenderer;
 
     // 재충전 대기 중인지 여부
     private bool waitingForRecharge = false;
@@ -54,13 +53,9 @@ public class ShieldTurret : InteractableBase, IDamageable
         // 체력 초기화
         currentDurability = maxDurability;
 
-        // Renderer 캐싱 (자식 포함)
-        shieldRenderers = GetComponentsInChildren<Renderer>();
-        originalColors = new Color[shieldRenderers.Length];
-        for (int i = 0; i < shieldRenderers.Length; i++)
-        {
-            originalColors[i] = shieldRenderers[i].material.color;
-        }
+        // 자식 렌더러 중 첫 번째만 사용
+        shieldRenderer = GetComponentInChildren<Renderer>();
+
     }
 
     private void Start()
@@ -188,14 +183,44 @@ public class ShieldTurret : InteractableBase, IDamageable
     /// </summary>
     private void SetStateVisual(ShieldState state)
     {
+        if (shieldRenderer == null) return;
+
         Color col = unchargedColor;
         if (state == ShieldState.Charged) col = chargedColor;
         else if (state == ShieldState.Buffing) col = buffingColor;
 
-        foreach (var rend in shieldRenderers)
+        // 첫 번째 머테리얼 색상만 변경
+        //shieldRenderer.materials[0].color = col;
+
+        Material[] materials = shieldRenderer.materials;
+
+        for (int i = 0; i < materials.Length; i++)
         {
-            rend.material.color = col;
+            Material mat = materials[i];
+
+            // 0번 머테리얼: BaseColor + Emission
+            if (i == 0)
+            {
+                if (mat.HasProperty("_BaseColor"))
+                    mat.SetColor("_BaseColor", col);
+
+                if (mat.HasProperty("_EmissionColor"))
+                {
+                    mat.SetColor("_EmissionColor", col * 1.5f); // HDR 강조
+                    mat.EnableKeyword("_EMISSION");
+                }
+            }
+            // 1번 머테리얼: Emission만
+            else if (i == 1)
+            {
+                if (mat.HasProperty("_EmissionColor"))
+                {
+                    mat.SetColor("_EmissionColor", col * 1.5f);
+                    mat.EnableKeyword("_EMISSION");
+                }
+            }
         }
+        shieldRenderer.materials = materials;
     }
 
     /// <summary>

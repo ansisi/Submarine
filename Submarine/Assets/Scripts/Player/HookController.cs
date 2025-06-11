@@ -197,21 +197,31 @@ public class HookController : MonoBehaviour
         hookPosition = hookSpawnPoint.position;
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Vector3 targetPoint = ray.origin + ray.direction * maxHookDistance;
-        targetPoint.z = 0f;
 
-        Vector3 direction = (targetPoint - hookSpawnPoint.position).normalized;
-        direction.z = 0f;
-        hookVelocity = direction * hookSpeed;
+        // 스폰 포인트와 같은 Z 높이의 평면 정의
+        float planeZ = hookSpawnPoint.position.z;
+        Plane firePlane = new Plane(Vector3.forward, new Vector3(0f, 0f, planeZ));
 
+        // 평면과의 교차 위치 계산
+        if (firePlane.Raycast(ray, out float enter))
+        {
+            Vector3 hitPoint = ray.GetPoint(enter);          // plane 위의 실제 클릭 위치
+            Vector3 direction = (hitPoint - hookSpawnPoint.position).normalized;
 
-        // 방향을 기준으로 회전 적용
-        hookObject.transform.rotation = Quaternion.LookRotation(direction);
+            // 사거리 제한 (원한다면)
+            float dist = Vector3.Distance(hookSpawnPoint.position, hitPoint);
+            if (dist > maxHookDistance)
+                direction = (hookSpawnPoint.position + direction * maxHookDistance - hookSpawnPoint.position).normalized;
 
-        isHookActive = true;
-        isRetracting = false;
-        lineRenderer.positionCount = 2;
+            // 후크 초기화
+            hookPosition = hookSpawnPoint.position;
+            hookVelocity = direction * hookSpeed;
+            hookObject.transform.rotation = Quaternion.LookRotation(direction);
 
+            isHookActive = true;
+            isRetracting = false;
+            lineRenderer.positionCount = 2;
+        }
     }
 
     void PullHook()

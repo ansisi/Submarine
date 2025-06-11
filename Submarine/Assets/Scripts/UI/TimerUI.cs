@@ -86,6 +86,13 @@ public class TimerUI : MonoBehaviour
     private void HandleWaveEnded(int waveIndex)
     {
         StopTimer();
+
+        var waveData = WaveManager.Instance.waveList[waveIndex];
+        if (waveData is BossWaveDataSO bossWaveDataSo)
+        {
+            return;
+        }
+
         ShowMessage($"Å½»ç ½Ã°£!");
     }
 

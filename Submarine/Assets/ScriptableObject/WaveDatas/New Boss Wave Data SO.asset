@@ -16,8 +16,8 @@ MonoBehaviour:
   subWaves:
   - spawnTime: 5
     enemySpawnDatas:
-    - enemyPrefab: {fileID: 3777617835739875713, guid: 427a2e321be22394db1f66b6361ad430, type: 3}
-      spawnCount: 2
+    - enemyPrefab: {fileID: 7317922985657874811, guid: a29f6423e239c3f4d8e25385c255993a, type: 3}
+      spawnCount: 1
   clearRewardItem: {fileID: 0}
   clearRewardQuantity: 0
   bossPrefab: {fileID: 9176228969811581158, guid: 8fdc9925c71bb7747bca0f06d0086b9d, type: 3}

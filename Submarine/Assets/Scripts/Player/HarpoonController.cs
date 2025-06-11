@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Overlays;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -195,21 +196,31 @@ public class HarpoonController : MonoBehaviour
         harpoonPosition = harpoonSpawnPoint.position;
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Vector3 targetPoint = ray.origin + ray.direction * maxHarpoonDistance;
-        targetPoint.z = 0f;
 
-        Vector3 direction = (targetPoint - harpoonSpawnPoint.position).normalized;
-        direction.z = 0f;
-        harpoonVelocity = direction * harpoonSpeed;
+        // 스폰 포인트와 같은 Z 높이의 평면 정의
+        float planeZ = harpoonSpawnPoint.position.z;
+        Plane firePlane = new Plane(Vector3.forward, new Vector3(0f, 0f, planeZ));
 
+        // 평면과의 교차 위치 계산
+        if (firePlane.Raycast(ray, out float enter))
+        {
+            Vector3 hitPoint = ray.GetPoint(enter);          // plane 위의 실제 클릭 위치
+            Vector3 direction = (hitPoint - harpoonSpawnPoint.position).normalized;
 
-        // 방향을 기준으로 회전 적용
-        harpoonObject.transform.rotation = Quaternion.LookRotation(direction);
-        
+            // 사거리 제한 (원한다면)
+            float dist = Vector3.Distance(harpoonSpawnPoint.position, hitPoint);
+            if (dist > maxHarpoonDistance)
+                direction = (harpoonSpawnPoint.position + direction * maxHarpoonDistance - harpoonSpawnPoint.position).normalized;
 
-        isHarpoonActive = true;
-        isRetracting = false;
-        lineRenderer.positionCount = 2;
+            // 후크 초기화
+            harpoonPosition = harpoonSpawnPoint.position;
+            harpoonVelocity = direction * harpoonSpeed;
+            harpoonObject.transform.rotation = Quaternion.LookRotation(direction);
+
+            isHarpoonActive = true;
+            isRetracting = false;
+            lineRenderer.positionCount = 2;
+        }
 
     }
 
