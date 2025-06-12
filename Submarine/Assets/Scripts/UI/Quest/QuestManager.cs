@@ -221,10 +221,7 @@ public class QuestManager : MonoBehaviour
         {
             QuestUI.Instance.Hide();
 
-            if (WaveManager.Instance.GetCurrentWave() == 0)
-            {
-                WaveManager.Instance.TriggerWaveStart();
-            }
+            QuestEventSystem.RaiseAllQuestsFinished();
         }
     }
 

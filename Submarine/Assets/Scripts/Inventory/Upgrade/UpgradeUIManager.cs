@@ -98,7 +98,7 @@ public class UpgradeUIManager : MonoBehaviour
         currentTabButton = tabButton;
         currentTabButton.interactable = false;
 
-        RefreshContent();
+        RefreshContent(CurrencyManager.Instance.gold);
         UpdateLevelButtonsState();
         ShowPanel();
     }
@@ -106,11 +106,11 @@ public class UpgradeUIManager : MonoBehaviour
     private void OnLevelButtonClicked(int levelIdx)
     {
         currentLevelIndex = levelIdx;
-        RefreshContent();
+        RefreshContent(CurrencyManager.Instance.gold);
         UpdateLevelButtonsState();
     }
 
-    private void RefreshContent()
+    private void RefreshContent(int currentGold)
     {
         if (currentUpgrade == null) return;
         if (currentLevelIndex >= currentUpgrade.levels.Count) return;
@@ -170,7 +170,7 @@ public class UpgradeUIManager : MonoBehaviour
 
         // 다음 레벨 이동
         currentLevelIndex++;
-        RefreshContent();
+        RefreshContent(CurrencyManager.Instance.gold);
         UpdateLevelButtonsState();
     }
 
@@ -224,13 +224,13 @@ public class UpgradeUIManager : MonoBehaviour
 
     private void OnEnable()
     {
-        CurrencyManager.Instance.OnGoldChanged += RefreshContent;
+        CurrencyManager.OnGoldChanged += RefreshContent;
     }
 
     private void OnDisable()
     {
-        if (CurrencyManager.Instance != null)
-            CurrencyManager.Instance.OnGoldChanged -= RefreshContent;
+        
+        CurrencyManager.OnGoldChanged -= RefreshContent;
     }
 
     private void ShowPanel()

@@ -22691,6 +22691,7 @@ GameObject:
   - component: {fileID: 2065536475}
   - component: {fileID: 2065536477}
   - component: {fileID: 2065536478}
+  - component: {fileID: 2065536479}
   m_Layer: 0
   m_Name: WaveManager
   m_TagString: Untagged
@@ -22757,6 +22758,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arenaWalls: {fileID: 812213916}
+--- !u!114 &2065536479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2065536474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 184d2c893066c3641aaa117e29dad72d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shieldTurretItem: {fileID: 11400000, guid: 3a84ffb5610254d4d88977efe714dd9d, type: 2}
 --- !u!1 &2083222954
 GameObject:
   m_ObjectHideFlags: 0

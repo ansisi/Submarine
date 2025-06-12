@@ -11,6 +11,8 @@ public class PlayerData : MonoBehaviour
 {
     public static PlayerData Instance { get; private set; }
 
+    public event Action<UpgradeType, int> OnUpgradeChanged;
+
     // UpgradeType → 현재 레벨 (0이면 아직 1레벨도 달성 전)
     private Dictionary<UpgradeType, int> upgradeLevels = new Dictionary<UpgradeType, int>();
 
@@ -84,6 +86,16 @@ public class PlayerData : MonoBehaviour
         upgradeLevels[type] = level;
         PlayerPrefs.SetInt(GetPrefsKey(type), level);
         PlayerPrefs.Save();
+
+        OnUpgradeChanged?.Invoke(type, level); // 업그레이드 변경 이벤트 호출
+    }
+
+    /// <summary>
+    /// 모든 업그레이드 정보를 복사해서 반환 (읽기 전용)
+    /// </summary>
+    public Dictionary<UpgradeType, int> GetAllUpgradeLevels()
+    {
+        return new Dictionary<UpgradeType, int>(upgradeLevels); // 얕은 복사
     }
 
     /// <summary>

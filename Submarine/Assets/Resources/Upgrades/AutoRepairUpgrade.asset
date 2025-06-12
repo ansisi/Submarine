@@ -34,3 +34,14 @@ MonoBehaviour:
       amount: 2
     - item: {fileID: 11400000, guid: ebf7ba5816dc59c4790adad6689fc821, type: 2}
       amount: 1
+  - level: 3
+    goldCost: 500
+    levelDescription: "\uBE44\uC804\uD22C \uC0C1\uD669 \uC2DC 10\uCD08\uB9C8\uB2E4
+      \uC6B0\uC8FC\uC120\uC758 10\uCCB4\uB825\uC744 \uC790\uB3D9 \uC218\uB9AC\uD569\uB2C8\uB2E4"
+    materialRequirements:
+    - item: {fileID: 11400000, guid: 20aa834c3705ac0459f893bab6406069, type: 2}
+      amount: 2
+    - item: {fileID: 11400000, guid: 002a08c34b62a094ca8f82ffdb918d34, type: 2}
+      amount: 2
+    - item: {fileID: 11400000, guid: 62bd652633fe8b54a8e0ff0185ae5502, type: 2}
+      amount: 4
