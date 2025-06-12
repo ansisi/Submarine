@@ -79,7 +79,7 @@ public class SpaceshipBoundary : MonoBehaviour
 
     public void SetAntennaUpgradeLevel(int level)
     {
-        currentRadius = baseRadius * Mathf.Pow(2f, level);
+        currentRadius = baseRadius * Mathf.Pow(1.4f, level);
         itemSpawner.ExpandSecondSpawnAreaByTwo();
         DrawCircle();
     }
@@ -168,4 +168,42 @@ public class SpaceshipBoundary : MonoBehaviour
         finalColor.a = 0f;
         fadeImage.color = finalColor;
     }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmosSelected()
+    {
+        Vector3 center = transform.position;
+
+        float baseR = baseRadius; // base → baseR 또는 다른 이름
+
+        Color[] levelColors = new Color[]
+        {
+            new Color(1f, 1f, 1f, 0.3f),        // Level 0 - 하얀색
+            new Color(0.2f, 0.8f, 1f, 0.3f),    // Level 1 - 하늘색
+            new Color(0.4f, 1f, 0.4f, 0.3f),    // Level 2 - 연두색
+            new Color(1f, 0.4f, 0.4f, 0.3f)     // Level 3 - 연한 빨강
+        };
+
+        for (int level = 0; level <= 3; level++)
+        {
+            float radius = baseR * Mathf.Pow(1.4f, level);
+            Gizmos.color = levelColors[level];
+            DrawCircleGizmo(center, radius, 100);
+        }
+    }
+
+    private void DrawCircleGizmo(Vector3 center, float radius, int segments)
+    {
+        float angle = 0f;
+        Vector3 prev = center + new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0f) * radius;
+
+        for (int i = 1; i <= segments; i++)
+        {
+            angle += 2 * Mathf.PI / segments;
+            Vector3 next = center + new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0f) * radius;
+            Gizmos.DrawLine(prev, next);
+            prev = next;
+        }
+    }
+#endif
 }

@@ -161,3 +161,12 @@ MonoBehaviour:
   pushableLayerMask:
     serializedVersion: 2
     m_Bits: 2048
+  pullRadius: 60
+  pullDuration: 10
+  pullSpeed: 2
+  pullDamage: 200
+  groggyDuration: 5
+  reachThreshold: 7
+  pullEffectSegments: 64
+  pullEffectDuration: 5
+  pullEffectInterval: 2

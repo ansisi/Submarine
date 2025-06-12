@@ -25,9 +25,9 @@ public class BossController : MonoBehaviour, IDamageable
     [SerializeField] private float empCooldown = 20f;                 // EMP 패턴 쿨타임입니다.
     [SerializeField] private float empRadius = 10f;                   // EMP 효과 반경입니다.
     [SerializeField] private float empEffectDuration = 5f;            // 터렛에게 적용될 EMP 지속 시간입니다.
-    [SerializeField] private GameObject empWarningPrefab; // EMP 경고용 깜빡임 오브젝트
-    [SerializeField] private float empWarningDuration = 2f; // 경고 시간
-    [SerializeField] private float empBlinkInterval = 0.2f; // 깜빡이는 간격
+    [SerializeField] private GameObject empWarningPrefab;             // EMP 경고용 깜빡임 오브젝트
+    [SerializeField] private float empWarningDuration = 2f;           // 경고 시간
+    [SerializeField] private float empBlinkInterval = 0.2f;           // 깜빡이는 간격
     private float lastEmpTime = -Mathf.Infinity;                      // 마지막 EMP 실행 시간입니다.
 
 
@@ -37,6 +37,23 @@ public class BossController : MonoBehaviour, IDamageable
     [SerializeField] private LayerMask pushableLayerMask;               // 푸시 가능한 레이어 마스크 (터렛, 플레이어 등)
     private float nextPushThreshold;                                    // 다음 푸시 패턴 발동 체력 임계치
     private bool pushPending = false;
+
+    [Header("자기력 패턴 설정")]
+    [SerializeField] private float pullRadius = 20f;            // 끌어당길 반경
+    [SerializeField] private float pullDuration = 5f;           // 끌어당기는 지속 시간 (고정 5초)
+    [SerializeField] private float pullSpeed = 5f;              // 끌어당기는 속도
+    [SerializeField] private float pullDamage = 200f;           // 중심 도달 시 입힐 대미지
+    [SerializeField] private float groggyDuration = 5f;         // 그로기 지속 시간
+    [SerializeField] private float reachThreshold = 0.5f;       // 보스 중심 도달 판정 거리
+    private float nextPullThreshold;     // 다음 Pull 패턴 발동 체력 기준
+    private bool pullPending = false;    // Pull 패턴 대기 플래그
+    private bool isGroggy = false;       // 그로기 상태 플래그
+
+    [Header("자기력 패턴 이펙트 설정")]
+    [SerializeField] private int pullEffectSegments = 64; // 원분할 수
+    [SerializeField] private float pullEffectDuration = 1f; // 한 링이 줄어드는 시간
+    [SerializeField] private float pullEffectInterval = 0.3f; // 링 생성 간격
+    private Coroutine pullEffectCoroutine;
 
 
 
@@ -63,6 +80,7 @@ public class BossController : MonoBehaviour, IDamageable
     {
         currentHealth = maxHealth;                                // 보스 체력 초기화
         nextPushThreshold = maxHealth * 0.85f;                    // 15% 감소 시점마다 푸시
+        nextPullThreshold = maxHealth * 0.7f;
         InitializePatterns();                                     // 패턴 리스트 초기화
         StartCoroutine(PatternRunner());                   // 패턴 실행 코루틴 시작
     }
@@ -82,7 +100,7 @@ public class BossController : MonoBehaviour, IDamageable
     {
         while (currentHealth > 0)
         {
-            if (!isPatternRunning)
+            if (!isPatternRunning && !isGroggy)
             {
                 isPatternRunning = true;
 
@@ -92,6 +110,13 @@ public class BossController : MonoBehaviour, IDamageable
                     yield return StartCoroutine(PatternWarning(0f, nameof(PushBackPattern)));
                     yield return StartCoroutine(PushBackPattern());
                     pushPending = false;
+                }
+                // PullPattern
+                else if (pullPending)
+                {
+                    yield return StartCoroutine(PatternWarning(2f, nameof(PullPattern)));
+                    yield return StartCoroutine(PullPattern());
+                    pullPending = false;
                 }
                 // EmpPattern (쿨다운 & 대상 있을 때)
                 else if (Time.time - lastEmpTime >= empCooldown &&
@@ -105,7 +130,8 @@ public class BossController : MonoBehaviour, IDamageable
                 else
                 {
                     // 랜덤으로 하나 선택
-                    var list = new List<Pattern> {
+                    var list = new List<Pattern> 
+                    {
                         new Pattern(SpawnMonsterPattern, 3f),
                         new Pattern(HackTurretPattern, 3f)
                     };
@@ -239,6 +265,16 @@ public class BossController : MonoBehaviour, IDamageable
         // EMP 경고 표시
         yield return StartCoroutine(ShowEmpWarning());
 
+        // 폭탄(Mine) 파괴 처리
+        Collider[] mines = Physics.OverlapSphere(transform.position, empRadius);
+        foreach (var col in mines)
+        {
+            if (col.TryGetComponent<Mine>(out var mine))
+            {
+                Destroy(mine.gameObject);  // 범위 내 모든 지뢰 파괴
+            }
+        }
+
         // 패턴 실행
         Logger.Log($"[EMP] {targets.Count}개의 터렛에 EMP 효과를 적용합니다.");
         foreach (var turret in targets)
@@ -293,8 +329,8 @@ public class BossController : MonoBehaviour, IDamageable
     {
         // 푸시 파동 프리팹에서 LineRenderer 가져오기
         GameObject wave = Instantiate(pushWavePrefab, transform.position, Quaternion.Euler(90f, 0f, 0f));
-        LineRenderer lr = wave.GetComponent<LineRenderer>();  // LineRenderer 컴포넌트
-        if (lr == null)
+        LineRenderer lineRenderer = wave.GetComponent<LineRenderer>();  // LineRenderer 컴포넌트
+        if (lineRenderer == null)
         {
             Debug.LogWarning("pushWavePrefab에 LineRenderer가 없습니다.");
             Destroy(wave);
@@ -309,8 +345,8 @@ public class BossController : MonoBehaviour, IDamageable
         float duration = pushWarningDuration;                   // 지속 시간
 
         // LineRenderer 초기 설정
-        lr.positionCount = segments + 1;                        // 마지막 점이 시작점과 같게
-        lr.useWorldSpace = false;                               // 로컬 좌표계 사용
+        lineRenderer.positionCount = segments + 1;                        // 마지막 점이 시작점과 같게
+        lineRenderer.useWorldSpace = false;                               // 로컬 좌표계 사용
 
         // 경고 파동 애니메이션
         while (elapsed < duration)
@@ -324,7 +360,7 @@ public class BossController : MonoBehaviour, IDamageable
                 float angle = 2 * Mathf.PI * i / segments;
                 float x = Mathf.Cos(angle) * currentRadius;
                 float z = Mathf.Sin(angle) * currentRadius;
-                lr.SetPosition(i, new Vector3(x, 0f, z));      // y=0 평면에 그리기
+                lineRenderer.SetPosition(i, new Vector3(x, 0f, z));      // y=0 평면에 그리기
             }
 
             elapsed += Time.deltaTime;
@@ -370,6 +406,151 @@ public class BossController : MonoBehaviour, IDamageable
         rb.constraints = originalConstraints;
     }
 
+    private IEnumerator PullPattern()
+    {
+        Logger.Log("[Pull] 범위 내 오브젝트를 끌어당깁니다.");
+
+        // 끌어당김 이펙트 시작
+        pullEffectCoroutine = StartCoroutine(ShowPullEffect());
+
+        // 대상 수집
+        Collider[] cols = Physics.OverlapSphere(transform.position, pullRadius, pushableLayerMask);
+
+        List<Rigidbody> targets = cols
+            .Where(c => c.attachedRigidbody != null)
+            .Select(c => c.attachedRigidbody)
+            .ToList();
+
+        float elapsed = 0f;
+
+        var originalConstraints = new Dictionary<Rigidbody, RigidbodyConstraints>();
+        foreach (var rb in targets)
+            originalConstraints[rb] = rb.constraints;
+
+        // 끌어당기는 코루틴
+        while (elapsed < pullDuration)
+        {
+            for (int i = targets.Count - 1; i >= 0; i--)
+            {
+                var rb = targets[i];
+                if (rb == null)
+                {
+                    targets.RemoveAt(i); 
+                    continue;
+                }
+
+                // 끌어당기기 시작 전, X/Y Freeze 해제
+                rb.constraints &= ~(RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY);
+
+                Vector3 dir = (transform.position - rb.position);
+                dir.z = 0f;
+                float dist = dir.magnitude;
+                dir.Normalize();
+
+                // 목표 위치(보스 중심 경계선) 계산
+                Vector3 destination = transform.position;
+
+                // 폭탄(Bomb) 감지
+                if (dist <= reachThreshold && rb.TryGetComponent<Mine>(out var mine))
+                {
+                    yield return StartCoroutine(mine.ExplodeAfterDelay());
+
+                    // 즉시 패턴 종료 → 그로기 상태 돌입
+                    StartCoroutine(GroggyState());
+                    // Pull 이펙트 중지
+                    if (pullEffectCoroutine != null)
+                        StopCoroutine(pullEffectCoroutine);
+                    elapsed = pullDuration;    // 즉시 종료
+
+                    // 모든 constraints 원복
+                    foreach (var kv in originalConstraints)
+                        if (kv.Key != null)
+                            kv.Key.constraints = kv.Value;
+
+                    yield break;
+                }
+
+                // 중심 도달 시 파괴
+                if (dist <= reachThreshold)
+                {
+                    rb.GetComponent<IDamageable>()?.TakeDamage(pullDamage);
+                    targets.RemoveAt(i);
+                    continue;
+                }
+
+                // 이동
+                Vector3 next = rb.position + dir * pullSpeed * Time.deltaTime;
+                next.z = rb.position.z;
+                rb.MovePosition(next);
+            }
+
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        // Pull 이펙트 중지
+        if (pullEffectCoroutine != null)
+            StopCoroutine(pullEffectCoroutine);
+
+        // 남은 타겟들 전부 constraints 복원
+        foreach (var kv in originalConstraints)
+            if (kv.Key != null)
+                kv.Key.constraints = kv.Value;
+    }
+
+    private IEnumerator ShowPullEffect()
+    {
+        float totalTime = 0f;
+        while (totalTime < pullDuration)
+        {
+            // 매 간격마다 새로운 링 코루틴을 시작
+            StartCoroutine(AnimatePullRing());
+
+            yield return new WaitForSeconds(pullEffectInterval);
+            totalTime += pullEffectInterval;
+        }
+    }
+
+    private IEnumerator AnimatePullRing()
+    {
+        // 링 오브젝트 생성
+        GameObject instantiate = Instantiate(pushWavePrefab, transform.position, Quaternion.identity);
+        LineRenderer lineRenderer = instantiate.GetComponent<LineRenderer>();
+        lineRenderer.positionCount = pullEffectSegments + 1;
+        lineRenderer.useWorldSpace = true;
+
+        float elapsed = 0f;
+        while (elapsed < pullEffectDuration)
+        {
+            float effectDuration = elapsed / pullEffectDuration;
+            float currentRadius = Mathf.Lerp(pullRadius, 0f, effectDuration);
+
+            // 원형 좌표 계산
+            for (int i = 0; i <= pullEffectSegments; i++)
+            {
+                float effectSegments = 2f * Mathf.PI * i / pullEffectSegments;
+                Vector3 pos = transform.position + new Vector3(Mathf.Cos(effectSegments), Mathf.Sin(effectSegments), 0f) * currentRadius;
+                lineRenderer.SetPosition(i, pos);
+            }
+
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        // 마지막 프레임에서 완전 축소
+        for (int i = 0; i <= pullEffectSegments; i++)
+            lineRenderer.SetPosition(i, transform.position);
+
+        Destroy(instantiate);
+    }
+
+    private IEnumerator GroggyState()
+    {
+        isGroggy = true;
+        // 원한다면 애니메이션/이펙트 추가
+        yield return new WaitForSeconds(groggyDuration);
+        isGroggy = false;
+    }
+
     public void TakeDamage(float amount)  // IDamageable 구현
     {
         currentHealth -= amount;
@@ -383,6 +564,13 @@ public class BossController : MonoBehaviour, IDamageable
         {
             pushPending = true;
             nextPushThreshold -= maxHealth * 0.15f;
+        }
+
+        // Pull 예약 (30% 단위)
+        if (currentHealth <= nextPullThreshold)
+        {
+            pullPending = true;
+            nextPullThreshold -= maxHealth * 0.3f;
         }
     }
 
@@ -439,5 +627,12 @@ public class BossController : MonoBehaviour, IDamageable
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, empRadius);  // EMP 반경 시각화
 
+        //풀 패턴 반경 (pullRadius)
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, pullRadius);
+
+        // 보스 중심 도달 판정 거리 (reachThreshold)
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawWireSphere(transform.position, reachThreshold);
     }
 }
