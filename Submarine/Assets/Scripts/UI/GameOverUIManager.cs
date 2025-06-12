@@ -51,7 +51,7 @@ public class GameOverUIManager : MonoBehaviour
         // 이벤트 리스너 제거 (메모리 관리)
         SceneManager.sceneLoaded -= OnSceneLoaded;
         GameManager.Instance.ResetGame();
-        BgmManager.Instance.ResetBGM();
+        AudioManager.Instance.ResetBGM();
     }
 
     // Quit 버튼 클릭 시 게임 종료

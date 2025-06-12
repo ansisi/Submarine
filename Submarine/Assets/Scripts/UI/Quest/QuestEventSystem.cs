@@ -15,7 +15,10 @@ public enum QuestActionType
     CraftItem,      // 제작
     MineOre,        // 채굴
     EnterShip,      // 우주선 입장
+    EnterStation,
     UseConsumable,  // 소비 아이템 사용
+    ControlHook,
+    ControlHarpoon,
     InstallTurret   // 포탑 설치
     // ... 필요에 따라 추가
 }

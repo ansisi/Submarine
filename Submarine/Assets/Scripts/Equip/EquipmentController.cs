@@ -49,6 +49,8 @@ public class EquipmentController : MonoBehaviour
 
     private void SwitchEquipment(int index)
     {
+        AudioManager.Instance.PlaySFX("select02");
+
         currentIndex = index;
 
         harpoonController.enabled = (index == 0);

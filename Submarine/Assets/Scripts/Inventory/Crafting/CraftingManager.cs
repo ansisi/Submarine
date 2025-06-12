@@ -50,7 +50,7 @@ public class CraftingManager : MonoBehaviour
             }
         }
 
-        
+        AudioManager.Instance.PlaySFX("striking_a_nail4");
 
         InventoryManager.Instance.AddItem(recipe.resultItem, recipe.resultQuantity);
         InventoryUIManager.instance.UpdateUI();

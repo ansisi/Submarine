@@ -289,6 +289,8 @@ public class HarpoonController : MonoBehaviour
     {
         if (collidedObject.CompareTag("Terrain"))
         {
+            QuestEventSystem.Raise(QuestActionType.ControlHarpoon);
+
             Logger.Log("지형과 로프 연결 중: " + collidedObject.name);
 
             // 지형에 부착

@@ -87,6 +87,8 @@ public class InventorySlotUI : MonoBehaviour
     {
         if (item.isPlaceable && item.prefab != null && playerTransform != null)
         {
+            AudioManager.Instance.PlaySFX("damage1");
+
             Vector3 placePosition = playerTransform.position + Vector3.up * 1.5f;
             GameObject placedObject = Instantiate(item.prefab, placePosition, Quaternion.identity);
 
@@ -116,6 +118,7 @@ public class InventorySlotUI : MonoBehaviour
         {
             case "¹°":
             case "Water":
+                AudioManager.Instance.PlaySFX("drinking1");
                 WaterTank.Instance?.AddWater(30f);
                 QuestEventSystem.Raise(QuestActionType.UseConsumable, item.itemName);
                 break;

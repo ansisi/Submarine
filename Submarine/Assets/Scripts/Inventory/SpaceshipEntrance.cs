@@ -50,6 +50,8 @@ public class SpaceshipEntrance : InteractableBase
             return;
         }
 
+        AudioManager.Instance.PlaySFX("locker_C");
+
         spaceshipUI.SetActive(true); // UI 창 켜기
         // 필요하면 플레이어 조작 막기, 시점 고정 등 추가 가능
         InteractionManager.instance.SetInteractionLocked(true);
@@ -69,6 +71,8 @@ public class SpaceshipEntrance : InteractableBase
 
     private void CloseSpaceshipUI()
     {
+        AudioManager.Instance.PlaySFX("locker_C");
+
         spaceshipUI.SetActive(false);
 
         if (craftingUIPanel != null) craftingUIPanel.SetActive(false);

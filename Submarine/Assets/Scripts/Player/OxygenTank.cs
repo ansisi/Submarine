@@ -42,6 +42,12 @@ public class OxygenTank : MonoBehaviour
         StartCoroutine(RefillOxygen(amount));
     }
 
+    public void FullOxygen()
+    {
+        StopAllCoroutines();
+        elapsedOxygenTime = 0f; // 0이면 100%
+    }
+
     public void SetOxygenEfficiency(float efficiency)
     {
         oxygenEfficiency = Mathf.Clamp(efficiency, 0f, 1f); // 안전하게 제한

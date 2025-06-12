@@ -9,6 +9,7 @@ public class ShopUIManager : MonoBehaviour
     public GameObject SellPanel;
     public Button openButton;
 
+
     private void Start()
     {
         if (openButton != null)
@@ -26,7 +27,19 @@ public class ShopUIManager : MonoBehaviour
 
         if (!isActive)
         {
-            ShopManager.Instance?.OpenShop(); // 열릴 때만 처리
+            ShopManager.Instance?.OpenShop();
+
+            if (InventoryUIController.instance != null && !InventoryUIController.instance.isOpen)
+            {
+                InventoryUIController.instance.ToggleInventory();
+            }
+        }
+        else
+        {
+            if (InventoryUIController.instance != null && InventoryUIController.instance.isOpen)
+            {
+                InventoryUIController.instance.ToggleInventory();
+            }
         }
     }
 

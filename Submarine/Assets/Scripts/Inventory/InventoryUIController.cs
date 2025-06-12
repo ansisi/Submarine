@@ -7,7 +7,7 @@ public class InventoryUIController : MonoBehaviour
     public static InventoryUIController instance;
 
     public GameObject inventoryPanel;  // 인벤토리 전체 UI 패널
-    private bool isOpen = false;
+    public bool isOpen = false;
 
     private void Awake()
     {

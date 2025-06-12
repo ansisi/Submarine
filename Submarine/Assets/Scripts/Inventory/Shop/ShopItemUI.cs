@@ -46,6 +46,8 @@ public class ShopItemUI : MonoBehaviour
     {
         if (CurrencyManager.Instance.gold >= item.buyPrice)
         {
+            AudioManager.Instance.PlaySFX("coin05");
+
             CurrencyManager.Instance.SpendGold(item.buyPrice);
             InventoryManager.Instance.AddItem(item, 1);
             Logger.Log($"[상점] {item.itemName} 구매 완료");

@@ -226,6 +226,8 @@ public class HookController : MonoBehaviour
 
     void PullHook()
     {
+        QuestEventSystem.Raise(QuestActionType.ControlHook);
+
         Vector3 direction = (transform.position - attachedRigidbody.position).normalized;
         //attachedRigidbody.AddForce(direction * pullForce, ForceMode.Acceleration);
         attachedRigidbody.AddForce(direction * pullForce, ForceMode.Impulse); // 한 번에 강한 힘 적용

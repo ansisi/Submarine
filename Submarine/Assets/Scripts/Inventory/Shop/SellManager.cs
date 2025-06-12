@@ -71,6 +71,8 @@ public class SellManager : MonoBehaviour
         {
             if (!slot.IsEmpty)
             {
+                AudioManager.Instance.PlaySFX("coin06");
+
                 int price = slot.item.sellPrice * slot.quantity;
                 totalGold += price;
                 Logger.Log($"[판매] {slot.item.itemName} {slot.quantity}개 판매 완료 (+{price}G)");

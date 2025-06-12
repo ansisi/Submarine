@@ -68,7 +68,7 @@ public class WaveManager : MonoBehaviour
         OnWaveStarted?.Invoke(currentWave);
         Logger.Log($"Wave {currentWave + 1} 시작!");
 
-        BgmManager.Instance.StartCombat();
+        AudioManager.Instance.StartCombat();
 
         float waveStartTime = Time.time;
 
@@ -125,7 +125,7 @@ public class WaveManager : MonoBehaviour
         Logger.Log($"Wave {currentWave + 1} 종료! (보상 지급)");
 
         OnWaveEnded?.Invoke(currentWave);
-        BgmManager.Instance.StartRepair();
+        AudioManager.Instance.StartRepair();
 
         var waveData = waveList[currentWave];
 

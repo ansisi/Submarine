@@ -34,6 +34,10 @@ public class SpaceStationEntrance : InteractableBase
 
     public override void Interact()
     {
+        AudioManager.Instance.PlaySFX("locker_C");
+
+        QuestEventSystem.Raise(QuestActionType.EnterStation);
+
         spaceStationUI.SetActive(true); // 우주정거장 UI 열기
         InteractionManager.instance.SetInteractionLocked(true);
 
@@ -42,6 +46,12 @@ public class SpaceStationEntrance : InteractableBase
 
     private void CloseSpaceStationUI()
     {
+        var oxygenTank = FindObjectOfType<OxygenTank>();
+        if (oxygenTank != null)
+            oxygenTank.FullOxygen();
+
+        AudioManager.Instance.PlaySFX("locker_C");
+
         spaceStationUI.SetActive(false);
         InteractionManager.instance.SetInteractionLocked(false);
 

@@ -37,6 +37,8 @@ public class UpgradeUIManager : MonoBehaviour
     private Button currentTabButton; // 현재 선택된 탭 버튼
     private int currentLevelIndex;
 
+    public bool IsPanelOpen => upgradePanel != null && upgradePanel.activeSelf;
+
     private void Awake()
     {
            
@@ -168,6 +170,8 @@ public class UpgradeUIManager : MonoBehaviour
         PlayerData.Instance.SetUpgradeLevel(currentUpgrade.upgradeType, currentLevelData.level);
         UpgradeEffectManager.Instance.ApplyUpgrade(currentUpgrade.upgradeType, currentLevelData.level);
 
+        AudioManager.Instance.PlaySFX("powerup05");
+
         // 다음 레벨 이동
         currentLevelIndex++;
         RefreshContent();
@@ -235,6 +239,13 @@ public class UpgradeUIManager : MonoBehaviour
 
     private void ShowPanel()
     {
+        var craftingUI = FindObjectOfType<CraftingUIButton>();
+        if (craftingUI != null && craftingUI.IsPanelOpen)
+        {
+            // NotificationUI.Show("크래프팅 창이 열려 있을 때는 업그레이드를 열 수 없습니다.");
+            return;
+        }
+
         upgradePanel.SetActive(true);
 
         if (currentUpgrade == null && allUpgrades.Count > 0)

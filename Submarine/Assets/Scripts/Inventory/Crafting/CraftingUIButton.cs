@@ -10,6 +10,7 @@ public class CraftingUIButton : MonoBehaviour
     public Button openButton;
 
     public CraftingRecipeUIManager craftingRecipeUIManager;
+    public bool IsPanelOpen => craftingUIPanel != null && craftingUIPanel.activeSelf;
 
     private void Start()
     {
@@ -19,6 +20,13 @@ public class CraftingUIButton : MonoBehaviour
 
     private void ToggleCraftingUI()
     {
+        var upgradeUI = FindObjectOfType<UpgradeUIManager>();
+        if (upgradeUI != null && upgradeUI.IsPanelOpen)
+        {
+            // (선택) 안내 메시지 띄우기
+            return;
+        }
+
         if (craftingUIPanel == null) return;
 
         bool isActive = craftingUIPanel.activeSelf;
