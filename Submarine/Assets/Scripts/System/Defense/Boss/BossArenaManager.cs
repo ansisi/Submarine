@@ -4,7 +4,22 @@ using UnityEngine;
 
 public class BossArenaManager : MonoBehaviour
 {
+    public static BossArenaManager Instance { get; private set; }
+
     public GameObject arenaWalls; // 벽 또는 Invisible Collider 오브젝트
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+
+        // 초기 상태로 벽 비활성화
+        DisableArena();
+    }
 
     public void EnableArena()
     {

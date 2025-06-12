@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8448141514703761179}
   - component: {fileID: 7304174654168551283}
   - component: {fileID: -7795757898349321969}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Battery
   m_TagString: Resource
   m_Icon: {fileID: 0}

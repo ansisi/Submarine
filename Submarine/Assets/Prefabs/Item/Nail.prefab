@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 739815896838546947}
   - component: {fileID: 3175142898115278602}
   - component: {fileID: -2566484146328344436}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Nail
   m_TagString: Resource
   m_Icon: {fileID: 0}

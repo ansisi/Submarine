@@ -17,7 +17,7 @@ public class ItemSpawner : MonoBehaviour
     public Transform secondSpawnCenter;
     public float secondSpawnRadiusX = 30f;
     public float secondSpawnRadiusY = 100f;
-    public float spawnInterval = 3f;
+    public float spawnInterval = 3f;    // 3초 간격으로 아이템 생성
 
     [Header("충돌 검사 설정")]
     public float checkRadius = 0.5f; // 해당 반지름 안에 오브젝트가 있으면 스폰 안 함

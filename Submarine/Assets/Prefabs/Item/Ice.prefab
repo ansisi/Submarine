@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 710707193803091583}
   - component: {fileID: 2057874253869326676}
   - component: {fileID: 6007538443626691130}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Ice
   m_TagString: Resource
   m_Icon: {fileID: 0}

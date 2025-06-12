@@ -132,6 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfbd434790dd04e4c8a4064c26036e08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 5000
   patternInterval: 5
   monsterPrefabs:
   - {fileID: 3249911611737780658, guid: 3c1910e0fb1a9b64bab6a338a926094f, type: 3}
@@ -149,3 +150,14 @@ MonoBehaviour:
   - {x: 25, y: -11, z: 0}
   hackZoneSize: {x: 25, y: 50}
   hackIndicatorPrefab: {fileID: 4477383381961173830, guid: a2128eb3dd15df841a74dc15b0de62a8, type: 3}
+  empCooldown: 15
+  empRadius: 17.5
+  empEffectDuration: 5
+  empWarningPrefab: {fileID: 7031791710241807157, guid: 26675a21f51fcc24594fc47608ab0751, type: 3}
+  empWarningDuration: 2
+  empBlinkInterval: 0.5
+  pushWavePrefab: {fileID: 1393971346813808919, guid: 2b4c775705df5b446aa56635d935cb7a, type: 3}
+  pushWarningDuration: 1
+  pushableLayerMask:
+    serializedVersion: 2
+    m_Bits: 2048

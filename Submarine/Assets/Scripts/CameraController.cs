@@ -4,6 +4,17 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    public static CameraController Instance { get; private set; }
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+    }
+
     public Transform player;  // 플레이어의 Transform
     public Vector3 offset;    // 기본 오프셋 (카메라 위치 조정)
 
