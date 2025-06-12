@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,8 @@ using UnityEngine.UI;
 
 public class SpaceshipEntrance : InteractableBase
 {
+    public static event Action OnSpaceshipClosed; // 우주선 UI가 닫힐 때 이벤트
+
     public GameObject spaceshipUI; // 우주선 내부를 보여주는 UI (캔버스 안 이미지 등)
 
     public GameObject craftingUIPanel;
@@ -14,6 +17,8 @@ public class SpaceshipEntrance : InteractableBase
 
     public Item item;
     private bool IsEntrance = false;
+
+
 
 
     private void Start()
@@ -79,13 +84,7 @@ public class SpaceshipEntrance : InteractableBase
         if (craftingDetailUIPanel != null) craftingDetailUIPanel.SetActive(false);
         InteractionManager.instance.SetInteractionLocked(false);
 
-        
-        if (PlayerData.Instance.GetUpgradeLevel(UpgradeType.Spaceship) >= 2 
-            && WaveManager.Instance.GetCurrentWave() == 1
-            && !WaveManager.Instance.IsWaveRunning()) // 웨이브 진행 여부 체크 추가
-        {
-            WaveManager.Instance.TriggerWaveStart(); // 두 번째 웨이브 시작
-        }
+        OnSpaceshipClosed?.Invoke();
     }
 
     public override int Priority => 10; // 우선순위 낮게 하면 아이템보다 뒤로 밀릴 수 있음

@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(FactionHandler))]
 public class Mine : MonoBehaviour
 {
-    public float explosionDelay = 1f; // 터지기까지 대기 시간
+    public float explosionDelay = 0.1f; // 터지기까지 대기 시간
     public float explosionRadius = 5f; // 폭발 반경
     public float explosionDamage = 30f; // 폭발 데미지
     public float explosionForce = 500f; // 플레이어를 밀어낼 힘
@@ -24,7 +25,7 @@ public class Mine : MonoBehaviour
         }
     }
 
-    IEnumerator ExplodeAfterDelay()
+    public IEnumerator ExplodeAfterDelay()
     {
         yield return new WaitForSeconds(explosionDelay);
 
@@ -35,7 +36,12 @@ public class Mine : MonoBehaviour
             IDamageable damageable = hitCollider.GetComponent<IDamageable>();
             if (damageable != null)
             {
-                damageable.TakeDamage(explosionDamage);
+                // 진영 확인: 적인 경우에만 대미지
+                var faction = hitCollider.GetComponentInParent<FactionHandler>();
+                if (faction != null && faction.IsEnemy(this.GetComponent<FactionHandler>()))
+                {
+                    damageable.TakeDamage(explosionDamage);
+                }
             }
 
 

@@ -7,7 +7,7 @@ public class WaterCurrent : MonoBehaviour
     public float currentStrength = 5f; // 물살의 강도
     public float currentRange = 3f;   // 물살의 범위
     public float currentAngle = 0f;   // 물살의 방향 (0~360도, XY 평면 기준)
-
+    public LayerMask affectedLayers; // 영향을 받는 레이어들 (예: Resource 레이어)
     private Vector3 currentDirection; // 실제 적용할 물살 방향
 
     void Start()
@@ -33,7 +33,9 @@ public class WaterCurrent : MonoBehaviour
 
     void ApplyCurrentForce()
     {
-        Collider[] colliders = Physics.OverlapBox(transform.position, new Vector3(currentRange / 2, currentRange / 2, 0.5f), Quaternion.identity);
+        Collider[] colliders = Physics.OverlapBox(transform.position, 
+            new Vector3(currentRange / 2, currentRange / 2, 0.5f), 
+            Quaternion.identity, affectedLayers);
 
         foreach (Collider col in colliders)
         {

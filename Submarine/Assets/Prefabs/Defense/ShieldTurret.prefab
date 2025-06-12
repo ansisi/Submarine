@@ -282,7 +282,7 @@ GameObject:
   - component: {fileID: 4247142061712242884}
   - component: {fileID: 3956166458452356382}
   - component: {fileID: 5880206739212586608}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ShieldTurret
   m_TagString: Turret
   m_Icon: {fileID: 0}

@@ -229,7 +229,7 @@ GameObject:
   - component: {fileID: 7746140262690865264}
   - component: {fileID: 8474207431559680549}
   - component: {fileID: 3058260433914352471}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: LaserTurret
   m_TagString: Turret
   m_Icon: {fileID: 0}
@@ -303,7 +303,7 @@ MonoBehaviour:
   hackedBulletPrefab: {fileID: 0}
   firePoint: {fileID: 6496779834980671173}
   fireRate: 1
-  range: 15
+  range: 12
   maxDurability: 50
   enemyLayer:
     serializedVersion: 2
@@ -787,7 +787,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8838015389068316850, guid: 757174b5d47e81740a738c6dea265173, type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[0].m_Value.y
-      value: 2.6
+      value: 1.94
+      objectReference: {fileID: 0}
+    - target: {fileID: 8838015389068316850, guid: 757174b5d47e81740a738c6dea265173, type: 3}
+      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[0].m_Value.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8838015389068316850, guid: 757174b5d47e81740a738c6dea265173, type: 3}
       propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.w

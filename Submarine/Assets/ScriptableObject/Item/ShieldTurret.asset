@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee39bd684b4dc5149a0908ce073cdc59, type: 3}
   m_Name: ShieldTurret
   m_EditorClassIdentifier: 
-  itemName: "\uC274\uB4DC\uD3EC\uD0D1"
+  itemName: "\uC274\uB4DC \uD3EC\uD0D1"
   icon: {fileID: -1787807199, guid: cf779456fe46b954c8874360d337c16c, type: 3}
   buyPrice: 0
   sellPrice: 0

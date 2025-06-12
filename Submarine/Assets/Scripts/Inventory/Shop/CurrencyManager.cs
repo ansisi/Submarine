@@ -14,7 +14,7 @@ public class CurrencyManager : MonoBehaviour
     [Header("UI")]
     public TextMeshProUGUI goldText;
 
-    public event Action OnGoldChanged; // 골드 변경 시 호출
+    public static event Action<int> OnGoldChanged; // 골드 변경 시 호출
 
     private void Awake()
     {
@@ -39,13 +39,8 @@ public class CurrencyManager : MonoBehaviour
     public void AddGold(int amount)
     {
         gold += amount;
-        OnGoldChanged?.Invoke();
+        OnGoldChanged?.Invoke(gold);
         UpdateUI();
-
-        if (gold >= 5000 && WaveManager.Instance.GetCurrentWave() == 2 && !WaveManager.Instance.IsWaveRunning())
-        {
-            WaveManager.Instance.TriggerWaveStart(); // 세 번째 웨이브 시작
-        }
 
         //SaveCurrency();
     }
@@ -60,7 +55,7 @@ public class CurrencyManager : MonoBehaviour
         if (gold >= amount)
         {
             gold -= amount;
-            OnGoldChanged?.Invoke(); // 변경 알림
+            OnGoldChanged?.Invoke(gold); // 변경 알림
             UpdateUI();
             //SaveCurrency();
             return true;

@@ -26,9 +26,15 @@ public enum QuestActionType
 public static class QuestEventSystem
 {
     public static event Action<QuestActionType, string> OnQuestAction;
+    public static event Action OnAllQuestsFinished;
 
     public static void Raise(QuestActionType type, string param = "")
     {
         OnQuestAction?.Invoke(type, param);
+    }
+
+    public static void RaiseAllQuestsFinished()
+    {
+        OnAllQuestsFinished?.Invoke();
     }
 }

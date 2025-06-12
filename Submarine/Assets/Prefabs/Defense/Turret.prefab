@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3191001858865327417}
   - component: {fileID: 5459921333978702981}
   - component: {fileID: 6494455775007091642}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Turret
   m_TagString: Turret
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f72a129a5b2f93b4e9bf90729651399a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  faction: Player
+  faction: 0
 --- !u!114 &6270262596600990975
 MonoBehaviour:
   m_ObjectHideFlags: 0
