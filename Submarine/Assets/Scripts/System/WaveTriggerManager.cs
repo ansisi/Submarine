@@ -26,8 +26,15 @@ public class WaveTriggerManager : MonoBehaviour
         QuestEventSystem.OnAllQuestsFinished += OnAllQuestsFinished;     // 웨이브1
         SpaceshipEntrance.OnSpaceshipClosed += OnSpaceshipClosed;        // 웨이브2
         CurrencyManager.OnGoldChanged += OnGoldChanged;                  // 웨이브3
-        InventoryManager.Instance.OnItemAdded += OnItemAdded;            // 웨이브4
-        PlayerData.Instance.OnUpgradeChanged += OnUpgradeChanged;    // 웨이브5,6
+    }
+
+    private void Start()
+    {
+        if (InventoryManager.Instance != null)
+            InventoryManager.Instance.OnItemAdded += OnItemAdded;        // 웨이브4
+
+        if (PlayerData.Instance != null)
+            PlayerData.Instance.OnUpgradeChanged += OnUpgradeChanged;    // 웨이브5, 6
     }
 
     private void OnDestroy()

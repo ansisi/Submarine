@@ -81,7 +81,7 @@ MonoBehaviour:
   - {fileID: 6823046181696079074, guid: 7c3316c02616fc24db1e487e9ce61147, type: 3}
   - {fileID: 8413489734157985588, guid: c829ef5441407e44a8dac2db515a4389, type: 3}
   - {fileID: 2356159046844425195, guid: 25766adaa31362b4194e3762b0ca3201, type: 3}
-  initialSpawnCount: 70
+  initialSpawnCount: 100
   obstacleMask:
     serializedVersion: 2
     m_Bits: 0

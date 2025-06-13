@@ -14228,6 +14228,67 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5628135281228178513, guid: 7ab6e8cacac8ccf418fa39b6bf764c4a, type: 3}
   m_PrefabInstance: {fileID: 5794911010299731294}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1785174908
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 950448526930622337, guid: 8fdc9925c71bb7747bca0f06d0086b9d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 950448526930622337, guid: 8fdc9925c71bb7747bca0f06d0086b9d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -33
+      objectReference: {fileID: 0}
+    - target: {fileID: 950448526930622337, guid: 8fdc9925c71bb7747bca0f06d0086b9d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 950448526930622337, guid: 8fdc9925c71bb7747bca0f06d0086b9d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 950448526930622337, guid: 8fdc9925c71bb7747bca0f06d0086b9d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 950448526930622337, guid: 8fdc9925c71bb7747bca0f06d0086b9d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 950448526930622337, guid: 8fdc9925c71bb7747bca0f06d0086b9d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 950448526930622337, guid: 8fdc9925c71bb7747bca0f06d0086b9d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 950448526930622337, guid: 8fdc9925c71bb7747bca0f06d0086b9d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 950448526930622337, guid: 8fdc9925c71bb7747bca0f06d0086b9d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9176228969811581158, guid: 8fdc9925c71bb7747bca0f06d0086b9d, type: 3}
+      propertyPath: m_Name
+      value: Boss
+      objectReference: {fileID: 0}
+    - target: {fileID: 9176228969811581158, guid: 8fdc9925c71bb7747bca0f06d0086b9d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8fdc9925c71bb7747bca0f06d0086b9d, type: 3}
 --- !u!1 &1796280703
 GameObject:
   m_ObjectHideFlags: 0
@@ -16515,6 +16576,7 @@ GameObject:
   - component: {fileID: 2065536476}
   - component: {fileID: 2065536475}
   - component: {fileID: 2065536477}
+  - component: {fileID: 2065536478}
   m_Layer: 0
   m_Name: WaveManager
   m_TagString: Untagged
@@ -16570,6 +16632,19 @@ MonoBehaviour:
   circleImage: {fileID: 1862479058}
   messagePanel: {fileID: 272049007}
   messageText: {fileID: 797361586}
+--- !u!114 &2065536478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2065536474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 184d2c893066c3641aaa117e29dad72d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shieldTurretItem: {fileID: 11400000, guid: 3a84ffb5610254d4d88977efe714dd9d, type: 2}
 --- !u!1 &2083222954
 GameObject:
   m_ObjectHideFlags: 0
@@ -17269,6 +17344,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player2
       objectReference: {fileID: 0}
+    - target: {fileID: 2705246345038509732, guid: da89b167f9e669942955d23fde545c06, type: 3}
+      propertyPath: collisionLayers.m_Bits
+      value: 3839
+      objectReference: {fileID: 0}
     - target: {fileID: 8314469790731995752, guid: da89b167f9e669942955d23fde545c06, type: 3}
       propertyPath: oxygenText
       value: 
@@ -17649,6 +17728,7 @@ SceneRoots:
   - {fileID: 328580148}
   - {fileID: 1893543817}
   - {fileID: 1536360682}
+  - {fileID: 1785174908}
   - {fileID: 1515690527}
   - {fileID: 1165103824}
   - {fileID: 278220218}
