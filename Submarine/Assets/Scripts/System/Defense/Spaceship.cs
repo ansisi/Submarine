@@ -119,6 +119,16 @@ public class Spaceship : MonoBehaviour, IDamageable
 
     private void HandleWaveEnded(int waveIndex)
     {
+        // 자동회복 레벨을 PlayerData에서 직접 조회
+        int arLevel = PlayerData.Instance.GetUpgradeLevel(UpgradeType.AutoRepair);
+
+        // 2레벨 이상, 그리고 현재 체력이 최대의 50% 이하라면
+        if (arLevel >= 2 && currentHealth <= maxHealth * 0.5f)
+        {
+            currentHealth = maxHealth * 0.7f; 
+        }
+
+
         if (autoRepairInterval > 0f)
             StartAutoRepair(autoRepairInterval);
     }
