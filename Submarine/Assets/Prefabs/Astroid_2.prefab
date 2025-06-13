@@ -68,11 +68,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab45d2a815bfb5549bdaa7439ed5bcc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  orePrefab: {fileID: 283810071908280131, guid: 870cb50b80bf8d346bdbb7e1a081b9be, type: 3}
+  orePrefab: {fileID: 7626776859837181140, guid: a931e0097880b4245ad0301da33cb568, type: 3}
   oreCount: 10
-  radiusX: 7.43
-  radiusY: 7.05
-  radiusCenter: {x: 28.3, y: -24.5, z: 0}
+  respawnDelay: 5
+  radiusX: 7.05
+  radiusY: 7
+  radiusCenter: {x: 0, y: 0, z: 0}
 --- !u!114 &6931016857009592516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86,9 +87,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colliderCount: 40
-  radiusX: 6
-  radiusY: 6
-  radiusCenter: {x: 28.3, y: -24.5, z: 0}
+  radiusX: 6.5
+  radiusY: 6.5
+  radiusCenter: {x: 0, y: 0, z: 0}
   colliderRadius: 0.5
 --- !u!1001 &4696604143950793724
 PrefabInstance:

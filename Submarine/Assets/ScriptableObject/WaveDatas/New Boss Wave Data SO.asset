@@ -21,5 +21,5 @@ MonoBehaviour:
   clearRewardItem: {fileID: 0}
   clearRewardQuantity: 0
   bossPrefab: {fileID: 9176228969811581158, guid: 8fdc9925c71bb7747bca0f06d0086b9d, type: 3}
-  spawnPoint: {x: 0, y: -33, z: 0}
+  spawnPoint: {x: 0, y: -29, z: 0}
   bossDelayTime: 3

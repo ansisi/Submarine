@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Linq;
+using System.Net.NetworkInformation;
 
 [RequireComponent(typeof(FactionHandler))]
 public class BossController : MonoBehaviour, IDamageable
 {
     [Header("보스 설정")]
     [SerializeField] private float maxHealth = 100f;                               // 보스 최대 체력입니다.
+    [SerializeField] private float currentHealth;                                  // 보스 현재 체력입니다.
     [SerializeField] private float patternInterval = 5f;          // 다음 패턴까지 대기 시간입니다.
 
     [Header("몬스터 소환 설정")]  
@@ -53,6 +55,7 @@ public class BossController : MonoBehaviour, IDamageable
     [SerializeField] private int pullEffectSegments = 64; // 원분할 수
     [SerializeField] private float pullEffectDuration = 1f; // 한 링이 줄어드는 시간
     [SerializeField] private float pullEffectInterval = 0.3f; // 링 생성 간격
+    private List<GameObject> pullEffectInstances = new List<GameObject>();
     private Coroutine pullEffectCoroutine;
 
 
@@ -60,7 +63,7 @@ public class BossController : MonoBehaviour, IDamageable
     private List<Pattern> patterns;                      // 실행 가능한 패턴들의 델리게이트 리스트입니다.
     private bool isPatternRunning = false;                        // 패턴 실행 중복 방지 플래그입니다.
     
-    private float currentHealth;                                  // 보스 현재 체력입니다.
+    
 
     public Action<string> OnPatternWarningStarted;  // 경고 시작 시 호출 (패턴 이름 인자)
     public Action OnPatternWarningEnded;            // 경고 종료 시 호출
@@ -82,7 +85,8 @@ public class BossController : MonoBehaviour, IDamageable
         nextPushThreshold = maxHealth * 0.85f;                    // 15% 감소 시점마다 푸시
         nextPullThreshold = maxHealth * 0.7f;
         InitializePatterns();                                     // 패턴 리스트 초기화
-        StartCoroutine(PatternRunner());                   // 패턴 실행 코루틴 시작
+        StartCoroutine(PullPattern());
+        //StartCoroutine(PatternRunner());                   // 패턴 실행 코루틴 시작
     }
 
     private void InitializePatterns()
@@ -410,6 +414,12 @@ public class BossController : MonoBehaviour, IDamageable
     {
         Logger.Log("[Pull] 범위 내 오브젝트를 끌어당깁니다.");
 
+        Collider[] bossCols = GetComponentsInChildren<Collider>();
+        foreach (var bc in bossCols)
+        {
+            bc.isTrigger = true;
+        }
+
         // 끌어당김 이펙트 시작
         pullEffectCoroutine = StartCoroutine(ShowPullEffect());
 
@@ -460,6 +470,16 @@ public class BossController : MonoBehaviour, IDamageable
                     // Pull 이펙트 중지
                     if (pullEffectCoroutine != null)
                         StopCoroutine(pullEffectCoroutine);
+
+                    // 남아있는 모든 풀 이펙트 인스턴스 파괴
+                    foreach (var effect in pullEffectInstances)
+                        Destroy(effect);
+                    pullEffectInstances.Clear();
+
+                    foreach (var bc in bossCols)
+                        bc.isTrigger = false;
+
+
                     elapsed = pullDuration;    // 즉시 종료
 
                     // 모든 constraints 원복
@@ -491,6 +511,11 @@ public class BossController : MonoBehaviour, IDamageable
         if (pullEffectCoroutine != null)
             StopCoroutine(pullEffectCoroutine);
 
+        foreach (var bc in bossCols)
+        {
+            bc.isTrigger = false; 
+        }
+
         // 남은 타겟들 전부 constraints 복원
         foreach (var kv in originalConstraints)
             if (kv.Key != null)
@@ -514,13 +539,19 @@ public class BossController : MonoBehaviour, IDamageable
     {
         // 링 오브젝트 생성
         GameObject instantiate = Instantiate(pushWavePrefab, transform.position, Quaternion.identity);
+        pullEffectInstances.Add(instantiate);   
         LineRenderer lineRenderer = instantiate.GetComponent<LineRenderer>();
+
+        if (lineRenderer == null) yield break;
+
         lineRenderer.positionCount = pullEffectSegments + 1;
         lineRenderer.useWorldSpace = true;
 
         float elapsed = 0f;
         while (elapsed < pullEffectDuration)
         {
+            if (lineRenderer == null) yield break;
+
             float effectDuration = elapsed / pullEffectDuration;
             float currentRadius = Mathf.Lerp(pullRadius, 0f, effectDuration);
 
@@ -537,9 +568,13 @@ public class BossController : MonoBehaviour, IDamageable
         }
 
         // 마지막 프레임에서 완전 축소
-        for (int i = 0; i <= pullEffectSegments; i++)
-            lineRenderer.SetPosition(i, transform.position);
+        if (lineRenderer != null)
+        {
+            for (int i = 0; i <= pullEffectSegments; i++)
+                lineRenderer.SetPosition(i, transform.position);
+        }
 
+        pullEffectInstances.Remove(instantiate);
         Destroy(instantiate);
     }
 

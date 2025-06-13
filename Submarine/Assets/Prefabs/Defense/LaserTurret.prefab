@@ -303,7 +303,7 @@ MonoBehaviour:
   hackedBulletPrefab: {fileID: 0}
   firePoint: {fileID: 6496779834980671173}
   fireRate: 1
-  range: 12
+  range: 15
   maxDurability: 50
   enemyLayer:
     serializedVersion: 2
@@ -787,7 +787,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8838015389068316850, guid: 757174b5d47e81740a738c6dea265173, type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[0].m_Value.y
-      value: 1.94
+      value: 2.4
       objectReference: {fileID: 0}
     - target: {fileID: 8838015389068316850, guid: 757174b5d47e81740a738c6dea265173, type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[0].m_Value.z
