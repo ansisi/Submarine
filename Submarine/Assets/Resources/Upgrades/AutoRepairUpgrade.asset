@@ -27,8 +27,9 @@ MonoBehaviour:
       amount: 2
   - level: 2
     goldCost: 400
-    levelDescription: "\uBE44\uC804\uD22C \uC0C1\uD669 \uC2DC 15\uCD08\uB9C8\uB2E4
-      \uC6B0\uC8FC\uC120\uC758 10\uCCB4\uB825\uC744 \uC790\uB3D9 \uC218\uB9AC\uD569\uB2C8\uB2E4"
+    levelDescription: "\uC804\uD22C \uC6E8\uC774\uBE0C \uC885\uB8CC \uC2DC \uD604\uC7AC
+      \uC6B0\uC8FC\uC120 \uCCB4\uB825\uC774 50% \uBBF8\uB9CC\uC774\uBA74 \uC6B0\uC8FC\uC120
+      \uCCB4\uB825\uC744 70%\uAE4C\uC9C0 \uD68C\uBCF5 \uC2DC\uCF1C\uC90D\uB2C8\uB2E4."
     materialRequirements:
     - item: {fileID: 11400000, guid: 20aa834c3705ac0459f893bab6406069, type: 2}
       amount: 2

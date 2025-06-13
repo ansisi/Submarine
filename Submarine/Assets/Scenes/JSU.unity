@@ -10588,6 +10588,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Astroid_2
       objectReference: {fileID: 0}
+    - target: {fileID: 5199883328512945485, guid: 7f2844224c9b4bb46b0607d0bdf87a6e, type: 3}
+      propertyPath: radiusCenter.x
+      value: 62.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199883328512945485, guid: 7f2844224c9b4bb46b0607d0bdf87a6e, type: 3}
+      propertyPath: radiusCenter.y
+      value: -36.3
+      objectReference: {fileID: 0}
     - target: {fileID: 5498076690591518040, guid: 7f2844224c9b4bb46b0607d0bdf87a6e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 63.4
@@ -10627,6 +10635,14 @@ PrefabInstance:
     - target: {fileID: 5498076690591518040, guid: 7f2844224c9b4bb46b0607d0bdf87a6e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -199.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 6931016857009592516, guid: 7f2844224c9b4bb46b0607d0bdf87a6e, type: 3}
+      propertyPath: radiusCenter.x
+      value: 62.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6931016857009592516, guid: 7f2844224c9b4bb46b0607d0bdf87a6e, type: 3}
+      propertyPath: radiusCenter.y
+      value: -36.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
