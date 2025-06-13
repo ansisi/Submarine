@@ -54,7 +54,7 @@ public class GraphicsSettings : MonoBehaviour
         var parts = resolutionDropdown.options[index].text.Split('x');
         int w = int.Parse(parts[0].Trim()), h = int.Parse(parts[1].Trim());
 
-        Screen.SetResolution(w, h, Screen.fullScreen);
+        Screen.SetResolution(w, h, isFull);
         PlayerPrefs.SetInt(KEY_RES_INDEX, index);
         PlayerPrefs.SetInt(KEY_IS_FULLSCREEN, isFull ? 1 : 0);
         PlayerPrefs.Save();
@@ -78,6 +78,8 @@ public class GraphicsSettings : MonoBehaviour
     {
         if (isOn)
         {
+            if (!fullscreenToggle.isOn) fullscreenToggle.isOn = true;
+            if (windowedToggle.isOn) windowedToggle.isOn = false;
             ApplyFullscreen(true);
         }
     }
@@ -86,6 +88,8 @@ public class GraphicsSettings : MonoBehaviour
     {
         if (isOn)
         {
+            if (fullscreenToggle.isOn) fullscreenToggle.isOn = false;
+            if (!windowedToggle.isOn) windowedToggle.isOn = true;
             ApplyFullscreen(false);
         }
     }

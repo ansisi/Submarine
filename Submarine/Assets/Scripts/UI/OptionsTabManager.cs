@@ -15,23 +15,15 @@ public class OptionsTabManager : MonoBehaviour
     public GameObject audioContent;
     public GameObject controlsContent;
 
-    [SerializeField] private Button closeButton;
-    private StartMenuManager startMenuManager;
-
     private void Start()
     {
         // 버튼에 리스너 등록
         screenTabButton.onClick.AddListener(() => ShowTab(Tab.Screen));
         audioTabButton.onClick.AddListener(() => ShowTab(Tab.Audio));
         controlsTabButton.onClick.AddListener(() => ShowTab(Tab.Controls));
-        closeButton.onClick.AddListener(OnClickCloseButton);
 
         // 초기 탭 (예: 화면)
         ShowTab(Tab.Screen);
-
-
-
-        startMenuManager = GetComponent<StartMenuManager>();
     }
 
     enum Tab { Screen, Audio, Controls }
@@ -62,11 +54,6 @@ public class OptionsTabManager : MonoBehaviour
                 HighlightButton(controlsTabButton);
                 break;
         }
-    }
-
-    private void OnClickCloseButton()
-    {
-        startMenuManager.HideOptionPanel();
     }
 
     void ResetTabButtonVisuals()

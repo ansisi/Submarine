@@ -21,6 +21,18 @@ public class StartMenuManager : MonoBehaviour
         quitButton.onClick.AddListener(OnQuitButton);
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (optionPanel.activeSelf)
+            {
+                optionPanel.SetActive(false);
+
+                return;
+            }
+        }
+    }
 
     private void OnStartButton()
     {
