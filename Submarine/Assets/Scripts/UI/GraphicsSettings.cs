@@ -49,21 +49,29 @@ public class GraphicsSettings : MonoBehaviour
         windowedToggle.onValueChanged.AddListener(OnWindowedToggled);
     }
 
-    public void ApplyResolution(int index)
+    public void ApplyResolution(int index, bool isFull)
     {
         var parts = resolutionDropdown.options[index].text.Split('x');
         int w = int.Parse(parts[0].Trim()), h = int.Parse(parts[1].Trim());
 
         Screen.SetResolution(w, h, Screen.fullScreen);
-        PlayerPrefs.SetInt("KEY_RES_INDEX", index);
+        PlayerPrefs.SetInt(KEY_RES_INDEX, index);
+        PlayerPrefs.SetInt(KEY_IS_FULLSCREEN, isFull ? 1 : 0);
         PlayerPrefs.Save();
+    }
+
+    public void ApplyResolution(int index)
+    {
+        ApplyResolution(index, fullscreenToggle.isOn);
     }
 
     public void ApplyFullscreen(bool isFull)
     {
         Screen.fullScreen = isFull;
-        PlayerPrefs.SetInt("isFullscreen", isFull ? 1 : 0);
+        PlayerPrefs.SetInt(KEY_IS_FULLSCREEN, isFull ? 1 : 0);
         PlayerPrefs.Save();
+
+        ApplyResolution(resolutionDropdown.value, isFull);
     }
 
     void OnFullscreenToggled(bool isOn)

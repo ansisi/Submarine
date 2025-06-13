@@ -9,7 +9,6 @@ public class UpgradeUIManager : MonoBehaviour
     [Header("패널 토글")]
     [SerializeField] private GameObject upgradePanel;  // 전체 UI 루트
     [SerializeField] private Button openButton;        // UI 열기
-    [SerializeField] private Button closeButton;       // UI 닫기
 
     [Header("탭 버튼 (UpgradeData 목록)")]
     [SerializeField] private Button tabButtonPrefab;   // 프리팹: TextMeshProUGUI로 이름 표시
@@ -45,8 +44,7 @@ public class UpgradeUIManager : MonoBehaviour
         if (openButton == null)
             Debug.LogWarning("openButton이 null입니다!");
         // 1) 패널 열기/닫기 자동 연결
-        openButton.onClick.AddListener(ShowPanel);
-        closeButton.onClick.AddListener(HidePanel);
+        openButton.onClick.AddListener(TogglePanel);
         HidePanel();
 
         // 2) 모든 UpgradeData 에셋 로드하고, 탭 버튼 자동 생성·리스너 연결
@@ -254,6 +252,14 @@ public class UpgradeUIManager : MonoBehaviour
             var firstButton = upgradeToTabButton[firstData];
             SetUpgradeData(firstData, firstButton);
         }
+    }
+
+    private void TogglePanel()
+    {
+        if (IsPanelOpen)
+            HidePanel();
+        else
+            ShowPanel();
     }
 
     private void HidePanel() => upgradePanel.SetActive(false);
