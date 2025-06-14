@@ -58,6 +58,9 @@ public class BossController : MonoBehaviour, IDamageable
     private List<GameObject> pullEffectInstances = new List<GameObject>();
     private Coroutine pullEffectCoroutine;
 
+    public float MaxHealth => maxHealth;
+    public float CurrentHealth => currentHealth;
+
 
 
     private List<Pattern> patterns;                      // 실행 가능한 패턴들의 델리게이트 리스트입니다.
@@ -82,6 +85,9 @@ public class BossController : MonoBehaviour, IDamageable
     private void Start()
     {
         currentHealth = maxHealth;                                // 보스 체력 초기화
+
+        BossUIManager.Instance.ShowFor(this);
+
         nextPushThreshold = maxHealth * 0.85f;                    // 15% 감소 시점마다 푸시
         nextPullThreshold = maxHealth * 0.7f;
         InitializePatterns();                                     // 패턴 리스트 초기화
@@ -638,6 +644,8 @@ public class BossController : MonoBehaviour, IDamageable
 
     private void Die()
     {
+        BossUIManager.Instance.Hide();
+
         // 보스 사망 처리 (폭발 이펙트, 보상 드랍 등)
         CameraController.Instance.ExitBossCameraMode(); // 보스 카메라 모드 종료
         BossArenaManager.Instance.DisableArena(); // 보스전 아레나 비활성화
