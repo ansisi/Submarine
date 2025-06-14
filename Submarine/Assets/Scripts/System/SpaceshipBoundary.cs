@@ -24,6 +24,7 @@ public class SpaceshipBoundary : MonoBehaviour
     [SerializeField] private float baseRadius = 3f;
     public float currentRadius = 3f;
     public int circleSegments = 100;
+    public float upgradeRadiusMultiplier = 1.4f; // 업그레이드 시 반경 증가 비율
 
     private LineRenderer line;
     public CanvasGroup canvasGroup;  // 페이드 아웃을 위한 CanvasGroup
@@ -79,7 +80,7 @@ public class SpaceshipBoundary : MonoBehaviour
 
     public void SetAntennaUpgradeLevel(int level)
     {
-        currentRadius = baseRadius * Mathf.Pow(1.4f, level);
+        currentRadius = baseRadius * Mathf.Pow(upgradeRadiusMultiplier, level);
         itemSpawner.ExpandSecondSpawnAreaByTwo();
         DrawCircle();
     }
@@ -186,7 +187,7 @@ public class SpaceshipBoundary : MonoBehaviour
 
         for (int level = 0; level <= 3; level++)
         {
-            float radius = baseR * Mathf.Pow(1.4f, level);
+            float radius = baseR * Mathf.Pow(upgradeRadiusMultiplier, level);
             Gizmos.color = levelColors[level];
             DrawCircleGizmo(center, radius, 100);
         }

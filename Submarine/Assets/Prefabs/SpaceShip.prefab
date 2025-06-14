@@ -371,6 +371,7 @@ MonoBehaviour:
   maxHealth: 300
   baseMaxHealth: 100
   currentHealth: 0
+  spaceshipMaterial: {fileID: 2100000, guid: 3f2fd375aae105144beead4f0325e490, type: 2}
 --- !u!114 &1987529624448371288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -405,7 +406,7 @@ MonoBehaviour:
   craftingUIPanel: {fileID: 0}
   craftingDetailUIPanel: {fileID: 0}
   closeButton: {fileID: 0}
-  item: {fileID: 0}
+  item: {fileID: 11400000, guid: e370f60cbacc7a847ad9a73dc5c5d12d, type: 2}
 --- !u!114 &342304737243423594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -418,7 +419,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f72a129a5b2f93b4e9bf90729651399a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  faction: Player
+  faction: 0
 --- !u!54 &7229721462459513472
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -692,9 +693,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  baseRadius: 100
-  currentRadius: 100
+  itemSpawner: {fileID: 0}
+  baseRadius: 50
+  currentRadius: 50
   circleSegments: 100
+  upgradeRadiusMultiplier: 1.6
   canvasGroup: {fileID: 0}
   countdownText: {fileID: 0}
   fadeImage: {fileID: 0}
@@ -706,7 +709,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9150202680555822791}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1

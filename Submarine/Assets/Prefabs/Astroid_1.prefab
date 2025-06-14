@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 5884721417749300580}
   - component: {fileID: 7968773184688299354}
   - component: {fileID: 4465413227526277333}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Astroid_1
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.66, y: 1.66, z: 1.66}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 674231635637003886}
@@ -54,10 +54,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 6.15
-  m_Height: 15.64
+  m_Radius: 5.39
+  m_Height: 15.22
   m_Direction: 0
-  m_Center: {x: 0, y: -0.7, z: 0}
+  m_Center: {x: 0, y: -0.68, z: 0}
 --- !u!114 &7968773184688299354
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72,10 +72,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orePrefab: {fileID: 283810071908280131, guid: 870cb50b80bf8d346bdbb7e1a081b9be, type: 3}
   oreCount: 10
-  respawnDelay: 5
-  radiusX: 13.2
-  radiusY: 10.9
-  radiusCenter: {x: 0, y: 0, z: 0}
+  respawnDelay: 30
+  radiusX: 7.94
+  radiusY: 5.86
+  radiusCenter: {x: 52.5, y: 33.4, z: 0}
 --- !u!114 &4465413227526277333
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,9 +89,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colliderCount: 80
-  radiusX: 12
-  radiusY: 9
-  radiusCenter: {x: 0, y: 0, z: 0}
+  radiusX: 7.1
+  radiusY: 5.75
+  radiusCenter: {x: 52.5, y: 33.2, z: 0}
   colliderRadius: 0.5
 --- !u!1001 &1067884608735150469
 PrefabInstance:
