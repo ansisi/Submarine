@@ -15760,7 +15760,10 @@ MonoBehaviour:
   preparationTime: 15
   waveList:
   - {fileID: 11400000, guid: 85a017254d24b51438c2a0c2df4f7ee7, type: 2}
-  - {fileID: 11400000, guid: b962f68447152104ca6005097aa3228b, type: 2}
+  - {fileID: 11400000, guid: adb8ea51ca620564bba3c97a32bfbaf6, type: 2}
+  - {fileID: 11400000, guid: cf17390be682d1b4cbabaaf655b9e5df, type: 2}
+  - {fileID: 11400000, guid: d90d25ad518473949a5a36187365172e, type: 2}
+  - {fileID: 11400000, guid: f5253b1e3c426cb4498094ad31934369, type: 2}
   - {fileID: 11400000, guid: af1df8716ffc22b4ea4b3897e7ff7469, type: 2}
   enemySpawner: {fileID: 411993716}
 --- !u!4 &2065536476

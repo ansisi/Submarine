@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f0a601aa87a3d143b972739e9b32e07, type: 3}
   m_Name: Test_5 1
   m_EditorClassIdentifier: 
-  waveDuration: 180
+  waveDuration: 60
   subWaves:
   - spawnTime: 5
     enemySpawnDatas:
