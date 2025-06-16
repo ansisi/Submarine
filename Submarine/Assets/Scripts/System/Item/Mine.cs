@@ -9,6 +9,7 @@ public class Mine : MonoBehaviour
     public float explosionRadius = 5f; // 폭발 반경
     public float explosionDamage = 30f; // 폭발 데미지
     public float explosionForce = 500f; // 플레이어를 밀어낼 힘
+    [SerializeField] private GameObject explosionEffect;
 
     private bool isTriggered = false; // 이미 트리거됐는지 여부
 
@@ -57,8 +58,7 @@ public class Mine : MonoBehaviour
         }
 
         // 폭발 이펙트 추가 가능
-        // 예: Instantiate(explosionEffect, transform.position, Quaternion.identity);
-
+        Instantiate(explosionEffect, transform.position, Quaternion.Euler(90f, 0f, 0f));
         Destroy(gameObject); // 폭탄 삭제
     }
 
