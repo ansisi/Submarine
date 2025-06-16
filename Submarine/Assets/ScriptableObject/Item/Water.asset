@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: "\uBB3C"
   icon: {fileID: 1697427208, guid: 64c9c658859b18f4e987d88c1ed2a9a8, type: 3}
-  buyPrice: 15
+  buyPrice: 20
   sellPrice: 10
   isStackable: 1
   isPurchasable: 1

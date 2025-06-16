@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Nickel
   m_EditorClassIdentifier: 
   itemName: "\uB2C8\uCF08"
-  icon: {fileID: 0}
+  icon: {fileID: 393830716, guid: d2f8ce08e3bb73b4eb7d0bc64812249e, type: 3}
   buyPrice: 30
   sellPrice: 25
   isStackable: 1
