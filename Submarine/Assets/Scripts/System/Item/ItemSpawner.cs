@@ -88,14 +88,14 @@ public class ItemSpawner : MonoBehaviour
     public void ExpandSecondSpawnAreaByTwo()
     {
         // 2차 범위 (타원형) 스케일 2배
-        secondSpawnRadiusX *= 1.5f;
-        secondSpawnRadiusY *= 2f;
+        secondSpawnRadiusX *= 1.2f;
+        secondSpawnRadiusY *= 1.6f;
 
         // 중심 위치 X를 2배로 이동
         if (secondSpawnCenter != null)
         {
             Vector3 pos = secondSpawnCenter.position;
-            secondSpawnCenter.position = new Vector3(pos.x * 2.1f, pos.y, pos.z);
+            secondSpawnCenter.position = new Vector3(pos.x * 1.6f, pos.y, pos.z);
         }
     }
 

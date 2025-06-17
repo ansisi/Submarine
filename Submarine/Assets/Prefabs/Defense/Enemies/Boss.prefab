@@ -60,7 +60,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfbd434790dd04e4c8a4064c26036e08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 5000
+  maxHealth: 3000
   currentHealth: 0
   patternInterval: 5
   monsterPrefabs:
