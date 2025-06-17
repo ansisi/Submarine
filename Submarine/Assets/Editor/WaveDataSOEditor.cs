@@ -8,15 +8,15 @@ public class WaveDataSOEditor : Editor
 {
     private SerializedProperty waveDurationProp;
     private SerializedProperty subWavesProp;
-    private SerializedProperty clearRewardItemProp;
-    private SerializedProperty clearRewardQuantityProp;
+    private SerializedProperty clearRewardItemsProp;
+    private SerializedProperty clearRewardQuantitiesProp;
 
     protected virtual void OnEnable()
     {
         waveDurationProp = serializedObject.FindProperty("waveDuration");
         subWavesProp = serializedObject.FindProperty("subWaves");
-        clearRewardItemProp = serializedObject.FindProperty("clearRewardItem");
-        clearRewardQuantityProp = serializedObject.FindProperty("clearRewardQuantity");
+        clearRewardItemsProp = serializedObject.FindProperty("clearRewardItems");
+        clearRewardQuantitiesProp = serializedObject.FindProperty("clearRewardQuantities");
     }
 
     public override void OnInspectorGUI()
@@ -27,9 +27,9 @@ public class WaveDataSOEditor : Editor
         EditorGUILayout.PropertyField(waveDurationProp);
 
         EditorGUILayout.Space();
-        EditorGUILayout.LabelField("웨이브 클리어 보상", EditorStyles.boldLabel); 
-        EditorGUILayout.PropertyField(clearRewardItemProp, new GUIContent("보상 아이템")); 
-        EditorGUILayout.PropertyField(clearRewardQuantityProp, new GUIContent("보상 수량")); 
+        EditorGUILayout.LabelField("웨이브 클리어 보상", EditorStyles.boldLabel);
+        EditorGUILayout.PropertyField(clearRewardItemsProp, new GUIContent("보상 아이템 목록"), true);
+        EditorGUILayout.PropertyField(clearRewardQuantitiesProp, new GUIContent("보상 수량 목록"), true);
 
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("서브 웨이브 리스트", EditorStyles.boldLabel);

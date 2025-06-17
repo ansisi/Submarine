@@ -155,10 +155,17 @@ public class WaveManager : MonoBehaviour
 
     private void GiveClearReward(WaveDataSO waveData)
     {
-        if (waveData.clearRewardItem != null && waveData.clearRewardQuantity > 0)
+        // clearRewardItems와 clearRewardQuantities 리스트를 순회하며 보상 지급
+        for (int i = 0; i < waveData.clearRewardItems.Count; i++)
         {
-            InventoryManager.Instance.AddItem(waveData.clearRewardItem, waveData.clearRewardQuantity);
-            Logger.Log($"보상 지급: {waveData.clearRewardItem.name} x{waveData.clearRewardQuantity}");
+            var item = waveData.clearRewardItems[i];                // 보상 아이템
+            int quantity = waveData.clearRewardQuantities[i];            // 해당 아이템 수량
+
+            if (item != null && quantity > 0)
+            {
+                InventoryManager.Instance.AddItem(item, quantity);
+                Logger.Log($"보상 지급: {item.name} x{quantity}");
+            }
         }
     }
 
