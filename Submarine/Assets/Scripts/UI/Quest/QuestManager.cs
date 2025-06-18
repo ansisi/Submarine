@@ -62,6 +62,8 @@ public class QuestManager : MonoBehaviour
 
     private void StartQuest(int index)
     {
+        shownLongSteps.Clear();
+
         // 퀘스트 UI (체크박스 목록)가 꺼져 있을 수 있으니 다시 켜 주기
         QuestUI.Instance.gameObject.SetActive(true);
 
