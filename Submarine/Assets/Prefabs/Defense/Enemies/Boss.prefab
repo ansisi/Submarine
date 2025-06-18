@@ -90,6 +90,9 @@ MonoBehaviour:
   pushableLayerMask:
     serializedVersion: 2
     m_Bits: 2048
+  playerLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
   pullRadius: 60
   pullDuration: 10
   pullSpeed: 2

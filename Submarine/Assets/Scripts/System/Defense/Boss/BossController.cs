@@ -37,6 +37,7 @@ public class BossController : MonoBehaviour, IDamageable
     [SerializeField] private GameObject pushWavePrefab;                 // 푸시 경고용 파동(LineRenderer 등) 프리팹
     [SerializeField] private float pushWarningDuration = 1f;            // 파동 경고 지속 시간입니다.
     [SerializeField] private LayerMask pushableLayerMask;               // 푸시 가능한 레이어 마스크 (터렛, 플레이어 등)
+    [SerializeField] private LayerMask playerLayerMask;  // 플레이어 레이어만 지정
     private float nextPushThreshold;                                    // 다음 푸시 패턴 발동 체력 임계치
     private bool pushPending = false;
 
@@ -480,6 +481,16 @@ public class BossController : MonoBehaviour, IDamageable
                     // Pull 이펙트 중지
                     if (pullEffectCoroutine != null)
                         StopCoroutine(pullEffectCoroutine);
+
+                    // 보스 콜라이더 복원 전에 내부에 갇힌 플레이어만 밀어냅니다.
+                    Collider[] stuckPlayers = Physics.OverlapSphere(transform.position, pullRadius, playerLayerMask);
+                    foreach (var col in stuckPlayers)
+                    {
+                        Transform t = col.transform;
+                        Vector3 dirt = (t.position - transform.position).normalized;    // 보스 중심에서 바깥 방향
+                        Vector3 safePos = transform.position + dirt * (reachThreshold + 0.1f); // 기준 거리 + 여유
+                        t.position = safePos;  // 플레이어 위치 강제 이동
+                    }
 
                     // 남아있는 모든 풀 이펙트 인스턴스 파괴
                     foreach (var effect in pullEffectInstances)

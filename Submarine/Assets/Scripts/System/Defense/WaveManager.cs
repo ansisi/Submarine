@@ -108,17 +108,19 @@ public class WaveManager : MonoBehaviour
     {
         aliveEnemyCount--; // 적이 죽을 때마다 호출
 
-        if (aliveEnemyCount <= 0 && isWaveRunning)
+        if (!isWaveRunning)
         {
-            Logger.Log($"Wave {currentWave + 1} 모든 적 처치 완료!");
-
-            if (waveRoutineCoroutine != null)
+            if (aliveEnemyCount <= 0)
             {
-                StopCoroutine(waveRoutineCoroutine); // 웨이브 진행 코루틴만 중지
-                waveRoutineCoroutine = null;
-            }
+                Logger.Log($"Wave {currentWave + 1} 모든 적 처치 완료!");
 
-            EndCurrentWave();
+                if (waveRoutineCoroutine != null)
+                {
+                    StopCoroutine(waveRoutineCoroutine); // 웨이브 진행 코루틴만 중지
+                    waveRoutineCoroutine = null;
+                }
+                EndCurrentWave();
+            }
         }
     }
 
