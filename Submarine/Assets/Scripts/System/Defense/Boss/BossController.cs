@@ -91,8 +91,8 @@ public class BossController : MonoBehaviour, IDamageable
         nextPushThreshold = maxHealth * 0.85f;                    // 15% 감소 시점마다 푸시
         nextPullThreshold = maxHealth * 0.7f;
         InitializePatterns();                                     // 패턴 리스트 초기화
-        StartCoroutine(PullPattern());
-        //StartCoroutine(PatternRunner());                   // 패턴 실행 코루틴 시작
+        //StartCoroutine(PullPattern());
+        StartCoroutine(PatternRunner());                   // 패턴 실행 코루틴 시작
     }
 
     private void InitializePatterns()
@@ -429,23 +429,27 @@ public class BossController : MonoBehaviour, IDamageable
         // 끌어당김 이펙트 시작
         pullEffectCoroutine = StartCoroutine(ShowPullEffect());
 
-        // 대상 수집
-        Collider[] cols = Physics.OverlapSphere(transform.position, pullRadius, pushableLayerMask);
-
-        List<Rigidbody> targets = cols
-            .Where(c => c.attachedRigidbody != null)
-            .Select(c => c.attachedRigidbody)
-            .ToList();
-
+        //초기 대상 수집
+        List<Rigidbody> targets = new List<Rigidbody>();
         float elapsed = 0f;
-
         var originalConstraints = new Dictionary<Rigidbody, RigidbodyConstraints>();
-        foreach (var rb in targets)
-            originalConstraints[rb] = rb.constraints;
+        
 
         // 끌어당기는 코루틴
         while (elapsed < pullDuration)
         {
+            // 매 프레임 새로 들어온 대상 추가
+            Collider[] cols = Physics.OverlapSphere(transform.position, pullRadius, pushableLayerMask);
+            foreach (var col in cols)
+            {
+                Rigidbody rb = col.attachedRigidbody;
+                if (rb != null && !targets.Contains(rb))
+                {
+                    targets.Add(rb);                                        // targets 리스트에 추가합니다.
+                    originalConstraints[rb] = rb.constraints;               // 원래 제약도 저장합니다.
+                }
+            }
+
             for (int i = targets.Count - 1; i >= 0; i--)
             {
                 var rb = targets[i];
