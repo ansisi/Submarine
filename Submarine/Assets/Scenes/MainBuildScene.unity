@@ -4248,6 +4248,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4cc83ea256fccfa4186ef4c334ea5b56, type: 2}
   - {fileID: 11400000, guid: 7c1a15375917e6a47b707ba528291117, type: 2}
   - {fileID: 11400000, guid: 3a84ffb5610254d4d88977efe714dd9d, type: 2}
+  - {fileID: 11400000, guid: 910ac82c7397c614c939183175999b95, type: 2}
+  - {fileID: 11400000, guid: 4e00dd6e6a9883445b6e7a3d324bcf99, type: 2}
   itemUIPrefab: {fileID: 3500979061412392161, guid: 5e56551c7c851a2488d1c65d3c008688, type: 3}
   itemListParent: {fileID: 1397719789}
 --- !u!4 &489167513
@@ -6894,7 +6896,7 @@ MonoBehaviour:
   dialogueText: {fileID: 1306679519}
   navigationIndicator: {fileID: 930154872}
   spaceshipTransform: {fileID: 1053711188}
-  npcTransform: {fileID: 0}
+  npcTransform: {fileID: 1287579055}
 --- !u!4 &930154871
 Transform:
   m_ObjectHideFlags: 0
@@ -10775,6 +10777,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1282292083}
   m_CullTransparentMesh: 1
+--- !u!4 &1287579055 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5072459039598626540, guid: 54b7e8812f89a184ca302d064416edae, type: 3}
+  m_PrefabInstance: {fileID: 1052679073}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1290704959
 GameObject:
   m_ObjectHideFlags: 0
