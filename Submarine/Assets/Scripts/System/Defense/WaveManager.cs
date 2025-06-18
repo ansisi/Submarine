@@ -17,6 +17,7 @@ public class WaveManager : MonoBehaviour
 
     private int currentWave = 0;
     private bool isWaveRunning = false;
+    private bool allSubWavesSpawned;
 
     public event Action<int> OnWaveStarted;   // 웨이브 시작 이벤트 (UI 연결용 등)
     public event Action<int> OnWaveEnded;     // 웨이브 종료 이벤트 (UI, BGM 등)
@@ -65,8 +66,9 @@ public class WaveManager : MonoBehaviour
     private IEnumerator WaveRoutine(WaveDataSO waveData)
     {
         isWaveRunning = true;
-
+        allSubWavesSpawned = false;
         aliveEnemyCount = 0;  // 웨이브 시작 시 적 수 초기화
+
         OnWaveStarted?.Invoke(currentWave);
         Logger.Log($"Wave {currentWave + 1} 시작!");
 
@@ -91,12 +93,16 @@ public class WaveManager : MonoBehaviour
 
             enemySpawner.SpawnSubWave(subWave);
         }
+        allSubWavesSpawned = true;
 
         float remaining = waveStartTime + waveData.waveDuration - Time.time;
         if (remaining > 0)
             yield return new WaitForSeconds(remaining);
-        // 다음 웨이브는 다음 트리거로 시작됨 (대기 상태)
-        // 시간이 다 되어도 적이 남아있으면 파밍 상태 유지 (보상은 적 처치 기준으로 처리)
+
+        while (aliveEnemyCount > 0)
+            yield return null;
+
+        EndCurrentWave();
     }
 
     public void RegisterSpawnedEnemies(int count)
@@ -108,19 +114,17 @@ public class WaveManager : MonoBehaviour
     {
         aliveEnemyCount--; // 적이 죽을 때마다 호출
 
-        if (!isWaveRunning)
+        
+        if (isWaveRunning && allSubWavesSpawned && aliveEnemyCount <= 0)
         {
-            if (aliveEnemyCount <= 0)
-            {
-                Logger.Log($"Wave {currentWave + 1} 모든 적 처치 완료!");
+            Logger.Log($"Wave {currentWave + 1} 모든 적 처치 완료!");
 
-                if (waveRoutineCoroutine != null)
-                {
-                    StopCoroutine(waveRoutineCoroutine); // 웨이브 진행 코루틴만 중지
-                    waveRoutineCoroutine = null;
-                }
-                EndCurrentWave();
+            if (waveRoutineCoroutine != null)
+            {
+                StopCoroutine(waveRoutineCoroutine); // 웨이브 진행 코루틴만 중지
+                waveRoutineCoroutine = null;
             }
+            EndCurrentWave();
         }
     }
 
