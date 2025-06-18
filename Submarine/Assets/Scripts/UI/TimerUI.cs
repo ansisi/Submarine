@@ -21,12 +21,14 @@ public class TimerUI : MonoBehaviour
     private void OnEnable()
     {
         // 웨이브 시작/종료 이벤트만 구독
+        WaveManager.Instance.OnPreparationStarted += HandlePreparationStarted;
         WaveManager.Instance.OnWaveStarted += HandleWaveStarted;
         WaveManager.Instance.OnWaveEnded += HandleWaveEnded;
     }
 
     private void OnDisable()
     {
+        WaveManager.Instance.OnPreparationStarted -= HandlePreparationStarted;
         WaveManager.Instance.OnWaveStarted -= HandleWaveStarted;
         WaveManager.Instance.OnWaveEnded -= HandleWaveEnded;
     }
@@ -57,6 +59,11 @@ public class TimerUI : MonoBehaviour
         }
 
         circleImage.fillAmount = remainingTime / totalTime;
+    }
+
+    private void HandlePreparationStarted()
+    {
+        StartPreparationPhase();
     }
 
     private void StartPreparationPhase()

@@ -23,6 +23,8 @@ public class WaveManager : MonoBehaviour
 
     private Coroutine waveRoutineCoroutine;  // WaveRoutine 코루틴 핸들 저장
 
+    public event Action OnPreparationStarted;
+
 
     private void Awake()
     {
@@ -47,6 +49,8 @@ public class WaveManager : MonoBehaviour
     {
         if (isWaveRunning || currentWave >= waveList.Count)
             return;
+
+        OnPreparationStarted?.Invoke();
 
         StartCoroutine(WavePreparationRoutine());
     }
