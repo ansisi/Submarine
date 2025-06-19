@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7741913144849057511}
   - component: {fileID: 2548738332382481136}
-  m_Layer: 0
-  m_Name: Hook
+  m_Layer: 9
+  m_Name: Harpoon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

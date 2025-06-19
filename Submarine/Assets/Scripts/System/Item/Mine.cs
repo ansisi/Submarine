@@ -46,15 +46,15 @@ public class Mine : MonoBehaviour
             }
 
 
-            // 플레이어 날아가게 처리
-            if (hitCollider.CompareTag("Player"))
-            {
-                Rigidbody rb = hitCollider.GetComponent<Rigidbody>();
-                if (rb != null)
-                {
-                    rb.AddExplosionForce(explosionForce, transform.position, explosionRadius);
-                }
-            }
+            //// 플레이어 날아가게 처리
+            //if (hitCollider.CompareTag("Player"))
+            //{
+            //    Rigidbody rb = hitCollider.GetComponent<Rigidbody>();
+            //    if (rb != null)
+            //    {
+            //        rb.AddExplosionForce(explosionForce, transform.position, explosionRadius);
+            //    }
+            //}
         }
 
         // 폭발 이펙트 추가 가능

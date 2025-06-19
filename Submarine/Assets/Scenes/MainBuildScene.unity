@@ -15963,6 +15963,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 357852970655169676, guid: 8fdc9925c71bb7747bca0f06d0086b9d, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 357852970655169676, guid: 8fdc9925c71bb7747bca0f06d0086b9d, type: 3}
+      propertyPath: reachThreshold
+      value: 9.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 357852970655169676, guid: 8fdc9925c71bb7747bca0f06d0086b9d, type: 3}
       propertyPath: patternInterval
       value: 10
       objectReference: {fileID: 0}
@@ -18399,7 +18407,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   preparationTime: 15
   waveList:
-  - {fileID: 11400000, guid: 494e28cf96082d246a188f7357f804e8, type: 2}
   - {fileID: 11400000, guid: af1df8716ffc22b4ea4b3897e7ff7469, type: 2}
   enemySpawner: {fileID: 411993716}
 --- !u!4 &2065536476
@@ -19233,9 +19240,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player2
       objectReference: {fileID: 0}
+    - target: {fileID: 2228581792812485127, guid: da89b167f9e669942955d23fde545c06, type: 3}
+      propertyPath: harpoonSpeed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2228581792812485127, guid: da89b167f9e669942955d23fde545c06, type: 3}
+      propertyPath: harpoonPrefab
+      value: 
+      objectReference: {fileID: 7635041588512333859, guid: acd2dd849267f534e9304743c976f0ab, type: 3}
+    - target: {fileID: 2228581792812485127, guid: da89b167f9e669942955d23fde545c06, type: 3}
+      propertyPath: maxHarpoonDistance
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2705246345038509732, guid: da89b167f9e669942955d23fde545c06, type: 3}
+      propertyPath: maxHookDistance
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 2705246345038509732, guid: da89b167f9e669942955d23fde545c06, type: 3}
       propertyPath: collisionLayers.m_Bits
-      value: 3839
+      value: 3711
       objectReference: {fileID: 0}
     - target: {fileID: 8314469790731995752, guid: da89b167f9e669942955d23fde545c06, type: 3}
       propertyPath: oxygenText
