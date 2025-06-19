@@ -483,7 +483,7 @@ public class BossController : MonoBehaviour, IDamageable
                         StopCoroutine(pullEffectCoroutine);
 
                     // 보스 콜라이더 복원 전에 내부에 갇힌 플레이어만 밀어냅니다.
-                    Collider[] stuckPlayers = Physics.OverlapSphere(transform.position, pullRadius, playerLayerMask);
+                    Collider[] stuckPlayers = Physics.OverlapSphere(transform.position, reachThreshold, playerLayerMask);
                     foreach (var col in stuckPlayers)
                     {
                         Transform t = col.transform;
@@ -660,6 +660,14 @@ public class BossController : MonoBehaviour, IDamageable
     private void Die()
     {
         BossUIManager.Instance.Hide();
+
+        //
+        if (pullEffectCoroutine != null)
+            StopCoroutine(pullEffectCoroutine);
+
+        foreach (var effect in pullEffectInstances)
+            Destroy(effect);
+        pullEffectInstances.Clear();
 
         // 보스 사망 처리 (폭발 이펙트, 보상 드랍 등)
         CameraController.Instance.ExitBossCameraMode(); // 보스 카메라 모드 종료
