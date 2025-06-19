@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LaserTurret
   m_EditorClassIdentifier: 
   itemName: "\uB808\uC774\uC800 \uD3EC\uD0D1"
-  icon: {fileID: -2027123863, guid: 102d058ca68a4fb44b6fe3f26ad75d58, type: 3}
+  icon: {fileID: -1221212403, guid: 550e2261538176740bfbe4c509e038df, type: 3}
   buyPrice: 0
   sellPrice: 5000
   isStackable: 1

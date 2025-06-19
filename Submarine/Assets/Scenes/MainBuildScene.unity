@@ -17646,6 +17646,7 @@ GameObject:
   - component: {fileID: 2065536478}
   - component: {fileID: 2065536479}
   - component: {fileID: 2065536480}
+  - component: {fileID: 2065536481}
   m_Layer: 0
   m_Name: WaveManager
   m_TagString: Untagged
@@ -17739,6 +17740,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turretItemName: "\uD3EC\uD0D1"
+--- !u!114 &2065536481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2065536474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a307800da3350f14a9ac8a7d395e1037, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turretItem: {fileID: 11400000, guid: 910ac82c7397c614c939183175999b95, type: 2}
+  laserTurretItem: {fileID: 11400000, guid: 4e00dd6e6a9883445b6e7a3d324bcf99, type: 2}
+  bombItem: {fileID: 11400000, guid: 4cc83ea256fccfa4186ef4c334ea5b56, type: 2}
+  shieldTurretItem: {fileID: 11400000, guid: 3a84ffb5610254d4d88977efe714dd9d, type: 2}
 --- !u!1 &2083222954
 GameObject:
   m_ObjectHideFlags: 0

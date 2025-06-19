@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Titanium
   m_EditorClassIdentifier: 
   itemName: "\uD2F0\uD0C0\uB284"
-  icon: {fileID: 0}
+  icon: {fileID: 462890295, guid: 550e2261538176740bfbe4c509e038df, type: 3}
   buyPrice: 35
   sellPrice: 30
   isStackable: 1

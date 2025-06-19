@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SolarPower
   m_EditorClassIdentifier: 
   itemName: "\uD0DC\uC591\uC5F4"
-  icon: {fileID: -1511736666, guid: cf9a46a99f38cf948884c1a72ece140b, type: 3}
+  icon: {fileID: -1779297211, guid: 550e2261538176740bfbe4c509e038df, type: 3}
   buyPrice: 65
   sellPrice: 60
   isStackable: 1
