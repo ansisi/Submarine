@@ -12,18 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2eb9750f6d3f554d975ae8c69450fa4, type: 3}
   m_Name: New Boss Wave Data SO
   m_EditorClassIdentifier: 
-  waveDuration: 30
+  waveDuration: 35
   subWaves:
   - spawnTime: 5
     enemySpawnDatas:
     - enemyPrefab: {fileID: 3777617835739875713, guid: 427a2e321be22394db1f66b6361ad430, type: 3}
-      spawnCount: 3
-    - enemyPrefab: {fileID: 7317922985657874811, guid: a29f6423e239c3f4d8e25385c255993a, type: 3}
       spawnCount: 2
+    - enemyPrefab: {fileID: 7317922985657874811, guid: a29f6423e239c3f4d8e25385c255993a, type: 3}
+      spawnCount: 1
     - enemyPrefab: {fileID: 5970316663771290304, guid: 9b0d04cac268b3241a9c915a856f4650, type: 3}
       spawnCount: 1
     - enemyPrefab: {fileID: 5970316663771290304, guid: a60860d11b4c5d542b582a110e40abaa, type: 3}
-      spawnCount: 2
+      spawnCount: 1
     - enemyPrefab: {fileID: 3249911611737780658, guid: c4537fa203570e448a8b8339e678aa9e, type: 3}
       spawnCount: 1
     - enemyPrefab: {fileID: 3249911611737780658, guid: 3c1910e0fb1a9b64bab6a338a926094f, type: 3}
@@ -35,33 +35,33 @@ MonoBehaviour:
     - enemyPrefab: {fileID: 3777617835739875713, guid: 427a2e321be22394db1f66b6361ad430, type: 3}
       spawnCount: 2
     - enemyPrefab: {fileID: 7317922985657874811, guid: a29f6423e239c3f4d8e25385c255993a, type: 3}
-      spawnCount: 3
+      spawnCount: 1
     - enemyPrefab: {fileID: 5970316663771290304, guid: 9b0d04cac268b3241a9c915a856f4650, type: 3}
-      spawnCount: 3
+      spawnCount: 1
     - enemyPrefab: {fileID: 5970316663771290304, guid: a60860d11b4c5d542b582a110e40abaa, type: 3}
-      spawnCount: 0
+      spawnCount: 1
     - enemyPrefab: {fileID: 3249911611737780658, guid: c4537fa203570e448a8b8339e678aa9e, type: 3}
-      spawnCount: 0
+      spawnCount: 1
     - enemyPrefab: {fileID: 3249911611737780658, guid: 3c1910e0fb1a9b64bab6a338a926094f, type: 3}
-      spawnCount: 0
+      spawnCount: 1
     - enemyPrefab: {fileID: 3249911611737780658, guid: ce0b253e28f607a48bf6e32b5808318c, type: 3}
-      spawnCount: 0
+      spawnCount: 1
   - spawnTime: 25
     enemySpawnDatas:
     - enemyPrefab: {fileID: 3777617835739875713, guid: 427a2e321be22394db1f66b6361ad430, type: 3}
       spawnCount: 2
     - enemyPrefab: {fileID: 7317922985657874811, guid: a29f6423e239c3f4d8e25385c255993a, type: 3}
-      spawnCount: 2
+      spawnCount: 1
     - enemyPrefab: {fileID: 5970316663771290304, guid: 9b0d04cac268b3241a9c915a856f4650, type: 3}
       spawnCount: 1
     - enemyPrefab: {fileID: 5970316663771290304, guid: a60860d11b4c5d542b582a110e40abaa, type: 3}
-      spawnCount: 2
+      spawnCount: 1
     - enemyPrefab: {fileID: 3249911611737780658, guid: c4537fa203570e448a8b8339e678aa9e, type: 3}
-      spawnCount: 2
+      spawnCount: 1
     - enemyPrefab: {fileID: 3249911611737780658, guid: 3c1910e0fb1a9b64bab6a338a926094f, type: 3}
-      spawnCount: 2
+      spawnCount: 1
     - enemyPrefab: {fileID: 3249911611737780658, guid: ce0b253e28f607a48bf6e32b5808318c, type: 3}
-      spawnCount: 2
+      spawnCount: 1
   clearRewardItems: []
   clearRewardQuantities: 
   bossPrefab: {fileID: 9176228969811581158, guid: 8fdc9925c71bb7747bca0f06d0086b9d, type: 3}

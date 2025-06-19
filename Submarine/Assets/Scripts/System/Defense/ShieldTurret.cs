@@ -251,7 +251,10 @@ public class ShieldTurret : InteractableBase, IDamageable
         // 버프 중이라면, buffedTurrets 리스트를 순회하여 남아 있는 터렛들의 면역도 즉시 해제
         foreach (var turret in buffedTurrets)
         {
-            turret.RemoveShieldImmunity();
+            if (turret != null && turret.gameObject != null)
+            {
+                turret.RemoveShieldImmunity();
+            }
         }
         buffedTurrets.Clear();
 

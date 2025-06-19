@@ -89,7 +89,7 @@ public class InventorySlotUI : MonoBehaviour
         {
             AudioManager.Instance.PlaySFX("damage1");
 
-            Vector3 placePosition = playerTransform.position + Vector3.up * 1.5f;
+            Vector3 placePosition = playerTransform.position + playerTransform.up * 3.0f;
             GameObject placedObject = Instantiate(item.prefab, placePosition, Quaternion.identity);
 
             ITurretDeployable turretComponent = placedObject.GetComponent<ITurretDeployable>();

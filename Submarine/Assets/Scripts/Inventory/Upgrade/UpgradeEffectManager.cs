@@ -26,7 +26,8 @@ public class UpgradeEffectManager : MonoBehaviour
         ApplyAllUpgradesFromSave(); // 게임 시작 시 저장된 업그레이드 효과 자동 적용
     }
 
-    private void ApplyAllUpgradesFromSave()
+    
+    public void ApplyAllUpgradesFromSave()
     {
         foreach (UpgradeType type in System.Enum.GetValues(typeof(UpgradeType)))
         {

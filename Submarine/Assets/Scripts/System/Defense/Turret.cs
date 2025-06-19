@@ -343,6 +343,9 @@ public class Turret : MonoBehaviour, IDamageable
     /// </summary>
     public void RemoveShieldImmunity()
     {
+        if (this == null || !isActiveAndEnabled)
+            return;
+
         if (shieldImmunityCoroutine != null)
         {
             StopCoroutine(shieldImmunityCoroutine);

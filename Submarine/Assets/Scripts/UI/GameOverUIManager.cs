@@ -52,6 +52,9 @@ public class GameOverUIManager : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
         GameManager.Instance.ResetGame();
         AudioManager.Instance.ResetBGM();
+        PlayerData.Instance.ResetAllUpgradeLevels();
+        UpgradeEffectManager.Instance.ApplyAllUpgradesFromSave();
+        BgmManager.Instance.ResetBGM();
     }
 
     // Quit 버튼 클릭 시 게임 종료
