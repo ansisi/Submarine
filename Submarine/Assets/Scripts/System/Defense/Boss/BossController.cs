@@ -8,54 +8,54 @@ using System.Net.NetworkInformation;
 [RequireComponent(typeof(FactionHandler))]
 public class BossController : MonoBehaviour, IDamageable
 {
-    [Header("º¸½º ¼³Á¤")]
-    [SerializeField] private float maxHealth = 100f;                               // º¸½º ÃÖ´ë Ã¼·ÂÀÔ´Ï´Ù.
-    [SerializeField] private float currentHealth;                                  // º¸½º ÇöÀç Ã¼·ÂÀÔ´Ï´Ù.
-    [SerializeField] private float patternInterval = 5f;          // ´ÙÀ½ ÆÐÅÏ±îÁö ´ë±â ½Ã°£ÀÔ´Ï´Ù.
+    [Header("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½")]
+    [SerializeField] private float maxHealth = 100f;                               // ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ Ã¼ï¿½ï¿½ï¿½Ô´Ï´ï¿½.
+    [SerializeField] private float currentHealth;                                  // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½ï¿½ï¿½Ô´Ï´ï¿½.
+    [SerializeField] private float patternInterval = 5f;          // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½Ô´Ï´ï¿½.
 
-    [Header("¸ó½ºÅÍ ¼ÒÈ¯ ¼³Á¤")]  
-    [SerializeField] private List<GameObject> monsterPrefabs;     // ¼ÒÈ¯ÇÒ ¸ó½ºÅÍ ÇÁ¸®ÆÕ ¸®½ºÆ®ÀÔ´Ï´Ù.
-    [SerializeField] private int spawnCount = 6;                  // ÇÑ ¹ø¿¡ ¼ÒÈ¯ÇÒ ¸ó½ºÅÍ ¼öÀÔ´Ï´Ù.
-    [SerializeField] private Vector2 spawnAreaSize = new Vector2(10f, 10f); // ¼ÒÈ¯ ¿µ¿ª »çÀÌÁî (X, Z)
+    [Header("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ï¿½ï¿½ï¿½")]  
+    [SerializeField] private List<GameObject> monsterPrefabs;     // ï¿½ï¿½È¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½Ô´Ï´ï¿½.
+    [SerializeField] private int spawnCount = 6;                  // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ô´Ï´ï¿½.
+    [SerializeField] private Vector2 spawnAreaSize = new Vector2(10f, 10f); // ï¿½ï¿½È¯ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (X, Z)
 
-    [Header("ÇØÅ· ÆÐÅÏ ¼³Á¤")]
-    [SerializeField] private List<Vector3> hackZoneCenters; // ÇØÅ· ´ë»ó ±¸¿ªµéÀÇ Áß½É À§Ä¡ ¸®½ºÆ®
-    [SerializeField] private Vector2 hackZoneSize = new Vector2(15f, 15f); // ÇØÅ· ¹Ú½º Å©±â (X, Z)
-    [SerializeField] private GameObject hackIndicatorPrefab; // ÀÎµðÄÉÀÌÅÍ ÇÁ¸®ÆÕ (¹ÝÅõ¸í »¡°£ ¹Ú½º)
+    [Header("ï¿½ï¿½Å· ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½")]
+    [SerializeField] private List<Vector3> hackZoneCenters; // ï¿½ï¿½Å· ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½Æ®
+    [SerializeField] private Vector2 hackZoneSize = new Vector2(15f, 15f); // ï¿½ï¿½Å· ï¿½Ú½ï¿½ Å©ï¿½ï¿½ (X, Z)
+    [SerializeField] private GameObject hackIndicatorPrefab; // ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú½ï¿½)
 
-    [Header("EMP ÆÐÅÏ ¼³Á¤")]
-    [SerializeField] private float empCooldown = 20f;                 // EMP ÆÐÅÏ ÄðÅ¸ÀÓÀÔ´Ï´Ù.
-    [SerializeField] private float empRadius = 10f;                   // EMP È¿°ú ¹Ý°æÀÔ´Ï´Ù.
-    [SerializeField] private float empEffectDuration = 5f;            // ÅÍ·¿¿¡°Ô Àû¿ëµÉ EMP Áö¼Ó ½Ã°£ÀÔ´Ï´Ù.
-    [SerializeField] private GameObject empWarningPrefab;             // EMP °æ°í¿ë ±ôºýÀÓ ¿ÀºêÁ§Æ®
-    [SerializeField] private float empWarningDuration = 2f;           // °æ°í ½Ã°£
-    [SerializeField] private float empBlinkInterval = 0.2f;           // ±ôºýÀÌ´Â °£°Ý
-    private float lastEmpTime = -Mathf.Infinity;                      // ¸¶Áö¸· EMP ½ÇÇà ½Ã°£ÀÔ´Ï´Ù.
+    [Header("EMP ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½")]
+    [SerializeField] private float empCooldown = 20f;                 // EMP ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ï¿½Ô´Ï´ï¿½.
+    [SerializeField] private float empRadius = 10f;                   // EMP È¿ï¿½ï¿½ ï¿½Ý°ï¿½ï¿½Ô´Ï´ï¿½.
+    [SerializeField] private float empEffectDuration = 5f;            // ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ EMP ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½Ô´Ï´ï¿½.
+    [SerializeField] private GameObject empWarningPrefab;             // EMP ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+    [SerializeField] private float empWarningDuration = 2f;           // ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
+    [SerializeField] private float empBlinkInterval = 0.2f;           // ï¿½ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½ï¿½ï¿½
+    private float lastEmpTime = -Mathf.Infinity;                      // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ EMP ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½Ô´Ï´ï¿½.
 
 
-    [Header("Çª½Ã ÆÐÅÏ ¼³Á¤")]
-    [SerializeField] private GameObject pushWavePrefab;                 // Çª½Ã °æ°í¿ë ÆÄµ¿(LineRenderer µî) ÇÁ¸®ÆÕ
-    [SerializeField] private float pushWarningDuration = 1f;            // ÆÄµ¿ °æ°í Áö¼Ó ½Ã°£ÀÔ´Ï´Ù.
-    [SerializeField] private LayerMask pushableLayerMask;               // Çª½Ã °¡´ÉÇÑ ·¹ÀÌ¾î ¸¶½ºÅ© (ÅÍ·¿, ÇÃ·¹ÀÌ¾î µî)
-    [SerializeField] private LayerMask playerLayerMask;  // ÇÃ·¹ÀÌ¾î ·¹ÀÌ¾î¸¸ ÁöÁ¤
-    private float nextPushThreshold;                                    // ´ÙÀ½ Çª½Ã ÆÐÅÏ ¹ßµ¿ Ã¼·Â ÀÓ°èÄ¡
+    [Header("Çªï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½")]
+    [SerializeField] private GameObject pushWavePrefab;                 // Çªï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Äµï¿½(LineRenderer ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    [SerializeField] private float pushWarningDuration = 1f;            // ï¿½Äµï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½Ô´Ï´ï¿½.
+    [SerializeField] private LayerMask pushableLayerMask;               // Çªï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½Å© (ï¿½Í·ï¿½, ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½)
+    [SerializeField] private LayerMask playerLayerMask;  // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½Ì¾î¸¸ ï¿½ï¿½ï¿½ï¿½
+    private float nextPushThreshold;                                    // ï¿½ï¿½ï¿½ï¿½ Çªï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ßµï¿½ Ã¼ï¿½ï¿½ ï¿½Ó°ï¿½Ä¡
     private bool pushPending = false;
 
-    [Header("ÀÚ±â·Â ÆÐÅÏ ¼³Á¤")]
-    [SerializeField] private float pullRadius = 20f;            // ²ø¾î´ç±æ ¹Ý°æ
-    [SerializeField] private float pullDuration = 5f;           // ²ø¾î´ç±â´Â Áö¼Ó ½Ã°£ (°íÁ¤ 5ÃÊ)
-    [SerializeField] private float pullSpeed = 5f;              // ²ø¾î´ç±â´Â ¼Óµµ
-    [SerializeField] private float pullDamage = 200f;           // Áß½É µµ´Þ ½Ã ÀÔÈú ´ë¹ÌÁö
-    [SerializeField] private float groggyDuration = 5f;         // ±×·Î±â Áö¼Ó ½Ã°£
-    [SerializeField] private float reachThreshold = 0.5f;       // º¸½º Áß½É µµ´Þ ÆÇÁ¤ °Å¸®
-    private float nextPullThreshold;     // ´ÙÀ½ Pull ÆÐÅÏ ¹ßµ¿ Ã¼·Â ±âÁØ
-    private bool pullPending = false;    // Pull ÆÐÅÏ ´ë±â ÇÃ·¡±×
-    private bool isGroggy = false;       // ±×·Î±â »óÅÂ ÇÃ·¡±×
+    [Header("ï¿½Ú±ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½")]
+    [SerializeField] private float pullRadius = 20f;            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ý°ï¿½
+    [SerializeField] private float pullDuration = 5f;           // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ (ï¿½ï¿½ï¿½ï¿½ 5ï¿½ï¿½)
+    [SerializeField] private float pullSpeed = 5f;              // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Óµï¿½
+    [SerializeField] private float pullDamage = 200f;           // ï¿½ß½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
+    [SerializeField] private float groggyDuration = 5f;         // ï¿½×·Î±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
+    [SerializeField] private float reachThreshold = 0.5f;       // ï¿½ï¿½ï¿½ï¿½ ï¿½ß½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½
+    private float nextPullThreshold;     // ï¿½ï¿½ï¿½ï¿½ Pull ï¿½ï¿½ï¿½ï¿½ ï¿½ßµï¿½ Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    private bool pullPending = false;    // Pull ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½
+    private bool isGroggy = false;       // ï¿½×·Î±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½
 
-    [Header("ÀÚ±â·Â ÆÐÅÏ ÀÌÆåÆ® ¼³Á¤")]
-    [SerializeField] private int pullEffectSegments = 64; // ¿øºÐÇÒ ¼ö
-    [SerializeField] private float pullEffectDuration = 1f; // ÇÑ ¸µÀÌ ÁÙ¾îµå´Â ½Ã°£
-    [SerializeField] private float pullEffectInterval = 0.3f; // ¸µ »ý¼º °£°Ý
+    [Header("ï¿½Ú±ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½")]
+    [SerializeField] private int pullEffectSegments = 64; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+    [SerializeField] private float pullEffectDuration = 1f; // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¾ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
+    [SerializeField] private float pullEffectInterval = 0.3f; // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     private List<GameObject> pullEffectInstances = new List<GameObject>();
     private Coroutine pullEffectCoroutine;
 
@@ -64,18 +64,18 @@ public class BossController : MonoBehaviour, IDamageable
 
 
 
-    private List<Pattern> patterns;                      // ½ÇÇà °¡´ÉÇÑ ÆÐÅÏµéÀÇ µ¨¸®°ÔÀÌÆ® ¸®½ºÆ®ÀÔ´Ï´Ù.
-    private bool isPatternRunning = false;                        // ÆÐÅÏ ½ÇÇà Áßº¹ ¹æÁö ÇÃ·¡±×ÀÔ´Ï´Ù.
+    private List<Pattern> patterns;                      // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½Æ®ï¿½Ô´Ï´ï¿½.
+    private bool isPatternRunning = false;                        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ßºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.
     
     
 
-    public Action<string> OnPatternWarningStarted;  // °æ°í ½ÃÀÛ ½Ã È£Ãâ (ÆÐÅÏ ÀÌ¸§ ÀÎÀÚ)
-    public Action OnPatternWarningEnded;            // °æ°í Á¾·á ½Ã È£Ãâ
-    // ÆÐÅÏ Á¤º¸¸¦ ¹­´Â Å¬·¡½º
+    public Action<string> OnPatternWarningStarted;  // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ È£ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½)
+    public Action OnPatternWarningEnded;            // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ È£ï¿½ï¿½
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½
     private class Pattern
     {
-        public Func<IEnumerator> PatternRoutine;   // ÆÐÅÏ ½ÇÇà ÄÚ·çÆ¾ ÇÔ¼ö
-        public float WarningTime;                  // ÆÐÅÏ ½ÃÀÛ Àü ´ë±â½Ã°£
+        public Func<IEnumerator> PatternRoutine;   // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú·ï¿½Æ¾ ï¿½Ô¼ï¿½
+        public float WarningTime;                  // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ã°ï¿½
 
         public Pattern(Func<IEnumerator> routine, float warningTime)
         {
@@ -85,25 +85,25 @@ public class BossController : MonoBehaviour, IDamageable
     }
     private void Start()
     {
-        currentHealth = maxHealth;                                // º¸½º Ã¼·Â ÃÊ±âÈ­
+        currentHealth = maxHealth;                                // ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½ï¿½ ï¿½Ê±ï¿½È­
 
         BossUIManager.Instance.ShowFor(this);
 
-        nextPushThreshold = maxHealth * 0.85f;                    // 15% °¨¼Ò ½ÃÁ¡¸¶´Ù Çª½Ã
+        nextPushThreshold = maxHealth * 0.85f;                    // 15% ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Çªï¿½ï¿½
         nextPullThreshold = maxHealth * 0.7f;
-        InitializePatterns();                                     // ÆÐÅÏ ¸®½ºÆ® ÃÊ±âÈ­
+        InitializePatterns();                                     // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ê±ï¿½È­
         //StartCoroutine(PullPattern());
-        StartCoroutine(PatternRunner());                   // ÆÐÅÏ ½ÇÇà ÄÚ·çÆ¾ ½ÃÀÛ
+        StartCoroutine(PatternRunner());                   // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú·ï¿½Æ¾ ï¿½ï¿½ï¿½ï¿½
     }
 
     private void InitializePatterns()
     {
         patterns = new List<Pattern>()
         {
-            new Pattern(SpawnMonsterPattern, 3f),  // ¸ó½ºÅÍ ¼ÒÈ¯ ÆÐÅÏ, ½ÃÀÛ Àü 2ÃÊ ´ë±â
-            new Pattern(HackTurretPattern, 3f),  // ÇØÅ· ÆÐÅÏ, ½ÃÀÛ Àü 3ÃÊ ´ë±â
+            new Pattern(SpawnMonsterPattern, 3f),  // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ 2ï¿½ï¿½ ï¿½ï¿½ï¿½
+            new Pattern(HackTurretPattern, 3f),  // ï¿½ï¿½Å· ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ 3ï¿½ï¿½ ï¿½ï¿½ï¿½
             new Pattern(EmpPattern, 3f), 
-            // , OtherPattern1, OtherPattern2 µî ÀÌÈÄ ÆÐÅÏ Ãß°¡
+            // , OtherPattern1, OtherPattern2 ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
         };
     }
 
@@ -115,7 +115,7 @@ public class BossController : MonoBehaviour, IDamageable
             {
                 isPatternRunning = true;
 
-                // PushBackPattern (°¡Àå ³ôÀº ¿ì¼±¼øÀ§) 
+                // PushBackPattern (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ì¼±ï¿½ï¿½ï¿½ï¿½) 
                 if (pushPending)
                 {
                     yield return StartCoroutine(PatternWarning(0f, nameof(PushBackPattern)));
@@ -129,7 +129,7 @@ public class BossController : MonoBehaviour, IDamageable
                     yield return StartCoroutine(PullPattern());
                     pullPending = false;
                 }
-                // EmpPattern (Äð´Ù¿î & ´ë»ó ÀÖÀ» ¶§)
+                // EmpPattern (ï¿½ï¿½Ù¿ï¿½ & ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½)
                 else if (Time.time - lastEmpTime >= empCooldown &&
                          Physics.OverlapSphere(transform.position, empRadius)
                              .Any(c => c.TryGetComponent<Turret>(out _)))
@@ -137,10 +137,10 @@ public class BossController : MonoBehaviour, IDamageable
                     yield return StartCoroutine(PatternWarning(3f, nameof(EmpPattern)));
                     yield return StartCoroutine(EmpPattern());
                 }
-                // SpawnMonsterPattern & HackTurretPattern (µ¿ÀÏ ¿ì¼±¼øÀ§)
+                // SpawnMonsterPattern & HackTurretPattern (ï¿½ï¿½ï¿½ï¿½ ï¿½ì¼±ï¿½ï¿½ï¿½ï¿½)
                 else
                 {
-                    // ·£´ýÀ¸·Î ÇÏ³ª ¼±ÅÃ
+                    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï³ï¿½ ï¿½ï¿½ï¿½ï¿½
                     var list = new List<Pattern> 
                     {
                         new Pattern(SpawnMonsterPattern, 3f),
@@ -161,17 +161,17 @@ public class BossController : MonoBehaviour, IDamageable
 
     private IEnumerator PatternWarning(float warningTime, string patternName)
     {
-        Logger.Log($"[ÆÐÅÏ °æ°í] {patternName} ÆÐÅÏÀÌ {warningTime}ÃÊ ÈÄ ½ÃÀÛµË´Ï´Ù.");
-        OnPatternWarningStarted?.Invoke(patternName);  // °æ°í ½ÃÀÛ ÀÌº¥Æ® È£Ãâ
+        Logger.Log($"[ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½] {patternName} ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ {warningTime}ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ÛµË´Ï´ï¿½.");
+        OnPatternWarningStarted?.Invoke(patternName);  // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ® È£ï¿½ï¿½
 
         yield return new WaitForSeconds(warningTime);
 
-        OnPatternWarningEnded?.Invoke();               // °æ°í Á¾·á ÀÌº¥Æ® È£Ãâ
+        OnPatternWarningEnded?.Invoke();               // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ® È£ï¿½ï¿½
     }
 
     private IEnumerator SpawnMonsterPattern()
     {
-        // ¸ó½ºÅÍ 6¸¶¸®¸¦ º¸½º ÁÖº¯¿¡ ·£´ý À§Ä¡·Î ¼ÒÈ¯
+        // ï¿½ï¿½ï¿½ï¿½ 6ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Öºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½È¯
         for (int i = 0; i < spawnCount; i++)
         {
             Vector3 offset = new Vector3(
@@ -181,20 +181,20 @@ public class BossController : MonoBehaviour, IDamageable
 
             Instantiate(monsterPrefabs[UnityEngine.Random.Range(0, monsterPrefabs.Count)],
                         spawnPos, Quaternion.identity);
-            yield return new WaitForSeconds(0.3f);  // ¼ÒÈ¯ °£°Ý (Á¶Á¤ °¡´É)
+            yield return new WaitForSeconds(0.3f);  // ï¿½ï¿½È¯ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
         }
     }
 
     private IEnumerator HackTurretPattern()
     {
-        // °¡Àå ¸¹Àº ÅÍ·¿ÀÌ ÀÖ´Â ±¸¿ª ÀÎµ¦½º Ã£±â
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Í·ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ Ã£ï¿½ï¿½
         int maxTurretCount = -1;
         List<int> candidateZones = new List<int>();
 
         for (int i = 0; i < hackZoneCenters.Count; i++)
         {
             Vector3 center = hackZoneCenters[i];
-            Vector3 halfExtents = new Vector3(hackZoneSize.x / 2f, hackZoneSize.y / 2f, 1f); // Z´Â ¾ã°Ô
+            Vector3 halfExtents = new Vector3(hackZoneSize.x / 2f, hackZoneSize.y / 2f, 1f); // Zï¿½ï¿½ ï¿½ï¿½ï¿½
             
             Collider[] cols = Physics.OverlapBox(center, halfExtents);
             
@@ -212,14 +212,14 @@ public class BossController : MonoBehaviour, IDamageable
             }
         }
 
-        // ÅÍ·¿ ¼ö°¡ °°Àº ±¸¿ªÀÌ ¿©·¯ °³¸é ±× Áß ·£´ý ¼±ÅÃ
+        // ï¿½Í·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         int bestZoneIndex = candidateZones[UnityEngine.Random.Range(0, candidateZones.Count)];
 
-        // ÀÎµðÄÉÀÌÅÍ ÇÁ¸®ÆÕ »ý¼º (°æ°í ½Ã°¢È­)
+        // ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½È­)
         GameObject indicator = Instantiate(hackIndicatorPrefab, hackZoneCenters[bestZoneIndex], Quaternion.identity);
-        indicator.transform.localScale = new Vector3(hackZoneSize.x, hackZoneSize.y, 0.5f); // ¾ãÀº Z
+        indicator.transform.localScale = new Vector3(hackZoneSize.x, hackZoneSize.y, 0.5f); // ï¿½ï¿½ï¿½ï¿½ Z
 
-        // 3ÃÊ°£ ±ôºýÀÓ È¿°ú (PatternWarning ½Ã°£¸¸Å­ ±ôºýÀÓ Áö¼Ó)
+        // 3ï¿½Ê°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ È¿ï¿½ï¿½ (PatternWarning ï¿½Ã°ï¿½ï¿½ï¿½Å­ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
         float blinkDuration = 5f;
         float timer = 0f;
         float blinkInterval = 0.5f;
@@ -233,9 +233,9 @@ public class BossController : MonoBehaviour, IDamageable
             timer += blinkInterval;
         }
 
-        Destroy(indicator); // ÀÎµðÄÉÀÌÅÍ Á¦°Å
+        Destroy(indicator); // ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-        // ½ÇÁ¦ ÇØÅ· ½ÇÇà
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å· ï¿½ï¿½ï¿½ï¿½
         Vector3 bestCenter = hackZoneCenters[bestZoneIndex];
         Vector3 bestHalfExtents = new Vector3(hackZoneSize.x / 2f, hackZoneSize.y / 2f, 1f);
         Collider[] targets = Physics.OverlapBox(bestCenter, bestHalfExtents);
@@ -253,14 +253,14 @@ public class BossController : MonoBehaviour, IDamageable
 
     private IEnumerator EmpPattern()
     {
-        // ÄðÅ¸ÀÓ È®ÀÎ
+        // ï¿½ï¿½Å¸ï¿½ï¿½ È®ï¿½ï¿½
         if (Time.time - lastEmpTime < empCooldown)
         {
-            Logger.Log("[EMP] ÄðÅ¸ÀÓÀÌ ¾ÆÁ÷ ³²¾Æ ÀÖ¾î ÆÐÅÏÀ» Ãë¼ÒÇÕ´Ï´Ù.");
+            Logger.Log("[EMP] ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.");
             yield break;
         }
 
-        // ¹Ý°æ ³» ÅÍ·¿ Å½»ö
+        // ï¿½Ý°ï¿½ ï¿½ï¿½ ï¿½Í·ï¿½ Å½ï¿½ï¿½
         Collider[] cols = Physics.OverlapSphere(transform.position, empRadius);
         var targets = cols
             .Where(c => c.TryGetComponent<Turret>(out _))
@@ -269,28 +269,28 @@ public class BossController : MonoBehaviour, IDamageable
 
         if (targets.Count == 0)
         {
-            Logger.Log("[EMP] ¹Ý°æ ³»¿¡ ÅÍ·¿ÀÌ ¾ø¾î ÆÐÅÏÀ» Ãë¼ÒÇÕ´Ï´Ù.");
+            Logger.Log("[EMP] ï¿½Ý°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Í·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.");
             yield break;
         }
 
-        // EMP °æ°í Ç¥½Ã
+        // EMP ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½
         yield return StartCoroutine(ShowEmpWarning());
 
-        // ÆøÅº(Mine) ÆÄ±« Ã³¸®
+        // ï¿½ï¿½Åº(Mine) ï¿½Ä±ï¿½ Ã³ï¿½ï¿½
         Collider[] mines = Physics.OverlapSphere(transform.position, empRadius);
         foreach (var col in mines)
         {
             if (col.TryGetComponent<Mine>(out var mine))
             {
-                Destroy(mine.gameObject);  // ¹üÀ§ ³» ¸ðµç Áö·Ú ÆÄ±«
+                Destroy(mine.gameObject);  // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ä±ï¿½
             }
         }
 
-        // ÆÐÅÏ ½ÇÇà
-        Logger.Log($"[EMP] {targets.Count}°³ÀÇ ÅÍ·¿¿¡ EMP È¿°ú¸¦ Àû¿ëÇÕ´Ï´Ù.");
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        Logger.Log($"[EMP] {targets.Count}ï¿½ï¿½ï¿½ï¿½ ï¿½Í·ï¿½ï¿½ï¿½ EMP È¿ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.");
         foreach (var turret in targets)
         {
-            turret.ApplyEMPEffect(empEffectDuration);  // EMP È¿°ú Àû¿ë
+            turret.ApplyEMPEffect(empEffectDuration);  // EMP È¿ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
 
         lastEmpTime = Time.time;
@@ -299,10 +299,10 @@ public class BossController : MonoBehaviour, IDamageable
 
     private IEnumerator PushBackPattern()
     {
-        // Çª½Ã ÆÐÅÏ ½ÇÇà Àü °æ°í Ç¥½Ã
+        // Çªï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½
         yield return StartCoroutine(ShowPushWarning());
 
-        Logger.Log("[PushBack] ¹üÀ§ ³» ÅÍ·¿°ú ÇÃ·¹ÀÌ¾î¸¦ ¹Ð¾î³À´Ï´Ù.");
+        Logger.Log("[PushBack] ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Í·ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾î¸¦ ï¿½Ð¾ï¿½ï¿½ï¿½Ï´ï¿½.");
 
         int combinedMask = pushableLayerMask | (1 << LayerMask.NameToLayer("Player"));
         Collider[] cols = Physics.OverlapSphere(transform.position, empRadius, combinedMask);
@@ -315,7 +315,7 @@ public class BossController : MonoBehaviour, IDamageable
                 Vector3 origin = transform.position;
                 Vector3 targetPos = col.transform.position;
 
-                // XY Æò¸é ¹æÇâ º¤ÅÍ °è»ê
+                // XY ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
                 Vector3 direction = targetPos - origin;
                 direction.z = 0f;
                 float distance = direction.magnitude;
@@ -324,10 +324,10 @@ public class BossController : MonoBehaviour, IDamageable
                 {
                     direction.Normalize();
 
-                    // ¸ñÇ¥ À§Ä¡ °è»ê (EMP ¹üÀ§ °æ°è¼± À§Ä¡)
+                    // ï¿½ï¿½Ç¥ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ (EMP ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½è¼± ï¿½ï¿½Ä¡)
                     Vector3 destination = origin + direction * empRadius;
 
-                    // ÄÚ·çÆ¾À¸·Î ¹Ð¾î³»±â ½ÃÀÛ
+                    // ï¿½Ú·ï¿½Æ¾ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¾î³»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                     StartCoroutine(PushToPosition(rb, destination, 0.15f));
                 }
             }
@@ -338,47 +338,47 @@ public class BossController : MonoBehaviour, IDamageable
 
     private IEnumerator ShowPushWarning()
     {
-        // Çª½Ã ÆÄµ¿ ÇÁ¸®ÆÕ¿¡¼­ LineRenderer °¡Á®¿À±â
+        // Çªï¿½ï¿½ ï¿½Äµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ¿ï¿½ï¿½ï¿½ LineRenderer ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         GameObject wave = Instantiate(pushWavePrefab, transform.position, Quaternion.Euler(90f, 0f, 0f));
-        LineRenderer lineRenderer = wave.GetComponent<LineRenderer>();  // LineRenderer ÄÄÆ÷³ÍÆ®
+        LineRenderer lineRenderer = wave.GetComponent<LineRenderer>();  // LineRenderer ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
         if (lineRenderer == null)
         {
-            Debug.LogWarning("pushWavePrefab¿¡ LineRenderer°¡ ¾ø½À´Ï´Ù.");
+            Debug.LogWarning("pushWavePrefabï¿½ï¿½ LineRendererï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
             Destroy(wave);
             yield break;
         }
 
-        // ÆÄµ¿ ¼³Á¤ º¯¼ö
-        int segments = 64;                                      // ¿øÀ» ±¸¼ºÇÒ ¼¼±×¸ÕÆ® ¼ö
+        // ï¿½Äµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        int segments = 64;                                      // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½×¸ï¿½Æ® ï¿½ï¿½
         float elapsed = 0f;
         float startRadius = 0f;
         float endRadius = empRadius;                           
-        float duration = pushWarningDuration;                   // Áö¼Ó ½Ã°£
+        float duration = pushWarningDuration;                   // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
 
-        // LineRenderer ÃÊ±â ¼³Á¤
-        lineRenderer.positionCount = segments + 1;                        // ¸¶Áö¸· Á¡ÀÌ ½ÃÀÛÁ¡°ú °°°Ô
-        lineRenderer.useWorldSpace = false;                               // ·ÎÄÃ ÁÂÇ¥°è »ç¿ë
+        // LineRenderer ï¿½Ê±ï¿½ ï¿½ï¿½ï¿½ï¿½
+        lineRenderer.positionCount = segments + 1;                        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        lineRenderer.useWorldSpace = false;                               // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½
 
-        // °æ°í ÆÄµ¿ ¾Ö´Ï¸ÞÀÌ¼Ç
+        // ï¿½ï¿½ï¿½ ï¿½Äµï¿½ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½
         while (elapsed < duration)
         {
             float t = elapsed / duration;
             float currentRadius = Mathf.Lerp(startRadius, endRadius, t);
 
-            // ¿øÇü ÁÂÇ¥ °è»ê
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½
             for (int i = 0; i <= segments; i++)
             {
                 float angle = 2 * Mathf.PI * i / segments;
                 float x = Mathf.Cos(angle) * currentRadius;
                 float z = Mathf.Sin(angle) * currentRadius;
-                lineRenderer.SetPosition(i, new Vector3(x, 0f, z));      // y=0 Æò¸é¿¡ ±×¸®±â
+                lineRenderer.SetPosition(i, new Vector3(x, 0f, z));      // y=0 ï¿½ï¿½é¿¡ ï¿½×¸ï¿½ï¿½ï¿½
             }
 
             elapsed += Time.deltaTime;
             yield return null;
         }
 
-        // ¿Ï·á ÈÄ Á¦°Å
+        // ï¿½Ï·ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         Destroy(wave);
     }
 
@@ -387,15 +387,15 @@ public class BossController : MonoBehaviour, IDamageable
         float timer = 0f;
         Vector3 start = rb.position;
 
-        // ±âÁ¸ constraints ÀúÀå
+        // ï¿½ï¿½ï¿½ï¿½ constraints ï¿½ï¿½ï¿½ï¿½
         RigidbodyConstraints originalConstraints = rb.constraints;
 
-        // X, Y Ãà¸¸ ÇØÁ¦ (Z´Â ±×´ë·Î À¯Áö)
+        // X, Y ï¿½à¸¸ ï¿½ï¿½ï¿½ï¿½ (Zï¿½ï¿½ ï¿½×´ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
         rb.constraints &= ~(RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY);
 
         while (timer < duration)
         {
-            // z´Â °íÁ¤ (XY Æò¸éÀ¸·Î¸¸ ÀÌµ¿)
+            // zï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (XY ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¸ï¿½ ï¿½Ìµï¿½)
             Vector3 nextPos = Vector3.Lerp(start, destination, timer / duration);
             nextPos.z = rb.position.z;
 
@@ -405,21 +405,21 @@ public class BossController : MonoBehaviour, IDamageable
             yield return new WaitForFixedUpdate();
         }
 
-        // À§Ä¡ º¸Á¤
+        // ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
         destination.z = rb.position.z;
         rb.MovePosition(destination);
 
-        // ¼Óµµ Á¤Áö
+        // ï¿½Óµï¿½ ï¿½ï¿½ï¿½ï¿½
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
 
-        // constraints ¿ø·¡´ë·Î º¹¿ø
+        // constraints ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         rb.constraints = originalConstraints;
     }
 
     private IEnumerator PullPattern()
     {
-        Logger.Log("[Pull] ¹üÀ§ ³» ¿ÀºêÁ§Æ®¸¦ ²ø¾î´ç±é´Ï´Ù.");
+        Logger.Log("[Pull] ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
 
         Collider[] bossCols = GetComponentsInChildren<Collider>();
         foreach (var bc in bossCols)
@@ -427,27 +427,27 @@ public class BossController : MonoBehaviour, IDamageable
             bc.isTrigger = true;
         }
 
-        // ²ø¾î´ç±è ÀÌÆåÆ® ½ÃÀÛ
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
         pullEffectCoroutine = StartCoroutine(ShowPullEffect());
 
-        //ÃÊ±â ´ë»ó ¼öÁý
+        //ï¿½Ê±ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         List<Rigidbody> targets = new List<Rigidbody>();
         float elapsed = 0f;
         var originalConstraints = new Dictionary<Rigidbody, RigidbodyConstraints>();
         
 
-        // ²ø¾î´ç±â´Â ÄÚ·çÆ¾
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú·ï¿½Æ¾
         while (elapsed < pullDuration)
         {
-            // ¸Å ÇÁ·¹ÀÓ »õ·Î µé¾î¿Â ´ë»ó Ãß°¡
+            // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
             Collider[] cols = Physics.OverlapSphere(transform.position, pullRadius, pushableLayerMask);
             foreach (var col in cols)
             {
                 Rigidbody rb = col.attachedRigidbody;
                 if (rb != null && !targets.Contains(rb))
                 {
-                    targets.Add(rb);                                        // targets ¸®½ºÆ®¿¡ Ãß°¡ÇÕ´Ï´Ù.
-                    originalConstraints[rb] = rb.constraints;               // ¿ø·¡ Á¦¾àµµ ÀúÀåÇÕ´Ï´Ù.
+                    targets.Add(rb);                                        // targets ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ß°ï¿½ï¿½Õ´Ï´ï¿½.
+                    originalConstraints[rb] = rb.constraints;               // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½àµµ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
                 }
             }
 
@@ -460,7 +460,7 @@ public class BossController : MonoBehaviour, IDamageable
                     continue;
                 }
 
-                // ²ø¾î´ç±â±â ½ÃÀÛ Àü, X/Y Freeze ÇØÁ¦
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½, X/Y Freeze ï¿½ï¿½ï¿½ï¿½
                 rb.constraints &= ~(RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY);
 
                 Vector3 dir = (transform.position - rb.position);
@@ -468,31 +468,31 @@ public class BossController : MonoBehaviour, IDamageable
                 float dist = dir.magnitude;
                 dir.Normalize();
 
-                // ¸ñÇ¥ À§Ä¡(º¸½º Áß½É °æ°è¼±) °è»ê
+                // ï¿½ï¿½Ç¥ ï¿½ï¿½Ä¡(ï¿½ï¿½ï¿½ï¿½ ï¿½ß½ï¿½ ï¿½ï¿½è¼±) ï¿½ï¿½ï¿½
                 Vector3 destination = transform.position;
 
-                // ÆøÅº(Bomb) °¨Áö
+                // ï¿½ï¿½Åº(Bomb) ï¿½ï¿½ï¿½ï¿½
                 if (dist <= reachThreshold && rb.TryGetComponent<Mine>(out var mine))
                 {
                     yield return StartCoroutine(mine.ExplodeAfterDelay());
 
-                    // Áï½Ã ÆÐÅÏ Á¾·á ¡æ ±×·Î±â »óÅÂ µ¹ÀÔ
+                    // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½×·Î±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                     StartCoroutine(GroggyState());
-                    // Pull ÀÌÆåÆ® ÁßÁö
+                    // Pull ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
                     if (pullEffectCoroutine != null)
                         StopCoroutine(pullEffectCoroutine);
 
-                    // º¸½º ÄÝ¶óÀÌ´õ º¹¿ø Àü¿¡ ³»ºÎ¿¡ °¤Èù ÇÃ·¹ÀÌ¾î¸¸ ¹Ð¾î³À´Ï´Ù.
+                    // ï¿½ï¿½ï¿½ï¿½ ï¿½Ý¶ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾î¸¸ ï¿½Ð¾ï¿½ï¿½ï¿½Ï´ï¿½.
                     Collider[] stuckPlayers = Physics.OverlapSphere(transform.position, reachThreshold, playerLayerMask);
                     foreach (var col in stuckPlayers)
                     {
                         Transform t = col.transform;
-                        Vector3 dirt = (t.position - transform.position).normalized;    // º¸½º Áß½É¿¡¼­ ¹Ù±ù ¹æÇâ
-                        Vector3 safePos = transform.position + dirt * (reachThreshold + 0.1f); // ±âÁØ °Å¸® + ¿©À¯
-                        t.position = safePos;  // ÇÃ·¹ÀÌ¾î À§Ä¡ °­Á¦ ÀÌµ¿
+                        Vector3 dirt = (t.position - transform.position).normalized;    // ï¿½ï¿½ï¿½ï¿½ ï¿½ß½É¿ï¿½ï¿½ï¿½ ï¿½Ù±ï¿½ ï¿½ï¿½ï¿½ï¿½
+                        Vector3 safePos = transform.position + dirt * (reachThreshold + 0.1f); // ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½ + ï¿½ï¿½ï¿½ï¿½
+                        t.position = safePos;  // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
                     }
 
-                    // ³²¾ÆÀÖ´Â ¸ðµç Ç® ÀÌÆåÆ® ÀÎ½ºÅÏ½º ÆÄ±«
+                    // ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ Ç® ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Î½ï¿½ï¿½Ï½ï¿½ ï¿½Ä±ï¿½
                     foreach (var effect in pullEffectInstances)
                         Destroy(effect);
                     pullEffectInstances.Clear();
@@ -501,9 +501,9 @@ public class BossController : MonoBehaviour, IDamageable
                         bc.isTrigger = false;
 
 
-                    elapsed = pullDuration;    // Áï½Ã Á¾·á
+                    elapsed = pullDuration;    // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-                    // ¸ðµç constraints ¿øº¹
+                    // ï¿½ï¿½ï¿½ constraints ï¿½ï¿½ï¿½ï¿½
                     foreach (var kv in originalConstraints)
                         if (kv.Key != null)
                             kv.Key.constraints = kv.Value;
@@ -511,7 +511,7 @@ public class BossController : MonoBehaviour, IDamageable
                     yield break;
                 }
 
-                // Áß½É µµ´Þ ½Ã ÆÄ±«
+                // ï¿½ß½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ä±ï¿½
                 if (dist <= reachThreshold)
                 {
                     rb.GetComponent<IDamageable>()?.TakeDamage(pullDamage);
@@ -519,7 +519,7 @@ public class BossController : MonoBehaviour, IDamageable
                     continue;
                 }
 
-                // ÀÌµ¿
+                // ï¿½Ìµï¿½
                 Vector3 next = rb.position + dir * pullSpeed * Time.deltaTime;
                 next.z = rb.position.z;
                 rb.MovePosition(next);
@@ -528,7 +528,7 @@ public class BossController : MonoBehaviour, IDamageable
             elapsed += Time.deltaTime;
             yield return null;
         }
-        // Pull ÀÌÆåÆ® ÁßÁö
+        // Pull ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
         if (pullEffectCoroutine != null)
             StopCoroutine(pullEffectCoroutine);
 
@@ -537,7 +537,7 @@ public class BossController : MonoBehaviour, IDamageable
             bc.isTrigger = false; 
         }
 
-        // ³²Àº Å¸°Ùµé ÀüºÎ constraints º¹¿ø
+        // ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½Ùµï¿½ ï¿½ï¿½ï¿½ï¿½ constraints ï¿½ï¿½ï¿½ï¿½
         foreach (var kv in originalConstraints)
             if (kv.Key != null)
                 kv.Key.constraints = kv.Value;
@@ -548,7 +548,7 @@ public class BossController : MonoBehaviour, IDamageable
         float totalTime = 0f;
         while (totalTime < pullDuration)
         {
-            // ¸Å °£°Ý¸¶´Ù »õ·Î¿î ¸µ ÄÚ·çÆ¾À» ½ÃÀÛ
+            // ï¿½ï¿½ ï¿½ï¿½ï¿½Ý¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ ï¿½Ú·ï¿½Æ¾ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             StartCoroutine(AnimatePullRing());
 
             yield return new WaitForSeconds(pullEffectInterval);
@@ -558,7 +558,7 @@ public class BossController : MonoBehaviour, IDamageable
 
     private IEnumerator AnimatePullRing()
     {
-        // ¸µ ¿ÀºêÁ§Æ® »ý¼º
+        // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
         GameObject instantiate = Instantiate(pushWavePrefab, transform.position, Quaternion.identity);
         pullEffectInstances.Add(instantiate);   
         LineRenderer lineRenderer = instantiate.GetComponent<LineRenderer>();
@@ -576,7 +576,7 @@ public class BossController : MonoBehaviour, IDamageable
             float effectDuration = elapsed / pullEffectDuration;
             float currentRadius = Mathf.Lerp(pullRadius, 0f, effectDuration);
 
-            // ¿øÇü ÁÂÇ¥ °è»ê
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½
             for (int i = 0; i <= pullEffectSegments; i++)
             {
                 float effectSegments = 2f * Mathf.PI * i / pullEffectSegments;
@@ -588,7 +588,7 @@ public class BossController : MonoBehaviour, IDamageable
             yield return null;
         }
 
-        // ¸¶Áö¸· ÇÁ·¹ÀÓ¿¡¼­ ¿ÏÀü Ãà¼Ò
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ó¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
         if (lineRenderer != null)
         {
             for (int i = 0; i <= pullEffectSegments; i++)
@@ -602,12 +602,12 @@ public class BossController : MonoBehaviour, IDamageable
     private IEnumerator GroggyState()
     {
         isGroggy = true;
-        // ¿øÇÑ´Ù¸é ¾Ö´Ï¸ÞÀÌ¼Ç/ÀÌÆåÆ® Ãß°¡
+        // ï¿½ï¿½ï¿½Ñ´Ù¸ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½/ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ß°ï¿½
         yield return new WaitForSeconds(groggyDuration);
         isGroggy = false;
     }
 
-    public void TakeDamage(float amount)  // IDamageable ±¸Çö
+    public void TakeDamage(float amount)  // IDamageable ï¿½ï¿½ï¿½ï¿½
     {
         currentHealth -= amount;
         if (currentHealth <= 0)
@@ -615,14 +615,14 @@ public class BossController : MonoBehaviour, IDamageable
             Die();
         }
 
-        // 15% °¨¼Ò¸¶´Ù Çª½Ã ¹ßµ¿
+        // 15% ï¿½ï¿½ï¿½Ò¸ï¿½ï¿½ï¿½ Çªï¿½ï¿½ ï¿½ßµï¿½
         if (currentHealth <= nextPushThreshold)
         {
             pushPending = true;
             nextPushThreshold -= maxHealth * 0.15f;
         }
 
-        // Pull ¿¹¾à (30% ´ÜÀ§)
+        // Pull ï¿½ï¿½ï¿½ï¿½ (30% ï¿½ï¿½ï¿½ï¿½)
         if (currentHealth <= nextPullThreshold)
         {
             pullPending = true;
@@ -633,12 +633,12 @@ public class BossController : MonoBehaviour, IDamageable
     private IEnumerator ShowEmpWarning()
     {
         GameObject warning = Instantiate(empWarningPrefab, transform.position, Quaternion.Euler(90f, 0f, 0f));
-        warning.transform.localScale = new Vector3(empRadius * 2, 0.05f, empRadius * 2); // Áß½É¿¡¼­ ¹ÝÁö¸§ * 2°¡ µÇµµ·Ï
+        warning.transform.localScale = new Vector3(empRadius * 2, 0.05f, empRadius * 2); // ï¿½ß½É¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ * 2ï¿½ï¿½ ï¿½Çµï¿½ï¿½ï¿½
 
         Renderer renderer = warning.GetComponent<Renderer>();
         if (renderer == null)
         {
-            Logger.LogWarning("°æ°í ¿ÀºêÁ§Æ®¿¡ Renderer°¡ ¾ø½À´Ï´Ù.");
+            Logger.LogWarning("ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ Rendererï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
             yield break;
         }
 
@@ -661,6 +661,7 @@ public class BossController : MonoBehaviour, IDamageable
     {
         BossUIManager.Instance.Hide();
 
+        AudioManager.Instance.StartRepair();
         //
         if (pullEffectCoroutine != null)
             StopCoroutine(pullEffectCoroutine);
@@ -669,19 +670,20 @@ public class BossController : MonoBehaviour, IDamageable
             Destroy(effect);
         pullEffectInstances.Clear();
 
-        // º¸½º »ç¸Á Ã³¸® (Æø¹ß ÀÌÆåÆ®, º¸»ó µå¶ø µî)
-        CameraController.Instance.ExitBossCameraMode(); // º¸½º Ä«¸Þ¶ó ¸ðµå Á¾·á
-        BossArenaManager.Instance.DisableArena(); // º¸½ºÀü ¾Æ·¹³ª ºñÈ°¼ºÈ­
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½)
+        CameraController.Instance.ExitBossCameraMode(); // ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½Þ¶ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        BossArenaManager.Instance.DisableArena(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
+        GameOverUIManager.Instance.ShowGameClearUI();
         Destroy(gameObject);
     }
     private void OnDrawGizmosSelected()
     {
-        // ¼ÒÈ¯ ¿µ¿ª°ú ÇØÅ· ¿µ¿ªÀ» Gizmos·Î ½Ã°¢È­
+        // ï¿½ï¿½È¯ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å· ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Gizmosï¿½ï¿½ ï¿½Ã°ï¿½È­
         Gizmos.color = Color.green;
-        Vector3 spawnSize = new Vector3(spawnAreaSize.x, spawnAreaSize.y, 0.5f); // ¾ãÀº Z
+        Vector3 spawnSize = new Vector3(spawnAreaSize.x, spawnAreaSize.y, 0.5f); // ï¿½ï¿½ï¿½ï¿½ Z
         Gizmos.DrawWireCube(transform.position, spawnSize);
 
-        // ÇØÅ· ¿µ¿ªµé ½Ã°¢È­
+        // ï¿½ï¿½Å· ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½È­
         Gizmos.color = Color.red;
         foreach (Vector3 center in hackZoneCenters)
         {
@@ -689,15 +691,15 @@ public class BossController : MonoBehaviour, IDamageable
             Gizmos.DrawWireCube(center, hackSize);
         }
 
-        // EMP ¹Ý°æ ½Ã°¢È­
+        // EMP ï¿½Ý°ï¿½ ï¿½Ã°ï¿½È­
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, empRadius);  // EMP ¹Ý°æ ½Ã°¢È­
+        Gizmos.DrawWireSphere(transform.position, empRadius);  // EMP ï¿½Ý°ï¿½ ï¿½Ã°ï¿½È­
 
-        //Ç® ÆÐÅÏ ¹Ý°æ (pullRadius)
+        //Ç® ï¿½ï¿½ï¿½ï¿½ ï¿½Ý°ï¿½ (pullRadius)
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(transform.position, pullRadius);
 
-        // º¸½º Áß½É µµ´Þ ÆÇÁ¤ °Å¸® (reachThreshold)
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ß½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½ (reachThreshold)
         Gizmos.color = Color.magenta;
         Gizmos.DrawWireSphere(transform.position, reachThreshold);
     }

@@ -13,6 +13,10 @@ public class GameOverUIManager : MonoBehaviour
     public Button retryButton;        // Retry 버튼
     public Button quitButton;         // Quit 버튼
 
+    public GameObject gameClearPanel;
+    public Button restartButton;
+    public Button outButton;
+
     void Awake()
     {
         // 싱글톤 인스턴스를 설정
@@ -26,16 +30,26 @@ public class GameOverUIManager : MonoBehaviour
         }
 
         gameOverPanel.SetActive(false);
+        gameClearPanel.SetActive(false);
 
         // 버튼 클릭 이벤트 연결
         retryButton.onClick.AddListener(RestartGame);
         quitButton.onClick.AddListener(QuitGame);
+        restartButton.onClick.AddListener(RestartGame);
+        outButton.onClick.AddListener(QuitGame);
     }
 
     // 게임오버 UI 표시
     public void ShowGameOverUI()
     {
         gameOverPanel.SetActive(true);  // UI 활성
+        Time.timeScale = 0f;
+    }
+
+    public void ShowGameClearUI()
+    {
+        gameClearPanel?.SetActive(true);
+        Time.timeScale = 0f;
     }
 
     // Retry 버튼 클릭 시 첫 번째 빌드로 돌아가기
@@ -54,7 +68,6 @@ public class GameOverUIManager : MonoBehaviour
         AudioManager.Instance.ResetBGM();
         PlayerData.Instance.ResetAllUpgradeLevels();
         UpgradeEffectManager.Instance.ApplyAllUpgradesFromSave();
-        BgmManager.Instance.ResetBGM();
     }
 
     // Quit 버튼 클릭 시 게임 종료
