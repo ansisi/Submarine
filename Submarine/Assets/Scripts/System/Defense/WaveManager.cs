@@ -133,7 +133,6 @@ public class WaveManager : MonoBehaviour
         Logger.Log($"Wave {currentWave + 1} 종료! (보상 지급)");
 
         OnWaveEnded?.Invoke(currentWave);
-        AudioManager.Instance.StartRepair();
 
         var waveData = waveList[currentWave];
 
@@ -142,11 +141,14 @@ public class WaveManager : MonoBehaviour
         isWaveRunning = false;
         currentWave++;
 
-
         if (waveData is BossWaveDataSO bossWaveData)
         {
             StartCoroutine(StartBossPhaseRoutine(bossWaveData));
             return;
+        }
+        else
+        {
+            AudioManager.Instance.StartRepair();
         }
     }
 

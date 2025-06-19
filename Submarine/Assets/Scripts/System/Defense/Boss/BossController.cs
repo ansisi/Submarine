@@ -661,9 +661,12 @@ public class BossController : MonoBehaviour, IDamageable
     {
         BossUIManager.Instance.Hide();
 
+        AudioManager.Instance.StartRepair();
+
         // 보스 사망 처리 (폭발 이펙트, 보상 드랍 등)
         CameraController.Instance.ExitBossCameraMode(); // 보스 카메라 모드 종료
         BossArenaManager.Instance.DisableArena(); // 보스전 아레나 비활성화
+        GameOverUIManager.Instance.ShowGameClearUI();
         Destroy(gameObject);
     }
     private void OnDrawGizmosSelected()
