@@ -7157,6 +7157,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919023975}
   m_CullTransparentMesh: 1
+--- !u!1 &928211283 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6602481147897380508, guid: 54b7e8812f89a184ca302d064416edae, type: 3}
+  m_PrefabInstance: {fileID: 1052679073}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &930154868
 GameObject:
   m_ObjectHideFlags: 0
@@ -16020,7 +16025,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9176228969811581158, guid: 8fdc9925c71bb7747bca0f06d0086b9d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -18407,6 +18412,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   preparationTime: 15
   waveList:
+  - {fileID: 11400000, guid: 494e28cf96082d246a188f7357f804e8, type: 2}
   - {fileID: 11400000, guid: af1df8716ffc22b4ea4b3897e7ff7469, type: 2}
   enemySpawner: {fileID: 411993716}
 --- !u!4 &2065536476
@@ -18465,6 +18471,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arenaWalls: {fileID: 456304129}
+  extraObjectA: {fileID: 928211283}
+  extraObjectB: {fileID: 2146363089}
 --- !u!114 &2065536480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19245,11 +19253,27 @@ PrefabInstance:
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 2228581792812485127, guid: da89b167f9e669942955d23fde545c06, type: 3}
+      propertyPath: retractSpeed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2228581792812485127, guid: da89b167f9e669942955d23fde545c06, type: 3}
       propertyPath: harpoonPrefab
       value: 
       objectReference: {fileID: 7635041588512333859, guid: acd2dd849267f534e9304743c976f0ab, type: 3}
     - target: {fileID: 2228581792812485127, guid: da89b167f9e669942955d23fde545c06, type: 3}
       propertyPath: maxHarpoonDistance
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2705246345038509732, guid: da89b167f9e669942955d23fde545c06, type: 3}
+      propertyPath: hookSpeed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2705246345038509732, guid: da89b167f9e669942955d23fde545c06, type: 3}
+      propertyPath: retractSpeed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2705246345038509732, guid: da89b167f9e669942955d23fde545c06, type: 3}
+      propertyPath: ropeMaxLength
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 2705246345038509732, guid: da89b167f9e669942955d23fde545c06, type: 3}
