@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: "\uD3ED\uD0C4"
   icon: {fileID: 212592822, guid: baa6cdbced2f758438bf4097728c5100, type: 3}
-  buyPrice: 500
+  buyPrice: 300
   sellPrice: 150
   isStackable: 1
   isPurchasable: 1
+  isConsumable: 0
   isPlaceable: 1
   prefab: {fileID: 8925754305093660356, guid: 733dd57039f3e534fbe0271a9596c809, type: 3}

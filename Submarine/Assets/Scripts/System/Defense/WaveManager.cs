@@ -39,10 +39,10 @@ public class WaveManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T)) 
-        {
-            TriggerWaveStart();
-        }
+        //if (Input.GetKeyDown(KeyCode.T)) 
+        //{
+        //    TriggerWaveStart();
+        //}
     }
 
     // 외부에서 호출될 트리거 함수

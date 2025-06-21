@@ -4359,8 +4359,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4cc83ea256fccfa4186ef4c334ea5b56, type: 2}
   - {fileID: 11400000, guid: 7c1a15375917e6a47b707ba528291117, type: 2}
   - {fileID: 11400000, guid: 3a84ffb5610254d4d88977efe714dd9d, type: 2}
-  - {fileID: 11400000, guid: 910ac82c7397c614c939183175999b95, type: 2}
-  - {fileID: 11400000, guid: 4e00dd6e6a9883445b6e7a3d324bcf99, type: 2}
   itemUIPrefab: {fileID: 3500979061412392161, guid: 5e56551c7c851a2488d1c65d3c008688, type: 3}
   itemListParent: {fileID: 1397719789}
 --- !u!4 &489167513
@@ -18389,8 +18387,6 @@ GameObject:
   - component: {fileID: 2065536477}
   - component: {fileID: 2065536478}
   - component: {fileID: 2065536479}
-  - component: {fileID: 2065536480}
-  - component: {fileID: 2065536481}
   m_Layer: 0
   m_Name: WaveManager
   m_TagString: Untagged
@@ -18410,9 +18406,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b937becd2c905ee4cbd31055a5570c0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  preparationTime: 15
+  preparationTime: 30
   waveList:
-  - {fileID: 11400000, guid: 494e28cf96082d246a188f7357f804e8, type: 2}
+  - {fileID: 11400000, guid: 85a017254d24b51438c2a0c2df4f7ee7, type: 2}
+  - {fileID: 11400000, guid: adb8ea51ca620564bba3c97a32bfbaf6, type: 2}
+  - {fileID: 11400000, guid: cf17390be682d1b4cbabaaf655b9e5df, type: 2}
+  - {fileID: 11400000, guid: d90d25ad518473949a5a36187365172e, type: 2}
+  - {fileID: 11400000, guid: f5253b1e3c426cb4498094ad31934369, type: 2}
   - {fileID: 11400000, guid: af1df8716ffc22b4ea4b3897e7ff7469, type: 2}
   enemySpawner: {fileID: 411993716}
 --- !u!4 &2065536476
@@ -18452,7 +18452,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2065536474}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 184d2c893066c3641aaa117e29dad72d, type: 3}
   m_Name: 
@@ -18473,35 +18473,6 @@ MonoBehaviour:
   arenaWalls: {fileID: 456304129}
   extraObjectA: {fileID: 928211283}
   extraObjectB: {fileID: 2146363089}
---- !u!114 &2065536480
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2065536474}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74c8b18c650d8604b9e6f1ef814e5386, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  turretItemName: "\uD3EC\uD0D1"
---- !u!114 &2065536481
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2065536474}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a307800da3350f14a9ac8a7d395e1037, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  turretItem: {fileID: 11400000, guid: 910ac82c7397c614c939183175999b95, type: 2}
-  laserTurretItem: {fileID: 11400000, guid: 4e00dd6e6a9883445b6e7a3d324bcf99, type: 2}
-  bombItem: {fileID: 11400000, guid: 4cc83ea256fccfa4186ef4c334ea5b56, type: 2}
-  shieldTurretItem: {fileID: 11400000, guid: 3a84ffb5610254d4d88977efe714dd9d, type: 2}
 --- !u!1 &2083222954
 GameObject:
   m_ObjectHideFlags: 0
@@ -19288,10 +19259,18 @@ PrefabInstance:
       propertyPath: oxygenText
       value: 
       objectReference: {fileID: 1697991257}
+    - target: {fileID: 8314469790731995752, guid: da89b167f9e669942955d23fde545c06, type: 3}
+      propertyPath: maxOxygenTime
+      value: 600
+      objectReference: {fileID: 0}
     - target: {fileID: 8823025258791316971, guid: da89b167f9e669942955d23fde545c06, type: 3}
       propertyPath: waterText
       value: 
       objectReference: {fileID: 1193518926}
+    - target: {fileID: 8823025258791316971, guid: da89b167f9e669942955d23fde545c06, type: 3}
+      propertyPath: maxWaterTime
+      value: 600
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
